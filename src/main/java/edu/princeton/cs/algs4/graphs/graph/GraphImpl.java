@@ -80,7 +80,7 @@ public class GraphImpl implements Graph {
 
     private final int V;
     private int E;
-    private Bag<Integer>[] adj;
+    private final Bag<Integer>[] adj;
     
     /**
      * Initializes an empty graph with {@code V} vertices and 0 edges.
@@ -238,11 +238,11 @@ public class GraphImpl implements Graph {
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append(V + " vertices, " + E + " edges " + NEWLINE);
+        s.append(V).append(" vertices, ").append(E).append(" edges ").append(NEWLINE);
         for (int v = 0; v < V; v++) {
-            s.append(v + ": ");
+            s.append(v).append(": ");
             for (int w : adj[v]) {
-                s.append(w + " ");
+                s.append(w).append(" ");
             }
             s.append(NEWLINE);
         }

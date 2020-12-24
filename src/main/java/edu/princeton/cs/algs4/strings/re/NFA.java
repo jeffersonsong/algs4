@@ -65,8 +65,8 @@ import edu.princeton.cs.algs4.graphs.digraph.DirectedDFS;
  */
 public class NFA {
 
-    private Digraph graph;     // digraph of epsilon transitions
-    private String regexp;     // regular expression
+    private final Digraph graph;     // digraph of epsilon transitions
+    private final String regexp;     // regular expression
     private final int m;       // number of characters in regular expression
 
     /**

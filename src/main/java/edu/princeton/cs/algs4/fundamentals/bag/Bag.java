@@ -29,12 +29,6 @@
 
 package edu.princeton.cs.algs4.fundamentals.bag;
 
-import edu.princeton.cs.algs4.utils.io.StdIn;
-import edu.princeton.cs.algs4.utils.io.StdOut;
-
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 /**
  *  The {@code Bag} class represents a bag (or multiset) of 
  *  generic items. It supports insertion and iterating over the 

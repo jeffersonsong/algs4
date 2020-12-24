@@ -44,8 +44,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  */
 public class Vector { 
 
-    private int d;               // dimension of the vector
-    private double[] data;       // array of vector's components
+    private final int d;               // dimension of the vector
+    private final double[] data;       // array of vector's components
 
 
     /**
@@ -220,7 +220,7 @@ public class Vector {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < d; i++)
-            s.append(data[i] + " ");
+            s.append(data[i]).append(" ");
         return s.toString();
     }
 

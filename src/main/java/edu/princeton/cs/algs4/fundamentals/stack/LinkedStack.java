@@ -122,7 +122,7 @@ public class LinkedStack<Item> implements Stack<Item> {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Item item : this)
-            s.append(item + " ");
+            s.append(item).append(" ");
         return s.toString();
     }
        

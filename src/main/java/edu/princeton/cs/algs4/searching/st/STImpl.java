@@ -59,7 +59,7 @@ import java.util.TreeMap;
  */
 public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
 
-    private TreeMap<Key, Value> st;
+    private final TreeMap<Key, Value> st;
 
     /**
      * Initializes an empty symbol table.

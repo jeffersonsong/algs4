@@ -541,7 +541,7 @@ public final class StdIn {
         while (hasNextLine()) {
             lines.add(readLine());
         }
-        return lines.toArray(new String[lines.size()]);
+        return lines.toArray(new String[0]);
     }
 
     /**

@@ -122,7 +122,7 @@ public class LinkedQueue<Item> implements Queue<Item> {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Item item : this)
-            s.append(item + " ");
+            s.append(item).append(" ");
         return s.toString();
     } 
 

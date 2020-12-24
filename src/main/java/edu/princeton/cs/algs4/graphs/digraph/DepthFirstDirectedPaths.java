@@ -55,8 +55,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class DepthFirstDirectedPaths {
-    private boolean[] marked;  // marked[v] = true iff v is reachable from s
-    private int[] edgeTo;      // edgeTo[v] = last edge on path from s to v
+    private final boolean[] marked;  // marked[v] = true iff v is reachable from s
+    private final int[] edgeTo;      // edgeTo[v] = last edge on path from s to v
     private final int s;       // source vertex
 
     /**

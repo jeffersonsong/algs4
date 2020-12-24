@@ -47,8 +47,8 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Kevin Wayne
  */
 public class AcyclicSP implements SP {
-    private double[] distTo;         // distTo[v] = distance  of shortest s->v path
-    private DirectedEdge[] edgeTo;   // edgeTo[v] = last edge on shortest s->v path
+    private final double[] distTo;         // distTo[v] = distance  of shortest s->v path
+    private final DirectedEdge[] edgeTo;   // edgeTo[v] = last edge on shortest s->v path
 
 
     /**

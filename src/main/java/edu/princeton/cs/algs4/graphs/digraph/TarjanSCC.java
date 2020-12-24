@@ -61,12 +61,12 @@ import edu.princeton.cs.algs4.utils.io.In;
  */
 public class TarjanSCC {
 
-    private boolean[] marked;        // marked[v] = has v been visited?
-    private int[] id;                // id[v] = id of strong component containing v
-    private int[] low;               // low[v] = low number of v
+    private final boolean[] marked;        // marked[v] = has v been visited?
+    private final int[] id;                // id[v] = id of strong component containing v
+    private final int[] low;               // low[v] = low number of v
     private int pre;                 // preorder number counter
     private int count;               // number of strongly-connected components
-    private Stack<Integer> stack;
+    private final Stack<Integer> stack;
 
 
     /**

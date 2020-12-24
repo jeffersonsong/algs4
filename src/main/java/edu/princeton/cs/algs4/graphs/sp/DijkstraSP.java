@@ -60,9 +60,9 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Kevin Wayne
  */
 public class DijkstraSP implements SP {
-    private double[] distTo;          // distTo[v] = distance  of shortest s->v path
-    private DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
-    private IndexMinPQ<Double> pq;    // priority queue of vertices
+    private final double[] distTo;          // distTo[v] = distance  of shortest s->v path
+    private final DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
+    private final IndexMinPQ<Double> pq;    // priority queue of vertices
 
     /**
      * Computes a shortest-paths tree from the source vertex {@code s} to every other

@@ -49,7 +49,7 @@ public class TrieSET implements Iterable<String> {
 
     // R-way trie node
     private static class Node {
-        private Node[] next = new Node[R];
+        private final Node[] next = new Node[R];
         private boolean isString;
     }
 

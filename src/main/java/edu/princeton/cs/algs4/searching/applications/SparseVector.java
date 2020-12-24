@@ -35,8 +35,8 @@ import edu.princeton.cs.algs4.searching.st.STImpl;
  *  @author Kevin Wayne
  */
 public class SparseVector {
-    private int d;                   // dimension
-    private ST<Integer, Double> st;  // the vector, represented by index-value pairs
+    private final int d;                   // dimension
+    private final ST<Integer, Double> st;  // the vector, represented by index-value pairs
 
    /**
      * Initializes a d-dimensional zero vector.
@@ -197,7 +197,7 @@ public class SparseVector {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (int i : st.keys()) {
-            s.append("(" + i + ", " + st.get(i) + ") ");
+            s.append("(").append(i).append(", ").append(st.get(i)).append(") ");
         }
         return s.toString();
     }

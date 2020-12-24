@@ -76,7 +76,7 @@ public final class In {
 
     //// end: section (1 of 2) of code duplicated from In to StdIn.
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
    /**
      * Initializes an input stream from standard input.
@@ -530,7 +530,7 @@ public final class In {
         while (hasNextLine()) {
             lines.add(readLine());
         }
-        return lines.toArray(new String[lines.size()]);
+        return lines.toArray(new String[0]);
     }
 
 
@@ -677,7 +677,7 @@ public final class In {
             System.out.println(in.readAll());
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 
@@ -692,7 +692,7 @@ public final class In {
             }
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 
@@ -707,7 +707,7 @@ public final class In {
             }
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 
@@ -723,7 +723,7 @@ public final class In {
             }
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 
@@ -739,7 +739,7 @@ public final class In {
             }
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 
@@ -754,7 +754,7 @@ public final class In {
             }
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
         System.out.println();
@@ -770,7 +770,7 @@ public final class In {
             }
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 
@@ -787,7 +787,7 @@ public final class In {
             System.out.println();
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         System.out.println();
 

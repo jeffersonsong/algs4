@@ -50,7 +50,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 public class KMP implements CompiledPatternSearch {
     private final int R;       // the radix
     private final int m;       // length of pattern
-    private int[][] dfa;       // the KMP automoton
+    private final int[][] dfa;       // the KMP automoton
 
     /**
      * Preprocesses the pattern string.

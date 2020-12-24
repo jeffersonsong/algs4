@@ -80,7 +80,7 @@ import javax.swing.KeyStroke;
  *  @author Kevin Wayne
  */
 public final class GrayscalePicture implements ActionListener {
-    private BufferedImage image;               // the rasterized image
+    private final BufferedImage image;               // the rasterized image
     private JFrame frame;                      // on-screen view
     private String filename;                   // name of file
     private boolean isOriginUpperLeft = true;  // location of origin
@@ -379,7 +379,7 @@ public final class GrayscalePicture implements ActionListener {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(width +"-by-" + height + " grayscale picture (grayscale values given in hex)\n");
+        sb.append(width).append("-by-").append(height).append(" grayscale picture (grayscale values given in hex)\n");
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 int gray = 0;

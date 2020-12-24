@@ -82,7 +82,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     private Node root;             // root of BST
 
     private class Node {
-        private Key key;           // sorted by key
+        private final Key key;           // sorted by key
         private Value val;         // associated data
         private Node left, right;  // left and right subtrees
         private int size;          // number of nodes in subtree

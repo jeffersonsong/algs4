@@ -63,11 +63,11 @@ public class HopcroftKarp {
     private static final int UNMATCHED = -1;
 
     private final int V;                 // number of vertices in the graph
-    private BipartiteX bipartition;      // the bipartition
+    private final BipartiteX bipartition;      // the bipartition
     private int cardinality;             // cardinality of current matching
-    private int[] mate;                  // mate[v] =  w if v-w is an edge in current matching
+    private final int[] mate;                  // mate[v] =  w if v-w is an edge in current matching
                                          //         = -1 if v is not in current matching
-    private boolean[] inMinVertexCover;  // inMinVertexCover[v] = true iff v is in min vertex cover
+    private final boolean[] inMinVertexCover;  // inMinVertexCover[v] = true iff v is in min vertex cover
     private boolean[] marked;            // marked[v] = true iff v is reachable via alternating path
     private int[] distTo;                // distTo[v] = number of edges on shortest path to v
 
@@ -153,7 +153,7 @@ public class HopcroftKarp {
     private static String toString(Iterable<Integer> path) {
         StringBuilder sb = new StringBuilder();
         for (int v : path)
-            sb.append(v + "-");
+            sb.append(v).append("-");
         String s = sb.toString();
         s = s.substring(0, s.lastIndexOf('-'));
         return s;

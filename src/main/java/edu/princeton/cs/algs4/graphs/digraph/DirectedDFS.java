@@ -49,7 +49,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
  *  @author Kevin Wayne
  */
 public class DirectedDFS {
-    private boolean[] marked;  // marked[v] = true iff v is reachable from source(s)
+    private final boolean[] marked;  // marked[v] = true iff v is reachable from source(s)
     private int count;         // number of vertices reachable from source(s)
 
     /**

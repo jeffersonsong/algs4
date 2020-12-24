@@ -44,7 +44,7 @@ public class FlowNetwork {
 
     private final int V;
     private int E;
-    private Bag<FlowEdge>[] adj;
+    private final Bag<FlowEdge>[] adj;
     
     /**
      * Initializes an empty flow network with {@code V} vertices and 0 edges.
@@ -174,11 +174,11 @@ public class FlowNetwork {
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append(V + " " + E + NEWLINE);
+        s.append(V).append(" ").append(E).append(NEWLINE);
         for (int v = 0; v < V; v++) {
-            s.append(v + ":  ");
+            s.append(v).append(":  ");
             for (FlowEdge e : adj[v]) {
-                if (e.to() != v) s.append(e + "  ");
+                if (e.to() != v) s.append(e).append("  ");
             }
             s.append(NEWLINE);
         }

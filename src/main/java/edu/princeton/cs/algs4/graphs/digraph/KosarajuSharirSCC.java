@@ -99,8 +99,8 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Kevin Wayne
  */
 public class KosarajuSharirSCC {
-    private boolean[] marked;     // marked[v] = has vertex v been visited?
-    private int[] id;             // id[v] = id of strong component containing v
+    private final boolean[] marked;     // marked[v] = has vertex v been visited?
+    private final int[] id;             // id[v] = id of strong component containing v
     private int count;            // number of strongly-connected components
 
     /**

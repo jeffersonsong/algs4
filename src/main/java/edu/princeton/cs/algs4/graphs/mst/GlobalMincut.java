@@ -66,7 +66,7 @@ public class GlobalMincut {
     private boolean[] cut;
 
     // number of vertices
-    private int V;
+    private final int V;
 
     /**
      * This helper class represents the <em>cut-of-the-phase</em>. The
@@ -74,7 +74,7 @@ public class GlobalMincut {
      * where {@code s} and {@code t} are the two vertices added last in the
      * phase.
      */
-    private class CutPhase {
+    private static class CutPhase {
         private double weight; // the weight of the minimum s-t cut
         private int s;         // the vertex s
         private int t;         // the vertex t

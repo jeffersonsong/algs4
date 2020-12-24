@@ -36,7 +36,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class DijkstraAllPairsSP {
-    private DijkstraSP[] all;
+    private final DijkstraSP[] all;
 
     /**
      * Computes a shortest paths tree from each vertex to to every other vertex in

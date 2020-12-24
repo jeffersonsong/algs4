@@ -57,7 +57,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
     // helper B-tree node data type
     private static final class Node {
         private int m;                             // number of children
-        private Entry[] children = new Entry[M];   // the array of children
+        private final Entry[] children = new Entry[M];   // the array of children
 
         // create a node with k children
         private Node(int k) {
@@ -225,12 +225,12 @@ public class BTree<Key extends Comparable<Key>, Value>  {
 
         if (ht == 0) {
             for (int j = 0; j < h.m; j++) {
-                s.append(indent + children[j].key + " " + children[j].val + "\n");
+                s.append(indent).append(children[j].key).append(" ").append(children[j].val).append("\n");
             }
         }
         else {
             for (int j = 0; j < h.m; j++) {
-                if (j > 0) s.append(indent + "(" + children[j].key + ")\n");
+                if (j > 0) s.append(indent).append("(").append(children[j].key).append(")\n");
                 s.append(toString(children[j].next, ht-1, indent + "     "));
             }
         }

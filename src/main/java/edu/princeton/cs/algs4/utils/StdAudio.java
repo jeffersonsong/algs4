@@ -251,7 +251,7 @@ public final class StdAudio {
         else if (audioFormat.getChannels() == STEREO) {
             double[] data = new double[n/4];
             for (int i = 0; i < n/4; i++) {
-                double left  = ((short) (((bytes[4*i+1] & 0xFF) << 8) | (bytes[4*i + 0] & 0xFF))) / ((double) MAX_16_BIT);
+                double left  = ((short) (((bytes[4*i+1] & 0xFF) << 8) | (bytes[4 * i] & 0xFF))) / ((double) MAX_16_BIT);
                 double right = ((short) (((bytes[4*i+3] & 0xFF) << 8) | (bytes[4*i + 2] & 0xFF))) / ((double) MAX_16_BIT);
                 data[i] = (left + right) / 2.0;
             }
@@ -288,7 +288,7 @@ public final class StdAudio {
         for (int i = 0; i < samples.length; i++) {
             int temp = (short) (samples[i] * MAX_16_BIT);
             if (samples[i] == 1.0) temp = Short.MAX_VALUE;   // special case since 32768 not a short
-            data[2*i + 0] = (byte) temp;
+            data[2 * i] = (byte) temp;
             data[2*i + 1] = (byte) (temp >> 8);   // little endian
         }
 
@@ -350,13 +350,9 @@ public final class StdAudio {
                 line.write(samples, 0, count);
             }
         }
-        catch (LineUnavailableException e) {
+        catch (LineUnavailableException | IOException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (line != null) {
                 line.drain();
                 line.close();

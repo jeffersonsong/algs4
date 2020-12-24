@@ -38,7 +38,8 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 
     // sentinel node. Not used for storing data.
     // greatly simplify the boundary condition handling.
-    private Node<Item> head, tail;
+    private final Node<Item> head;
+    private final Node<Item> tail;
 
     public DoublyLinkedList() {
         head = new Node<>(null);

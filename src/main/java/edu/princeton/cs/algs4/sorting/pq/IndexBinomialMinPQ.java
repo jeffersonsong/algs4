@@ -39,7 +39,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	private final Comparator<Key> comparator;	//Comparator over the keys
 	
 	//Represents a node of a Binomial Tree
-	private class Node<Key> {
+	private static class Node<Key> {
 		Key key;				//Key contained by the Node
 		int order;				//The order of the Binomial Tree rooted by this Node
 		int index;				//Index associated with the Key

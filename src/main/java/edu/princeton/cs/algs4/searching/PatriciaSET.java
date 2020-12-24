@@ -96,15 +96,15 @@ import java.util.Iterator;
  *  @author John Hentosh (based on an implementation by Robert Sedgewick)
  */
 public class PatriciaSET implements Iterable<String> {
-    private Node head;
+    private final Node head;
     private int count;
 
     /* An inner Node class specifies the objects that hold each key. The b
      * value indicates the relevant bit position.
      */
-    private class Node {
+    private static class Node {
         private Node left, right;
-        private String key;
+        private final String key;
         private int b;
 
         public Node(String key, int b) {
@@ -280,7 +280,7 @@ public class PatriciaSET implements Iterable<String> {
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        for (String key : this) s.append(key + " ");
+        for (String key : this) s.append(key).append(" ");
         if (s.length() > 0) s.deleteCharAt(s.length() - 1);
         return s.toString();
     }

@@ -44,11 +44,11 @@ import java.util.NoSuchElementException;
  *  @param <Key> the generic type of key on this priority queue
  */
 public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<Key> {
-    private int maxN;        // maximum number of elements on PQ
+    private final int maxN;        // maximum number of elements on PQ
     private int n;           // number of elements on PQ
-    private int[] pq;        // binary heap using 1-based indexing
-    private int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
-    private Key[] keys;      // keys[i] = priority of i
+    private final int[] pq;        // binary heap using 1-based indexing
+    private final int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
+    private final Key[] keys;      // keys[i] = priority of i
 
     /**
      * Initializes an empty indexed priority queue with indices between {@code 0}
@@ -317,7 +317,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
 
     private class HeapIterator implements Iterator<Integer> {
         // create a new pq
-        private IndexMinPQ<Key> copy;
+        private final IndexMinPQ<Key> copy;
 
         // add all elements to copy of heap
         // takes linear time since already in heap order so no keys move

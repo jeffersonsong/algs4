@@ -16,6 +16,8 @@ package edu.princeton.cs.algs4.strings.compression;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
 public class Alphabet {
 
     /**
@@ -80,8 +82,8 @@ public class Alphabet {
     public static final Alphabet UNICODE16      = new Alphabet(65536);
 
 
-    private char[] alphabet;     // the characters in the alphabet
-    private int[] inverse;       // indices
+    private final char[] alphabet;     // the characters in the alphabet
+    private final int[] inverse;       // indices
     private final int R;         // the radix of the alphabet
 
     /**
@@ -103,8 +105,7 @@ public class Alphabet {
         alphabet = alpha.toCharArray();
         R = alpha.length();
         inverse = new int[Character.MAX_VALUE];
-        for (int i = 0; i < inverse.length; i++)
-            inverse[i] = -1;
+        Arrays.fill(inverse, -1);
 
         // can't use char since R can be as big as 65,536
         for (int c = 0; c < R; c++)

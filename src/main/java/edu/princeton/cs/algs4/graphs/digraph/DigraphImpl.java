@@ -74,8 +74,8 @@ public class DigraphImpl implements Digraph {
 
     private final int V;           // number of vertices in this digraph
     private int E;                 // number of edges in this digraph
-    private Bag<Integer>[] adj;    // adj[v] = adjacency list for vertex v
-    private int[] indegree;        // indegree[v] = indegree of vertex v
+    private final Bag<Integer>[] adj;    // adj[v] = adjacency list for vertex v
+    private final int[] indegree;        // indegree[v] = indegree of vertex v
 
     /**
      * Initializes an empty digraph with <em>V</em> vertices.
@@ -266,7 +266,7 @@ public class DigraphImpl implements Digraph {
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append(V + " vertices, " + E + " edges " + NEWLINE);
+        s.append(V).append(" vertices, ").append(E).append(" edges ").append(NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(String.format("%d: ", v));
             for (int w : adj[v]) {

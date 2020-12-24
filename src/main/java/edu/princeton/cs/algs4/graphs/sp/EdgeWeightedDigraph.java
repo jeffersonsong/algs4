@@ -57,8 +57,8 @@ public class EdgeWeightedDigraph {
 
     private final int V;                // number of vertices in this digraph
     private int E;                      // number of edges in this digraph
-    private Bag<DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
-    private int[] indegree;             // indegree[v] = indegree of vertex v
+    private final Bag<DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
+    private final int[] indegree;             // indegree[v] = indegree of vertex v
     
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
@@ -262,11 +262,11 @@ public class EdgeWeightedDigraph {
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append(V + " " + E + NEWLINE);
+        s.append(V).append(" ").append(E).append(NEWLINE);
         for (int v = 0; v < V; v++) {
-            s.append(v + ": ");
+            s.append(v).append(": ");
             for (DirectedEdge e : adj[v]) {
-                s.append(e + "  ");
+                s.append(e).append("  ");
             }
             s.append(NEWLINE);
         }

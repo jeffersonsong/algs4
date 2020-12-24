@@ -65,7 +65,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class QuickUnionUF implements UF {
-    private int[] parent;  // parent[i] = parent of i
+    private final int[] parent;  // parent[i] = parent of i
     private int count;     // number of components
 
     /**

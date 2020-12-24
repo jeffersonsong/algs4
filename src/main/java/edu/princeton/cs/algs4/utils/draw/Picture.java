@@ -85,7 +85,7 @@ import javax.swing.KeyStroke;
  *  @author Kevin Wayne
  */
 public final class Picture implements ActionListener {
-    private BufferedImage image;               // the rasterized image
+    private final BufferedImage image;               // the rasterized image
     private JFrame frame;                      // on-screen view
     private String filename;                   // name of file
     private boolean isOriginUpperLeft = true;  // location of origin
@@ -388,7 +388,7 @@ public final class Picture implements ActionListener {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(width +"-by-" + height + " picture (RGB values given in hex)\n");
+        sb.append(width).append("-by-").append(height).append(" picture (RGB values given in hex)\n");
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 int rgb = 0;

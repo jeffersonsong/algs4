@@ -4,7 +4,6 @@ import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.file.Paths;
 import java.util.List;
 
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;

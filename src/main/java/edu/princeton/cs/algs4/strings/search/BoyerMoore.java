@@ -47,7 +47,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  */
 public class BoyerMoore implements CompiledPatternSearch {
     private final int R;     // the radix
-    private int[] right;     // the bad-character skip array
+    private final int[] right;     // the bad-character skip array
 
     private char[] pattern;  // store the pattern as a character array
     private String pat;      // or as a string

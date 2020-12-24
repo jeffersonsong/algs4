@@ -271,7 +271,7 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
     private class HeapIterator implements Iterator<Key> {
 
         // create a new pq
-        private MaxPQ<Key> copy;
+        private final MaxPQ<Key> copy;
 
         // add all items to copy of heap
         // takes linear time since already in heap order so no keys move

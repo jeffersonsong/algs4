@@ -8,7 +8,6 @@ import org.junit.Test;
 import static edu.princeton.cs.algs4.fundamentals.unionfind.UFTestUtils.withinSameComponent;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public abstract class UFBaseTest {

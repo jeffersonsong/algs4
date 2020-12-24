@@ -37,16 +37,16 @@ import java.util.NoSuchElementException;
  *  @author Tristan Claverie
  */
 public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
-	private Node<Key>[] nodes;			//Array of Nodes in the heap
+	private final Node<Key>[] nodes;			//Array of Nodes in the heap
 	private Node<Key> head;				//Head of the circular root list
 	private Node<Key> min;				//Minimum Node in the heap
 	private int size;					//Number of keys in the heap
-	private int n;						//Maximum number of elements in the heap
+	private final int n;						//Maximum number of elements in the heap
 	private final Comparator<Key> comp; //Comparator over the keys
-	private HashMap<Integer, Node<Key>> table = new HashMap<>(); //Used for the consolidate operation
+	private final HashMap<Integer, Node<Key>> table = new HashMap<>(); //Used for the consolidate operation
 	
 	//Represents a Node of a tree
-	private class Node<Key> {
+	private static class Node<Key> {
 		Key key;						//Key of the Node
 		int order;						//The order of the tree rooted by this Node
 		int index;						//Index associated with the key
@@ -430,7 +430,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	}
 	
 	private class MyIterator implements Iterator<Integer> {
-		private IndexFibonacciMinPQ<Key> copy;
+		private final IndexFibonacciMinPQ<Key> copy;
 		
 		
 		//Constructor takes linear time

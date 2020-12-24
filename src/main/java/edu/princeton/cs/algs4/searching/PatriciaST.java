@@ -99,7 +99,7 @@ import edu.princeton.cs.algs4.utils.StdRandom;
  *  @author John Hentosh (based on an implementation by Robert Sedgewick)
  */
 public class PatriciaST<Value> {
-    private Node head;
+    private final Node head;
     private int count;
 
     /* An inner Node class specifies the objects that hold each key-value pair.
@@ -107,7 +107,7 @@ public class PatriciaST<Value> {
      */
     private class Node {
         private Node left, right;
-        private String key;
+        private final String key;
         private Value val;
         private int b;
 

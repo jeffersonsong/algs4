@@ -78,7 +78,7 @@ public final class StdOut {
             out = new PrintWriter(new OutputStreamWriter(System.out, CHARSET_NAME), true);
         }
         catch (UnsupportedEncodingException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 

@@ -1,6 +1,5 @@
 package edu.princeton.cs.algs4.sorting.merge;
 
-import edu.princeton.cs.algs4.sorting.elementary.Selection;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;

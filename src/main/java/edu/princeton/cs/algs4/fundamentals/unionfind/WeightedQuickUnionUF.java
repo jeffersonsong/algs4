@@ -66,8 +66,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class WeightedQuickUnionUF implements UF {
-    private int[] parent;   // parent[i] = parent of i
-    private int[] size;     // size[i] = number of elements in subtree rooted at i
+    private final int[] parent;   // parent[i] = parent of i
+    private final int[] size;     // size[i] = number of elements in subtree rooted at i
     private int count;      // number of components
 
     /**

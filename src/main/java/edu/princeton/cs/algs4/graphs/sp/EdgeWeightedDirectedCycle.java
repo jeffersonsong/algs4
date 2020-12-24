@@ -43,9 +43,9 @@ import edu.princeton.cs.algs4.graphs.digraph.Topological;
  *  @author Kevin Wayne
  */
 public class EdgeWeightedDirectedCycle {
-    private boolean[] marked;             // marked[v] = has vertex v been marked?
-    private DirectedEdge[] edgeTo;        // edgeTo[v] = previous edge on path to v
-    private boolean[] onStack;            // onStack[v] = is vertex on the stack?
+    private final boolean[] marked;             // marked[v] = has vertex v been marked?
+    private final DirectedEdge[] edgeTo;        // edgeTo[v] = previous edge on path to v
+    private final boolean[] onStack;            // onStack[v] = is vertex on the stack?
     private Stack<DirectedEdge> cycle;    // directed cycle (or null if no such cycle)
 
     /**

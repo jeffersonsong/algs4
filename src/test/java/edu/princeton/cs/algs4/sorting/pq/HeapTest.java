@@ -1,6 +1,5 @@
 package edu.princeton.cs.algs4.sorting.pq;
 
-import edu.princeton.cs.algs4.sorting.elementary.Shell;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
