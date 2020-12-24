@@ -60,7 +60,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BellmanFordSP {
+public class BellmanFordSP implements SP {
     // for floating-point precision issues
     private static final double EPSILON = 1E-14;
 

@@ -1,0 +1,43 @@
+package edu.princeton.cs.algs4.graphs.sp;
+
+import edu.princeton.cs.algs4.utils.io.In;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.Assert.*;
+
+public abstract class SPBaseTest {
+    private SP sp;
+
+    @Before
+    public void setUp() throws Exception {
+        In in = new In("src/test/resources/tinyEWD.txt");
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        sp = createSP(G, 0);
+    }
+
+    protected abstract SP createSP(EdgeWeightedDigraph G, int s);
+
+    @Test
+    public void test() {
+        verify(1, 1.05, 3);
+        verify(2, 0.26, 1);
+        verify(3, 0.99, 3);
+        verify(4, 0.38, 1);
+        verify(5, 0.73, 2);
+        verify(6, 1.51, 4);
+        verify(7, 0.60, 2);
+    }
+
+    private void verify(int v, double distTo, int size) {
+        assertTrue(sp.hasPathTo(v));
+        assertThat(sp.distTo(v), is(closeTo(distTo, 1e-4)));
+        List<DirectedEdge> edgeList = toList(sp.pathTo(v));
+        assertThat(edgeList.size(), is(size));
+    }
+}
