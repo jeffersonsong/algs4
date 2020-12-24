@@ -127,7 +127,7 @@ public class LinearProbingHashST<Key, Value> {
 
     // resizes the hash table to the given capacity by re-hashing all of the keys
     private void resize(int capacity) {
-        LinearProbingHashST<Key, Value> temp = new LinearProbingHashST<Key, Value>(capacity);
+        LinearProbingHashST<Key, Value> temp = new LinearProbingHashST<>(capacity);
         for (int i = 0; i < m; i++) {
             if (keys[i] != null) {
                 temp.put(keys[i], vals[i]);
@@ -270,7 +270,7 @@ public class LinearProbingHashST<Key, Value> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) { 
-        LinearProbingHashST<String, Integer> st = new LinearProbingHashST<String, Integer>();
+        LinearProbingHashST<String, Integer> st = new LinearProbingHashST<>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);

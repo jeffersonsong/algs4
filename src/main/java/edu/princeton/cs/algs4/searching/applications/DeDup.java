@@ -54,7 +54,7 @@ public class DeDup {
     private DeDup() { }
 
     public static void main(String[] args) {
-        SET<String> set = new SETImpl<String>();
+        SET<String> set = new SETImpl<>();
 
         // read in strings and add to set
         while (!StdIn.isEmpty()) {

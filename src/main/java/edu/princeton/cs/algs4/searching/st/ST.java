@@ -65,7 +65,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * Initializes an empty symbol table.
      */
     public ST() {
-        st = new TreeMap<Key, Value>();
+        st = new TreeMap<>();
     }
 
 
@@ -241,7 +241,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        ST<String, Integer> st = new ST<String, Integer>();
+        ST<String, Integer> st = new ST<>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);

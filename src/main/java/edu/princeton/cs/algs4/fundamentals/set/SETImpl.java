@@ -58,7 +58,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * Initializes an empty set.
      */
     public SETImpl() {
-        set = new TreeSet<Key>();
+        set = new TreeSet<>();
     }
 
     /**
@@ -213,7 +213,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      */
     public SETImpl<Key> union(SET<Key> that) {
         if (that == null) throw new IllegalArgumentException("called union() with a null argument");
-        SETImpl<Key> c = new SETImpl<Key>();
+        SETImpl<Key> c = new SETImpl<>();
         for (Key x : this) {
             c.add(x);
         }
@@ -232,7 +232,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      */
     public SETImpl<Key> intersects(SET<Key> that) {
         if (that == null) throw new IllegalArgumentException("called intersects() with a null argument");
-        SETImpl<Key> c = new SETImpl<Key>();
+        SETImpl<Key> c = new SETImpl<>();
         if (this.size() < that.size()) {
             for (Key x : this) {
                 if (that.contains(x)) c.add(x);
@@ -296,7 +296,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        SETImpl<String> set = new SETImpl<String>();
+        SETImpl<String> set = new SETImpl<>();
         StdOut.println("set = " + set);
 
         // insert some keys
@@ -342,7 +342,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
         }
 
         StdOut.println();
-        SETImpl<String> set2 = new SETImpl<String>(set);
+        SETImpl<String> set2 = new SETImpl<>(set);
         StdOut.println(set.equals(set2));
     }
 

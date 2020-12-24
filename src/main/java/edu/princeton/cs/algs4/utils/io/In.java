@@ -526,7 +526,7 @@ public final class In {
      * @return all remaining lines in this input stream, as an array of strings
      */
     public String[] readAllLines() {
-        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> lines = new ArrayList<>();
         while (hasNextLine()) {
             lines.add(readLine());
         }

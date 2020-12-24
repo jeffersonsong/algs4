@@ -81,7 +81,7 @@ public class KruskalMST {
      */
     public KruskalMST(EdgeWeightedGraph G) {
         // more efficient to build heap by passing array of edges
-        MinPQ<Edge> pq = new MinPQ<Edge>();
+        MinPQ<Edge> pq = new MinPQ<>();
         for (Edge e : G.edges()) {
             pq.insert(e);
         }

@@ -59,7 +59,7 @@ public class LookupCSV {
         int valField = Integer.parseInt(args[2]);
 
         // symbol table
-        ST<String, String> st = new ST<String, String>();
+        ST<String, String> st = new ST<>();
 
         // read in the data from csv file
         In in = new In(args[0]);

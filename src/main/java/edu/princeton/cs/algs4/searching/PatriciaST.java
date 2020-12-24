@@ -116,7 +116,7 @@ public class PatriciaST<Value> {
             this.val = val;
             this.b = b;
         }
-    };
+    }
 
     /**
      * Initializes an empty PATRICIA-based symbol table.
@@ -376,7 +376,7 @@ public class PatriciaST<Value> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        PatriciaST<Integer> st = new PatriciaST<Integer>();
+        PatriciaST<Integer> st = new PatriciaST<>();
         int limitItem = 1000000;
         int limitPass = 1;
         int countPass = 0;

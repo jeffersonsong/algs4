@@ -84,7 +84,7 @@ public class LinkedStack<Item> implements Stack<Item> {
      */
     public void push(Item item) {
         Node<Item> oldfirst = first;
-        first = new Node<Item>();
+        first = new Node<>();
         first.item = item;
         first.next = oldfirst;
         n++;
@@ -184,7 +184,7 @@ public class LinkedStack<Item> implements Stack<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        LinkedStack<String> stack = new LinkedStack<String>();
+        LinkedStack<String> stack = new LinkedStack<>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-"))

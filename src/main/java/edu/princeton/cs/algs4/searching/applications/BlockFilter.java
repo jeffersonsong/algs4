@@ -55,7 +55,7 @@ public class BlockFilter {
     private BlockFilter() { }
 
     public static void main(String[] args) {
-        SET<String> set = new SETImpl<String>();
+        SET<String> set = new SETImpl<>();
 
         // read in strings and add to set
         In in = new In(args[0]);

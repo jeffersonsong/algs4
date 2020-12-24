@@ -69,7 +69,7 @@ public class GraphGenerator {
         if (E > (long) V*(V-1)/2) throw new IllegalArgumentException("Too many edges");
         if (E < 0)                throw new IllegalArgumentException("Too few edges");
         Graph G = new Graph(V);
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -143,7 +143,7 @@ public class GraphGenerator {
             vertices[i] = i;
         StdRandom.shuffle(vertices);
 
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
             int i = StdRandom.uniform(V1);
             int j = V1 + StdRandom.uniform(V2);
@@ -391,7 +391,7 @@ public class GraphGenerator {
             degree[prufer[i]]++;
 
         // pq contains all vertices of degree 1
-        MinPQ<Integer> pq = new MinPQ<Integer>();
+        MinPQ<Integer> pq = new MinPQ<>();
         for (int v = 0; v < V; v++)
             if (degree[v] == 1) pq.insert(v);
 

@@ -59,7 +59,7 @@ public class SymbolDigraph {
      * @param delimiter the delimiter between fields
      */
     public SymbolDigraph(String filename, String delimiter) {
-        st = new ST<String, Integer>();
+        st = new ST<>();
 
         // First pass builds the index by reading strings to associate
         // distinct strings with an index

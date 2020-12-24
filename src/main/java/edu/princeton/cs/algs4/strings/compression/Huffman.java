@@ -121,7 +121,7 @@ public class Huffman {
     private static Node buildTrie(int[] freq) {
 
         // initialze priority queue with singleton trees
-        MinPQ<Node> pq = new MinPQ<Node>();
+        MinPQ<Node> pq = new MinPQ<>();
         for (char c = 0; c < R; c++)
             if (freq[c] > 0)
                 pq.insert(new Node(c, freq[c], null, null));

@@ -279,7 +279,7 @@ public class TrieST<Value> {
     public static void main(String[] args) {
 
         // build symbol table from standard input
-        TrieST<Integer> st = new TrieST<Integer>();
+        TrieST<Integer> st = new TrieST<>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);

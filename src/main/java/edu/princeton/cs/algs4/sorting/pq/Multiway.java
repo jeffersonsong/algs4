@@ -50,7 +50,7 @@ public class Multiway {
     // merge together the sorted input streams and write the sorted result to standard output
     private static void merge(In[] streams) {
         int n = streams.length;
-        IndexMinPQ<String> pq = new IndexMinPQ<String>(n);
+        IndexMinPQ<String> pq = new IndexMinPQ<>(n);
         for (int i = 0; i < n; i++)
             if (!streams[i].isEmpty())
                 pq.insert(i, streams[i].readString());

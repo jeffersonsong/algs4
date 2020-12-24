@@ -93,7 +93,7 @@ public class CollisionSystem {
     public void simulate(double limit) {
         
         // initialize PQ with collision events and redraw event
-        pq = new MinPQ<Event>();
+        pq = new MinPQ<>();
         for (int i = 0; i < particles.length; i++) {
             predict(particles[i], limit);
         }

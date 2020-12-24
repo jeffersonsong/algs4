@@ -152,7 +152,7 @@ public class ResizingArrayStack<Item> implements Stack<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        ResizingArrayStack<String> stack = new ResizingArrayStack<String>();
+        ResizingArrayStack<String> stack = new ResizingArrayStack<>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-")) stack.push(item);

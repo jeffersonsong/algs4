@@ -268,7 +268,7 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
 		MultiwayMinPQ<Key> data;
 		
 		public MyIterator() {
-			data = new MultiwayMinPQ<Key>(comp, d);
+			data = new MultiwayMinPQ<>(comp, d);
 			data.keys = (Key[]) new Comparable[keys.length];
 			data.n = n;
 			for (int i = 0; i < keys.length; i++) {

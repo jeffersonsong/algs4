@@ -254,7 +254,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        BTree<String, String> st = new BTree<String, String>();
+        BTree<String, String> st = new BTree<>();
 
         st.put("www.cs.princeton.edu", "128.112.136.12");
         st.put("www.cs.princeton.edu", "128.112.136.11");

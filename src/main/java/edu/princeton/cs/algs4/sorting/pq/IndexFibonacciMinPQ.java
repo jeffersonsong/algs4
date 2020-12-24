@@ -43,7 +43,7 @@ public class IndexFibonacciMinPQ<Key> implements Iterable<Integer> {
 	private int size;					//Number of keys in the heap
 	private int n;						//Maximum number of elements in the heap
 	private final Comparator<Key> comp; //Comparator over the keys
-	private HashMap<Integer, Node<Key>> table = new HashMap<Integer, Node<Key>>(); //Used for the consolidate operation
+	private HashMap<Integer, Node<Key>> table = new HashMap<>(); //Used for the consolidate operation
 	
 	//Represents a Node of a tree
 	private class Node<Key> {
@@ -127,7 +127,7 @@ public class IndexFibonacciMinPQ<Key> implements Iterable<Integer> {
 	public void insert(int i, Key key) {
 		if (i < 0 || i >= n) throw new IllegalArgumentException();
 		if (contains(i)) throw new IllegalArgumentException("Specified index is already in the queue");
-		Node<Key> x = new Node<Key>();
+		Node<Key> x = new Node<>();
 		x.key = key;
 		x.index = i;
 		nodes[i] = x;
@@ -435,7 +435,7 @@ public class IndexFibonacciMinPQ<Key> implements Iterable<Integer> {
 		
 		//Constructor takes linear time
 		public MyIterator() {
-			copy = new IndexFibonacciMinPQ<Key>(comp, n);
+			copy = new IndexFibonacciMinPQ<>(comp, n);
 			for (Node<Key> x : nodes) {
 				if (x != null) copy.insert(x.index, x.key);
 			}

@@ -121,12 +121,12 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	public void insert(int i, Key key) {
 		if (i < 0 || i >= n) throw new IllegalArgumentException();
 		if (contains(i)) throw new IllegalArgumentException("Specified index is already in the queue");
-		Node<Key> x = new Node<Key>();
+		Node<Key> x = new Node<>();
 		x.key = key;
 		x.index = i;
 		x.order = 0;
 		nodes[i] = x;
-		IndexBinomialMinPQ<Key> H = new IndexBinomialMinPQ<Key>();
+		IndexBinomialMinPQ<Key> H = new IndexBinomialMinPQ<>();
 		H.head = x;
 		head = union(H).head;
 	}
@@ -189,7 +189,7 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 			}
 			x.parent = null;
 			x.sibling = prevx;
-			IndexBinomialMinPQ<Key> H = new IndexBinomialMinPQ<Key>();
+			IndexBinomialMinPQ<Key> H = new IndexBinomialMinPQ<>();
 			H.head = x;
 			head = union(H).head;
 		}
@@ -290,7 +290,7 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 			}
 			x.parent = null;
 			x.sibling = prevx;
-			IndexBinomialMinPQ<Key> H = new IndexBinomialMinPQ<Key>();
+			IndexBinomialMinPQ<Key> H = new IndexBinomialMinPQ<>();
 			H.head = x;
 			head = union(H).head;
 		}
@@ -404,7 +404,7 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	//It destroys the two Heaps in parameter, which should not be used any after.
 	//To guarantee logarithmic time, this function assumes the arrays are up-to-date
 	private IndexBinomialMinPQ<Key> union(IndexBinomialMinPQ<Key> heap) {
-		this.head = merge(new Node<Key>(), this.head, heap.head).sibling;
+		this.head = merge(new Node<>(), this.head, heap.head).sibling;
 		Node<Key> x = this.head;
 		Node<Key> prevx = null, nextx = x.sibling;
 		while (nextx != null) {
@@ -457,13 +457,13 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 		//Constructor clones recursively the elements in the queue
 		//It takes linear time
 		public MyIterator() {
-			data = new IndexBinomialMinPQ<Key>(n, comparator);
+			data = new IndexBinomialMinPQ<>(n, comparator);
 			data.head = clone(head, null);
 		}
 		
 		private Node<Key> clone(Node<Key> x, Node<Key> parent) {
 			if (x == null) return null;
-			Node<Key> node = new Node<Key>();
+			Node<Key> node = new Node<>();
 			node.index = x.index;
 			node.key = x.key;
 			data.nodes[node.index] = node;

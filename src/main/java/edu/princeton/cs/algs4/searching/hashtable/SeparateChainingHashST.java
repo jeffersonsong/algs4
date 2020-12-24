@@ -73,13 +73,13 @@ public class SeparateChainingHashST<Key, Value> {
         this.m = m;
         st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[m];
         for (int i = 0; i < m; i++)
-            st[i] = new SequentialSearchST<Key, Value>();
+            st[i] = new SequentialSearchST<>();
     } 
 
     // resize the hash table to have the given number of chains,
     // rehashing all of the keys
     private void resize(int chains) {
-        SeparateChainingHashST<Key, Value> temp = new SeparateChainingHashST<Key, Value>(chains);
+        SeparateChainingHashST<Key, Value> temp = new SeparateChainingHashST<>(chains);
         for (int i = 0; i < m; i++) {
             for (Key key : st[i].keys()) {
                 temp.put(key, st[i].get(key));
@@ -209,7 +209,7 @@ public class SeparateChainingHashST<Key, Value> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) { 
-        SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<String, Integer>();
+        SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);

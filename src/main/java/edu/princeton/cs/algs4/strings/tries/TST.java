@@ -151,7 +151,7 @@ public class TST<Value> {
     private Node<Value> put(Node<Value> x, String key, Value val, int d) {
         char c = key.charAt(d);
         if (x == null) {
-            x = new Node<Value>();
+            x = new Node<>();
             x.c = c;
         }
         if      (c < x.c)               x.left  = put(x.left,  key, val, d);
@@ -268,7 +268,7 @@ public class TST<Value> {
     public static void main(String[] args) {
 
         // build symbol table from standard input
-        TST<Integer> st = new TST<Integer>();
+        TST<Integer> st = new TST<>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);

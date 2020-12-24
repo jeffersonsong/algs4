@@ -107,7 +107,7 @@ public class ResizingArrayBag<Item> implements Bag<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        ResizingArrayBag<String> bag = new ResizingArrayBag<String>();
+        ResizingArrayBag<String> bag = new ResizingArrayBag<>();
         bag.add("Hello");
         bag.add("World");
         bag.add("how");

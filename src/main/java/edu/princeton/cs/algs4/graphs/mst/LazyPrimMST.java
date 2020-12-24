@@ -90,7 +90,7 @@ public class LazyPrimMST {
      */
     public LazyPrimMST(EdgeWeightedGraph G) {
         mst = new LinkedQueue<>();
-        pq = new MinPQ<Edge>();
+        pq = new MinPQ<>();
         marked = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)     // run Prim from all vertices to
             if (!marked[v]) prim(G, v);     // get a minimum spanning forest

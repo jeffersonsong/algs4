@@ -60,7 +60,7 @@ public class DigraphGenerator {
         if (E > (long) V*(V-1)) throw new IllegalArgumentException("Too many edges");
         if (E < 0)              throw new IllegalArgumentException("Too few edges");
         Digraph G = new Digraph(V);
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -124,7 +124,7 @@ public class DigraphGenerator {
         if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
         if (E < 0)                  throw new IllegalArgumentException("Too few edges");
         Digraph G = new Digraph(V);
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
             vertices[i] = i;
@@ -193,7 +193,7 @@ public class DigraphGenerator {
         if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
         if (E < V-1)                throw new IllegalArgumentException("Too few edges");
         Digraph G = new Digraph(V);
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
 
         // fix a topological order
         int[] vertices = new int[V];
@@ -254,7 +254,7 @@ public class DigraphGenerator {
         if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
         if (E < V-1)                throw new IllegalArgumentException("Too few edges");
         Digraph G = new Digraph(V);
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
 
         // fix a topological order
         int[] vertices = new int[V];
@@ -436,7 +436,7 @@ public class DigraphGenerator {
         Digraph G = new Digraph(V);
 
         // edges added to G (to avoid duplicate edges)
-        SET<Edge> set = new SETImpl<Edge>();
+        SET<Edge> set = new SETImpl<>();
 
         int[] label = new int[V];
         for (int v = 0; v < V; v++)

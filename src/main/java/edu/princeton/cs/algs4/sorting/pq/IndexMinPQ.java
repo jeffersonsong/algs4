@@ -322,7 +322,7 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
         // add all elements to copy of heap
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
-            copy = new IndexMinPQ<Key>(pq.length - 1);
+            copy = new IndexMinPQ<>(pq.length - 1);
             for (int i = 1; i <= n; i++)
                 copy.insert(pq[i], keys[pq[i]]);
         }
@@ -346,7 +346,7 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
         // insert a bunch of strings
         String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
 
-        IndexMinPQ<String> pq = new IndexMinPQ<String>(strings.length);
+        IndexMinPQ<String> pq = new IndexMinPQ<>(strings.length);
         for (int i = 0; i < strings.length; i++) {
             pq.insert(i, strings[i]);
         }

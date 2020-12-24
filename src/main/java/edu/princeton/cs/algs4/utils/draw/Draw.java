@@ -243,11 +243,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     private double mouseY = 0;
 
     // keyboard state
-    private final LinkedList<Character> keysTyped = new LinkedList<Character>();
-    private final TreeSet<Integer> keysDown = new TreeSet<Integer>();
+    private final LinkedList<Character> keysTyped = new LinkedList<>();
+    private final TreeSet<Integer> keysDown = new TreeSet<>();
 
     // event-based listeners
-    private final ArrayList<DrawListener> listeners = new ArrayList<DrawListener>();
+    private final ArrayList<DrawListener> listeners = new ArrayList<>();
 
 
     /**

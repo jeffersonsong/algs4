@@ -138,7 +138,7 @@ public class LinkedBag<Item> implements Bag<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        LinkedBag<String> bag = new LinkedBag<String>();
+        LinkedBag<String> bag = new LinkedBag<>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             bag.add(item);

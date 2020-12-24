@@ -43,7 +43,7 @@ public class SparseVector {
      */
     public SparseVector(int d) {
         this.d  = d;
-        this.st = new ST<Integer, Double>();
+        this.st = new ST<>();
     }
 
    /**

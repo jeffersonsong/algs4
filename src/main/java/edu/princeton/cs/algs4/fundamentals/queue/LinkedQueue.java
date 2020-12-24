@@ -91,7 +91,7 @@ public class LinkedQueue<Item> implements Queue<Item> {
      */
     public void enqueue(Item item) {
         Node<Item> oldlast = last;
-        last = new Node<Item>();
+        last = new Node<>();
         last.item = item;
         last.next = null;
         if (isEmpty()) first = last;
@@ -199,7 +199,7 @@ public class LinkedQueue<Item> implements Queue<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        LinkedQueue<String> queue = new LinkedQueue<String>();
+        LinkedQueue<String> queue = new LinkedQueue<>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-"))

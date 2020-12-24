@@ -84,7 +84,7 @@ public class SymbolGraph {
      * @param delimiter the delimiter between fields
      */
     public SymbolGraph(String filename, String delimiter) {
-        st = new ST<String, Integer>();
+        st = new ST<>();
 
         // First pass builds the index by reading strings to associate
         // distinct strings with an index

@@ -155,7 +155,7 @@ public class ResizingArrayQueue<Item> implements Queue<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        ResizingArrayQueue<String> queue = new ResizingArrayQueue<String>();
+        ResizingArrayQueue<String> queue = new ResizingArrayQueue<>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-")) queue.enqueue(item);

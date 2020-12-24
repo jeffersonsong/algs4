@@ -336,7 +336,7 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 		IndexMultiwayMinPQ<Key> clone;
 		
 		public MyIterator() {
-			clone = new IndexMultiwayMinPQ<Key>(nmax, comp, d);
+			clone = new IndexMultiwayMinPQ<>(nmax, comp, d);
 			for (int i = 0; i < n; i++) {
 				clone.insert(pq[i+d], keys[pq[i+d]+d]);
 			}

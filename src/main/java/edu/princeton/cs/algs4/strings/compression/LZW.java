@@ -51,7 +51,7 @@ public class LZW {
      */
     public static void compress() { 
         String input = BinaryStdIn.readString();
-        TST<Integer> st = new TST<Integer>();
+        TST<Integer> st = new TST<>();
         for (int i = 0; i < R; i++)
             st.put("" + (char) i, i);
         int code = R+1;  // R is codeword for EOF

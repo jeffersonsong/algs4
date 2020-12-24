@@ -196,7 +196,7 @@ public class GlobalMincut {
      * @return the cut-of-the-phase
      */
     private CutPhase minCutPhase(EdgeWeightedGraph G, boolean[] marked, CutPhase cp) {
-        IndexMaxPQ<Double> pq = new IndexMaxPQ<Double>(G.V());
+        IndexMaxPQ<Double> pq = new IndexMaxPQ<>(G.V());
         for (int v = 0; v < G.V(); v++) {
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
         }

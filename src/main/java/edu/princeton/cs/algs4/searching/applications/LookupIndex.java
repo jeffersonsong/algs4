@@ -65,8 +65,8 @@ public class LookupIndex {
         String separator = args[1];
         In in = new In(filename);
 
-        ST<String, Queue<String>> st = new ST<String, Queue<String>>();
-        ST<String, Queue<String>> ts = new ST<String, Queue<String>>();
+        ST<String, Queue<String>> st = new ST<>();
+        ST<String, Queue<String>> ts = new ST<>();
 
         while (in.hasNextLine()) {
             String line = in.readLine();

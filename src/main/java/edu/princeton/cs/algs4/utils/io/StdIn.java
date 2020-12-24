@@ -537,7 +537,7 @@ public final class StdIn {
      * @return all remaining lines on standard input, as an array of strings
      */
     public static String[] readAllLines() {
-        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> lines = new ArrayList<>();
         while (hasNextLine()) {
             lines.add(readLine());
         }
