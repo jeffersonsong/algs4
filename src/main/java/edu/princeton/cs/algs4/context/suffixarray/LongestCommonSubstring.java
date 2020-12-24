@@ -13,7 +13,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.context.suffixarr;
+package edu.princeton.cs.algs4.context.suffixarray;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;

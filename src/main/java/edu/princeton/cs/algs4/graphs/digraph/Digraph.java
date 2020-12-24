@@ -29,6 +29,8 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -88,7 +90,7 @@ public class Digraph {
         indegree = new int[V];
         adj = (Bag<Integer>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new Bag<Integer>();
+            adj[v] = new LinkedBag<>();
         }
     }
 
@@ -112,7 +114,7 @@ public class Digraph {
             indegree = new int[V];
             adj = (Bag<Integer>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new Bag<Integer>();
+                adj[v] = new LinkedBag<>();
             }
             int E = in.readInt();
             if (E < 0) throw new IllegalArgumentException("number of edges in a Digraph must be nonnegative");
@@ -148,12 +150,12 @@ public class Digraph {
         // update adjacency lists
         adj = (Bag<Integer>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new Bag<Integer>();
+            adj[v] = new LinkedBag<>();
         }
 
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            Stack<Integer> reverse = new Stack<Integer>();
+            Stack<Integer> reverse = new LinkedStack<>();
             for (int w : G.adj[v]) {
                 reverse.push(w);
             }

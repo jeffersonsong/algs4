@@ -22,6 +22,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -66,7 +67,7 @@ public class NonrecursiveDirectedDFS {
             adj[v] = G.adj(v).iterator();
 
         // depth-first search using an explicit stack
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new LinkedStack<>();
         marked[s] = true;
         stack.push(s);
         while (!stack.isEmpty()) {

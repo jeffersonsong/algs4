@@ -10,6 +10,7 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -142,7 +143,7 @@ public class BipartiteMatching {
             edgeTo[v] = -1;
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
-        Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new LinkedQueue<>();
         for (int v = 0; v < V; v++) {
             if (bipartition.color(v) && !isMatched(v)) {
                 queue.enqueue(v);

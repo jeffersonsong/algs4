@@ -28,6 +28,8 @@
 package edu.princeton.cs.algs4.strings.re;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
@@ -60,7 +62,7 @@ import edu.princeton.cs.algs4.graphs.digraph.DirectedDFS;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class NFA { 
+public class NFA {
 
     private Digraph graph;     // digraph of epsilon transitions
     private String regexp;     // regular expression
@@ -74,7 +76,7 @@ public class NFA {
     public NFA(String regexp) {
         this.regexp = regexp;
         m = regexp.length();
-        Stack<Integer> ops = new Stack<Integer>();
+        Stack<Integer> ops = new LinkedStack<>();
         graph = new Digraph(m+1); 
         for (int i = 0; i < m; i++) { 
             int lp = i; 
@@ -115,7 +117,7 @@ public class NFA {
      */
     public boolean recognizes(String txt) {
         DirectedDFS dfs = new DirectedDFS(graph, 0);
-        Bag<Integer> pc = new Bag<Integer>();
+        Bag<Integer> pc = new LinkedBag<>();
         for (int v = 0; v < graph.V(); v++)
             if (dfs.marked(v)) pc.add(v);
 
@@ -124,14 +126,14 @@ public class NFA {
             if (txt.charAt(i) == '*' || txt.charAt(i) == '|' || txt.charAt(i) == '(' || txt.charAt(i) == ')')
                 throw new IllegalArgumentException("text contains the metacharacter '" + txt.charAt(i) + "'");
 
-            Bag<Integer> match = new Bag<Integer>();
+            Bag<Integer> match = new LinkedBag<>();
             for (int v : pc) {
                 if (v == m) continue;
                 if ((regexp.charAt(v) == txt.charAt(i)) || regexp.charAt(v) == '.')
                     match.add(v+1); 
             }
             dfs = new DirectedDFS(graph, match); 
-            pc = new Bag<Integer>();
+            pc = new LinkedBag<>();
             for (int v = 0; v < graph.V(); v++)
                 if (dfs.marked(v)) pc.add(v);
 

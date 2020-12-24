@@ -20,6 +20,7 @@
 
 package edu.princeton.cs.algs4.strings.tries;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -163,7 +164,7 @@ public class TrieST<Value> {
      *     as an iterable
      */
     public Iterable<String> keysWithPrefix(String prefix) {
-        Queue<String> results = new Queue<String>();
+        Queue<String> results = new LinkedQueue<>();
         Node x = get(root, prefix, 0);
         collect(x, new StringBuilder(prefix), results);
         return results;
@@ -187,7 +188,7 @@ public class TrieST<Value> {
      *     as an iterable, where . is treated as a wildcard character.
      */
     public Iterable<String> keysThatMatch(String pattern) {
-        Queue<String> results = new Queue<String>();
+        Queue<String> results = new LinkedQueue<>();
         collect(root, new StringBuilder(), pattern, results);
         return results;
     }

@@ -12,7 +12,9 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -73,7 +75,7 @@ public class BipartiteX {
     }
 
     private void bfs(Graph G, int s) { 
-        Queue<Integer> q = new Queue<Integer>();
+        Queue<Integer> q = new LinkedQueue<>();
         color[s] = WHITE;
         marked[s] = true;
         q.enqueue(s);
@@ -94,8 +96,8 @@ public class BipartiteX {
                     // and let x be closest node to v and w common to two paths
                     // then (w-x path) + (x-v path) + (edge v-w) is an odd-length cycle
                     // Note: distTo[v] == distTo[w];
-                    cycle = new Queue<Integer>();
-                    Stack<Integer> stack = new Stack<Integer>();
+                    cycle = new LinkedQueue<>();
+                    Stack<Integer> stack = new LinkedStack<>();
                     int x = v, y = w;
                     while (x != y) {
                         stack.push(x);

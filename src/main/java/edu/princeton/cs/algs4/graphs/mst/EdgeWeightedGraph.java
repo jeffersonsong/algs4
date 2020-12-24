@@ -25,6 +25,8 @@
 package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -83,7 +85,7 @@ public class EdgeWeightedGraph {
         this.E = 0;
         adj = (Bag<Edge>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new Bag<Edge>();
+            adj[v] = new LinkedBag<>();
         }
     }
 
@@ -126,7 +128,7 @@ public class EdgeWeightedGraph {
             V = in.readInt();
             adj = (Bag<Edge>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new Bag<Edge>();
+                adj[v] = new LinkedBag<>();
             }
 
             int E = in.readInt();
@@ -157,7 +159,7 @@ public class EdgeWeightedGraph {
         this.E = G.E();
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            Stack<Edge> reverse = new Stack<Edge>();
+            Stack<Edge> reverse = new LinkedStack<>();
             for (Edge e : G.adj[v]) {
                 reverse.push(e);
             }
@@ -240,7 +242,7 @@ public class EdgeWeightedGraph {
      * @return all edges in this edge-weighted graph, as an iterable
      */
     public Iterable<Edge> edges() {
-        Bag<Edge> list = new Bag<Edge>();
+        Bag<Edge> list = new LinkedBag<>();
         for (int v = 0; v < V; v++) {
             int selfLoops = 0;
             for (Edge e : adj(v)) {

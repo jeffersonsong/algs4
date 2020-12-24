@@ -27,6 +27,7 @@
 package edu.princeton.cs.algs4.misc;
 
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Point2D;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -49,7 +50,7 @@ import java.util.Arrays;
  *  @author Kevin Wayne
  */
 public class GrahamScan {
-    private Stack<Point2D> hull = new Stack<Point2D>();
+    private Stack<Point2D> hull = new LinkedStack<>();
 
     /**
      * Computes the convex hull of the specified array of points.
@@ -114,7 +115,7 @@ public class GrahamScan {
      * @return the extreme points on the convex hull in counterclockwise order
      */
     public Iterable<Point2D> hull() {
-        Stack<Point2D> s = new Stack<Point2D>();
+        Stack<Point2D> s = new LinkedStack<>();
         for (Point2D p : hull) s.push(p);
         return s;
     }

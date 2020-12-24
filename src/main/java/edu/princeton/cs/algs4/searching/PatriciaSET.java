@@ -26,6 +26,7 @@
 
 package edu.princeton.cs.algs4.searching;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -258,7 +259,7 @@ public class PatriciaSET implements Iterable<String> {
      * @return an iterator to all of the keys in the set
      */
     public Iterator<String> iterator() {
-        Queue<String> queue = new Queue<String>();
+        Queue<String> queue = new LinkedQueue<>();
         if (head.left  != head) collect(head.left,  0, queue);
         if (head.right != head) collect(head.right, 0, queue);
         return queue.iterator();

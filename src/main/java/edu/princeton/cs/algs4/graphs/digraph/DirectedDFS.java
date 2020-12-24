@@ -23,6 +23,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
@@ -144,7 +145,7 @@ public class DirectedDFS {
         Digraph G = new Digraph(in);
 
         // read in sources from command-line arguments
-        Bag<Integer> sources = new Bag<Integer>();
+        Bag<Integer> sources = new LinkedBag<>();
         for (int i = 1; i < args.length; i++) {
             int s = Integer.parseInt(args[i]);
             sources.add(s);

@@ -33,7 +33,9 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
@@ -75,8 +77,8 @@ public class DepthFirstOrder {
     public DepthFirstOrder(Digraph G) {
         pre    = new int[G.V()];
         post   = new int[G.V()];
-        postorder = new Queue<Integer>();
-        preorder  = new Queue<Integer>();
+        postorder = new LinkedQueue<>();
+        preorder  = new LinkedQueue<>();
         marked    = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v]) dfs(G, v);
@@ -91,8 +93,8 @@ public class DepthFirstOrder {
     public DepthFirstOrder(EdgeWeightedDigraph G) {
         pre    = new int[G.V()];
         post   = new int[G.V()];
-        postorder = new Queue<Integer>();
-        preorder  = new Queue<Integer>();
+        postorder = new LinkedQueue<>();
+        preorder  = new LinkedQueue<>();
         marked    = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v]) dfs(G, v);
@@ -170,7 +172,7 @@ public class DepthFirstOrder {
      * @return the vertices in reverse postorder, as an iterable of vertices
      */
     public Iterable<Integer> reversePost() {
-        Stack<Integer> reverse = new Stack<Integer>();
+        Stack<Integer> reverse = new LinkedStack<>();
         for (int v : postorder)
             reverse.push(v);
         return reverse;

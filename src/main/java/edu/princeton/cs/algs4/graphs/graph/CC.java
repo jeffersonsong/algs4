@@ -31,6 +31,7 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
@@ -225,7 +226,7 @@ public class CC {
         // compute list of vertices in each connected component
         Queue<Integer>[] components = (Queue<Integer>[]) new Queue[m];
         for (int i = 0; i < m; i++) {
-            components[i] = new Queue<Integer>();
+            components[i] = new LinkedQueue<>();
         }
         for (int v = 0; v < G.V(); v++) {
             components[cc.id(v)].enqueue(v);

@@ -26,6 +26,7 @@
 
 package edu.princeton.cs.algs4.searching;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -285,7 +286,7 @@ public class PatriciaST<Value> {
      * @return all keys in the symbol table as an {@code Iterable}
      */
     public Iterable<String> keys() {
-        Queue<String> queue = new Queue<String>();
+        Queue<String> queue = new LinkedQueue<>();
         if (head.left  != head) keys(head.left,  0, queue);
         if (head.right != head) keys(head.right, 0, queue);
         return queue;

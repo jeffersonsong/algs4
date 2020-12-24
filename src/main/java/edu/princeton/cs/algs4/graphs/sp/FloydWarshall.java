@@ -17,6 +17,7 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -177,7 +178,7 @@ public class FloydWarshall {
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPath(s, t)) return null;
-        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new LinkedStack<>();
         for (DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.from()]) {
             path.push(e);
         }

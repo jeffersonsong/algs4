@@ -38,6 +38,7 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -130,7 +131,7 @@ public class PrimMST {
      *    an iterable of edges
      */
     public Iterable<Edge> edges() {
-        Queue<Edge> mst = new Queue<Edge>();
+        Queue<Edge> mst = new LinkedQueue<>();
         for (int v = 0; v < edgeTo.length; v++) {
             Edge e = edgeTo[v];
             if (e != null) {

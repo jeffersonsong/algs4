@@ -35,6 +35,7 @@
 
 package edu.princeton.cs.algs4.searching.applications;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
@@ -73,8 +74,8 @@ public class LookupIndex {
             String key = fields[0];
             for (int i = 1; i < fields.length; i++) {
                 String val = fields[i];
-                if (!st.contains(key)) st.put(key, new Queue<String>());
-                if (!ts.contains(val)) ts.put(val, new Queue<String>());
+                if (!st.contains(key)) st.put(key, new LinkedQueue<>());
+                if (!ts.contains(val)) ts.put(val, new LinkedQueue<>());
                 st.get(key).enqueue(val);
                 ts.get(val).enqueue(key);
             }

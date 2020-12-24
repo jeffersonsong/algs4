@@ -9,7 +9,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -95,7 +97,7 @@ public class EulerianPath {
         // the helper Edge data type is used to avoid exploring both copies of an edge v-w
         Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[G.V()];
         for (int v = 0; v < G.V(); v++)
-            adj[v] = new Queue<Edge>();
+            adj[v] = new LinkedQueue<>();
 
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
@@ -118,11 +120,11 @@ public class EulerianPath {
         }
 
         // initialize stack with any non-isolated vertex
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new LinkedStack<>();
         stack.push(s);
 
         // greedily search through edges in iterative DFS style
-        path = new Stack<Integer>();
+        path = new LinkedStack<>();
         while (!stack.isEmpty()) {
             int v = stack.pop();
             while (!adj[v].isEmpty()) {

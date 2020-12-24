@@ -29,6 +29,8 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
@@ -85,7 +87,7 @@ public class BellmanFordSP {
         distTo[s] = 0.0;
 
         // Bellman-Ford algorithm
-        queue = new Queue<Integer>();
+        queue = new LinkedQueue<>();
         queue.enqueue(s);
         onQueue[s] = true;
         while (!queue.isEmpty() && !hasNegativeCycle()) {
@@ -189,7 +191,7 @@ public class BellmanFordSP {
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPathTo(v)) return null;
-        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new LinkedStack<>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }

@@ -11,7 +11,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -102,7 +104,7 @@ public class HopcroftKarp {
                 if (isMatched(s) || !bipartition.color(s)) continue;   // or use distTo[s] == 0
 
                 // find augmenting path from s using nonrecursive DFS
-                Stack<Integer> path = new Stack<Integer>();
+                Stack<Integer> path = new LinkedStack<>();
                 path.push(s);
                 while (!path.isEmpty()) {
                     int v = path.peek();
@@ -189,7 +191,7 @@ public class HopcroftKarp {
             distTo[v] = Integer.MAX_VALUE;
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
-        Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new LinkedQueue<>();
         for (int v = 0; v < V; v++) {
             if (bipartition.color(v) && !isMatched(v)) {
                 queue.enqueue(v);

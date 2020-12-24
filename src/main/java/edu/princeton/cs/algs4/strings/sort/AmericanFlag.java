@@ -28,6 +28,7 @@
 
 package edu.princeton.cs.algs4.strings.sort;
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -78,7 +79,7 @@ public class AmericanFlag {
     // sort from a[lo] to a[hi], starting at the dth character
     public static void sort(String[] a, int lo, int hi) {
         // one-time allocation of data structures
-        Stack<Integer> st = new Stack<Integer>();
+        Stack<Integer> st = new LinkedStack<>();
         int[] first = new int[R+2];
         int[] next  = new int[R+2];
         int d = 0; // character index to sort by
@@ -175,7 +176,7 @@ public class AmericanFlag {
     // MSD sort from a[lo] to a[hi]
     private static void sort(int[] a, int lo, int hi) {
         // one-time allocation of data structures
-        Stack<Integer> st = new Stack<Integer>();
+        Stack<Integer> st = new LinkedStack<>();
         int[] first = new int[R+1];
         int[] next  = new int[R+1];
         int mask = R - 1;   // 0xFF;

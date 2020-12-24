@@ -51,14 +51,14 @@ import java.util.NoSuchElementException;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class LinkedBag<Item> implements Iterable<Item> {
+public class LinkedBag<Item> implements Bag<Item> {
     private Node first;    // beginning of bag
     private int n;         // number of elements in bag
 
     // helper linked list class
-    private class Node {
+    private static class Node<Item> {
         private Item item;
-        private Node next;
+        private Node<Item> next;
     }
 
     /**
@@ -90,8 +90,8 @@ public class LinkedBag<Item> implements Iterable<Item> {
      * @param item the item to add to this bag
      */
     public void add(Item item) {
-        Node oldfirst = first;
-        first = new Node();
+        Node<Item> oldfirst = first;
+        first = new Node<Item>();
         first.item = item;
         first.next = oldfirst;
         n++;
@@ -102,15 +102,14 @@ public class LinkedBag<Item> implements Iterable<Item> {
      * Returns an iterator that iterates over the items in the bag.
      */
     public Iterator<Item> iterator()  {
-        return new LinkedIterator();  
+        return new LinkedIterator(first);
     }
 
     // an iterator over a linked list
     private class LinkedIterator implements Iterator<Item> {
-        private Node current;
+        private Node<Item> current;
 
-        // creates a new iterator
-        public LinkedIterator() {
+        public LinkedIterator(Node<Item> first) {
             current = first;
         }
 

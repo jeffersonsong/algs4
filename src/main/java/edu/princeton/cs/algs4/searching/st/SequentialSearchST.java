@@ -26,6 +26,7 @@
 
 package edu.princeton.cs.algs4.searching.st;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -194,7 +195,7 @@ public class SequentialSearchST<Key, Value> {
      * @return all keys in the symbol table
      */
     public Iterable<Key> keys()  {
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         for (Node x = first; x != null; x = x.next)
             queue.enqueue(x.key);
         return queue;

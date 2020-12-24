@@ -13,6 +13,8 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -71,7 +73,7 @@ public class EdgeWeightedDigraph {
         this.indegree = new int[V];
         adj = (Bag<DirectedEdge>[]) new Bag[V];
         for (int v = 0; v < V; v++)
-            adj[v] = new Bag<DirectedEdge>();
+            adj[v] = new LinkedBag<>();
     }
 
     /**
@@ -114,7 +116,7 @@ public class EdgeWeightedDigraph {
             indegree = new int[V];
             adj = (Bag<DirectedEdge>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new Bag<DirectedEdge>();
+                adj[v] = new LinkedBag<>();
             }
 
             int E = in.readInt();
@@ -145,7 +147,7 @@ public class EdgeWeightedDigraph {
             this.indegree[v] = G.indegree(v);
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            Stack<DirectedEdge> reverse = new Stack<DirectedEdge>();
+            Stack<DirectedEdge> reverse = new LinkedStack<>();
             for (DirectedEdge e : G.adj[v]) {
                 reverse.push(e);
             }
@@ -243,7 +245,7 @@ public class EdgeWeightedDigraph {
      * @return all edges in this edge-weighted digraph, as an iterable
      */
     public Iterable<DirectedEdge> edges() {
-        Bag<DirectedEdge> list = new Bag<DirectedEdge>();
+        Bag<DirectedEdge> list = new LinkedBag<>();
         for (int v = 0; v < V; v++) {
             for (DirectedEdge e : adj(v)) {
                 list.add(e);

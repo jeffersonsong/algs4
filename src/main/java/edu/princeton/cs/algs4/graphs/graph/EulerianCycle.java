@@ -15,7 +15,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -49,7 +51,7 @@ import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianPath;
  *  @author Nate Liu
  */
 public class EulerianCycle {
-    private Stack<Integer> cycle = new Stack<Integer>();  // Eulerian cycle; null if no such cycle
+    private Stack<Integer> cycle = new LinkedStack<>();  // Eulerian cycle; null if no such cycle
 
     // an undirected edge, with a field to indicate whether the edge has already been used
     private static class Edge {
@@ -91,7 +93,7 @@ public class EulerianCycle {
         // the helper Edge data type is used to avoid exploring both copies of an edge v-w
         Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[G.V()];
         for (int v = 0; v < G.V(); v++)
-            adj[v] = new Queue<Edge>();
+            adj[v] = new LinkedQueue<>();
 
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
@@ -115,11 +117,11 @@ public class EulerianCycle {
 
         // initialize stack with any non-isolated vertex
         int s = nonIsolatedVertex(G);
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new LinkedStack<>();
         stack.push(s);
 
         // greedily search through edges in iterative DFS style
-        cycle = new Stack<Integer>();
+        cycle = new LinkedStack<>();
         while (!stack.isEmpty()) {
             int v = stack.pop();
             while (!adj[v].isEmpty()) {

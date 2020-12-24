@@ -20,6 +20,7 @@
 package edu.princeton.cs.algs4.sorting.pq;
 
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Transaction;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -65,7 +66,7 @@ public class TopM {
         }   // top m entries are on the PQ
 
         // print entries on PQ in reverse order
-        Stack<Transaction> stack = new Stack<Transaction>();
+        Stack<Transaction> stack = new LinkedStack<>();
         for (Transaction transaction : pq)
             stack.push(transaction);
         for (Transaction transaction : stack)

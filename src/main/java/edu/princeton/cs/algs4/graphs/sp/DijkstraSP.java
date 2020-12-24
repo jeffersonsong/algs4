@@ -32,6 +32,7 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -146,7 +147,7 @@ public class DijkstraSP {
     public Iterable<DirectedEdge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new LinkedStack<>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }

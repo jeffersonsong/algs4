@@ -23,7 +23,9 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -73,7 +75,7 @@ public class TarjanSCC {
      */
     public TarjanSCC(Digraph G) {
         marked = new boolean[G.V()];
-        stack = new Stack<Integer>();
+        stack = new LinkedStack<>();
         id = new int[G.V()]; 
         low = new int[G.V()];
         for (int v = 0; v < G.V(); v++) {
@@ -178,7 +180,7 @@ public class TarjanSCC {
         // compute list of vertices in each strong component
         Queue<Integer>[] components = (Queue<Integer>[]) new Queue[m];
         for (int i = 0; i < m; i++) {
-            components[i] = new Queue<Integer>();
+            components[i] = new LinkedQueue<>();
         }
         for (int v = 0; v < G.V(); v++) {
             components[scc.id(v)].enqueue(v);

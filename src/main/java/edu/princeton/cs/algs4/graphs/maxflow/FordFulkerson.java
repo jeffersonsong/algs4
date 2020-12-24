@@ -11,6 +11,7 @@
 
 package edu.princeton.cs.algs4.graphs.maxflow;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -126,7 +127,7 @@ public class FordFulkerson {
         marked = new boolean[G.V()];
 
         // breadth-first search
-        Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new LinkedQueue<>();
         queue.enqueue(s);
         marked[s] = true;
         while (!queue.isEmpty() && !marked[t]) {

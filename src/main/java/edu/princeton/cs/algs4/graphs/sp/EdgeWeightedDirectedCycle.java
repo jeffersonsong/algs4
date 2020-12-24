@@ -11,6 +11,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -81,7 +82,7 @@ public class EdgeWeightedDirectedCycle {
 
             // trace back directed cycle
             else if (onStack[w]) {
-                cycle = new Stack<DirectedEdge>();
+                cycle = new LinkedStack<>();
 
                 DirectedEdge f = e;
                 while (f.from() != w) {

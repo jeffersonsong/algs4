@@ -24,6 +24,7 @@
 package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -59,7 +60,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 public class BoruvkaMST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
-    private Bag<Edge> mst = new Bag<Edge>();    // edges in MST
+    private Bag<Edge> mst = new LinkedBag<>();    // edges in MST
     private double weight;                      // weight of MST
 
     /**

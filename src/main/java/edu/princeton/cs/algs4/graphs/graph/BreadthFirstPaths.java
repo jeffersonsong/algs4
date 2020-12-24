@@ -41,6 +41,8 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
@@ -111,7 +113,7 @@ public class BreadthFirstPaths {
 
     // breadth-first search from a single source
     private void bfs(Graph G, int s) {
-        Queue<Integer> q = new Queue<Integer>();
+        Queue<Integer> q = new LinkedQueue<>();
         for (int v = 0; v < G.V(); v++)
             distTo[v] = INFINITY;
         distTo[s] = 0;
@@ -133,7 +135,7 @@ public class BreadthFirstPaths {
 
     // breadth-first search from multiple sources
     private void bfs(Graph G, Iterable<Integer> sources) {
-        Queue<Integer> q = new Queue<Integer>();
+        Queue<Integer> q = new LinkedQueue<>();
         for (int s : sources) {
             marked[s] = true;
             distTo[s] = 0;
@@ -185,7 +187,7 @@ public class BreadthFirstPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<Integer> path = new Stack<Integer>();
+        Stack<Integer> path = new LinkedStack<>();
         int x;
         for (x = v; distTo[x] != 0; x = edgeTo[x])
             path.push(x);

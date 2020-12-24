@@ -22,6 +22,7 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -78,7 +79,7 @@ public class Cycle {
         for (int v = 0; v < G.V(); v++) {
             for (int w : G.adj(v)) {
                 if (v == w) {
-                    cycle = new Stack<Integer>();
+                    cycle = new LinkedStack<>();
                     cycle.push(v);
                     cycle.push(v);
                     return true;
@@ -98,7 +99,7 @@ public class Cycle {
             // check for parallel edges incident to v
             for (int w : G.adj(v)) {
                 if (marked[w]) {
-                    cycle = new Stack<Integer>();
+                    cycle = new LinkedStack<>();
                     cycle.push(v);
                     cycle.push(w);
                     cycle.push(v);
@@ -147,7 +148,7 @@ public class Cycle {
 
             // check for cycle (but disregard reverse of edge leading to v)
             else if (w != u) {
-                cycle = new Stack<Integer>();
+                cycle = new LinkedStack<>();
                 for (int x = v; x != w; x = edgeTo[x]) {
                     cycle.push(x);
                 }

@@ -25,6 +25,7 @@
 
 package edu.princeton.cs.algs4.searching.bst;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -612,7 +613,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table following an in-order traversal
      */
     public Iterable<Key> keysInOrder() {
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         keysInOrder(root, queue);
         return queue;
     }
@@ -636,9 +637,9 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table following a level-order traversal.
      */
     public Iterable<Key> keysLevelOrder() {
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         if (!isEmpty()) {
-            Queue<Node> queue2 = new Queue<Node>();
+            Queue<Node> queue2 = new LinkedQueue<>();
             queue2.enqueue(root);
             while (!queue2.isEmpty()) {
                 Node x = queue2.dequeue();
@@ -667,7 +668,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
     public Iterable<Key> keys(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         keys(root, queue, lo, hi);
         return queue;
     }

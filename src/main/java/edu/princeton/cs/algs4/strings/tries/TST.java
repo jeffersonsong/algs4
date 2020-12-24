@@ -38,6 +38,7 @@
 
 package edu.princeton.cs.algs4.strings.tries;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -196,7 +197,7 @@ public class TST<Value> {
      * @return all keys in the symbol table as an {@code Iterable}
      */
     public Iterable<String> keys() {
-        Queue<String> queue = new Queue<String>();
+        Queue<String> queue = new LinkedQueue<>();
         collect(root, new StringBuilder(), queue);
         return queue;
     }
@@ -212,7 +213,7 @@ public class TST<Value> {
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
-        Queue<String> queue = new Queue<String>();
+        Queue<String> queue = new LinkedQueue<>();
         Node<Value> x = get(root, prefix, 0);
         if (x == null) return queue;
         if (x.val != null) queue.enqueue(prefix);
@@ -239,7 +240,7 @@ public class TST<Value> {
      *     as an iterable, where . is treated as a wildcard character.
      */
     public Iterable<String> keysThatMatch(String pattern) {
-        Queue<String> queue = new Queue<String>();
+        Queue<String> queue = new LinkedQueue<>();
         collect(root, new StringBuilder(), 0, pattern, queue);
         return queue;
     }

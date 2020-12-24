@@ -11,6 +11,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
@@ -73,11 +74,11 @@ public class DirectedEulerianCycle {
 
         // initialize stack with any non-isolated vertex
         int s = nonIsolatedVertex(G);
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new LinkedStack<>();
         stack.push(s);
 
         // greedily add to putative cycle, depth-first search style
-        cycle = new Stack<Integer>();
+        cycle = new LinkedStack<>();
         while (!stack.isEmpty()) {
             int v = stack.pop();
             while (adj[v].hasNext()) {

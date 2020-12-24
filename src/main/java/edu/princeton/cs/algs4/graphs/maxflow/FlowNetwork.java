@@ -10,6 +10,7 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
 
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -56,7 +57,7 @@ public class FlowNetwork {
         this.E = 0;
         adj = (Bag<FlowEdge>[]) new Bag[V];
         for (int v = 0; v < V; v++)
-            adj[v] = new Bag<FlowEdge>();
+            adj[v] = new LinkedBag<>();
     }
 
     /**
@@ -155,7 +156,7 @@ public class FlowNetwork {
 
     // return list of all edges - excludes self loops
     public Iterable<FlowEdge> edges() {
-        Bag<FlowEdge> list = new Bag<FlowEdge>();
+        Bag<FlowEdge> list = new LinkedBag<>();
         for (int v = 0; v < V; v++)
             for (FlowEdge e : adj(v)) {
                 if (e.to() != v)

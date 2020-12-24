@@ -17,6 +17,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -81,7 +82,7 @@ public class DirectedCycle {
 
             // trace back directed cycle
             else if (onStack[w]) {
-                cycle = new Stack<Integer>();
+                cycle = new LinkedStack<>();
                 for (int x = v; x != w; x = edgeTo[x]) {
                     cycle.push(x);
                 }

@@ -29,6 +29,7 @@
 
 package edu.princeton.cs.algs4.searching.bst;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -591,7 +592,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table as an {@code Iterable}
      */
     public Iterable<Key> keys() {
-        if (isEmpty()) return new Queue<Key>();
+        if (isEmpty()) return new LinkedQueue<>();
         return keys(min(), max());
     }
 
@@ -610,7 +611,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
 
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
         keys(root, queue, lo, hi);
         return queue;

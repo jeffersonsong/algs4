@@ -10,6 +10,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
@@ -63,11 +64,11 @@ public class TopologicalX {
 
         // initialize 
         ranks = new int[G.V()]; 
-        order = new Queue<Integer>();
+        order = new LinkedQueue<>();
         int count = 0;
 
         // initialize queue to contain all vertices with indegree = 0
-        Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new LinkedQueue<>();
         for (int v = 0; v < G.V(); v++)
             if (indegree[v] == 0) queue.enqueue(v);
 
@@ -104,11 +105,11 @@ public class TopologicalX {
 
         // initialize 
         ranks = new int[G.V()]; 
-        order = new Queue<Integer>();
+        order = new LinkedQueue<>();
         int count = 0;
 
         // initialize queue to contain all vertices with indegree = 0
-        Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new LinkedQueue<>();
         for (int v = 0; v < G.V(); v++)
             if (indegree[v] == 0) queue.enqueue(v);
 

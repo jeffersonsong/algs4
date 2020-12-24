@@ -25,6 +25,7 @@
 
 package edu.princeton.cs.algs4.searching.bst;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -411,7 +412,7 @@ public class BST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table
      */
     public Iterable<Key> keys() {
-        if (isEmpty()) return new Queue<Key>();
+        if (isEmpty()) return new LinkedQueue<>();
         return keys(min(), max());
     }
 
@@ -430,7 +431,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
 
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         keys(root, queue, lo, hi);
         return queue;
     } 
@@ -482,8 +483,8 @@ public class BST<Key extends Comparable<Key>, Value> {
      * @return the keys in the BST in level order traversal
      */
     public Iterable<Key> levelOrder() {
-        Queue<Key> keys = new Queue<Key>();
-        Queue<Node> queue = new Queue<Node>();
+        Queue<Key> keys = new LinkedQueue<>();
+        Queue<Node> queue = new LinkedQueue<>();
         queue.enqueue(root);
         while (!queue.isEmpty()) {
             Node x = queue.dequeue();

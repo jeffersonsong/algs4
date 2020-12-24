@@ -10,6 +10,7 @@
 
 package edu.princeton.cs.algs4.searching.hashtable;
 
+import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -193,7 +194,7 @@ public class SeparateChainingHashST<Key, Value> {
 
     // return keys in symbol table as an Iterable
     public Iterable<Key> keys() {
-        Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new LinkedQueue<>();
         for (int i = 0; i < m; i++) {
             for (Key key : st[i].keys())
                 queue.enqueue(key);
