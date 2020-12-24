@@ -57,7 +57,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  case. The <em>count</em> operation takes &Theta;(1) time.
  *  <p>
  *  For alternative implementations of the same API, see
- *  {@link UF}, {@link QuickFindUF}, and {@link QuickUnionUF}.
+ *  {@link UFImpl}, {@link QuickFindUF}, and {@link QuickUnionUF}.
  *  For additional documentation, see
  *  <a href="https://algs4.cs.princeton.edu/15uf">Section 1.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
@@ -65,7 +65,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class WeightedQuickUnionUF {
+public class WeightedQuickUnionUF implements UF {
     private int[] parent;   // parent[i] = parent of i
     private int[] size;     // size[i] = number of elements in subtree rooted at i
     private int count;      // number of components

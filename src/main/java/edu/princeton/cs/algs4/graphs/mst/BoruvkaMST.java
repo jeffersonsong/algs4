@@ -25,7 +25,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
+import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
 /**
@@ -67,7 +67,7 @@ public class BoruvkaMST {
      * @param G the edge-weighted graph
      */
     public BoruvkaMST(EdgeWeightedGraph G) {
-        UF uf = new UF(G.V());
+        UFImpl uf = new UFImpl(G.V());
 
         // repeat at most log V times or until we have V-1 edges
         for (int t = 1; t < G.V() && mst.size() < G.V() - 1; t = t + t) {
@@ -139,7 +139,7 @@ public class BoruvkaMST {
         }
 
         // check that it is acyclic
-        UF uf = new UF(G.V());
+        UFImpl uf = new UFImpl(G.V());
         for (Edge e : edges()) {
             int v = e.either(), w = e.other(v);
             if (uf.find(v) == uf.find(w)) {
@@ -162,7 +162,7 @@ public class BoruvkaMST {
         for (Edge e : edges()) {
 
             // all edges in MST except e
-            uf = new UF(G.V());
+            uf = new UFImpl(G.V());
             for (Edge f : mst) {
                 int x = f.either(), y = f.other(x);
                 if (f != e) uf.union(x, y);

@@ -24,10 +24,10 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.sorting.pq.IndexMaxPQ;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
-import edu.princeton.cs.algs4.graphs.flow.FlowEdge;
-import edu.princeton.cs.algs4.graphs.flow.FlowNetwork;
-import edu.princeton.cs.algs4.graphs.flow.FordFulkerson;
+import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
+import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
+import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
+import edu.princeton.cs.algs4.graphs.maxflow.FordFulkerson;
 
 /**
  *  The {@code GlobalMincut} class represents a data type for computing a
@@ -151,7 +151,7 @@ public class GlobalMincut {
      * @param t the vertex {@code t}
      * @param uf the union-find data type
      */
-    private void makeCut(int t, UF uf) {
+    private void makeCut(int t, UFImpl uf) {
         for (int v = 0; v < cut.length; v++) {
             cut[v] = (uf.find(v) == uf.find(t));
         }
@@ -166,7 +166,7 @@ public class GlobalMincut {
      * @param a the starting vertex
      */
     private void minCut(EdgeWeightedGraph G, int a) {
-        UF uf = new UF(G.V());
+        UFImpl uf = new UFImpl(G.V());
         boolean[] marked = new boolean[G.V()];
         cut = new boolean[G.V()];
         CutPhase cp = new CutPhase(0.0, a, a);

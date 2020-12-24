@@ -43,14 +43,14 @@ import java.util.NoSuchElementException;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class LinkedStack<Item> implements Iterable<Item> {
+public class LinkedStack<Item> implements Stack<Item> {
     private int n;          // size of the stack
-    private Node first;     // top of stack
+    private Node<Item> first;     // top of stack
 
     // helper linked list class
-    private class Node {
+    private static class Node<Item> {
         private Item item;
-        private Node next;
+        private Node<Item> next;
     }
 
     /**
@@ -83,8 +83,8 @@ public class LinkedStack<Item> implements Iterable<Item> {
      * @param item the item to add
      */
     public void push(Item item) {
-        Node oldfirst = first;
-        first = new Node();
+        Node<Item> oldfirst = first;
+        first = new Node<Item>();
         first.item = item;
         first.next = oldfirst;
         n++;
@@ -104,7 +104,6 @@ public class LinkedStack<Item> implements Iterable<Item> {
         assert check();
         return item;                   // return the saved item
     }
-
 
     /**
      * Returns (but does not remove) the item most recently added to this stack.
@@ -137,7 +136,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     // an iterator, doesn't implement remove() since it's optional
     private class LinkedIterator implements Iterator<Item> {
-        private Node current = first;
+        private Node<Item> current = first;
         public boolean hasNext()  { return current != null;                     }
         public void remove()      { throw new UnsupportedOperationException();  }
 

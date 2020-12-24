@@ -39,7 +39,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.sorting.pq.MinPQ;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
+import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
 /**
@@ -86,7 +86,7 @@ public class KruskalMST {
         }
 
         // run greedy algorithm
-        UF uf = new UF(G.V());
+        UFImpl uf = new UFImpl(G.V());
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
             Edge e = pq.delMin();
             int v = e.either();
@@ -133,7 +133,7 @@ public class KruskalMST {
         }
 
         // check that it is acyclic
-        UF uf = new UF(G.V());
+        UFImpl uf = new UFImpl(G.V());
         for (Edge e : edges()) {
             int v = e.either(), w = e.other(v);
             if (uf.find(v) == uf.find(w)) {
@@ -156,7 +156,7 @@ public class KruskalMST {
         for (Edge e : edges()) {
 
             // all edges in MST except e
-            uf = new UF(G.V());
+            uf = new UFImpl(G.V());
             for (Edge f : mst) {
                 int x = f.either(), y = f.other(x);
                 if (f != e) uf.union(x, y);

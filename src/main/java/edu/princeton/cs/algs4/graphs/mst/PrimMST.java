@@ -41,7 +41,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
+import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
 /**
@@ -166,7 +166,7 @@ public class PrimMST {
         }
 
         // check that it is acyclic
-        UF uf = new UF(G.V());
+        UFImpl uf = new UFImpl(G.V());
         for (Edge e : edges()) {
             int v = e.either(), w = e.other(v);
             if (uf.find(v) == uf.find(w)) {
@@ -189,7 +189,7 @@ public class PrimMST {
         for (Edge e : edges()) {
 
             // all edges in MST except e
-            uf = new UF(G.V());
+            uf = new UFImpl(G.V());
             for (Edge f : edges()) {
                 int x = f.either(), y = f.other(x);
                 if (f != e) uf.union(x, y);

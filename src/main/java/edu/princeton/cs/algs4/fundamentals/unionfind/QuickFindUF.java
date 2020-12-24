@@ -56,7 +56,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  takes &Theta;(<em>n</em>) time.
  *  <p>
  *  For alternative implementations of the same API, see
- *  {@link UF}, {@link QuickUnionUF}, and {@link WeightedQuickUnionUF}.
+ *  {@link UFImpl}, {@link QuickUnionUF}, and {@link WeightedQuickUnionUF}.
  *  For additional documentation, see
  *  <a href="https://algs4.cs.princeton.edu/15uf">Section 1.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
@@ -65,7 +65,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 
-public class QuickFindUF {
+public class QuickFindUF implements UF {
     private int[] id;    // id[i] = component identifier of i
     private int count;   // number of components
 

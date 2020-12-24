@@ -3,7 +3,7 @@
  *  Execution:    java ResizingArrayStack < input.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/13stacks/tobe.txt
- *  
+ *
  *  Stack implementation with a resizing array.
  *
  *  % more tobe.txt 
@@ -19,6 +19,7 @@ package edu.princeton.cs.algs4.fundamentals.stack;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -33,7 +34,7 @@ import java.util.NoSuchElementException;
  *  when it is full and halves the underlying array when it is one-quarter full.
  *  The <em>push</em> and <em>pop</em> operations take constant amortized time.
  *  The <em>size</em>, <em>peek</em>, and <em>is-empty</em> operations takes
- *  constant time in the worst case. 
+ *  constant time in the worst case.
  *  <p>
  *  For additional documentation,
  *  see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
@@ -42,14 +43,12 @@ import java.util.NoSuchElementException;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class ResizingArrayStack<Item> implements Iterable<Item> {
-
+public class ResizingArrayStack<Item> implements Stack<Item> {
     // initial capacity of underlying resizing array
     private static final int INIT_CAPACITY = 8;
 
     private Item[] a;         // array of items
     private int n;            // number of elements on stack
-
 
     /**
      * Initializes an empty stack.
@@ -79,19 +78,8 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
     // resize the underlying array holding the elements
     private void resize(int capacity) {
         assert capacity >= n;
-
-        // textbook implementation
-        Item[] copy = (Item[]) new Object[capacity];
-        for (int i = 0; i < n; i++) {
-            copy[i] = a[i];
-        }
-        a = copy;
-
-       // alternative implementation
-       // a = java.util.Arrays.copyOf(a, capacity);
+        a = Arrays.copyOf(a, capacity);
     }
-
-
 
     /**
      * Adds the item to this stack.
@@ -157,7 +145,6 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
             return a[i--];
         }
     }
-
 
     /**
      * Unit tests the {@code Stack} data type.

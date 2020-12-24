@@ -1,22 +1,34 @@
 /******************************************************************************
- *  Compilation:  javac QuickUnionUF.java
- *  Execution:  java QuickUnionUF < input.txt
+ *  Compilation:  javac UF.java
+ *  Execution:    java UF < input.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/15uf/tinyUF.txt
  *                https://algs4.cs.princeton.edu/15uf/mediumUF.txt
  *                https://algs4.cs.princeton.edu/15uf/largeUF.txt
  *
- *  Quick-union algorithm.
+ *  Weighted quick-union by rank with path compression by halving.
+ *
+ *  % java UF < tinyUF.txt
+ *  4 3
+ *  3 8
+ *  6 5
+ *  9 4
+ *  2 1
+ *  5 0
+ *  7 2
+ *  6 1
+ *  2 components
  *
  ******************************************************************************/
 
 package edu.princeton.cs.algs4.fundamentals.unionfind;
 
+
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
- *  The {@code QuickUnionUF} class represents a <em>union–find data type</em>
+ *  The {@code UF} class represents a <em>union–find data type</em>
  *  (also known as the <em>disjoint-sets data type</em>).
  *  It supports the classic <em>union</em> and <em>find</em> operations,
  *  along with a <em>count</em> operation that returns the total number
@@ -48,40 +60,68 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  itself changes during a call to <em>union</em>&mdash;it cannot
  *  change during a call to either <em>find</em> or <em>count</em>.
  *  <p>
- *  This implementation uses <em>quick union</em>.
+ *  This implementation uses <em>weighted quick union by rank</em>
+ *  with <em>path compression by halving</em>.
  *  The constructor takes &Theta;(<em>n</em>) time, where
- *  <em>n</em> is the number of sites.
+ *  <em>n</em> is the number of elements.
  *  The <em>union</em> and <em>find</em> operations take
- *  &Theta;(<em>n</em>) time in the worst case.
+ *  &Theta;(log <em>n</em>) time in the worst case.
  *  The <em>count</em> operation takes &Theta;(1) time.
+ *  Moreover, starting from an empty data structure with <em>n</em> sites,
+ *  any intermixed sequence of <em>m</em> <em>union</em> and <em>find</em>
+ *  operations takes <em>O</em>(<em>m</em> &alpha;(<em>n</em>)) time,
+ *  where &alpha;(<em>n</em>) is the inverse of
+ *  <a href = "https://en.wikipedia.org/wiki/Ackermann_function#Inverse">Ackermann's function</a>.
  *  <p>
  *  For alternative implementations of the same API, see
- *  {@link UFImpl}, {@link QuickFindUF}, and {@link WeightedQuickUnionUF}.
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/15uf">Section 1.5</a> of
+ *  {@link QuickUnionUF}, {@link QuickFindUF}, and {@link WeightedQuickUnionUF}.
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/15uf">Section 1.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class QuickUnionUF implements UF {
+
+public class UFImpl implements UF {
+
     private int[] parent;  // parent[i] = parent of i
+    private byte[] rank;   // rank[i] = rank of subtree rooted at i (never more than 31)
     private int count;     // number of components
 
     /**
      * Initializes an empty union-find data structure with
-     * {@code n} elements {@code 0} through {@code n-1}. 
+     * {@code n} elements {@code 0} through {@code n-1}.
      * Initially, each elements is in its own set.
      *
      * @param  n the number of elements
      * @throws IllegalArgumentException if {@code n < 0}
      */
-    public QuickUnionUF(int n) {
-        parent = new int[n];
+    public UFImpl(int n) {
+        if (n < 0) throw new IllegalArgumentException();
         count = n;
+        parent = new int[n];
+        rank = new byte[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
+            rank[i] = 0;
         }
+    }
+
+    /**
+     * Returns the canonical element of the set containing element {@code p}.
+     *
+     * @param  p an element
+     * @return the canonical element of the set containing {@code p}
+     * @throws IllegalArgumentException unless {@code 0 <= p < n}
+     */
+    public int find(int p) {
+        validate(p);
+        while (p != parent[p]) {
+            parent[p] = parent[parent[p]];    // path compression by halving
+            p = parent[p];
+        }
+        return p;
     }
 
     /**
@@ -94,30 +134,8 @@ public class QuickUnionUF implements UF {
     }
   
     /**
-     * Returns the canonical element of the set containing element {@code p}.
-     *
-     * @param  p an element
-     * @return the canonical element of the set containing {@code p}
-     * @throws IllegalArgumentException unless {@code 0 <= p < n}
-     */
-    public int find(int p) {
-        validate(p);
-        while (p != parent[p])
-            p = parent[p];
-        return p;
-    }
-
-    // validate that p is a valid index
-    private void validate(int p) {
-        int n = parent.length;
-        if (p < 0 || p >= n) {
-            throw new IllegalArgumentException("index " + p + " is not between 0 and " + (n-1));
-        }
-    }
-
-    /**
      * Returns true if the two elements are in the same set.
-     * 
+     *
      * @param  p one element
      * @param  q the other element
      * @return {@code true} if {@code p} and {@code q} are in the same set;
@@ -130,7 +148,7 @@ public class QuickUnionUF implements UF {
     public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
-
+  
     /**
      * Merges the set containing element {@code p} with the 
      * the set containing element {@code q}.
@@ -144,8 +162,23 @@ public class QuickUnionUF implements UF {
         int rootP = find(p);
         int rootQ = find(q);
         if (rootP == rootQ) return;
-        parent[rootP] = rootQ; 
+
+        // make root of smaller rank point to root of larger rank
+        if      (rank[rootP] < rank[rootQ]) parent[rootP] = rootQ;
+        else if (rank[rootP] > rank[rootQ]) parent[rootQ] = rootP;
+        else {
+            parent[rootQ] = rootP;
+            rank[rootP]++;
+        }
         count--;
+    }
+
+    // validate that p is a valid index
+    private void validate(int p) {
+        int n = parent.length;
+        if (p < 0 || p >= n) {
+            throw new IllegalArgumentException("index " + p + " is not between 0 and " + (n-1));  
+        }
     }
 
     /**
@@ -154,12 +187,12 @@ public class QuickUnionUF implements UF {
      * in the pair represents some element;
      * if the elements are in different sets, merge the two sets
      * and print the pair to standard output.
-     * 
+     *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
         int n = StdIn.readInt();
-        QuickUnionUF uf = new QuickUnionUF(n);
+        UFImpl uf = new UFImpl(n);
         while (!StdIn.isEmpty()) {
             int p = StdIn.readInt();
             int q = StdIn.readInt();
@@ -169,9 +202,8 @@ public class QuickUnionUF implements UF {
         }
         StdOut.println(uf.count() + " components");
     }
-
-
 }
+
 
 /******************************************************************************
  *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.

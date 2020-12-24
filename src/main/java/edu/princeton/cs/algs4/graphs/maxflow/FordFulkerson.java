@@ -9,7 +9,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.flow;
+package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
