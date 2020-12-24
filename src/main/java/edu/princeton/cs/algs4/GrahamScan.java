@@ -26,6 +26,11 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.fundamentals.dataabstract.Point2D;
+import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.StdIn;
+import edu.princeton.cs.algs4.utils.StdOut;
+
 import java.util.Arrays;
 
 
