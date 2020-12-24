@@ -3,7 +3,9 @@ package edu.princeton.cs.algs4.strings.re;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class NFATest {
     private NFA nfa;

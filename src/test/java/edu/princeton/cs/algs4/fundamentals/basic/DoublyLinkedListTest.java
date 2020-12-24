@@ -11,7 +11,9 @@ import edu.princeton.cs.algs4.fundamentals.basic.DoublyLinkedList.Node;
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DoublyLinkedListTest {
     @Test

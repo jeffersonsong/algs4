@@ -6,7 +6,9 @@ import org.junit.Test;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public abstract class StackBaseTest {
     protected Stack<String> stack;

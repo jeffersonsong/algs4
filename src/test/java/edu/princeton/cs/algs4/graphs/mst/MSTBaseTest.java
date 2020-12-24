@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public abstract class MSTBaseTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(MSTBaseTest.class);

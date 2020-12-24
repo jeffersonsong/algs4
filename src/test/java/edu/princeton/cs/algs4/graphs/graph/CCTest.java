@@ -9,14 +9,13 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class CCTest {
-    private Graph G;
     private CC cc;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/tinyG.txt");
-        G = new GraphImpl(in);
-        cc = new CC(G);
+        Graph g = new GraphImpl(in);
+        cc = new CC(g);
     }
 
     @Test

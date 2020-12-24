@@ -11,7 +11,7 @@ import java.util.List;
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DigraphImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(DigraphImplTest.class);

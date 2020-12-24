@@ -8,7 +8,8 @@ import java.util.NoSuchElementException;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public abstract class QueueBaseTest {
     protected Queue<String> queue;

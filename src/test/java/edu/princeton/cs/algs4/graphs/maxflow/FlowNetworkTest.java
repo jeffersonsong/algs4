@@ -10,7 +10,7 @@ import java.util.List;
 
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FlowNetworkTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(FlowNetworkTest.class);

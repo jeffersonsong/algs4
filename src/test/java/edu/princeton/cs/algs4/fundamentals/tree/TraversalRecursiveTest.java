@@ -9,7 +9,7 @@ import java.util.List;
 import static edu.princeton.cs.algs4.fundamentals.tree.TraversalRecursive.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TraversalRecursiveTest {
     private TreeNode<Integer> root;

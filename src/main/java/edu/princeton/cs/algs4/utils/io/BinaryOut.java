@@ -193,7 +193,7 @@ public final class BinaryOut {
         writeByte((x >>> 24) & 0xff);
         writeByte((x >>> 16) & 0xff);
         writeByte((x >>>  8) & 0xff);
-        writeByte((x >>>  0) & 0xff);
+        writeByte((x) & 0xff);
     }
 
    /**
@@ -238,7 +238,7 @@ public final class BinaryOut {
         writeByte((int) ((x >>> 24) & 0xff));
         writeByte((int) ((x >>> 16) & 0xff));
         writeByte((int) ((x >>>  8) & 0xff));
-        writeByte((int) ((x >>>  0) & 0xff));
+        writeByte((int) ((x) & 0xff));
     }
 
    /**
@@ -255,7 +255,7 @@ public final class BinaryOut {
      */
     public void write(short x) {
         writeByte((x >>>  8) & 0xff);
-        writeByte((x >>>  0) & 0xff);
+        writeByte((x) & 0xff);
     }
 
    /**

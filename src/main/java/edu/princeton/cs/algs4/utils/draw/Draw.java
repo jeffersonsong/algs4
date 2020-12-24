@@ -231,7 +231,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     private JLabel draw;
 
     // double buffered graphics
-    private BufferedImage offscreenImage, onscreenImage;
+    private BufferedImage offscreenImage;
     private Graphics2D offscreen, onscreen;
 
     // the frame for drawing to the screen
@@ -271,7 +271,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         if (frame != null) frame.setVisible(false);
         frame = new JFrame();
         offscreenImage = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
-        onscreenImage  = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage onscreenImage = new BufferedImage(2 * width, 2 * height, BufferedImage.TYPE_INT_ARGB);
         offscreen = offscreenImage.createGraphics();
         onscreen  = onscreenImage.createGraphics();
         offscreen.scale(2.0, 2.0);  // since we made it 2x as big
