@@ -222,8 +222,7 @@ public class MSD {
         String[] a = StdIn.readAllStrings();
         int n = a.length;
         sort(a);
-        for (int i = 0; i < n; i++)
-            StdOut.println(a[i]);
+        for (String s : a) StdOut.println(s);
     }
 }
 

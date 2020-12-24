@@ -89,8 +89,8 @@ public class StdArrayIO {
     public static void print(double[] a) {
         int n = a.length;
         StdOut.println(n);
-        for (int i = 0; i < n; i++) {
-            StdOut.printf("%9.5f ", a[i]);
+        for (double v : a) {
+            StdOut.printf("%9.5f ", v);
         }
         StdOut.println();
     }
@@ -122,9 +122,9 @@ public class StdArrayIO {
         int m = a.length;
         int n = a[0].length;
         StdOut.println(m + " " + n);
-        for (int i = 0; i < m; i++) {
+        for (double[] doubles : a) {
             for (int j = 0; j < n; j++) {
-                StdOut.printf("%9.5f ", a[i][j]);
+                StdOut.printf("%9.5f ", doubles[j]);
             }
             StdOut.println();
         }
@@ -153,8 +153,8 @@ public class StdArrayIO {
     public static void print(int[] a) {
         int n = a.length;
         StdOut.println(n);
-        for (int i = 0; i < n; i++) {
-            StdOut.printf("%9d ", a[i]);
+        for (int j : a) {
+            StdOut.printf("%9d ", j);
         }
         StdOut.println();
     }
@@ -186,9 +186,9 @@ public class StdArrayIO {
         int m = a.length;
         int n = a[0].length;
         StdOut.println(m + " " + n);
-        for (int i = 0; i < m; i++) {
+        for (int[] ints : a) {
             for (int j = 0; j < n; j++) {
-                StdOut.printf("%9d ", a[i][j]);
+                StdOut.printf("%9d ", ints[j]);
             }
             StdOut.println();
         }
@@ -217,9 +217,9 @@ public class StdArrayIO {
     public static void print(boolean[] a) {
         int n = a.length;
         StdOut.println(n);
-        for (int i = 0; i < n; i++) {
-            if (a[i]) StdOut.print("1 ");
-            else      StdOut.print("0 ");
+        for (boolean b : a) {
+            if (b) StdOut.print("1 ");
+            else StdOut.print("0 ");
         }
         StdOut.println();
     }
@@ -250,10 +250,10 @@ public class StdArrayIO {
         int m = a.length;
         int n = a[0].length;
         StdOut.println(m + " " + n);
-        for (int i = 0; i < m; i++) {
+        for (boolean[] booleans : a) {
             for (int j = 0; j < n; j++) {
-                if (a[i][j]) StdOut.print("1 ");
-                else         StdOut.print("0 ");
+                if (booleans[j]) StdOut.print("1 ");
+                else StdOut.print("0 ");
             }
             StdOut.println();
         }

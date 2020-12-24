@@ -188,9 +188,7 @@ public class Interval1D {
         public int compare(Interval1D a, Interval1D b) {
             if      (a.min < b.min) return -1;
             else if (a.min > b.min) return +1;
-            else if (a.max < b.max) return -1;
-            else if (a.max > b.max) return +1;
-            else                    return  0;
+            else return Double.compare(a.max, b.max);
         }
     }
 
@@ -199,9 +197,7 @@ public class Interval1D {
         public int compare(Interval1D a, Interval1D b) {
             if      (a.max < b.max) return -1;
             else if (a.max > b.max) return +1;
-            else if (a.min < b.min) return -1;
-            else if (a.min > b.min) return +1;
-            else                    return  0;
+            else return Double.compare(a.min, b.min);
         }
     }
 
@@ -210,9 +206,7 @@ public class Interval1D {
         public int compare(Interval1D a, Interval1D b) {
             double alen = a.length();
             double blen = b.length();
-            if      (alen < blen) return -1;
-            else if (alen > blen) return +1;
-            else                  return  0;
+            return Double.compare(alen, blen);
         }
     }
 
@@ -232,26 +226,22 @@ public class Interval1D {
         intervals[3] = new Interval1D(46.0, 55.0);
 
         StdOut.println("Unsorted");
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
+        for (Interval1D value : intervals) StdOut.println(value);
         StdOut.println();
         
         StdOut.println("Sort by min endpoint");
         Arrays.sort(intervals, Interval1D.MIN_ENDPOINT_ORDER);
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
+        for (Interval1D d : intervals) StdOut.println(d);
         StdOut.println();
 
         StdOut.println("Sort by max endpoint");
         Arrays.sort(intervals, Interval1D.MAX_ENDPOINT_ORDER);
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
+        for (Interval1D interval1D : intervals) StdOut.println(interval1D);
         StdOut.println();
 
         StdOut.println("Sort by length");
         Arrays.sort(intervals, Interval1D.LENGTH_ORDER);
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
+        for (Interval1D interval : intervals) StdOut.println(interval);
         StdOut.println();
     }
 }

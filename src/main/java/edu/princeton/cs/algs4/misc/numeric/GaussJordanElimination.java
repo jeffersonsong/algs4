@@ -273,15 +273,15 @@ public class GaussJordanElimination {
         if (gaussian.isFeasible()) {
             StdOut.println("Solution to Ax = b");
             double[] x = gaussian.primal();
-            for (int i = 0; i < x.length; i++) {
-                StdOut.printf("%10.6f\n", x[i]);
+            for (double v : x) {
+                StdOut.printf("%10.6f\n", v);
             }
         }
         else {
             StdOut.println("Certificate of infeasibility");
             double[] y = gaussian.dual();
-            for (int j = 0; j < y.length; j++) {
-                StdOut.printf("%10.6f\n", y[j]);
+            for (double v : y) {
+                StdOut.printf("%10.6f\n", v);
             }
         }
         StdOut.println();

@@ -176,8 +176,7 @@ public class AmericanFlagX {
         String[] a = StdIn.readAllStrings();
         sort(a);
         // print results
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
+        for (String s : a) StdOut.println(s);
     }
 }
 

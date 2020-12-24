@@ -83,8 +83,7 @@ public class Huffman {
 
         // tabulate frequency counts
         int[] freq = new int[R];
-        for (int i = 0; i < input.length; i++)
-            freq[input[i]]++;
+        for (char value : input) freq[value]++;
 
         // build Huffman trie
         Node root = buildTrie(freq);
@@ -100,16 +99,14 @@ public class Huffman {
         BinaryStdOut.write(input.length);
 
         // use Huffman code to encode input
-        for (int i = 0; i < input.length; i++) {
-            String code = st[input[i]];
+        for (char c : input) {
+            String code = st[c];
             for (int j = 0; j < code.length(); j++) {
                 if (code.charAt(j) == '0') {
                     BinaryStdOut.write(false);
-                }
-                else if (code.charAt(j) == '1') {
+                } else if (code.charAt(j) == '1') {
                     BinaryStdOut.write(true);
-                }
-                else throw new IllegalStateException("Illegal state");
+                } else throw new IllegalStateException("Illegal state");
             }
         }
 

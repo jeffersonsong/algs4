@@ -65,16 +65,14 @@ public class LSD {
 
             // compute frequency counts
             int[] count = new int[R+1];
-            for (int i = 0; i < n; i++)
-                count[a[i].charAt(d) + 1]++;
+            for (String value : a) count[value.charAt(d) + 1]++;
 
             // compute cumulates
             for (int r = 0; r < R; r++)
                 count[r+1] += count[r];
 
             // move data
-            for (int i = 0; i < n; i++)
-                aux[count[a[i].charAt(d)]++] = a[i];
+            for (String s : a) aux[count[s.charAt(d)]++] = s;
 
             // copy back
             for (int i = 0; i < n; i++)
@@ -101,8 +99,8 @@ public class LSD {
 
             // compute frequency counts
             int[] count = new int[R+1];
-            for (int i = 0; i < n; i++) {           
-                int c = (a[i] >> BITS_PER_BYTE*d) & MASK;
+            for (int k : a) {
+                int c = (k >> BITS_PER_BYTE * d) & MASK;
                 count[c + 1]++;
             }
 
@@ -121,9 +119,9 @@ public class LSD {
             }
 
             // move data
-            for (int i = 0; i < n; i++) {
-                int c = (a[i] >> BITS_PER_BYTE*d) & MASK;
-                aux[count[c]++] = a[i];
+            for (int j : a) {
+                int c = (j >> BITS_PER_BYTE * d) & MASK;
+                aux[count[c]++] = j;
             }
 
             // copy back
@@ -145,15 +143,13 @@ public class LSD {
 
         // check that strings have fixed length
         int w = a[0].length();
-        for (int i = 0; i < n; i++)
-            assert a[i].length() == w : "Strings must have fixed length";
+        for (String value : a) assert value.length() == w : "Strings must have fixed length";
 
         // sort the strings
         sort(a, w);
 
         // print results
-        for (int i = 0; i < n; i++)
-            StdOut.println(a[i]);
+        for (String s : a) StdOut.println(s);
     }
 }
 

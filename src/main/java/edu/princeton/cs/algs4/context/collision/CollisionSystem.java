@@ -58,10 +58,10 @@ public class CollisionSystem {
         if (a == null) return;
 
         // particle-particle collisions
-        for (int i = 0; i < particles.length; i++) {
-            double dt = a.timeToHit(particles[i]);
+        for (Particle particle : particles) {
+            double dt = a.timeToHit(particle);
             if (t + dt <= limit)
-                pq.insert(new Event(t + dt, a, particles[i]));
+                pq.insert(new Event(t + dt, a, particle));
         }
 
         // particle-wall collisions
@@ -74,8 +74,8 @@ public class CollisionSystem {
     // redraw all particles
     private void redraw(double limit) {
         StdDraw.clear();
-        for (int i = 0; i < particles.length; i++) {
-            particles[i].draw();
+        for (Particle particle : particles) {
+            particle.draw();
         }
         StdDraw.show();
         StdDraw.pause(20);
@@ -94,8 +94,8 @@ public class CollisionSystem {
         
         // initialize PQ with collision events and redraw event
         pq = new MinPQ<>();
-        for (int i = 0; i < particles.length; i++) {
-            predict(particles[i], limit);
+        for (Particle value : particles) {
+            predict(value, limit);
         }
         pq.insert(new Event(0, null, null));        // redraw event
 
@@ -110,8 +110,7 @@ public class CollisionSystem {
             Particle b = e.b;
 
             // physical collision, so update positions, and then simulation clock
-            for (int i = 0; i < particles.length; i++)
-                particles[i].move(e.time - t);
+            for (Particle particle : particles) particle.move(e.time - t);
             t = e.time;
 
             // process event

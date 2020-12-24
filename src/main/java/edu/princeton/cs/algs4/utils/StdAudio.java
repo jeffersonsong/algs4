@@ -184,8 +184,8 @@ public final class StdAudio {
      */
     public static void play(double[] samples) {
         if (samples == null) throw new IllegalArgumentException("argument to play() is null");
-        for (int i = 0; i < samples.length; i++) {
-            play(samples[i]);
+        for (double sample : samples) {
+            play(sample);
         }
     }
 
@@ -350,10 +350,10 @@ public final class StdAudio {
                 line.write(samples, 0, count);
             }
         }
-        catch (IOException e) {
+        catch (LineUnavailableException e) {
             e.printStackTrace();
         }
-        catch (LineUnavailableException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
         finally {
@@ -381,10 +381,7 @@ public final class StdAudio {
             clip.open(ais);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
-        catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        catch (IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
 
@@ -438,8 +435,8 @@ public final class StdAudio {
         
         // scale increments
         int[] steps = { 0, 2, 4, 5, 7, 9, 11, 12 };
-        for (int i = 0; i < steps.length; i++) {
-            double hz = 440.0 * Math.pow(2, steps[i] / 12.0);
+        for (int step : steps) {
+            double hz = 440.0 * Math.pow(2, step / 12.0);
             StdAudio.play(note(hz, 1.0, 0.5));
         }
 

@@ -149,8 +149,7 @@ public class Quick3string {
         sort(a);
 
         // print the results
-        for (int i = 0; i < n; i++)
-            StdOut.println(a[i]);
+        for (String s : a) StdOut.println(s);
     }
 }
 

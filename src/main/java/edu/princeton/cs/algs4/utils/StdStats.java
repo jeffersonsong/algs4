@@ -65,9 +65,9 @@ public final class StdStats {
         validateNotNull(a);
 
         double max = Double.NEGATIVE_INFINITY;
-        for (int i = 0; i < a.length; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] > max) max = a[i];
+        for (double v : a) {
+            if (Double.isNaN(v)) return Double.NaN;
+            if (v > max) max = v;
         }
         return max;
     }
@@ -106,8 +106,8 @@ public final class StdStats {
         validateNotNull(a);
 
         int max = Integer.MIN_VALUE;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] > max) max = a[i];
+        for (int j : a) {
+            if (j > max) max = j;
         }
         return max;
     }
@@ -123,9 +123,9 @@ public final class StdStats {
         validateNotNull(a);
 
         double min = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < a.length; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] < min) min = a[i];
+        for (double v : a) {
+            if (Double.isNaN(v)) return Double.NaN;
+            if (v < min) min = v;
         }
         return min;
     }
@@ -164,8 +164,8 @@ public final class StdStats {
         validateNotNull(a);
 
         int min = Integer.MAX_VALUE;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] < min) min = a[i];
+        for (int j : a) {
+            if (j < min) min = j;
         }
         return min;
     }
@@ -235,8 +235,8 @@ public final class StdStats {
         if (a.length == 0) return Double.NaN;
         double avg = mean(a);
         double sum = 0.0;
-        for (int i = 0; i < a.length; i++) {
-            sum += (a[i] - avg) * (a[i] - avg);
+        for (double v : a) {
+            sum += (v - avg) * (v - avg);
         }
         return sum / (a.length - 1);
     }
@@ -279,8 +279,8 @@ public final class StdStats {
         if (a.length == 0) return Double.NaN;
         double avg = mean(a);
         double sum = 0.0;
-        for (int i = 0; i < a.length; i++) {
-            sum += (a[i] - avg) * (a[i] - avg);
+        for (int j : a) {
+            sum += (j - avg) * (j - avg);
         }
         return sum / (a.length - 1);
     }
@@ -297,8 +297,8 @@ public final class StdStats {
         if (a.length == 0) return Double.NaN;
         double avg = mean(a);
         double sum = 0.0;
-        for (int i = 0; i < a.length; i++) {
-            sum += (a[i] - avg) * (a[i] - avg);
+        for (double v : a) {
+            sum += (v - avg) * (v - avg);
         }
         return sum / a.length;
     }
@@ -412,8 +412,8 @@ public final class StdStats {
     private static double sum(double[] a) {
         validateNotNull(a);
         double sum = 0.0;
-        for (int i = 0; i < a.length; i++) {
-            sum += a[i];
+        for (double v : a) {
+            sum += v;
         }
         return sum;
     }
@@ -450,8 +450,8 @@ public final class StdStats {
     private static int sum(int[] a) {
         validateNotNull(a);
         int sum = 0;
-        for (int i = 0; i < a.length; i++) {
-            sum += a[i];
+        for (int j : a) {
+            sum += j;
         }
         return sum;
     }

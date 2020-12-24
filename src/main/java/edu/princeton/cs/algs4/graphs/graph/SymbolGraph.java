@@ -92,9 +92,9 @@ public class SymbolGraph {
         // while (in.hasNextLine()) {
         while (!in.isEmpty()) {
             String[] a = in.readLine().split(delimiter);
-            for (int i = 0; i < a.length; i++) {
-                if (!st.contains(a[i]))
-                    st.put(a[i], st.size());
+            for (String s : a) {
+                if (!st.contains(s))
+                    st.put(s, st.size());
             }
         }
 

@@ -209,8 +209,8 @@ public class GaussianElimination {
         GaussianElimination gaussian = new GaussianElimination(A, b);
         double[] x = gaussian.primal();
         if (gaussian.isFeasible()) {
-            for (int i = 0; i < x.length; i++) {
-                StdOut.printf("%.6f\n", x[i]);
+            for (double v : x) {
+                StdOut.printf("%.6f\n", v);
             }
         }
         else {

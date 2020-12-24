@@ -144,9 +144,7 @@ public class Date implements Comparable<Date> {
         if (this.year  > that.year)  return +1;
         if (this.month < that.month) return -1;
         if (this.month > that.month) return +1;
-        if (this.day   < that.day)   return -1;
-        if (this.day   > that.day)   return +1;
-        return 0;
+        return Integer.compare(this.day, that.day);
     }
 
     /**

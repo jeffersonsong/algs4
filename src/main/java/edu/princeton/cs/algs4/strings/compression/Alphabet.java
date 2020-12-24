@@ -232,8 +232,7 @@ public class Alphabet {
      */
     public String toChars(int[] indices) {
         StringBuilder s = new StringBuilder(indices.length);
-        for (int i = 0; i < indices.length; i++)
-            s.append(toChar(indices[i]));
+        for (int index : indices) s.append(toChar(index));
         return s.toString();
     }
 
