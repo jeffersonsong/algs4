@@ -30,6 +30,8 @@
 
 package edu.princeton.cs.algs4.searching.applications;
 
+import edu.princeton.cs.algs4.fundamentals.set.SET;
+import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -53,7 +55,7 @@ public class BlockFilter {
     private BlockFilter() { }
 
     public static void main(String[] args) {
-        SET<String> set = new SET<String>();
+        SET<String> set = new SETImpl<String>();
 
         // read in strings and add to set
         In in = new In(args[0]);

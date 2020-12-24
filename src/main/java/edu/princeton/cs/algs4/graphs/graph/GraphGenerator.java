@@ -12,8 +12,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.set.SET;
 import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.searching.applications.SET;
+import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -68,7 +69,7 @@ public class GraphGenerator {
         if (E > (long) V*(V-1)/2) throw new IllegalArgumentException("Too many edges");
         if (E < 0)                throw new IllegalArgumentException("Too few edges");
         Graph G = new Graph(V);
-        SET<Edge> set = new SET<Edge>();
+        SET<Edge> set = new SETImpl<Edge>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -142,7 +143,7 @@ public class GraphGenerator {
             vertices[i] = i;
         StdRandom.shuffle(vertices);
 
-        SET<Edge> set = new SET<Edge>();
+        SET<Edge> set = new SETImpl<Edge>();
         while (G.E() < E) {
             int i = StdRandom.uniform(V1);
             int j = V1 + StdRandom.uniform(V2);

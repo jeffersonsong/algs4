@@ -13,7 +13,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.searching.applications;
+package edu.princeton.cs.algs4.fundamentals.set;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -51,13 +51,13 @@ import java.util.TreeSet;
  *  @param <Key> the generic type of a key in this set
  */
 
-public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
+public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
     private TreeSet<Key> set;
 
     /**
      * Initializes an empty set.
      */
-    public SET() {
+    public SETImpl() {
         set = new TreeSet<Key>();
     }
 
@@ -66,8 +66,11 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      *
      * @param x the set to copy
      */
-    public SET(SET<Key> x) {
-        set = new TreeSet<Key>(x.set);
+    public SETImpl(SET<Key> x) {
+        this();
+        for (Key item : x){
+            add(item);
+        }
     }
 
     /**
@@ -80,7 +83,6 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
         if (key == null) throw new IllegalArgumentException("called add() with a null key");
         set.add(key);
     }
-
 
     /**
      * Returns true if this set contains the given key.
@@ -209,9 +211,9 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * @return the union of this set and that set
      * @throws IllegalArgumentException if {@code that} is {@code null}
      */
-    public SET<Key> union(SET<Key> that) {
+    public SETImpl<Key> union(SET<Key> that) {
         if (that == null) throw new IllegalArgumentException("called union() with a null argument");
-        SET<Key> c = new SET<Key>();
+        SETImpl<Key> c = new SETImpl<Key>();
         for (Key x : this) {
             c.add(x);
         }
@@ -228,9 +230,9 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * @return the intersection of this set and that set
      * @throws IllegalArgumentException if {@code that} is {@code null}
      */
-    public SET<Key> intersects(SET<Key> that) {
+    public SETImpl<Key> intersects(SET<Key> that) {
         if (that == null) throw new IllegalArgumentException("called intersects() with a null argument");
-        SET<Key> c = new SET<Key>();
+        SETImpl<Key> c = new SETImpl<Key>();
         if (this.size() < that.size()) {
             for (Key x : this) {
                 if (that.contains(x)) c.add(x);
@@ -261,7 +263,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
         if (other == this) return true;
         if (other == null) return false;
         if (other.getClass() != this.getClass()) return false;
-        SET that = (SET) other;
+        SETImpl that = (SETImpl) other;
         return this.set.equals(that.set);
     }
 
@@ -294,7 +296,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        SET<String> set = new SET<String>();
+        SETImpl<String> set = new SETImpl<String>();
         StdOut.println("set = " + set);
 
         // insert some keys
@@ -340,7 +342,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
         }
 
         StdOut.println();
-        SET<String> set2 = new SET<String>(set);
+        SETImpl<String> set2 = new SETImpl<String>(set);
         StdOut.println(set.equals(set2));
     }
 

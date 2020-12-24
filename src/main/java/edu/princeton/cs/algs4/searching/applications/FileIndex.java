@@ -27,6 +27,8 @@
 
 package edu.princeton.cs.algs4.searching.applications;
 
+import edu.princeton.cs.algs4.fundamentals.set.SET;
+import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -53,7 +55,7 @@ public class FileIndex {
     public static void main(String[] args) {
 
         // key = word, value = set of files containing that word
-        ST<String, SET<File>> st = new ST<String, SET<File>>();
+        ST<String, SET<File>> st = new ST<>();
 
         // create inverted index of all files
         StdOut.println("Indexing files");
@@ -63,12 +65,11 @@ public class FileIndex {
             In in = new In(file);
             while (!in.isEmpty()) {
                 String word = in.readString();
-                if (!st.contains(word)) st.put(word, new SET<File>());
+                if (!st.contains(word)) st.put(word, new SETImpl<>());
                 SET<File> set = st.get(word);
                 set.add(file);
             }
         }
-
 
         // read queries from standard input, one per line
         while (!StdIn.isEmpty()) {
