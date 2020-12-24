@@ -268,23 +268,23 @@ public class EulerianPath {
         unitTest(G2, "Eulerian path");
 
         // add one random edge
-        Graph G3 = new Graph(G2);
+        Graph G3 = new GraphImpl(G2);
         G3.addEdge(StdRandom.uniform(V), StdRandom.uniform(V));
         unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
-        Graph G4 = new Graph(V);
+        Graph G4 = new GraphImpl(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
 
         // single edge
-        Graph G5 = new Graph(V);
+        Graph G5 = new GraphImpl(V);
         G5.addEdge(StdRandom.uniform(V), StdRandom.uniform(V));
         unitTest(G5, "single edge");
 
         // empty graph
-        Graph G6 = new Graph(V);
+        Graph G6 = new GraphImpl(V);
         unitTest(G6, "empty graph");
 
         // random graph

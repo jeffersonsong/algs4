@@ -216,7 +216,7 @@ public class CC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = new Graph(in);
+        Graph G = new GraphImpl(in);
         CC cc = new CC(G);
 
         // number of connected components

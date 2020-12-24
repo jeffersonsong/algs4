@@ -269,11 +269,11 @@ public class EulerianCycle {
         unitTest(G2, "Eulerian path");
 
         // empty graph
-        Graph G3 = new Graph(V);
+        Graph G3 = new GraphImpl(V);
         unitTest(G3, "empty graph");
 
         // self loop
-        Graph G4 = new Graph(V);
+        Graph G4 = new GraphImpl(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
@@ -285,7 +285,7 @@ public class EulerianCycle {
         for (int i = 0; i < V; i++)
             perm[i] = i;
         StdRandom.shuffle(perm);
-        Graph G5 = new Graph(V);
+        Graph G5 = new GraphImpl(V);
         for (int v = 0; v < H1.V(); v++)
             for (int w : H1.adj(v))
                 G5.addEdge(perm[v], perm[w]);

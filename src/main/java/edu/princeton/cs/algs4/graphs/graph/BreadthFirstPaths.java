@@ -267,7 +267,7 @@ public class BreadthFirstPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = new Graph(in);
+        Graph G = new GraphImpl(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);

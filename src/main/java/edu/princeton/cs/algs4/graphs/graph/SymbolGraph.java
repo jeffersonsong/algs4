@@ -107,7 +107,7 @@ public class SymbolGraph {
 
         // second pass builds the graph by connecting first vertex on each
         // line to all others
-        graph = new Graph(st.size());
+        graph = new GraphImpl(st.size());
         in = new In(filename);
         while (in.hasNextLine()) {
             String[] a = in.readLine().split(delimiter);

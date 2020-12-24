@@ -13,11 +13,8 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
-import edu.princeton.cs.algs4.graphs.graph.EulerianCycle;
-import edu.princeton.cs.algs4.graphs.graph.EulerianPath;
-import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -157,7 +154,7 @@ public class DirectedEulerianPath {
         if (deficit > 1) return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
-        Graph H = new Graph(G.V());
+        Graph H = new GraphImpl(G.V());
         for (int v = 0; v < G.V(); v++)
             for (int w : G.adj(v))
                 H.addEdge(v, w);
