@@ -9,7 +9,7 @@
 
 package edu.princeton.cs.algs4.graphs.flow;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code FlowEdge} class represents a capacitated edge with a 

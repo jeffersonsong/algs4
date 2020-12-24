@@ -30,9 +30,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.utils.In;
+import edu.princeton.cs.algs4.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code DepthFirstPaths} class represents a data type for finding

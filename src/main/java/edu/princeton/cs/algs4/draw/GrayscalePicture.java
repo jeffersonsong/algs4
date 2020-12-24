@@ -20,7 +20,10 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.utils;
+package edu.princeton.cs.algs4.draw;
+
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 import java.awt.Color;
 import java.awt.FileDialog;

@@ -34,8 +34,8 @@
 package edu.princeton.cs.algs4.strings.compression;
 
 
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code Count} class provides an {@link Alphabet} client for reading

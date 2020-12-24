@@ -9,7 +9,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code DirectedEdge} class represents a weighted edge in an 

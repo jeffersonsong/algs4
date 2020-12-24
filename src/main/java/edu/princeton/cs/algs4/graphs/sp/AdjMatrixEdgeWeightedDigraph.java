@@ -10,7 +10,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.Iterator;

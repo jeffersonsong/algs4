@@ -24,8 +24,8 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code Arbitrage} class provides a client that finds an arbitrage

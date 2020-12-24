@@ -23,8 +23,8 @@
 package edu.princeton.cs.algs4.strings.compression;
 
 import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.utils.BinaryStdIn;
-import edu.princeton.cs.algs4.utils.BinaryStdOut;
+import edu.princeton.cs.algs4.io.BinaryStdIn;
+import edu.princeton.cs.algs4.io.BinaryStdOut;
 
 /**
  *  The {@code Huffman} class provides static methods for compressing

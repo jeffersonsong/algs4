@@ -9,8 +9,8 @@
 
 package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
-import edu.princeton.cs.algs4.utils.StdDraw;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.draw.StdDraw;
+import edu.princeton.cs.algs4.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 /**

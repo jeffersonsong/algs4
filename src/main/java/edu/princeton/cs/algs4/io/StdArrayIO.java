@@ -46,7 +46,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.utils;
+package edu.princeton.cs.algs4.io;
 
 
 /**

@@ -26,8 +26,8 @@
 
 package edu.princeton.cs.algs4.searching.st;
 
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code FrequencyCounter} class provides a client for 

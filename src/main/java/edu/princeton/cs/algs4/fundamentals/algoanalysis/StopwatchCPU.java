@@ -14,7 +14,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.algoanalysis;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 import java.lang.management.ThreadMXBean;
 import java.lang.management.ManagementFactory;

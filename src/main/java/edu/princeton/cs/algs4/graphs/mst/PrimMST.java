@@ -40,9 +40,9 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
-import edu.princeton.cs.algs4.utils.In;
+import edu.princeton.cs.algs4.io.In;
 
 /**
  *  The {@code PrimMST} class represents a data type for computing a

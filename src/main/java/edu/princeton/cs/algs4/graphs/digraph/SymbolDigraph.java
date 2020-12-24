@@ -18,10 +18,10 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.utils.In;
+import edu.princeton.cs.algs4.io.In;
 import edu.princeton.cs.algs4.searching.st.ST;
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code SymbolDigraph} class represents a digraph, where the

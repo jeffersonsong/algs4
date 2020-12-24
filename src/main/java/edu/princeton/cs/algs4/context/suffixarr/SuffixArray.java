@@ -29,8 +29,8 @@
 
 package edu.princeton.cs.algs4.context.suffixarr;
 
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 import java.util.Arrays;
 

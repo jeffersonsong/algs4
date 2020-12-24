@@ -21,8 +21,8 @@
 package edu.princeton.cs.algs4.strings.compression;
 
 import edu.princeton.cs.algs4.strings.tries.TST;
-import edu.princeton.cs.algs4.utils.BinaryStdIn;
-import edu.princeton.cs.algs4.utils.BinaryStdOut;
+import edu.princeton.cs.algs4.io.BinaryStdIn;
+import edu.princeton.cs.algs4.io.BinaryStdOut;
 
 /**
  *  The {@code LZW} class provides static methods for compressing

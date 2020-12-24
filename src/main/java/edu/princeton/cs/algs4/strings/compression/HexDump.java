@@ -27,8 +27,8 @@
 package edu.princeton.cs.algs4.strings.compression;
 
 import edu.princeton.cs.algs4.utils.BinaryDump;
-import edu.princeton.cs.algs4.utils.BinaryStdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.BinaryStdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code HexDump} class provides a client for displaying the contents

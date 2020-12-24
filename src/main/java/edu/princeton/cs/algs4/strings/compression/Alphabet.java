@@ -14,7 +14,7 @@
 
 package edu.princeton.cs.algs4.strings.compression;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 public class Alphabet {
 

@@ -23,8 +23,8 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code Heap} class provides a static method to sort an array

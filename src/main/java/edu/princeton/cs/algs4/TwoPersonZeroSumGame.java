@@ -19,7 +19,7 @@
 package edu.princeton.cs.algs4;
 
 import edu.princeton.cs.algs4.context.LinearProgramming;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 /**

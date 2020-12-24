@@ -21,7 +21,7 @@
 
 package edu.princeton.cs.algs4.numeric;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code Polynomial} class represents a polynomial with integer

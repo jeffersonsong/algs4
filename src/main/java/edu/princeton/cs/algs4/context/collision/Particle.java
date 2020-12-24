@@ -10,7 +10,7 @@
 
 package edu.princeton.cs.algs4.context.collision;
 
-import edu.princeton.cs.algs4.utils.StdDraw;
+import edu.princeton.cs.algs4.draw.StdDraw;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.awt.Color;

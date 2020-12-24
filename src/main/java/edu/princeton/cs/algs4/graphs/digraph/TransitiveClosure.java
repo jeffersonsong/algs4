@@ -32,8 +32,8 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.utils.In;
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.io.StdOut;
 
 /**
  *  The {@code TransitiveClosure} class represents a data type for 

@@ -15,8 +15,8 @@
 
 package edu.princeton.cs.algs4.context.suffixarr;
 
-import edu.princeton.cs.algs4.utils.StdOut;
-import edu.princeton.cs.algs4.utils.In;
+import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.io.In;
 
 /**
  *  The {@code LongestCommonSubstring} class provides a {@link SuffixArray}

@@ -16,10 +16,9 @@
 
 package edu.princeton.cs.algs4.strings.compression;
 
-import edu.princeton.cs.algs4.strings.compression.HexDump;
 import edu.princeton.cs.algs4.utils.BinaryDump;
-import edu.princeton.cs.algs4.utils.BinaryStdIn;
-import edu.princeton.cs.algs4.utils.Picture;
+import edu.princeton.cs.algs4.io.BinaryStdIn;
+import edu.princeton.cs.algs4.draw.Picture;
 
 import java.awt.Color;
 

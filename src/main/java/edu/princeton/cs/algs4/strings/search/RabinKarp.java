@@ -33,7 +33,7 @@
 
 package edu.princeton.cs.algs4.strings.search;
 
-import edu.princeton.cs.algs4.utils.StdOut;
+import edu.princeton.cs.algs4.io.StdOut;
 
 import java.math.BigInteger;
 import java.util.Random;

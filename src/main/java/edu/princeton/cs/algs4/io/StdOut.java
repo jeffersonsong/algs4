@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.utils;
+package edu.princeton.cs.algs4.io;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;

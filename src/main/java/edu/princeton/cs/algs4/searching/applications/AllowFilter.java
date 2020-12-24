@@ -30,9 +30,9 @@
 
 package edu.princeton.cs.algs4.searching.applications;
 
-import edu.princeton.cs.algs4.utils.StdIn;
-import edu.princeton.cs.algs4.utils.StdOut;
-import edu.princeton.cs.algs4.utils.In;
+import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.io.In;
 
 /**
  *  The {@code AllowFilter} class provides a client for reading in an <em>allowlist</em>
