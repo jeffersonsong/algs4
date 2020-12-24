@@ -21,9 +21,9 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
-import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.utils.io.In;
 
 /**
  *  The {@code AcyclicSP} class represents a data type for solving the

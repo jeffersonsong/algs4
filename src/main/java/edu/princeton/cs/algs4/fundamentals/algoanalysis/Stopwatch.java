@@ -13,7 +13,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.algoanalysis;
 
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code Stopwatch} data type is for measuring

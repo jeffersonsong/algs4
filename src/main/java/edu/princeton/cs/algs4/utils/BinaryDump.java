@@ -22,8 +22,8 @@
 
 package edu.princeton.cs.algs4.utils;
 
-import edu.princeton.cs.algs4.io.BinaryStdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.BinaryStdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.strings.compression.HexDump;
 import edu.princeton.cs.algs4.strings.compression.PictureDump;
 

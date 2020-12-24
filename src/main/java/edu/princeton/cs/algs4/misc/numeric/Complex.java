@@ -28,9 +28,9 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.numeric;
+package edu.princeton.cs.algs4.misc.numeric;
 
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code Complex} class represents a complex number.

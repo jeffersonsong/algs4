@@ -6,7 +6,7 @@
  *  Interface that accompanies Draw.java.
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.draw;
+package edu.princeton.cs.algs4.utils.draw;
 
 /**
  *  <i>DrawListener</i>. This interface provides a basic capability for

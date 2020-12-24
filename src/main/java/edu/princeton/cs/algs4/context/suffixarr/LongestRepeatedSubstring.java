@@ -28,8 +28,8 @@
 
 package edu.princeton.cs.algs4.context.suffixarr;
 
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code LongestRepeatedSubstring} class provides a {@link SuffixArray}

@@ -26,8 +26,8 @@
 package edu.princeton.cs.algs4.searching.bst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.searching.hashtable.LinearProbingHashST;
 import edu.princeton.cs.algs4.searching.hashtable.SeparateChainingHashST;
 import edu.princeton.cs.algs4.searching.st.BinarySearchST;

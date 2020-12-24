@@ -21,9 +21,9 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
-import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.sorting.pq.IndexMaxPQ;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
 import edu.princeton.cs.algs4.graphs.flow.FlowEdge;
 import edu.princeton.cs.algs4.graphs.flow.FlowNetwork;

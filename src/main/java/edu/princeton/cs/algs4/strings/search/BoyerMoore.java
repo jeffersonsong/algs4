@@ -32,7 +32,7 @@
 
 package edu.princeton.cs.algs4.strings.search;
 
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code BoyerMoore} class finds the first occurrence of a pattern string

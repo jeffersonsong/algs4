@@ -51,8 +51,8 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code DegreesOfSeparation} class provides a client for finding

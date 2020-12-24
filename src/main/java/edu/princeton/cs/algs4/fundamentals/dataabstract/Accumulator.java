@@ -12,8 +12,8 @@
 package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code Accumulator} class is a data type for computing the running

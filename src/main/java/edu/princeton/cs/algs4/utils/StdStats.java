@@ -33,9 +33,9 @@
 
 package edu.princeton.cs.algs4.utils;
 
-import edu.princeton.cs.algs4.draw.StdDraw;
-import edu.princeton.cs.algs4.io.StdArrayIO;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.draw.StdDraw;
+import edu.princeton.cs.algs4.utils.io.StdArrayIO;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code StdStats} class provides static methods for computing

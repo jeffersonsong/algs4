@@ -15,7 +15,7 @@
 
 package edu.princeton.cs.algs4.context;
 
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 /**

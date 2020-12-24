@@ -27,8 +27,8 @@
 
 package edu.princeton.cs.algs4.utils;
 
-import edu.princeton.cs.algs4.io.In;
-import edu.princeton.cs.algs4.io.Out;
+import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.utils.io.Out;
 
 /**
  *  The {@code Cat} class provides a client for concatenating the results

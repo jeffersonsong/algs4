@@ -19,8 +19,8 @@
 package edu.princeton.cs.algs4.context.collision;
 
 import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.draw.StdDraw;
-import edu.princeton.cs.algs4.io.StdIn;
+import edu.princeton.cs.algs4.utils.draw.StdDraw;
+import edu.princeton.cs.algs4.utils.io.StdIn;
 
 import java.awt.Color;
 

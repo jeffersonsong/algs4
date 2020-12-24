@@ -24,8 +24,8 @@
 
 package edu.princeton.cs.algs4.strings.compression;
 
-import edu.princeton.cs.algs4.io.BinaryStdIn;
-import edu.princeton.cs.algs4.io.BinaryStdOut;
+import edu.princeton.cs.algs4.utils.io.BinaryStdIn;
+import edu.princeton.cs.algs4.utils.io.BinaryStdOut;
 
 /**
  *  The {@code RunLength} class provides static methods for compressing

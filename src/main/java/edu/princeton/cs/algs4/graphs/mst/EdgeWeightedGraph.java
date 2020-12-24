@@ -26,8 +26,8 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.io.StdOut;
-import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.NoSuchElementException;

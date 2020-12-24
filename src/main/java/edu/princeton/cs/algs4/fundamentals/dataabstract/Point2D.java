@@ -9,7 +9,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
-import edu.princeton.cs.algs4.draw.StdDraw;
+import edu.princeton.cs.algs4.utils.draw.StdDraw;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.Arrays;

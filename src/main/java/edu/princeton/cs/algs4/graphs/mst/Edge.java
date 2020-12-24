@@ -9,7 +9,7 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code Edge} class represents a weighted edge in an 

@@ -12,7 +12,7 @@
 package edu.princeton.cs.algs4.graphs.flow;
 
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code FordFulkerson} class represents a data type for computing a

@@ -24,8 +24,8 @@
 package edu.princeton.cs.algs4.fundamentals.unionfind;
 
 
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code UF} class represents a <em>union–find data type</em>

@@ -41,8 +41,8 @@
 
 package edu.princeton.cs.algs4.fundamentals.algoanalysis;
 
-import edu.princeton.cs.algs4.io.StdOut;
-import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.Arrays;
 

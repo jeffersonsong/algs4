@@ -29,8 +29,8 @@
 
 package edu.princeton.cs.algs4.fundamentals.bag;
 
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

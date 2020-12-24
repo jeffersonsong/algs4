@@ -21,8 +21,8 @@ package edu.princeton.cs.algs4.sorting.pq;
 
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Transaction;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code TopM} class provides a client that reads a sequence of

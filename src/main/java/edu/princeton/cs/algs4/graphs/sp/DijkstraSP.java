@@ -34,8 +34,8 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
-import edu.princeton.cs.algs4.io.StdOut;
-import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.In;
 
 /**
  *  The {@code DijkstraSP} class represents a data type for solving the

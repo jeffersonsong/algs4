@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.draw;
+package edu.princeton.cs.algs4.utils.draw;
 
 import java.awt.Color;
 import java.awt.FileDialog;

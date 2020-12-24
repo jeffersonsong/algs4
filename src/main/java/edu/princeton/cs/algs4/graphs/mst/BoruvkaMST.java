@@ -24,9 +24,9 @@
 package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
-import edu.princeton.cs.algs4.io.In;
+import edu.princeton.cs.algs4.utils.io.In;
 
 /**
  *  The {@code BoruvkaMST} class represents a data type for computing a

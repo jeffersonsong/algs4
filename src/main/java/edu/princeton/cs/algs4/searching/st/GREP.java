@@ -28,8 +28,8 @@
 package edu.princeton.cs.algs4.searching.st;
 
 import edu.princeton.cs.algs4.strings.re.NFA;
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code GREP} class provides a client for reading in a sequence of

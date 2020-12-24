@@ -17,12 +17,12 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.numeric;
+package edu.princeton.cs.algs4.misc.numeric;
 
-import edu.princeton.cs.algs4.GrahamScan;
+import edu.princeton.cs.algs4.misc.GrahamScan;
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Point2D;
-import edu.princeton.cs.algs4.io.StdIn;
-import edu.princeton.cs.algs4.io.StdOut;
+import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code FarthestPair} data type computes the farthest pair of points

@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.numeric;
+package edu.princeton.cs.algs4.misc.numeric;
 
 
 /**
