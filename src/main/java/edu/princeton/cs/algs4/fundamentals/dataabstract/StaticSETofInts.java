@@ -11,6 +11,8 @@ package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code StaticSETofInts} class represents a set of integers.
  *  It supports searching for a given integer is in the set. It accomplishes
@@ -46,8 +48,7 @@ public class StaticSETofInts {
 
         // check for duplicates
         for (int i = 1; i < a.length; i++)
-            if (a[i] == a[i-1])
-                throw new IllegalArgumentException("Argument arrays contains duplicate keys.");
+            checkArgument(a[i] != a[i-1], "Argument arrays contains duplicate keys.");
     }
 
     /**

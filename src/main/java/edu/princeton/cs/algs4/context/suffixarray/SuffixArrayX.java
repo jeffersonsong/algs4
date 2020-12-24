@@ -31,6 +31,8 @@ package edu.princeton.cs.algs4.context.suffixarray;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code SuffixArrayX} class represents a suffix array of a string of
  *  length <em>n</em>.
@@ -155,7 +157,7 @@ public class SuffixArrayX {
      * @throws java.lang.IllegalArgumentException unless {@code 0 <=i < n}
      */
     public int index(int i) {
-        if (i < 0 || i >= n) throw new IllegalArgumentException();
+        checkArgument(i >= 0 && i < n);
         return index[i];
     }
 
@@ -168,7 +170,7 @@ public class SuffixArrayX {
      * @throws java.lang.IllegalArgumentException unless {@code 1 <= i < n}
      */
     public int lcp(int i) {
-        if (i < 1 || i >= n) throw new IllegalArgumentException();
+        checkArgument(i >= 1 && i < n);
         return lcp(index[i], index[i-1]);
     }
 
@@ -191,7 +193,7 @@ public class SuffixArrayX {
      * @throws java.lang.IllegalArgumentException unless {@code 0 <= i < n}
      */
     public String select(int i) {
-        if (i < 0 || i >= n) throw new IllegalArgumentException();
+        checkArgument(i >= 0 && i < n);
         return new String(text, index[i], n - index[i]);
     }
 

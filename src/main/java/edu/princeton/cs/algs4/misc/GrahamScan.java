@@ -34,6 +34,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 
 /**
  *  The {@code GrahamScan} data type provides methods for computing the 
@@ -61,8 +63,8 @@ public class GrahamScan {
      * @throws IllegalArgumentException if {@code points.length} is {@code 0}
      */
     public GrahamScan(Point2D[] points) {
-        if (points == null) throw new IllegalArgumentException("argument is null");
-        if (points.length == 0) throw new IllegalArgumentException("array is of length 0");
+        checkArgument(points != null, "argument is null");
+        checkArgument(points.length > 0, "array is of length 0");
 
         // defensive copy
         int n = points.length;

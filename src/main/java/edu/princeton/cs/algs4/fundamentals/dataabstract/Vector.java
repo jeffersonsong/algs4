@@ -28,6 +28,8 @@ package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Vector} class represents a <em>d</em>-dimensional Euclidean vector.
  *  Vectors are immutable: their values cannot be changed after they are created.
@@ -102,7 +104,7 @@ public class Vector {
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
     public double dot(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Dimensions don't agree");
+        checkArgument(this.d == that.d, "Dimensions don't agree");
         double sum = 0.0;
         for (int i = 0; i < d; i++)
             sum = sum + (this.data[i] * that.data[i]);
@@ -127,7 +129,7 @@ public class Vector {
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
     public double distanceTo(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Dimensions don't agree");
+        checkArgument(this.d == that.d, "Dimensions don't agree");
         return this.minus(that).magnitude();
     }
 
@@ -139,7 +141,7 @@ public class Vector {
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
     public Vector plus(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Dimensions don't agree");
+        checkArgument(this.d == that.d, "Dimensions don't agree");
         Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
             c.data[i] = this.data[i] + that.data[i];
@@ -154,7 +156,7 @@ public class Vector {
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
     public Vector minus(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Dimensions don't agree");
+        checkArgument(this.d == that.d, "Dimensions don't agree");
         Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
             c.data[i] = this.data[i] - that.data[i];

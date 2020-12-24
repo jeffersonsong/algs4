@@ -15,6 +15,8 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 
 /**
  *  The {@code Point} class is an immutable data type to encapsulate a
@@ -60,10 +62,9 @@ public final class Point2D implements Comparable<Point2D> {
      *    {@code Double.NEGATIVE_INFINITY}
      */
     public Point2D(double x, double y) {
-        if (Double.isInfinite(x) || Double.isInfinite(y))
-            throw new IllegalArgumentException("Coordinates must be finite");
-        if (Double.isNaN(x) || Double.isNaN(y))
-            throw new IllegalArgumentException("Coordinates cannot be NaN");
+        checkArgument(!Double.isInfinite(x) && !Double.isInfinite(y), "Coordinates must be finite");
+        checkArgument(!Double.isNaN(x) && !Double.isNaN(y), "Coordinates cannot be NaN");
+
         if (x == 0.0) this.x = 0.0;  // convert -0.0 to +0.0
         else          this.x = x;
 

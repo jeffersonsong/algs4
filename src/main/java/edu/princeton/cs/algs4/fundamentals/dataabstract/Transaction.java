@@ -14,6 +14,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Transaction} class is an immutable data type to encapsulate a
  *  commercial transaction with a customer name, date, and amount.
@@ -42,8 +44,7 @@ public class Transaction implements Comparable<Transaction> {
      *         or {@code Double.NEGATIVE_INFINITY}
      */
     public Transaction(String who, Date when, double amount) {
-        if (Double.isNaN(amount) || Double.isInfinite(amount))
-            throw new IllegalArgumentException("Amount cannot be NaN or infinite");
+        checkArgument(!Double.isNaN(amount) && !Double.isInfinite(amount), "Amount cannot be NaN or infinite");
         this.who    = who;
         this.when   = when;
         this.amount = amount;
@@ -62,8 +63,8 @@ public class Transaction implements Comparable<Transaction> {
         who    = a[0];
         when   = new Date(a[1]);
         amount = Double.parseDouble(a[2]);
-        if (Double.isNaN(amount) || Double.isInfinite(amount))
-            throw new IllegalArgumentException("Amount cannot be NaN or infinite");
+
+        checkArgument(!Double.isNaN(amount) && !Double.isInfinite(amount), "Amount cannot be NaN or infinite");
     }
 
     /**

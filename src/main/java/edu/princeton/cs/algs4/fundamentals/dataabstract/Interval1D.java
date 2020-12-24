@@ -14,6 +14,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Interval1D} class represents a one-dimensional interval.
  *  The interval is <em>closed</em>—it contains both endpoints.
@@ -60,10 +62,8 @@ public class Interval1D {
 
      */
     public Interval1D(double min, double max) {
-        if (Double.isInfinite(min) || Double.isInfinite(max))
-            throw new IllegalArgumentException("Endpoints must be finite");
-        if (Double.isNaN(min) || Double.isNaN(max))
-            throw new IllegalArgumentException("Endpoints cannot be NaN");
+        checkArgument(!Double.isInfinite(min) && !Double.isInfinite(max), "Endpoints must be finite");
+        checkArgument(!Double.isNaN(min) && !Double.isNaN(max), "Endpoints cannot be NaN");
 
         // convert -0.0 to +0.0
         if (min == 0.0) min = 0.0;

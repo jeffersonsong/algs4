@@ -15,6 +15,8 @@ package edu.princeton.cs.algs4.fundamentals.unionfind;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code QuickUnionUF} class represents a <em>union–find data type</em>
  *  (also known as the <em>disjoint-sets data type</em>).
@@ -110,9 +112,7 @@ public class QuickUnionUF implements UF {
     // validate that p is a valid index
     private void validate(int p) {
         int n = parent.length;
-        if (p < 0 || p >= n) {
-            throw new IllegalArgumentException("index " + p + " is not between 0 and " + (n-1));
-        }
+        checkArgument (p >= 0 && p < n, "index " + p + " is not between 0 and " + (n-1));
     }
 
     /**

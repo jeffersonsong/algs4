@@ -17,6 +17,8 @@ package edu.princeton.cs.algs4.context.btree;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code BTree} class represents an ordered symbol table of generic
  *  key-value pairs.
@@ -120,7 +122,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        checkArgument(key != null, "argument to get() is null");
         return search(root, key, height);
     }
 
@@ -155,7 +157,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("argument key to put() is null");
+        checkArgument (key != null, "argument key to put() is null");
         Node u = insert(root, key, val, height); 
         n++;
         if (u == null) return;

@@ -46,6 +46,8 @@ import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code ThreeSumFast} class provides static methods for counting
  *  and printing the number of triples in an array of distinct integers that
@@ -82,7 +84,7 @@ public class ThreeSumFast {
     public static void printAll(int[] a) {
         int n = a.length;
         Arrays.sort(a);
-        if (containsDuplicates(a)) throw new IllegalArgumentException("array contains duplicate integers");
+        checkArgument(!containsDuplicates(a), "array contains duplicate integers");
         for (int i = 0; i < n; i++) {
             for (int j = i+1; j < n; j++) {
                 int k = Arrays.binarySearch(a, -(a[i] + a[j]));
@@ -102,7 +104,7 @@ public class ThreeSumFast {
     public static int count(int[] a) {
         int n = a.length;
         Arrays.sort(a);
-        if (containsDuplicates(a)) throw new IllegalArgumentException("array contains duplicate integers");
+        checkArgument(!containsDuplicates(a), "array contains duplicate integers");
         int count = 0;
         for (int i = 0; i < n; i++) {
             for (int j = i+1; j < n; j++) {

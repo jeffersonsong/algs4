@@ -11,6 +11,8 @@ package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 import edu.princeton.cs.algs4.utils.draw.StdDraw;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code RectHV} class is an immutable data type to encapsulate a
  *  two-dimensional axis-aligned rectagle with real-value coordinates.
@@ -46,18 +48,10 @@ public final class RectHV {
         this.ymin = ymin;
         this.xmax = xmax;
         this.ymax = ymax;
-        if (Double.isNaN(xmin) || Double.isNaN(xmax)) {
-            throw new IllegalArgumentException("x-coordinate is NaN: " + toString());
-        }
-        if (Double.isNaN(ymin) || Double.isNaN(ymax)) {
-            throw new IllegalArgumentException("y-coordinate is NaN: " + toString());
-        }
-        if (xmax < xmin) {
-            throw new IllegalArgumentException("xmax < xmin: " + toString());
-        }
-        if (ymax < ymin) {
-            throw new IllegalArgumentException("ymax < ymin: " + toString());
-        }
+        checkArgument(!Double.isNaN(xmin) && !Double.isNaN(xmax) , "x-coordinate is NaN: " + toString());
+        checkArgument(!Double.isNaN(ymin) && !Double.isNaN(ymax), "y-coordinate is NaN: " + toString());
+        checkArgument(xmax >= xmin, "xmax < xmin: " + toString());
+        checkArgument(ymax >= ymin, "ymax < ymin: " + toString());
     }
 
     /**

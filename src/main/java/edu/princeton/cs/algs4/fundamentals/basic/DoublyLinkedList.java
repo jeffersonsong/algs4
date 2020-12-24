@@ -3,6 +3,8 @@ package edu.princeton.cs.algs4.fundamentals.basic;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkState;
+
 public class DoublyLinkedList<Item> implements Iterable<Item> {
     public static class Node<Item> {
         final Item data;
@@ -66,9 +68,7 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
     }
 
     public void remove(Node<Item> node) {
-        if (node.prev == null || node.next == null) {
-            throw new IllegalArgumentException("Invalid node");
-        }
+        checkState(node.prev != null && node.next != null, "Invalid node");
 
         node.prev.next = node.next;
         node.next.prev = node.prev;

@@ -11,6 +11,8 @@ package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Date} class is an immutable data type to encapsulate a
  *  date (day, month, and year).
@@ -37,7 +39,7 @@ public class Date implements Comparable<Date> {
      * @throws IllegalArgumentException if this date is invalid
      */
     public Date(int month, int day, int year) {
-        if (!isValid(month, day, year)) throw new IllegalArgumentException("Invalid date");
+        checkArgument(isValid(month, day, year), "Invalid date");
         this.month = month;
         this.day   = day;
         this.year  = year;
@@ -50,13 +52,11 @@ public class Date implements Comparable<Date> {
      */
     public Date(String date) {
         String[] fields = date.split("/");
-        if (fields.length != 3) {
-            throw new IllegalArgumentException("Invalid date");
-        }
+        checkArgument (fields.length == 3, "Invalid date");
         month = Integer.parseInt(fields[0]);
         day   = Integer.parseInt(fields[1]);
         year  = Integer.parseInt(fields[2]);
-        if (!isValid(month, day, year)) throw new IllegalArgumentException("Invalid date");
+        checkArgument(isValid(month, day, year), "Invalid date");
     }
 
     /**

@@ -18,6 +18,8 @@ package edu.princeton.cs.algs4.context;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code LinearProgramming} class represents a data type for solving a
  *  linear program of the form { max cx : Ax &le; b, x &ge; 0 }, where A is a m-by-n
@@ -64,7 +66,7 @@ public class LinearProgramming {
         m = b.length;
         n = c.length;
         for (int i = 0; i < m; i++)
-            if (!(b[i] >= 0)) throw new IllegalArgumentException("RHS must be nonnegative");
+            checkArgument(b[i] >= 0, "RHS must be non-negative");
 
         a = new double[m+1][n+m+1];
         for (int i = 0; i < m; i++)

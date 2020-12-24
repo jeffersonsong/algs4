@@ -20,6 +20,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code ClosestPair} data type computes a closest pair of points
  *  in a set of <em>n</em> points in the plane and provides accessor methods 
@@ -52,9 +54,9 @@ public class ClosestPair {
      *         entry in {@code points[]} is {@code null}
      */
     public ClosestPair(Point2D[] points) {
-        if (points == null) throw new IllegalArgumentException("constructor argument is null");
+        checkArgument(points != null, "constructor argument is null");
         for (int i = 0; i < points.length; i++) {
-            if (points[i] == null) throw new IllegalArgumentException("array element " + i + " is null");
+            checkArgument(points[i] != null, "array element " + i + " is null");
         }
 
         int n = points.length;

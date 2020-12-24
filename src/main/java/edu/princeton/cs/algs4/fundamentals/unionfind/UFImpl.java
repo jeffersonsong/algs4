@@ -27,6 +27,8 @@ package edu.princeton.cs.algs4.fundamentals.unionfind;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code UF} class represents a <em>union–find data type</em>
  *  (also known as the <em>disjoint-sets data type</em>).
@@ -98,7 +100,7 @@ public class UFImpl implements UF {
      * @throws IllegalArgumentException if {@code n < 0}
      */
     public UFImpl(int n) {
-        if (n < 0) throw new IllegalArgumentException();
+        checkArgument(n >= 0);
         count = n;
         parent = new int[n];
         rank = new byte[n];
@@ -176,9 +178,7 @@ public class UFImpl implements UF {
     // validate that p is a valid index
     private void validate(int p) {
         int n = parent.length;
-        if (p < 0 || p >= n) {
-            throw new IllegalArgumentException("index " + p + " is not between 0 and " + (n-1));  
-        }
+        checkArgument(p >= 0 && p < n, "index " + p + " is not between 0 and " + (n-1));
     }
 
     /**
