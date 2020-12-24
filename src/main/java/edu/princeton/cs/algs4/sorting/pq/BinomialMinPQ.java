@@ -29,7 +29,7 @@ import java.util.NoSuchElementException;
  * 
  *  @author Tristan Claverie
  */
-public class BinomialMinPQ<Key> implements Iterable<Key> {
+public class BinomialMinPQ<Key> implements MinPQ<Key> {
 	private Node head;    				//head of the list of roots
 	private final Comparator<Key> comp;	//Comparator over the keys
 	

@@ -37,7 +37,7 @@ import java.util.NoSuchElementException;
  *
  *  @author Tristan Claverie
  */
-public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
+public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	private final int d;				//Dimension of the heap
 	private int n;						//Number of keys currently in the queue
 	private int nmax;					//Maximum number of items in the queue

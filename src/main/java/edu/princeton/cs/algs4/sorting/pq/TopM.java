@@ -28,7 +28,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 /**
  *  The {@code TopM} class provides a client that reads a sequence of
  *  transactions from standard input and prints the <em>m</em> largest ones
- *  to standard output. This implementation uses a {@link MinPQ} of size
+ *  to standard output. This implementation uses a {@link MinPQImpl} of size
  *  at most <em>m</em> + 1 to identify the <em>M</em> largest transactions
  *  and a {@link Stack} to output them in the proper order.
  *  <p>
@@ -52,7 +52,7 @@ public class TopM {
      */
     public static void main(String[] args) {
         int m = Integer.parseInt(args[0]); 
-        MinPQ<Transaction> pq = new MinPQ<>(m + 1);
+        MinPQImpl<Transaction> pq = new MinPQImpl<>(m + 1);
 
         while (StdIn.hasNextLine()) {
             // Create an entry from the next line and put on the PQ. 

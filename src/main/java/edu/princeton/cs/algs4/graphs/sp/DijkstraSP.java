@@ -35,6 +35,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
+import edu.princeton.cs.algs4.sorting.pq.IndexMinPQImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -88,7 +89,7 @@ public class DijkstraSP {
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
-        pq = new IndexMinPQ<>(G.V());
+        pq = new IndexMinPQImpl<>(G.V());
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.delMin();

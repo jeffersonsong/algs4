@@ -19,6 +19,7 @@
 package edu.princeton.cs.algs4.context.collision;
 
 import edu.princeton.cs.algs4.sorting.pq.MinPQ;
+import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
 import edu.princeton.cs.algs4.utils.draw.StdDraw;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
@@ -93,7 +94,7 @@ public class CollisionSystem {
     public void simulate(double limit) {
         
         // initialize PQ with collision events and redraw event
-        pq = new MinPQ<>();
+        pq = new MinPQImpl<>();
         for (Particle value : particles) {
             predict(value, limit);
         }

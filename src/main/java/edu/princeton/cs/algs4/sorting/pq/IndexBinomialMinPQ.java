@@ -32,7 +32,7 @@ import java.util.NoSuchElementException;
  *
  *  @author Tristan Claverie
  */
-public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
+public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	private Node<Key> head;    			//Head of the list of roots
 	private Node<Key>[] nodes; 			//Array of indexed Nodes of the heap
 	private int n;			   		//Maximum size of the tree

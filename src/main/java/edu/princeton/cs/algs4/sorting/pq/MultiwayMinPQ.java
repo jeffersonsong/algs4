@@ -30,14 +30,13 @@ import java.util.NoSuchElementException;
  *
  *  @author Tristan Claverie
  */
-public class MultiwayMinPQ<Key> implements Iterable<Key> {
+public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 	private final int d; 				//Dimension of the heap
 	private int n;						//Number of keys currently in the heap
 	private int order;					//Number of levels of the tree
 	private Key[] keys;					//Array of keys
 	private final Comparator<Key> comp;	//Comparator over the keys
-	
-	
+
     /**
      * Initializes an empty priority queue
      * Worst case is O(d)

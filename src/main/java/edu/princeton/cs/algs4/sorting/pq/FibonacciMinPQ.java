@@ -29,7 +29,7 @@ import java.util.Comparator;
  *
  *  @author Tristan Claverie
  */
-public class FibonacciMinPQ<Key> implements Iterable<Key> {
+public class FibonacciMinPQ<Key> implements MinPQ<Key> {
 	private Node head;					//Head of the circular root list
 	private Node min;					//Minimum Node of the root list
 	private int size;					//Number of keys in the heap

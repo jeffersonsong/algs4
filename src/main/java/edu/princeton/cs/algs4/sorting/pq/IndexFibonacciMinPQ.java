@@ -36,7 +36,7 @@ import java.util.NoSuchElementException;
  *
  *  @author Tristan Claverie
  */
-public class IndexFibonacciMinPQ<Key> implements Iterable<Integer> {
+public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	private Node<Key>[] nodes;			//Array of Nodes in the heap
 	private Node<Key> head;				//Head of the circular root list
 	private Node<Key> min;				//Minimum Node in the heap

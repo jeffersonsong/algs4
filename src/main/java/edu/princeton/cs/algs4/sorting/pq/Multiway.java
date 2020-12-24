@@ -32,7 +32,7 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  The {@code Multiway} class provides a client for reading in several
  *  sorted text files and merging them together into a single sorted
  *  text stream.
- *  This implementation uses a {@link IndexMinPQ} to perform the multiway
+ *  This implementation uses a {@link IndexMinPQImpl} to perform the multiway
  *  merge. 
  *  <p>
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a>
@@ -50,7 +50,7 @@ public class Multiway {
     // merge together the sorted input streams and write the sorted result to standard output
     private static void merge(In[] streams) {
         int n = streams.length;
-        IndexMinPQ<String> pq = new IndexMinPQ<>(n);
+        IndexMinPQ<String> pq = new IndexMinPQImpl<>(n);
         for (int i = 0; i < n; i++)
             if (!streams[i].isEmpty())
                 pq.insert(i, streams[i].readString());

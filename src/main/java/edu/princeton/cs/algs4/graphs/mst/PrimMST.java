@@ -41,6 +41,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
+import edu.princeton.cs.algs4.sorting.pq.IndexMinPQImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -89,7 +90,7 @@ public class PrimMST {
         edgeTo = new Edge[G.V()];
         distTo = new double[G.V()];
         marked = new boolean[G.V()];
-        pq = new IndexMinPQ<>(G.V());
+        pq = new IndexMinPQImpl<>(G.V());
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
 
