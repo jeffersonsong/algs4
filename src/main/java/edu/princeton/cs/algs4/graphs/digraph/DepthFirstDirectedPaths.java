@@ -128,7 +128,7 @@ public class DepthFirstDirectedPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = new Digraph(in);
+        Digraph G = new DigraphImpl(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);

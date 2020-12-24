@@ -77,7 +77,7 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class LazyPrimMST {
+public class LazyPrimMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private double weight;       // total weight of MST

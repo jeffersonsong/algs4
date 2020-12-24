@@ -195,7 +195,7 @@ public class KosarajuSharirSCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = new Digraph(in);
+        Digraph G = new DigraphImpl(in);
         KosarajuSharirSCC scc = new KosarajuSharirSCC(G);
 
         // number of connected components

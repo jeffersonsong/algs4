@@ -74,7 +74,7 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class PrimMST {
+public class PrimMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private Edge[] edgeTo;        // edgeTo[v] = shortest edge from tree vertex to non-tree vertex

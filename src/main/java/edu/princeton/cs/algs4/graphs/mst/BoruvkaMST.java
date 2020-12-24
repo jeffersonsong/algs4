@@ -57,7 +57,7 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BoruvkaMST {
+public class BoruvkaMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private Bag<Edge> mst = new LinkedBag<>();    // edges in MST

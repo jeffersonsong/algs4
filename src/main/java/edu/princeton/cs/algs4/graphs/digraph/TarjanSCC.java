@@ -170,7 +170,7 @@ public class TarjanSCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = new Digraph(in);
+        Digraph G = new DigraphImpl(in);
         TarjanSCC scc = new TarjanSCC(G);
 
         // number of connected components

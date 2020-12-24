@@ -142,7 +142,7 @@ public class DirectedDFS {
 
         // read in digraph from command-line argument
         In in = new In(args[0]);
-        Digraph G = new Digraph(in);
+        Digraph G = new DigraphImpl(in);
 
         // read in sources from command-line arguments
         Bag<Integer> sources = new LinkedBag<>();

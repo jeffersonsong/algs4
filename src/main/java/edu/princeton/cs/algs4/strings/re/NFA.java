@@ -31,6 +31,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedDFS;
@@ -77,7 +78,7 @@ public class NFA {
         this.regexp = regexp;
         m = regexp.length();
         Stack<Integer> ops = new LinkedStack<>();
-        graph = new Digraph(m+1); 
+        graph = new DigraphImpl(m+1);
         for (int i = 0; i < m; i++) { 
             int lp = i; 
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '|') 

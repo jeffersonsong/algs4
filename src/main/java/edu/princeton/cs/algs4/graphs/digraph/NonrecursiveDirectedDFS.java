@@ -116,7 +116,7 @@ public class NonrecursiveDirectedDFS {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = new Digraph(in);
+        Digraph G = new DigraphImpl(in);
         int s = Integer.parseInt(args[1]);
         NonrecursiveDirectedDFS dfs = new NonrecursiveDirectedDFS(G, s);
         for (int v = 0; v < G.V(); v++)

@@ -69,7 +69,7 @@ import edu.princeton.cs.algs4.utils.io.In;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class KruskalMST {
+public class KruskalMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private double weight;                        // weight of MST

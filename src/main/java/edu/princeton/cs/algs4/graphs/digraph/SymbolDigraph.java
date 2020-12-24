@@ -81,7 +81,7 @@ public class SymbolDigraph {
 
         // second pass builds the digraph by connecting first vertex on each
         // line to all others
-        graph = new Digraph(st.size());
+        graph = new DigraphImpl(st.size());
         in = new In(filename);
         while (in.hasNextLine()) {
             String[] a = in.readLine().split(delimiter);

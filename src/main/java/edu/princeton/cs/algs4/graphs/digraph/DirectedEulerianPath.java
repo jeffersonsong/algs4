@@ -230,23 +230,23 @@ public class DirectedEulerianPath {
         unitTest(G2, "Eulerian path");
 
         // add one random edge
-        Digraph G3 = new Digraph(G2);
+        Digraph G3 = new DigraphImpl(G2);
         G3.addEdge(StdRandom.uniform(V), StdRandom.uniform(V));
         unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
-        Digraph G4 = new Digraph(V);
+        Digraph G4 = new DigraphImpl(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
 
         // single edge
-        Digraph G5 = new Digraph(V);
+        Digraph G5 = new DigraphImpl(V);
         G5.addEdge(StdRandom.uniform(V), StdRandom.uniform(V));
         unitTest(G5, "single edge");
 
         // empty digraph
-        Digraph G6 = new Digraph(V);
+        Digraph G6 = new DigraphImpl(V);
         unitTest(G6, "empty digraph");
 
         // random digraph
@@ -254,7 +254,7 @@ public class DirectedEulerianPath {
         unitTest(G7, "simple digraph");
 
         // 4-vertex digraph
-        Digraph G8 = new Digraph(new In("eulerianD.txt"));
+        Digraph G8 = new DigraphImpl(new In("eulerianD.txt"));
         unitTest(G8, "4-vertex Eulerian digraph");
     }
 

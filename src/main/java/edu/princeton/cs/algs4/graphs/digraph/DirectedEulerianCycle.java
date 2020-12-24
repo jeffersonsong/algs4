@@ -222,11 +222,11 @@ public class DirectedEulerianCycle {
         unitTest(G2, "Eulerian path");
 
         // empty digraph
-        Digraph G3 = new Digraph(V);
+        Digraph G3 = new DigraphImpl(V);
         unitTest(G3, "empty digraph");
 
         // self loop
-        Digraph G4 = new Digraph(V);
+        Digraph G4 = new DigraphImpl(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
@@ -238,7 +238,7 @@ public class DirectedEulerianCycle {
         for (int i = 0; i < V; i++)
             perm[i] = i;
         StdRandom.shuffle(perm);
-        Digraph G5 = new Digraph(V);
+        Digraph G5 = new DigraphImpl(V);
         for (int v = 0; v < H1.V(); v++)
             for (int w : H1.adj(v))
                 G5.addEdge(perm[v], perm[w]);
@@ -252,7 +252,7 @@ public class DirectedEulerianCycle {
         unitTest(G6, "simple digraph");
 
         // 4-vertex digraph
-        Digraph G7 = new Digraph(new In("eulerianD.txt"));
+        Digraph G7 = new DigraphImpl(new In("eulerianD.txt"));
         unitTest(G7, "4-vertex Eulerian digraph");
     }
 
