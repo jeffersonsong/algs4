@@ -27,12 +27,13 @@ package edu.princeton.cs.algs4.searching.bst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.searching.st.OrderedST;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.searching.hashtable.LinearProbingHashST;
 import edu.princeton.cs.algs4.searching.hashtable.SeparateChainingHashST;
 import edu.princeton.cs.algs4.searching.st.BinarySearchST;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
 import java.util.NoSuchElementException;
@@ -67,14 +68,14 @@ import java.util.NoSuchElementException;
  *  <em>size</em>, and <em>is-empty</em> operations take constant time.
  *  Construction also takes constant time.
  * 
- *  For other implementations of the same API, see {@link ST}, {@link BinarySearchST},
+ *  For other implementations of the same API, see {@link STImpl}, {@link BinarySearchST},
  *  {@link SequentialSearchST}, {@link BST}, {@link RedBlackBST},
  *  {@link SeparateChainingHashST}, and {@link LinearProbingHashST}.
  * 
  *  @author Marcelo Silva
  */
 
-public class AVLTreeST<Key extends Comparable<Key>, Value> {
+public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<Key, Value> {
 
     /**
      * The root node.

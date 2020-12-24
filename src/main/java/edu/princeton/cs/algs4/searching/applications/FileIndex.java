@@ -32,7 +32,7 @@ import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 
 import java.io.File;
 
@@ -55,7 +55,7 @@ public class FileIndex {
     public static void main(String[] args) {
 
         // key = word, value = set of files containing that word
-        ST<String, SET<File>> st = new ST<>();
+        STImpl<String, SET<File>> st = new STImpl<>();
 
         // create inverted index of all files
         StdOut.println("Indexing files");

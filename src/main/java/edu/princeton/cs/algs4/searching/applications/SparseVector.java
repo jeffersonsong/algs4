@@ -11,9 +11,10 @@
 
 package edu.princeton.cs.algs4.searching.applications;
 
+import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Vector;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 
 /**
  *  The {@code SparseVector} class represents a <em>d</em>-dimensional mathematical vector.
@@ -43,7 +44,7 @@ public class SparseVector {
      */
     public SparseVector(int d) {
         this.d  = d;
-        this.st = new ST<>();
+        this.st = new STImpl<>();
     }
 
    /**

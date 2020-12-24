@@ -12,12 +12,13 @@ package edu.princeton.cs.algs4.searching.hashtable;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.searching.bst.BST;
 import edu.princeton.cs.algs4.searching.bst.RedBlackBST;
 import edu.princeton.cs.algs4.searching.st.BinarySearchST;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
 /**
@@ -43,14 +44,14 @@ import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
  *  <p>
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/34hash">Section 3.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  For other implementations, see {@link ST}, {@link BinarySearchST},
+ *  For other implementations, see {@link STImpl}, {@link BinarySearchST},
  *  {@link SequentialSearchST}, {@link BST}, {@link RedBlackBST}, and
  *  {@link LinearProbingHashST},
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class SeparateChainingHashST<Key, Value> {
+public class SeparateChainingHashST<Key, Value> implements ST<Key, Value> {
     private static final int INIT_CAPACITY = 4;
 
     private int n;                                // number of key-value pairs

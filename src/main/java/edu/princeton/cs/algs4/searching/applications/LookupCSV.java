@@ -35,7 +35,7 @@ package edu.princeton.cs.algs4.searching.applications;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 
 /**
  *  The {@code LookupCSV} class provides a data-driven client for reading in a
@@ -59,7 +59,7 @@ public class LookupCSV {
         int valField = Integer.parseInt(args[2]);
 
         // symbol table
-        ST<String, String> st = new ST<>();
+        STImpl<String, String> st = new STImpl<>();
 
         // read in the data from csv file
         In in = new In(args[0]);

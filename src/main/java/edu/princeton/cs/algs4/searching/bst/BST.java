@@ -27,12 +27,13 @@ package edu.princeton.cs.algs4.searching.bst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.searching.st.OrderedST;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.searching.hashtable.LinearProbingHashST;
 import edu.princeton.cs.algs4.searching.hashtable.SeparateChainingHashST;
 import edu.princeton.cs.algs4.searching.st.BinarySearchST;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
 import java.util.NoSuchElementException;
@@ -67,7 +68,7 @@ import java.util.NoSuchElementException;
  *  The keys method takes &Theta;(<em>n</em>) time in the worst case.
  *  Construction takes &Theta;(1) time.
  *  <p>
- *  For alternative implementations of the symbol table API, see {@link ST},
+ *  For alternative implementations of the symbol table API, see {@link STImpl},
  *  {@link BinarySearchST}, {@link SequentialSearchST}, {@link RedBlackBST},
  *  {@link SeparateChainingHashST}, and {@link LinearProbingHashST},
  *  For additional documentation, see
@@ -77,7 +78,7 @@ import java.util.NoSuchElementException;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BST<Key extends Comparable<Key>, Value> {
+public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, Value> {
     private Node root;             // root of BST
 
     private class Node {

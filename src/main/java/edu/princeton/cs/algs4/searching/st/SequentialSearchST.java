@@ -63,7 +63,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class SequentialSearchST<Key, Value> {
+public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
     private int n;           // number of key-value pairs
     private Node first;      // the linked list of key-value pairs
 

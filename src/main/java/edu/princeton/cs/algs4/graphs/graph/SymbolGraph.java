@@ -43,8 +43,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -57,7 +58,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  between 0 and <em>V</em> - 1.
  *  It also supports initializing a symbol graph from a file.
  *  <p>
- *  This implementation uses an {@link ST} to map from strings to integers,
+ *  This implementation uses an {@link STImpl} to map from strings to integers,
  *  an array to map from integers to strings, and a {@link Graph} to store
  *  the underlying graph.
  *  The <em>indexOf</em> and <em>contains</em> operations take time 
@@ -84,7 +85,7 @@ public class SymbolGraph {
      * @param delimiter the delimiter between fields
      */
     public SymbolGraph(String filename, String delimiter) {
-        st = new ST<>();
+        st = new STImpl<>();
 
         // First pass builds the index by reading strings to associate
         // distinct strings with an index

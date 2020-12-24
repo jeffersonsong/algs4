@@ -31,12 +31,13 @@ package edu.princeton.cs.algs4.searching.bst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.searching.st.OrderedST;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.searching.hashtable.LinearProbingHashST;
 import edu.princeton.cs.algs4.searching.hashtable.SeparateChainingHashST;
 import edu.princeton.cs.algs4.searching.st.BinarySearchST;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
 import java.util.NoSuchElementException;
@@ -74,7 +75,7 @@ import java.util.NoSuchElementException;
  *  the number of keys returned by the iterator.
  *  Construction takes &Theta;(1) time.
  *  <p>
- *  For alternative implementations of the symbol table API, see {@link ST},
+ *  For alternative implementations of the symbol table API, see {@link STImpl},
  *  {@link BinarySearchST}, {@link SequentialSearchST}, {@link BST},
  *  {@link SeparateChainingHashST}, {@link LinearProbingHashST}, and
  *  {@link AVLTreeST}.
@@ -86,7 +87,7 @@ import java.util.NoSuchElementException;
  *  @author Kevin Wayne
  */
 
-public class RedBlackBST<Key extends Comparable<Key>, Value> {
+public class RedBlackBST<Key extends Comparable<Key>, Value> implements OrderedST<Key, Value> {
 
     private static final boolean RED   = true;
     private static final boolean BLACK = false;

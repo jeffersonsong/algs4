@@ -40,7 +40,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.searching.st.ST;
+import edu.princeton.cs.algs4.searching.st.STImpl;
 
 /**
  *  The {@code LookupIndex} class provides a data-driven client for reading in a
@@ -65,8 +65,8 @@ public class LookupIndex {
         String separator = args[1];
         In in = new In(filename);
 
-        ST<String, Queue<String>> st = new ST<>();
-        ST<String, Queue<String>> ts = new ST<>();
+        STImpl<String, Queue<String>> st = new STImpl<>();
+        STImpl<String, Queue<String>> ts = new STImpl<>();
 
         while (in.hasNextLine()) {
             String line = in.readLine();

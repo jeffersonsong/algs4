@@ -68,13 +68,13 @@ import java.util.NoSuchElementException;
  *  Construction takes &Theta;(1) time.
  *  <p>
  *  For alternative implementations of the symbol table API,
- *  see {@link ST}, {@link BST}, {@link SequentialSearchST}, {@link RedBlackBST},
+ *  see {@link STImpl}, {@link BST}, {@link SequentialSearchST}, {@link RedBlackBST},
  *  {@link SeparateChainingHashST}, and {@link LinearProbingHashST},
  *  For additional documentation,
  *  see <a href="https://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class BinarySearchST<Key extends Comparable<Key>, Value> {
+public class BinarySearchST<Key extends Comparable<Key>, Value> implements OrderedST<Key, Value>{
     private static final int INIT_CAPACITY = 2;
     private Key[] keys;
     private Value[] vals;

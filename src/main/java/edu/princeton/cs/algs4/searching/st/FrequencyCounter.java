@@ -58,7 +58,7 @@ public class FrequencyCounter {
     public static void main(String[] args) {
         int distinct = 0, words = 0;
         int minlen = Integer.parseInt(args[0]);
-        ST<String, Integer> st = new ST<>();
+        STImpl<String, Integer> st = new STImpl<>();
 
         // compute frequency counts
         while (!StdIn.isEmpty()) {
