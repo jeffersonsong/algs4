@@ -38,15 +38,15 @@ import java.util.NoSuchElementException;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class LinkedQueue<Item> implements Iterable<Item> {
+public class LinkedQueue<Item> implements Queue<Item> {
     private int n;         // number of elements on queue
-    private Node first;    // beginning of queue
-    private Node last;     // end of queue
+    private Node<Item> first;    // beginning of queue
+    private Node<Item> last;     // end of queue
 
     // helper linked list class
-    private class Node {
+    private static class Node<Item> {
         private Item item;
-        private Node next;
+        private Node<Item> next;
     }
 
     /**
@@ -90,8 +90,8 @@ public class LinkedQueue<Item> implements Iterable<Item> {
      * @param item the item to add
      */
     public void enqueue(Item item) {
-        Node oldlast = last;
-        last = new Node();
+        Node<Item> oldlast = last;
+        last = new Node<Item>();
         last.item = item;
         last.next = null;
         if (isEmpty()) first = last;
@@ -170,12 +170,16 @@ public class LinkedQueue<Item> implements Iterable<Item> {
      * @return an iterator that iterates over the items in this queue in FIFO order
      */
     public Iterator<Item> iterator()  {
-        return new LinkedIterator();  
+        return new LinkedIterator(first);
     }
 
     // an iterator, doesn't implement remove() since it's optional
     private class LinkedIterator implements Iterator<Item> {
-        private Node current = first;
+        private Node<Item> current;
+
+        public LinkedIterator(Node<Item> first) {
+            current = first;
+        }
 
         public boolean hasNext()  { return current != null;                     }
         public void remove()      { throw new UnsupportedOperationException();  }
