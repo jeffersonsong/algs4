@@ -45,7 +45,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  see <a href="https://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class BoyerMoore {
+public class BoyerMoore implements CompiledPatternSearch {
     private final int R;     // the radix
     private int[] right;     // the bad-character skip array
 

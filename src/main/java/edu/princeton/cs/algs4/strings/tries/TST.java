@@ -65,7 +65,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class TST<Value> {
+public class TST<Value> implements Trie<Value> {
     private int n;              // size
     private Node<Value> root;   // root of TST
 
@@ -73,6 +73,10 @@ public class TST<Value> {
         private char c;                        // character
         private Node<Value> left, mid, right;  // left, middle, and right subtries
         private Value val;                     // value associated with string
+
+        boolean isEmpty() {
+            return val == null && left == null  && mid == null && right == null;
+        }
     }
 
     /**
@@ -87,6 +91,11 @@ public class TST<Value> {
      */
     public int size() {
         return n;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return n == 0;
     }
 
     /**
@@ -159,6 +168,28 @@ public class TST<Value> {
         else if (d < key.length() - 1)  x.mid   = put(x.mid,   key, val, d+1);
         else                            x.val   = val;
         return x;
+    }
+
+    @Override
+    public void delete(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("calls delete() with null key");
+        }
+        root = delete(root, key, 0);
+    }
+
+    private Node<Value> delete(Node<Value> x, String key, int d) {
+        if (x == null) return null;
+        char c = key.charAt(d);
+        if (c < x.c) x.left = delete(x.left, key, d);
+        else if (c > x.c) x.right = delete(x.right, key, d);
+        else if (d < key.length() - 1) x.mid = delete(x.mid, key, d + 1);
+        else {
+            x.val = null;
+            n--;
+        }
+
+        return x.isEmpty() ? null : x;
     }
 
     /**

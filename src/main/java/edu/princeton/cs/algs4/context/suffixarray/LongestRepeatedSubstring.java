@@ -49,7 +49,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 public class LongestRepeatedSubstring {
 
     // Do not instantiate.
-    private LongestRepeatedSubstring() { }
+    public LongestRepeatedSubstring() { }
 
     /**
      * Returns the longest common string of the two specified strings.

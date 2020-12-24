@@ -47,7 +47,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  see <a href="https://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class KMP {
+public class KMP implements CompiledPatternSearch {
     private final int R;       // the radix
     private final int m;       // length of pattern
     private int[][] dfa;       // the KMP automoton
