@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
