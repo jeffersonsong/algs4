@@ -9,8 +9,11 @@
 
 package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
+
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.fundamentals.basic.BinarySearch.indexOf;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -68,16 +71,7 @@ public class StaticSETofInts {
      * or -1 (if the key is not in the set).
      */
     public int rank(int key) {
-        int lo = 0;
-        int hi = a.length - 1;
-        while (lo <= hi) {
-            // Key is in a[lo..hi] or not present.
-            int mid = lo + (hi - lo) / 2;
-            if      (key < a[mid]) hi = mid - 1;
-            else if (key > a[mid]) lo = mid + 1;
-            else return mid;
-        }
-        return -1;
+        return SortUtils.indexOf(a, key, 0, a.length - 1);
     }
 }
 

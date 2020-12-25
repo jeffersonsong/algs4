@@ -27,6 +27,7 @@ package edu.princeton.cs.algs4.searching.st;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.sorting.SortUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.searching.bst.BST;
@@ -170,19 +171,8 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      */
     public int rank(Key key) {
         requiresNotNull(key,"argument to rank() is null");
-
-        int lo = 0, hi = n-1; 
-        while (lo <= hi) { 
-            int mid = lo + (hi - lo) / 2; 
-            int cmp = key.compareTo(keys[mid]);
-            if      (cmp < 0) hi = mid - 1; 
-            else if (cmp > 0) lo = mid + 1; 
-            else return mid; 
-        } 
-        return lo;
-    } 
-
-
+        return SortUtils.rank(keys, key, 0, n - 1);
+    }
 
     /**
      * Inserts the specified key-value pair into the symbol table, overwriting the old 

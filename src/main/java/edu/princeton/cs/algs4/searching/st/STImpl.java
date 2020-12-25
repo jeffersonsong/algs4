@@ -19,6 +19,7 @@ import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The {@code ST} class represents an ordered symbol table of generic
@@ -192,7 +193,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws NoSuchElementException if this symbol table is empty
      */
     public Key min() {
-        if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
+        noSuchElement(isEmpty(), "calls min() with empty symbol table");
         return st.firstKey();
     }
 
@@ -203,7 +204,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws NoSuchElementException if this symbol table is empty
      */
     public Key max() {
-        if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
+        noSuchElement(isEmpty(), "calls max() with empty symbol table");
         return st.lastKey();
     }
 
@@ -218,7 +219,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
     public Key ceiling(Key key) {
         requiresNotNull(key,"argument to ceiling() is null");
         Key k = st.ceilingKey(key);
-        if (k == null) throw new NoSuchElementException("argument to ceiling() is too large");
+        noSuchElement(k == null,"argument to ceiling() is too large");
         return k;
     }
 
@@ -233,7 +234,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
     public Key floor(Key key) {
         requiresNotNull(key,"argument to floor() is null");
         Key k = st.floorKey(key);
-        if (k == null) throw new NoSuchElementException("argument to floor() is too small");
+        noSuchElement(k == null,"argument to floor() is too small");
         return k;
     }
 

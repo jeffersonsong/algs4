@@ -29,6 +29,7 @@
 
 package edu.princeton.cs.algs4.context.suffixarray;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 

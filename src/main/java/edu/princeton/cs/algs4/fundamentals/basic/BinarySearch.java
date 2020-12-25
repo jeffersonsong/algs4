@@ -25,6 +25,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.basic;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -58,16 +59,7 @@ public class BinarySearch {
      * @return index of key in array {@code a} if present; {@code -1} otherwise
      */
     public static int indexOf(int[] a, int key) {
-        int lo = 0;
-        int hi = a.length - 1;
-        while (lo <= hi) {
-            // Key is in a[lo..hi] or not present.
-            int mid = lo + (hi - lo) / 2;
-            if      (key < a[mid]) hi = mid - 1;
-            else if (key > a[mid]) lo = mid + 1;
-            else return mid;
-        }
-        return -1;
+        return SortUtils.indexOf(a, key, 0, a.length - 1);
     }
 
     /**
