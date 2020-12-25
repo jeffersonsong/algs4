@@ -32,6 +32,7 @@ import java.util.Comparator;
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.sorting.SortUtils.less;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**
  *  The {@code MergeX} class provides static methods for sorting an
@@ -174,13 +175,6 @@ public class MergeX {
         for (int i = lo; i <= hi; i++)
             for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--)
                 exch(a, j, j-1);
-    }
-
-    // print array to standard output
-    private static <T> void show(T[] a) {
-        for (T o : a) {
-            StdOut.println(o);
-        }
     }
 
     /**

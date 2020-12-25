@@ -31,6 +31,7 @@ import java.util.Arrays;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**
  *  The {@code MergeBU} class provides static methods for sorting an
@@ -91,13 +92,6 @@ public class MergeBU {
             }
         }
         assert isSorted(a);
-    }
-
-    // print array to standard output
-    private static <T> void show(T[] a) {
-        for (T comparable : a) {
-            StdOut.println(comparable);
-        }
     }
 
     /**

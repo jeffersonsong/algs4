@@ -1,5 +1,7 @@
 package edu.princeton.cs.algs4.utils;
 
+import edu.princeton.cs.algs4.utils.io.StdOut;
+
 public class ArrayUtils {
     private ArrayUtils() {
     }
@@ -14,5 +16,12 @@ public class ArrayUtils {
         final int swap = a[i];
         a[i] = a[j];
         a[j] = swap;
+    }
+
+    // print array to standard output
+    public static <T> void show(T[] a) {
+        for (T item : a) {
+            StdOut.println(item);
+        }
     }
 }

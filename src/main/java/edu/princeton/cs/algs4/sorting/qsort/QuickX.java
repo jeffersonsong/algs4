@@ -19,6 +19,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.sorting.SortUtils.less;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**
  *  The {@code QuickX} class provides static methods for sorting an array
@@ -107,13 +108,6 @@ public class QuickX {
         return (less(a[i], a[j]) ?
                (less(a[j], a[k]) ? j : less(a[i], a[k]) ? k : i) :
                (less(a[k], a[j]) ? j : less(a[k], a[i]) ? k : i));
-    }
-
-    // print array to standard output
-    private static <T> void show(T[] a) {
-        for (T comparable : a) {
-            StdOut.println(comparable);
-        }
     }
 
     /**
