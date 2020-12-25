@@ -7,6 +7,7 @@ import java.util.Stack;
 import static java.util.Collections.emptyList;
 
 public class TraversalIterative {
+
     // In Order - left, root, right
     public static <T> List<T> inOrder(TreeNode<T> root) {
         if (root == null) return emptyList();

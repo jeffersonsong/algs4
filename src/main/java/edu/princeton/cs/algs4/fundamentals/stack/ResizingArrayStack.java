@@ -74,7 +74,6 @@ public class ResizingArrayStack<Item> implements Stack<Item> {
         return n;
     }
 
-
     // resize the underlying array holding the elements
     private void resize(int capacity) {
         assert capacity >= n;
@@ -104,7 +103,6 @@ public class ResizingArrayStack<Item> implements Stack<Item> {
         if (n > 0 && n == a.length/4) resize(a.length/2);
         return item;
     }
-
 
     /**
      * Returns (but does not remove) the item most recently added to this stack.

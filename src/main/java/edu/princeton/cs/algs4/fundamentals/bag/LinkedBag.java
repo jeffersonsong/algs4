@@ -52,13 +52,18 @@ import java.util.NoSuchElementException;
  *  @author Kevin Wayne
  */
 public class LinkedBag<Item> implements Bag<Item> {
-    private Node first;    // beginning of bag
+    private Node<Item> first;    // beginning of bag
     private int n;         // number of elements in bag
 
     // helper linked list class
     private static class Node<Item> {
-        private Item item;
-        private Node<Item> next;
+        private final Item item;
+        private final Node<Item> next;
+
+        public Node(Item item, Node<Item> next) {
+            this.item = item;
+            this.next = next;
+        }
     }
 
     /**
@@ -90,13 +95,9 @@ public class LinkedBag<Item> implements Bag<Item> {
      * @param item the item to add to this bag
      */
     public void add(Item item) {
-        Node<Item> oldfirst = first;
-        first = new Node<Item>();
-        first.item = item;
-        first.next = oldfirst;
+        first = new Node<>(item, first);
         n++;
     }
-
 
     /**
      * Returns an iterator that iterates over the items in the bag.
@@ -149,8 +150,6 @@ public class LinkedBag<Item> implements Bag<Item> {
             StdOut.println(s);
         }
     }
-
-
 }
 
 /******************************************************************************

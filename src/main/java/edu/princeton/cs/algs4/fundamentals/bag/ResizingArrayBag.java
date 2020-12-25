@@ -11,6 +11,7 @@ package edu.princeton.cs.algs4.fundamentals.bag;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -65,10 +66,7 @@ public class ResizingArrayBag<Item> implements Bag<Item> {
     // resize the underlying array holding the elements
     private void resize(int capacity) {
         assert capacity >= n;
-        Item[] copy = (Item[]) new Object[capacity];
-        for (int i = 0; i < n; i++)
-            copy[i] = a[i];
-        a = copy;
+        a = Arrays.copyOf(a, capacity);
     }
 
     /**
@@ -79,7 +77,6 @@ public class ResizingArrayBag<Item> implements Bag<Item> {
         if (n == a.length) resize(2*a.length);    // double size of array if necessary
         a[n++] = item;                            // add item
     }
-
 
     /**
      * Returns an iterator that iterates over the items in the bag in arbitrary order.

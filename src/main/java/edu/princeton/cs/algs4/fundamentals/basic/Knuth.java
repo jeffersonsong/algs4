@@ -49,6 +49,8 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+
 /**
  *  The {@code Knuth} class provides a client for reading in a 
  *  sequence of strings and <em>shuffling</em> them using the Knuth (or Fisher-Yates)
@@ -82,9 +84,7 @@ public class Knuth {
         for (int i = 0; i < n; i++) {
             // choose index uniformly in [0, i]
             int r = (int) (Math.random() * (i + 1));
-            Object swap = a[r];
-            a[r] = a[i];
-            a[i] = swap;
+            exch(a, i, r);
         }
     }
 
@@ -99,9 +99,7 @@ public class Knuth {
         for (int i = 0; i < n; i++) {
             // choose index uniformly in [i, n-1]
             int r = i + (int) (Math.random() * (n - i));
-            Object swap = a[r];
-            a[r] = a[i];
-            a[i] = swap;
+            exch(a, i, r);
         }
     }
 

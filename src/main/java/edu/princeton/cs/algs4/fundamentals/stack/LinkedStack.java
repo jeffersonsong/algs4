@@ -49,8 +49,13 @@ public class LinkedStack<Item> implements Stack<Item> {
 
     // helper linked list class
     private static class Node<Item> {
-        private Item item;
-        private Node<Item> next;
+        private final Item item;
+        private final Node<Item> next;
+
+        public Node(Item item, Node<Item> next) {
+            this.item = item;
+            this.next = next;
+        }
     }
 
     /**
@@ -83,10 +88,7 @@ public class LinkedStack<Item> implements Stack<Item> {
      * @param item the item to add
      */
     public void push(Item item) {
-        Node<Item> oldfirst = first;
-        first = new Node<>();
-        first.item = item;
-        first.next = oldfirst;
+        first = new Node<>(item, first);
         n++;
         assert check();
     }
@@ -151,7 +153,6 @@ public class LinkedStack<Item> implements Stack<Item> {
 
     // check internal invariants
     private boolean check() {
-
         // check a few properties of instance variable 'first'
         if (n < 0) {
             return false;

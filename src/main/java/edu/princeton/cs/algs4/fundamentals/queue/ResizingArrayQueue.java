@@ -48,7 +48,6 @@ public class ResizingArrayQueue<Item> implements Queue<Item> {
     private int first;      // index of first element of queue
     private int last;       // index of next available slot
 
-
     /**
      * Initializes an empty queue.
      */
@@ -125,7 +124,6 @@ public class ResizingArrayQueue<Item> implements Queue<Item> {
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         return q[first];
     }
-
 
     /**
      * Returns an iterator that iterates over the items in this queue in FIFO order.

@@ -3,6 +3,8 @@ package edu.princeton.cs.algs4.fundamentals.stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkState;
+
 public class FixedCapacityStack<Item> implements Stack<Item> {
     private final Item[] s;
     private int n = 0;
@@ -36,9 +38,7 @@ public class FixedCapacityStack<Item> implements Stack<Item> {
 
     @Override
     public void push(final Item item) {
-        if (n == s.length) {
-            throw new IllegalStateException("Stack overflow");
-        }
+        checkState(n < s.length, "Stack overflow");
         s[n++] = item;
     }
 

@@ -45,8 +45,13 @@ public class LinkedQueue<Item> implements Queue<Item> {
 
     // helper linked list class
     private static class Node<Item> {
-        private Item item;
+        private final Item item;
         private Node<Item> next;
+
+        public Node(Item item) {
+            this.item = item;
+            this.next = null;
+        }
     }
 
     /**
@@ -91,9 +96,7 @@ public class LinkedQueue<Item> implements Queue<Item> {
      */
     public void enqueue(Item item) {
         Node<Item> oldlast = last;
-        last = new Node<>();
-        last.item = item;
-        last.next = null;
+        last = new Node<>(item);
         if (isEmpty()) first = last;
         else           oldlast.next = last;
         n++;
@@ -163,7 +166,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
 
         return true;
     } 
- 
 
     /**
      * Returns an iterator that iterates over the items in this queue in FIFO order.
@@ -191,7 +193,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
             return item;
         }
     }
-
 
     /**
      * Unit tests the {@code LinkedQueue} data type.
