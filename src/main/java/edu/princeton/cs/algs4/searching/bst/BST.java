@@ -189,7 +189,6 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
         return x;
     }
 
-
     /**
      * Removes the smallest key and associated value from the symbol table.
      *
