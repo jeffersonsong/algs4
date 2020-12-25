@@ -8,11 +8,14 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
+import edu.princeton.cs.algs4.utils.ArrayUtils;
+
 import java.util.Iterator;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The MultiwayMinPQ class represents a priority queue of generic keys.
@@ -144,7 +147,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 	 * @return the minimum key currently in the priority queue
 	 */
 	public Key minKey() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(), "Priority queue is empty");
 		return keys[d];
 	}
 
@@ -155,7 +158,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 	 * @return the minimum key
 	 */
 	public Key delMin() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(), "Priority queue is empty");
 		exch(0, --n);
 		sink(0);
 		Key min = keys[n+d];
@@ -183,9 +186,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 	//Exchanges the position of two keys
 	private void exch(int x, int y) {
 		int i = x+d, j = y+d;
-		Key swap = keys[i];
-		keys[i] = keys[j];
-		keys[j] = swap;
+		ArrayUtils.exch(keys, i, j);
 	}
 	
 	//Gets the maximum number of keys in the heap, given the number of levels of the tree

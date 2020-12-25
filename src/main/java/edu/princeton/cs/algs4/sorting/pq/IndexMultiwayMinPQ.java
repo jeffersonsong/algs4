@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The IndexMultiwayMinPQ class represents an indexed priority queue of generic keys.
@@ -107,7 +109,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return true if i is on the priority queue, false if not
 	 */
 	public boolean contains(int i) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		return qp[i+d] != -1;
 	}
 
@@ -129,7 +131,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the index is already in the queue
 	 */
 	public void insert(int i, Key key) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		checkArgument(!contains(i), "Index already there");
 
 		keys[i+d] = key;
@@ -145,7 +147,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the index associated with the minimum key
 	 */
 	public int minIndex() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(), "Priority queue is empty");
 		return pq[d];
 	}
 
@@ -156,7 +158,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the minimum key currently in the priority queue
 	 */
 	public Key minKey() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(), "Priority queue is empty");
 		return keys[pq[d]+d];
 	}
 
@@ -167,7 +169,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the index associated with the minimum key
 	 */
 	public int delMin() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(), "Priority queue is empty");
 		int min = pq[d];
 		exch(0, --n);
 		sink(0);
@@ -186,7 +188,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the key associated with index i
 	 */
 	public Key keyOf(int i) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		checkArgument(contains(i), "Specified index is not in the queue");
 
 		return keys[i+d];
@@ -202,7 +204,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the index has no key associated with
 	 */
 	public void changeKey(int i, Key key) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		checkArgument(contains(i), "Specified index is not in the queue");
 
 		Key tmp = keys[i+d];
@@ -221,7 +223,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the given key is greater than the current key
 	 */
 	public void decreaseKey(int i, Key key) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		checkArgument(comp.compare(keys[i+d], key) > 0, "Calling with this argument would not decrease the Key");
 		keys[i+d] = key;
@@ -238,7 +240,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the given key is lower than the current key
 	 */
 	public void increaseKey(int i, Key key) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		checkArgument(comp.compare(keys[i+d], key) < 0, "Calling with this argument would not increase the Key");
 		keys[i+d] = key;
@@ -253,7 +255,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the given index has no key associated with
 	 */
 	public void delete(int i) {
-		checkArgument(i >= 0 && i < nmax);
+		checkIndexInRange(i, 0, nmax);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		int idx = qp[i+d];
 		exch(idx, --n);

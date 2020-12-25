@@ -1,5 +1,7 @@
 package edu.princeton.cs.algs4.sorting.pq;
 
+import edu.princeton.cs.algs4.utils.ArrayUtils;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -69,9 +71,7 @@ public class UnorderedMaxPQ<Key> implements MaxPQ<Key> {
     }
 
     private void exch(int i, int j) {
-        Key swap = pq[i];
-        pq[i] = pq[j];
-        pq[j] = swap;
+        ArrayUtils.exch(pq, i, j);
     }
 
     private boolean less(int i, int j) {

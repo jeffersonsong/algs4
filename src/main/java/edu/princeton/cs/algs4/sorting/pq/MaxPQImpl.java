@@ -20,12 +20,16 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
+import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The {@code MaxPQ} class represents a priority queue of generic keys.
@@ -107,13 +111,11 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
     public MaxPQImpl(Key[] keys) {
         n = keys.length;
         pq = (Key[]) new Object[keys.length + 1];
-        for (int i = 0; i < n; i++)
-            pq[i+1] = keys[i];
+        System.arraycopy(keys, 0, pq, 1, keys.length);
         for (int k = n/2; k >= 1; k--)
             sink(k);
         assert isMaxHeap();
     }
-      
 
 
     /**
@@ -149,13 +151,8 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
     // resize the underlying array to have the given capacity
     private void resize(int capacity) {
         assert capacity > n;
-        Key[] temp = (Key[]) new Object[capacity];
-        for (int i = 1; i <= n; i++) {
-            temp[i] = pq[i];
-        }
-        pq = temp;
+        pq = Arrays.copyOf(pq, capacity);
     }
-
 
     /**
      * Adds a new key to this priority queue.
@@ -225,9 +222,7 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
     }
 
     private void exch(int i, int j) {
-        Key swap = pq[i];
-        pq[i] = pq[j];
-        pq[j] = swap;
+        ArrayUtils.exch(pq, i, j);
     }
 
     // is pq[1..n] a max heap?
@@ -286,7 +281,7 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
         public void remove()      { throw new UnsupportedOperationException();  }
 
         public Key next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            noSuchElement(!hasNext());
             return copy.delMax();
         }
     }

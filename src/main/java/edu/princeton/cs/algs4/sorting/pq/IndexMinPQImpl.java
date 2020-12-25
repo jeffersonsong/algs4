@@ -9,12 +9,16 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
+import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The {@code IndexMinPQ} class represents an indexed priority queue of generic keys.
@@ -66,8 +70,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
         keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
         pq   = new int[maxN + 1];
         qp   = new int[maxN + 1];                   // make this of length maxN??
-        for (int i = 0; i <= maxN; i++)
-            qp[i] = -1;
+        Arrays.fill(qp, -1);
     }
 
     /**
@@ -215,8 +218,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
     public void decreaseKey(int i, Key key) {
         validateIndex(i);
         checkArgument(contains(i), "index is not in the priority queue");
-        checkArgument(keys[i].compareTo(key) != 0, "Calling decreaseKey() with a key equal to the key in the priority queue");
-        checkArgument(keys[i].compareTo(key) >= 0, "Calling decreaseKey() with a key strictly greater than the key in the priority queue");
+        checkArgument(keys[i].compareTo(key) > 0, "Calling decreaseKey() with a key strictly greater than the key in the priority queue");
         keys[i] = key;
         swim(qp[i]);
     }
@@ -233,8 +235,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
     public void increaseKey(int i, Key key) {
         validateIndex(i);
         checkArgument(contains(i), "index is not in the priority queue");
-        checkArgument(keys[i].compareTo(key) != 0, "Calling increaseKey() with a key equal to the key in the priority queue");
-        checkArgument(keys[i].compareTo(key) <= 0,"Calling increaseKey() with a key strictly less than the key in the priority queue");
+        checkArgument(keys[i].compareTo(key) < 0,"Calling increaseKey() with a key strictly less than the key in the priority queue");
         keys[i] = key;
         sink(qp[i]);
     }
@@ -248,7 +249,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      */
     public void delete(int i) {
         validateIndex(i);
-        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
+        noSuchElement(!contains(i), "index is not in the priority queue");
         int index = qp[i];
         exch(index, n--);
         swim(index);
@@ -259,8 +260,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
 
     // throw an IllegalArgumentException if i is an invalid index
     private void validateIndex(int i) {
-        checkArgument(i >= 0,"index is negative: " + i);
-        checkArgument(i < maxN,"index >= capacity: " + i);
+        checkIndexInRange(i, 0, maxN);
     }
 
    /***************************************************************************
@@ -271,13 +271,10 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
     }
 
     private void exch(int i, int j) {
-        int swap = pq[i];
-        pq[i] = pq[j];
-        pq[j] = swap;
+        ArrayUtils.exch(pq, i, j);
         qp[pq[i]] = i;
         qp[pq[j]] = j;
     }
-
 
    /***************************************************************************
     * Heap helper functions.
@@ -298,7 +295,6 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
             k = j;
         }
     }
-
 
    /***************************************************************************
     * Iterators.

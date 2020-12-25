@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /*
  *  The IndexFibonacciMinPQ class represents an indexed priority queue of generic keys.
@@ -103,7 +105,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public boolean contains(int i) {
-		checkArgument(i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		return nodes[i] != null;
 	}
 
@@ -127,7 +129,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void insert(int i, Key key) {
-		checkArgument( i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		checkArgument(!contains(i), "Specified index is already in the queue");
 		Node<Key> x = new Node<>();
 		x.key = key;
@@ -147,7 +149,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public int minIndex() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(),"Priority queue is empty");
 		return min.index;
 	}
 
@@ -159,7 +161,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public Key minKey() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(),"Priority queue is empty");
 		return min.key;
 	}
 
@@ -171,7 +173,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public int delMin() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		noSuchElement(isEmpty(),"Priority queue is empty");
 		head = cut(min, head);
 		Node<Key> x = min.child;
 		int index = min.index;
@@ -201,7 +203,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public Key keyOf(int i) {
-		checkArgument( i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		return nodes[i].key;
 	}
@@ -217,7 +219,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void changeKey(int i, Key key) {
-		checkArgument( i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		if (greater(key, nodes[i].key))  increaseKey(i, key);
 		else 							 decreaseKey(i, key);
@@ -234,7 +236,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void decreaseKey(int i, Key key) {
-		checkArgument( i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		checkArgument(!greater(key, nodes[i].key), "Calling with this argument would not decrease the key");
 		Node<Key> x = nodes[i];
@@ -256,7 +258,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void increaseKey(int i, Key key) {
-		checkArgument( i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		checkArgument(!greater(nodes[i].key, key), "Calling with this argument would not increase the key");
 		delete(i);
@@ -272,7 +274,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void delete(int i) {
-		checkArgument( i >= 0 && i < n);
+		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 
 		Node<Key> x = nodes[i];
