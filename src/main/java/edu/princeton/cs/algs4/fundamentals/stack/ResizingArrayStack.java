@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
+
 /**
  *  The {@code ResizingArrayStack} class represents a last-in-first-out (LIFO) stack
  *  of generic items.
@@ -95,7 +97,7 @@ public class ResizingArrayStack<Item> implements Stack<Item> {
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item pop() {
-        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        noSuchElement(isEmpty(), "Stack underflow");
         Item item = a[n-1];
         a[n-1] = null;                              // to avoid loitering
         n--;
@@ -110,7 +112,7 @@ public class ResizingArrayStack<Item> implements Stack<Item> {
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        noSuchElement(isEmpty(), "Stack underflow");
         return a[n-1];
     }
 

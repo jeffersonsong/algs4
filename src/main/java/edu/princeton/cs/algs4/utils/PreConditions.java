@@ -38,9 +38,4 @@ public class PreConditions {
         }
     }
 
-    // check if index is in range [lo, hi)
-    public static void checkIndexInRange(int index, int lo, int hi) {
-        checkArgument (index >= lo && index < hi,
-                "index %s is not in range [%s, %s)", index, lo, hi);
-    }
 }

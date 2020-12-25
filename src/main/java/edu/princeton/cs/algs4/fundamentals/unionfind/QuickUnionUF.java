@@ -16,7 +16,7 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.PreConditions.checkIndexInRange;
+import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
 /**
  *  The {@code QuickUnionUF} class represents a <em>union–find data type</em>

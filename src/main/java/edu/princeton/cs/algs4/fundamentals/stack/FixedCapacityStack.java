@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkState;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 public class FixedCapacityStack<Item> implements Stack<Item> {
     private final Item[] s;
@@ -44,9 +45,7 @@ public class FixedCapacityStack<Item> implements Stack<Item> {
 
     @Override
     public Item pop() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Stack underflow");
-        }
+        noSuchElement(isEmpty(), "Stack underflow");
         final Item item = s[--n];
         s[n] = null; // avoid loitering
         return item;
@@ -54,9 +53,7 @@ public class FixedCapacityStack<Item> implements Stack<Item> {
 
     @Override
     public Item peek() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Stack underflow");
-        }
+        noSuchElement(isEmpty(), "Stack underflow");
         return s[n - 1];
     }
 

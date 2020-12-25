@@ -35,6 +35,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
+
 /**
  *  The {@code LinkedBag} class represents a bag (or multiset) of 
  *  generic items. It supports insertion and iterating over the 
@@ -126,7 +128,7 @@ public class LinkedBag<Item> implements Bag<Item> {
 
         // returns the next item in the iterator (and advances the iterator)
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            noSuchElement(!hasNext());
             Item item = current.item;
             current = current.next; 
             return item;

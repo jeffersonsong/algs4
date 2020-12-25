@@ -23,6 +23,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
+
 
 /**
  *  The {@code LinkedStack} class represents a last-in-first-out (LIFO) stack of
@@ -99,7 +101,7 @@ public class LinkedStack<Item> implements Stack<Item> {
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item pop() {
-        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        noSuchElement(isEmpty(), "Stack underflow");
         Item item = first.item;        // save item to return
         first = first.next;            // delete first node
         n--;
@@ -113,7 +115,7 @@ public class LinkedStack<Item> implements Stack<Item> {
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        noSuchElement(isEmpty(), "Stack underflow");
         return first.item;
     }
 

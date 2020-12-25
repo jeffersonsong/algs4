@@ -19,6 +19,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
+
 /**
  *  The {@code ResizingArrayQueue} class represents a first-in-first-out (FIFO)
  *  queue of generic items.
@@ -104,7 +106,8 @@ public class ResizingArrayQueue<Item> implements Queue<Item> {
      * @throws java.util.NoSuchElementException if this queue is empty
      */
     public Item dequeue() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        noSuchElement(isEmpty(), "Queue underflow");
+
         Item item = q[first];
         q[first] = null;                            // to avoid loitering
         n--;
@@ -121,7 +124,7 @@ public class ResizingArrayQueue<Item> implements Queue<Item> {
      * @throws java.util.NoSuchElementException if this queue is empty
      */
     public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        noSuchElement(isEmpty(), "Queue underflow");
         return q[first];
     }
 
@@ -140,7 +143,7 @@ public class ResizingArrayQueue<Item> implements Queue<Item> {
         public void remove()      { throw new UnsupportedOperationException();  }
 
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            noSuchElement(!hasNext());
             Item item = q[(i + first) % q.length];
             i++;
             return item;

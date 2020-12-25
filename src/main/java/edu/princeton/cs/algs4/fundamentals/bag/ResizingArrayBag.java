@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
+
 /**
  *  The {@code ResizingArrayBag} class represents a bag (or multiset) of 
  *  generic items. It supports insertion and iterating over the 
@@ -93,7 +95,7 @@ public class ResizingArrayBag<Item> implements Bag<Item> {
         public void remove()      { throw new UnsupportedOperationException();  }
 
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            noSuchElement(!hasNext());
             return a[i++];
         }
     }

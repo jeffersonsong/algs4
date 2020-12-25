@@ -19,6 +19,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
+
 /**
  *  The {@code LinkedQueue} class represents a first-in-first-out (FIFO)
  *  queue of generic items.
@@ -86,7 +88,7 @@ public class LinkedQueue<Item> implements Queue<Item> {
      * @throws java.util.NoSuchElementException if this queue is empty
      */
     public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        noSuchElement(isEmpty(), "Queue underflow");
         return first.item;
     }
 
@@ -109,7 +111,8 @@ public class LinkedQueue<Item> implements Queue<Item> {
      * @throws java.util.NoSuchElementException if this queue is empty
      */
     public Item dequeue() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        noSuchElement(isEmpty(), "Queue underflow");
+
         Item item = first.item;
         first = first.next;
         n--;

@@ -23,6 +23,7 @@ import java.util.TreeSet;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The {@code SET} class represents an ordered set of comparable keys.
@@ -161,7 +162,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws NoSuchElementException if this set is empty
      */
     public Key max() {
-        if (isEmpty()) throw new NoSuchElementException("called max() with empty set");
+        noSuchElement(isEmpty(), "called max() with empty set");
         return set.last();
     }
 
@@ -172,7 +173,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws NoSuchElementException if this set is empty
      */
     public Key min() {
-        if (isEmpty()) throw new NoSuchElementException("called min() with empty set");
+        noSuchElement(isEmpty(), "called min() with empty set");
         return set.first();
     }
 
@@ -188,7 +189,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
     public Key ceiling(Key key) {
         requiresNotNull(key, "called ceiling() with a null key");
         Key k = set.ceiling(key);
-        if (k == null) throw new NoSuchElementException("all keys are less than " + key);
+        noSuchElement(k == null, "all keys are less than " + key);
         return k;
     }
 
@@ -203,7 +204,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
     public Key floor(Key key) {
         requiresNotNull(key, "called floor() with a null key");
         Key k = set.floor(key);
-        if (k == null) throw new NoSuchElementException("all keys are greater than " + key);
+        noSuchElement(k == null, "all keys are greater than " + key);
         return k;
     }
 
