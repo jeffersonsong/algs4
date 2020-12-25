@@ -38,6 +38,8 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code CC} class represents a data type for 
  *  determining the connected components in an undirected graph.
@@ -205,8 +207,7 @@ public class CC {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**

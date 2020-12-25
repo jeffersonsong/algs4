@@ -14,6 +14,8 @@ import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code DigraphGenerator} class provides static methods for creating
  *  various digraphs, including Erdos-Renyi random digraphs, random DAGs,
@@ -55,8 +57,8 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if no such simple digraph exists
      */
     public static Digraph simple(int V, int E) {
-        if (E > (long) V*(V-1)) throw new IllegalArgumentException("Too many edges");
-        if (E < 0)              throw new IllegalArgumentException("Too few edges");
+        checkArgument(E <= (long) V*(V-1), "Too many edges");
+        checkArgument(E >= 0, "Too few edges");
         Digraph G = new DigraphImpl(V);
         SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
@@ -83,8 +85,7 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
     public static Digraph simple(int V, double p) {
-        if (p < 0.0 || p > 1.0)
-            throw new IllegalArgumentException("Probability must be between 0 and 1");
+        checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
         Digraph G = new DigraphImpl(V);
         for (int v = 0; v < V; v++)
             for (int w = 0; w < V; w++)
@@ -119,8 +120,8 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if no such simple DAG exists
      */
     public static Digraph dag(int V, int E) {
-        if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
-        if (E < 0)                  throw new IllegalArgumentException("Too few edges");
+        checkArgument(E <= (long) V*(V-1) / 2, "Too many edges");
+        checkArgument(E >= 0, "Too few edges");
         Digraph G = new DigraphImpl(V);
         SET<Edge> set = new SETImpl<>();
         int[] vertices = new int[V];
@@ -188,8 +189,8 @@ public class DigraphGenerator {
      * @return a random rooted-in DAG on {@code V} vertices and {@code E} edges
      */
     public static Digraph rootedInDAG(int V, int E) {
-        if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
-        if (E < V-1)                throw new IllegalArgumentException("Too few edges");
+        checkArgument (E <= (long) V*(V-1) / 2, "Too many edges");
+        checkArgument (E >= V-1, "Too few edges");
         Digraph G = new DigraphImpl(V);
         SET<Edge> set = new SETImpl<>();
 
@@ -249,8 +250,9 @@ public class DigraphGenerator {
      * @return a random rooted-out DAG on {@code V} vertices and {@code E} edges
      */
     public static Digraph rootedOutDAG(int V, int E) {
-        if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
-        if (E < V-1)                throw new IllegalArgumentException("Too few edges");
+        checkArgument (E <= (long) V*(V-1) / 2, "Too many edges");
+        checkArgument (E >= V-1, "Too few edges");
+
         Digraph G = new DigraphImpl(V);
         SET<Edge> set = new SETImpl<>();
 
@@ -366,10 +368,8 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E <= 0}
      */
     public static Digraph eulerianCycle(int V, int E) {
-        if (E <= 0)
-            throw new IllegalArgumentException("An Eulerian cycle must have at least one edge");
-        if (V <= 0)
-            throw new IllegalArgumentException("An Eulerian cycle must have at least one vertex");
+        checkArgument(E > 0, "An Eulerian cycle must have at least one edge");
+        checkArgument(V > 0, "An Eulerian cycle must have at least one vertex");
         Digraph G = new DigraphImpl(V);
         int[] vertices = new int[E];
         for (int i = 0; i < E; i++)
@@ -391,10 +391,8 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E < 0}
      */
     public static Digraph eulerianPath(int V, int E) {
-        if (E < 0)
-            throw new IllegalArgumentException("negative number of edges");
-        if (V <= 0)
-            throw new IllegalArgumentException("An Eulerian path must have at least one vertex");
+        checkArgument(E >= 0, "negative number of edges");
+        checkArgument(V > 0, "An Eulerian path must have at least one vertex");
         Digraph G = new DigraphImpl(V);
         int[] vertices = new int[E+1];
         for (int i = 0; i < E+1; i++)
@@ -423,12 +421,9 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if {@code c} is larger than {@code V}
      */
     public static Digraph strong(int V, int E, int c) {
-        if (c >= V || c <= 0)
-            throw new IllegalArgumentException("Number of components must be between 1 and V");
-        if (E <= 2*(V-c))
-            throw new IllegalArgumentException("Number of edges must be at least 2(V-c)");
-        if (E > (long) V*(V-1) / 2)
-            throw new IllegalArgumentException("Too many edges");
+        checkArgument(c < V && c > 0, "Number of components must be between 1 and V");
+        checkArgument(E > 2*(V-c), "Number of edges must be at least 2(V-c)");
+        checkArgument(E <= (long) V*(V-1) / 2, "Too many edges");
 
         // the digraph
         Digraph G = new DigraphImpl(V);

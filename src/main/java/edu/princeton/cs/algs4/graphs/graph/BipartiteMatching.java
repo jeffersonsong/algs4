@@ -14,6 +14,8 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code BipartiteMatching} class represents a data type for computing a
  *  <em>maximum (cardinality) matching</em> and a
@@ -78,9 +80,7 @@ public class BipartiteMatching {
      */
     public BipartiteMatching(Graph G) {
         bipartition = new BipartiteX(G);
-        if (!bipartition.isBipartite()) {
-            throw new IllegalArgumentException("graph is not bipartite");
-        }
+        checkArgument(bipartition.isBipartite(), "graph is not bipartite");
 
         this.V = G.V();
 
@@ -242,8 +242,7 @@ public class BipartiteMatching {
     }
 
     private void validate(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**************************************************************************

@@ -19,6 +19,8 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code BipartiteX} class represents a data type for 
  *  determining whether an undirected graph is <em>bipartite</em> or whether
@@ -187,8 +189,7 @@ public class BipartiteX {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**

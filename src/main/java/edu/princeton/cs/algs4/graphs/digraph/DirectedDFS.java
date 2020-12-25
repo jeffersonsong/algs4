@@ -28,6 +28,8 @@ import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code DirectedDFS} class represents a data type for 
  *  determining the vertices reachable from a given source vertex <em>s</em>
@@ -115,19 +117,14 @@ public class DirectedDFS {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertices(Iterable<Integer> vertices) {
-        if (vertices == null) {
-            throw new IllegalArgumentException("argument is null");
-        }
+        checkArgument(vertices != null, "argument is null");
         for (Integer v : vertices) {
-            if (v == null) {
-                throw new IllegalArgumentException("vertex is null");
-            }
+            checkArgument(v != null, "vertex is null");
             validateVertex(v);
         }
     }

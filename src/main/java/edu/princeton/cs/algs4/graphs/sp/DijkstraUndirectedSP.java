@@ -46,6 +46,8 @@ import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code DijkstraUndirectedSP} class represents a data type for solving
  *  the single-source shortest paths problem in edge-weighted graphs
@@ -84,8 +86,7 @@ public class DijkstraUndirectedSP {
      */
     public DijkstraUndirectedSP(EdgeWeightedGraph G, int s) {
         for (Edge e : G.edges()) {
-            if (e.weight() < 0)
-                throw new IllegalArgumentException("edge " + e + " has negative weight");
+            checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
         }
 
         distTo = new double[G.V()];
@@ -224,8 +225,7 @@ public class DijkstraUndirectedSP {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = distTo.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**

@@ -16,6 +16,8 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code AdjMatrixEdgeWeightedDigraph} class represents a edge-weighted
  *  digraph of vertices named 0 through <em>V</em> - 1, where each
@@ -51,7 +53,7 @@ public class AdjMatrixEdgeWeightedDigraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public AdjMatrixEdgeWeightedDigraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("number of vertices must be nonnegative");
+        checkArgument(V >= 0, "number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
         this.adj = new DirectedEdge[V][V];
@@ -66,8 +68,8 @@ public class AdjMatrixEdgeWeightedDigraph {
      */
     public AdjMatrixEdgeWeightedDigraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("number of edges must be nonnegative");
-        if (E > V*V) throw new IllegalArgumentException("too many edges");
+        checkArgument(E >= 0, "number of edges must be nonnegative");
+        checkArgument(E <= V*V, "too many edges");
 
         // can be inefficient
         while (this.E != E) {
@@ -175,8 +177,7 @@ public class AdjMatrixEdgeWeightedDigraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
 

@@ -19,6 +19,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code HopcroftKarp} class represents a data type for computing a
  *  <em>maximum (cardinality) matching</em> and a
@@ -80,9 +82,7 @@ public class HopcroftKarp {
      */
     public HopcroftKarp(Graph G) {
         bipartition = new BipartiteX(G);
-        if (!bipartition.isBipartite()) {
-            throw new IllegalArgumentException("graph is not bipartite");
-        }
+        checkArgument(bipartition.isBipartite(), "graph is not bipartite");
 
         // initialize empty matching
         this.V = G.V();
@@ -293,8 +293,7 @@ public class HopcroftKarp {
 
     // throw an exception if vertex is invalid
     private void validate(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**************************************************************************

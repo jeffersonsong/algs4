@@ -11,6 +11,8 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Edge} class represents a weighted edge in an 
  *  {@link EdgeWeightedGraph}. Each edge consists of two integers
@@ -43,9 +45,9 @@ public class Edge implements Comparable<Edge> {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public Edge(int v, int w, double weight) {
-        if (v < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
-        if (w < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
-        if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
+        checkArgument(v >= 0, "vertex index must be a nonnegative integer");
+        checkArgument(w >= 0, "vertex index must be a nonnegative integer");
+        checkArgument(!Double.isNaN(weight), "Weight is NaN");
         this.v = v;
         this.w = w;
         this.weight = weight;

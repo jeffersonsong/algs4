@@ -29,6 +29,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code NonrecursiveDirectedDFS} class represents a data type for finding
  *  the vertices reachable from a source vertex <em>s</em> in the digraph.
@@ -105,8 +107,7 @@ public class NonrecursiveDirectedDFS {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**

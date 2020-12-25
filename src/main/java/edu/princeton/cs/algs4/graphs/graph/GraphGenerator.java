@@ -18,6 +18,8 @@ import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code GraphGenerator} class provides static methods for creating
  *  various graphs, including Erdos-Renyi random graphs, random bipartite
@@ -64,8 +66,8 @@ public class GraphGenerator {
      * @throws IllegalArgumentException if no such simple graph exists
      */
     public static Graph simple(int V, int E) {
-        if (E > (long) V*(V-1)/2) throw new IllegalArgumentException("Too many edges");
-        if (E < 0)                throw new IllegalArgumentException("Too few edges");
+        checkArgument(E <= (long) V*(V-1)/2, "Too many edges");
+        checkArgument(E >= 0, "Too few edges");
         Graph G = new GraphImpl(V);
         SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
@@ -91,8 +93,7 @@ public class GraphGenerator {
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
     public static Graph simple(int V, double p) {
-        if (p < 0.0 || p > 1.0)
-            throw new IllegalArgumentException("Probability must be between 0 and 1");
+        checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
         Graph G = new GraphImpl(V);
         for (int v = 0; v < V; v++)
             for (int w = v+1; w < V; w++)
@@ -132,8 +133,8 @@ public class GraphGenerator {
      * @throws IllegalArgumentException if no such simple bipartite graph exists
      */
     public static Graph bipartite(int V1, int V2, int E) {
-        if (E > (long) V1*V2) throw new IllegalArgumentException("Too many edges");
-        if (E < 0)            throw new IllegalArgumentException("Too few edges");
+        checkArgument(E <= (long) V1*V2, "Too many edges");
+        checkArgument(E >= 0, "Too few edges");
         Graph G = new GraphImpl(V1 + V2);
 
         int[] vertices = new int[V1 + V2];
@@ -165,8 +166,7 @@ public class GraphGenerator {
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
     public static Graph bipartite(int V1, int V2, double p) {
-        if (p < 0.0 || p > 1.0)
-            throw new IllegalArgumentException("Probability must be between 0 and 1");
+        checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
         int[] vertices = new int[V1 + V2];
         for (int i = 0; i < V1 + V2; i++)
             vertices[i] = i;
@@ -241,10 +241,8 @@ public class GraphGenerator {
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E <= 0}
      */
     public static Graph eulerianCycle(int V, int E) {
-        if (E <= 0)
-            throw new IllegalArgumentException("An Eulerian cycle must have at least one edge");
-        if (V <= 0)
-            throw new IllegalArgumentException("An Eulerian cycle must have at least one vertex");
+        checkArgument(E > 0, "An Eulerian cycle must have at least one edge");
+        checkArgument(V > 0, "An Eulerian cycle must have at least one vertex");
         Graph G = new GraphImpl(V);
         int[] vertices = new int[E];
         for (int i = 0; i < E; i++)
@@ -266,10 +264,8 @@ public class GraphGenerator {
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E < 0}
      */
     public static Graph eulerianPath(int V, int E) {
-        if (E < 0)
-            throw new IllegalArgumentException("negative number of edges");
-        if (V <= 0)
-            throw new IllegalArgumentException("An Eulerian path must have at least one vertex");
+        checkArgument(E >= 0, "negative number of edges");
+        checkArgument(V > 0, "An Eulerian path must have at least one vertex");
         Graph G = new GraphImpl(V);
         int[] vertices = new int[E+1];
         for (int i = 0; i < E+1; i++)
@@ -287,7 +283,7 @@ public class GraphGenerator {
      *     every vertex in a cycle on {@code V-1} vertices
      */
     public static Graph wheel(int V) {
-        if (V <= 1) throw new IllegalArgumentException("Number of vertices must be at least 2");
+        checkArgument(V > 1, "Number of vertices must be at least 2");
         Graph G = new GraphImpl(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
@@ -315,7 +311,7 @@ public class GraphGenerator {
      *     every other vertex
      */
     public static Graph star(int V) {
-        if (V <= 0) throw new IllegalArgumentException("Number of vertices must be at least 1");
+        checkArgument(V > 0, "Number of vertices must be at least 1");
         Graph G = new GraphImpl(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
@@ -340,7 +336,7 @@ public class GraphGenerator {
      * @return a uniformly random {@code k}-regular graph on {@code V} vertices.
      */
     public static Graph regular(int V, int k) {
-        if (V*k % 2 != 0) throw new IllegalArgumentException("Number of vertices * k must be even");
+        checkArgument(V*k % 2 == 0, "Number of vertices * k must be even");
         Graph G = new GraphImpl(V);
 
         // create k copies of each vertex

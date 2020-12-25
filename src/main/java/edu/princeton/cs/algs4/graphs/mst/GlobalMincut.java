@@ -29,6 +29,8 @@ import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
 import edu.princeton.cs.algs4.graphs.maxflow.FordFulkerson;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code GlobalMincut} class represents a data type for computing a
  *  <em>global minimum cut</em> in a graph with non-negative edge weights.
@@ -109,9 +111,9 @@ public class GlobalMincut {
      *             is less than {@code 2} or if any edge weight is negative
      */
     private void validate(EdgeWeightedGraph G) {
-        if (G.V() < 2) throw new IllegalArgumentException("number of vertices of G is less than 2");
+        checkArgument(G.V() >= 2, "number of vertices of G is less than 2");
         for (Edge e : G.edges()) {
-            if (e.weight() < 0) throw new IllegalArgumentException("edge " + e + " has negative weight");
+            checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
         }
     }
 
@@ -274,8 +276,7 @@ public class GlobalMincut {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
 

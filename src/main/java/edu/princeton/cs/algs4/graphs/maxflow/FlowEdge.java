@@ -11,6 +11,8 @@ package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code FlowEdge} class represents a capacitated edge with a 
   * flow in a {@link FlowNetwork}. Each edge consists of two integers
@@ -46,9 +48,9 @@ public class FlowEdge {
      * @throws IllegalArgumentException if {@code capacity < 0.0}
      */
     public FlowEdge(int v, int w, double capacity) {
-        if (v < 0) throw new IllegalArgumentException("vertex index must be a non-negative integer");
-        if (w < 0) throw new IllegalArgumentException("vertex index must be a non-negative integer");
-        if (!(capacity >= 0.0)) throw new IllegalArgumentException("Edge capacity must be non-negative");
+        checkArgument(v >= 0, "vertex index must be a non-negative integer");
+        checkArgument(w >= 0, "vertex index must be a non-negative integer");
+        checkArgument(capacity >= 0.0, "Edge capacity must be non-negative");
         this.v         = v;
         this.w         = w;  
         this.capacity  = capacity;
@@ -69,11 +71,12 @@ public class FlowEdge {
      *    {@code 0.0} and {@code capacity}.
      */
     public FlowEdge(int v, int w, double capacity, double flow) {
-        if (v < 0) throw new IllegalArgumentException("vertex index must be a non-negative integer");
-        if (w < 0) throw new IllegalArgumentException("vertex index must be a non-negative integer");
-        if (!(capacity >= 0.0))  throw new IllegalArgumentException("edge capacity must be non-negative");
-        if (!(flow <= capacity)) throw new IllegalArgumentException("flow exceeds capacity");
-        if (!(flow >= 0.0))      throw new IllegalArgumentException("flow must be non-negative");
+        checkArgument(v >= 0, "vertex index must be a non-negative integer");
+        checkArgument(w >= 0, "vertex index must be a non-negative integer");
+        checkArgument(capacity >= 0.0, "Edge capacity must be non-negative");
+
+        checkArgument(flow <= capacity, "flow exceeds capacity");
+        checkArgument(flow >= 0.0, "flow must be non-negative");
         this.v         = v;
         this.w         = w;  
         this.capacity  = capacity;
@@ -167,7 +170,7 @@ public class FlowEdge {
      * @throws IllegalArgumentException if {@code delta} is {@code NaN}
      */
     public void addResidualFlowTo(int vertex, double delta) {
-        if (!(delta >= 0.0)) throw new IllegalArgumentException("Delta must be nonnegative");
+        checkArgument(delta >= 0.0, "Delta must be nonnegative");
 
         if      (vertex == v) flow -= delta;           // backward edge
         else if (vertex == w) flow += delta;           // forward edge
@@ -179,8 +182,8 @@ public class FlowEdge {
         if (Math.abs(flow - capacity) <= FLOATING_POINT_EPSILON)
             flow = capacity;
 
-        if (!(flow >= 0.0))      throw new IllegalArgumentException("Flow is negative");
-        if (!(flow <= capacity)) throw new IllegalArgumentException("Flow exceeds capacity");
+        checkArgument (flow >= 0.0, "Flow is negative");
+        checkArgument(flow <= capacity, "Flow exceeds capacity");
     }
 
 

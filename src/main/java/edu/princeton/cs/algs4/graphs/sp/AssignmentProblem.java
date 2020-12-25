@@ -13,6 +13,8 @@ package edu.princeton.cs.algs4.graphs.sp;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code AssignmentProblem} class represents a data type for computing
  *  an optimal solution to an <em>n</em>-by-<em>n</em> <em>assignment problem</em>.
@@ -54,14 +56,13 @@ public class AssignmentProblem {
      * @throws IllegalArgumentException if {@code weight} is {@code null}
      */ 
     public AssignmentProblem(double[][] weight) {
-        if (weight == null) throw new IllegalArgumentException("constructor argument is null");
+        checkArgument(weight != null, "constructor argument is null");
 
         n = weight.length;
         this.weight = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (Double.isNaN(weight[i][j]))
-                    throw new IllegalArgumentException("weight " + i + "-" + j  + " is NaN");
+                checkArgument(!Double.isNaN(weight[i][j]), "weight " + i + "-" + j  + " is NaN");
                 if (weight[i][j] < minWeight) minWeight = weight[i][j];
                 this.weight[i][j] = weight[i][j];
             }
@@ -197,7 +198,7 @@ public class AssignmentProblem {
     }
 
     private void validate(int i) {
-        if (i < 0 || i >= n) throw new IllegalArgumentException("index is not between 0 and " + (n-1) + ": " + i);
+        checkArgument(i >= 0 && i < n, "index is not between 0 and " + (n-1) + ": " + i);
     }
 
 

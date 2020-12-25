@@ -26,6 +26,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code AcyclicSP} class represents a data type for solving the
  *  single-source shortest paths problem in edge-weighted directed acyclic
@@ -71,8 +73,7 @@ public class AcyclicSP implements SP {
 
         // visit vertices in topological order
         Topological topological = new Topological(G);
-        if (!topological.hasOrder())
-            throw new IllegalArgumentException("Digraph is not acyclic.");
+        checkArgument(topological.hasOrder(), "Digraph is not acyclic.");
         for (int v : topological.order()) {
             for (DirectedEdge e : G.adj(v))
                 relax(e);
@@ -132,8 +133,7 @@ public class AcyclicSP implements SP {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = distTo.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**

@@ -15,6 +15,8 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code FordFulkerson} class represents a data type for computing a
  *  <em>maximum st-flow</em> and <em>minimum st-cut</em> in a flow
@@ -64,8 +66,8 @@ public class FordFulkerson {
         V = G.V();
         validate(s);
         validate(t);
-        if (s == t)               throw new IllegalArgumentException("Source equals sink");
-        if (!isFeasible(G, s, t)) throw new IllegalArgumentException("Initial flow is infeasible");
+        checkArgument(s != t, "Source equals sink");
+        checkArgument(isFeasible(G, s, t), "Initial flow is infeasible");
 
         // while there exists an augmenting path, use it
         value = excess(G, t);
@@ -113,8 +115,7 @@ public class FordFulkerson {
 
     // throw an IllegalArgumentException if v is outside prescibed range
     private void validate(int v)  {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
 
