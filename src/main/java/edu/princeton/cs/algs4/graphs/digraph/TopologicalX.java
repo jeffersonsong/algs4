@@ -18,6 +18,7 @@ import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -57,12 +58,8 @@ public class TopologicalX {
      * @param G the digraph
      */
     public TopologicalX(Digraph G) {
-
         // indegrees of remaining vertices
-        int[] indegree = new int[G.V()];
-        for (int v = 0; v < G.V(); v++) {
-            indegree[v] = G.indegree(v);
-        }
+        int[] indegree = newIntArray(G.V(), G::indegree);
 
         // initialize 
         ranks = new int[G.V()]; 

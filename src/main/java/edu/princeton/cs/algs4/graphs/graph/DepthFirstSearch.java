@@ -20,6 +20,7 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -61,6 +62,16 @@ public class DepthFirstSearch {
         marked = new boolean[G.V()];
         validateVertex(s);
         dfs(G, s);
+    }
+
+    public DepthFirstSearch(Digraph G, Iterable<Integer> sources) {
+        marked = new boolean[G.V()];
+        for (int s: sources) {
+            validateVertex(s);
+        }
+        for (int v : sources) {
+            if (!marked[v]) dfs(G, v);
+        }
     }
 
     // depth first search from v

@@ -23,13 +23,11 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.fundamentals.bag.Bag;
-
-import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code DirectedDFS} class represents a data type for 
@@ -51,10 +49,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DirectedDFS {
-    private final boolean[] marked;  // marked[v] = true iff v is reachable from source(s)
-    private int count;         // number of vertices reachable from source(s)
-
+public class DirectedDFS extends DepthFirstSearch {
     /**
      * Computes the vertices in digraph {@code G} that are
      * reachable from the source vertex {@code s}.
@@ -63,9 +58,7 @@ public class DirectedDFS {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DirectedDFS(Digraph G, int s) {
-        marked = new boolean[G.V()];
-        validateVertex(s);
-        dfs(G, s);
+        super(G, s);
     }
 
     /**
@@ -78,58 +71,8 @@ public class DirectedDFS {
      *         for each vertex {@code s} in {@code sources}
      */
     public DirectedDFS(Digraph G, Iterable<Integer> sources) {
-        marked = new boolean[G.V()];
-        validateVertices(sources);
-        for (int v : sources) {
-            if (!marked[v]) dfs(G, v);
-        }
+        super(G, sources);
     }
-
-    private void dfs(Digraph G, int v) { 
-        count++;
-        marked[v] = true;
-        for (int w : G.adj(v)) {
-            if (!marked[w]) dfs(G, w);
-        }
-    }
-
-    /**
-     * Is there a directed path from the source vertex (or any
-     * of the source vertices) and vertex {@code v}?
-     * @param  v the vertex
-     * @return {@code true} if there is a directed path, {@code false} otherwise
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
-     */
-    public boolean marked(int v) {
-        validateVertex(v);
-        return marked[v];
-    }
-
-    /**
-     * Returns the number of vertices reachable from the source vertex
-     * (or source vertices).
-     * @return the number of vertices reachable from the source vertex
-     *   (or source vertices)
-     */
-    public int count() {
-        return count;
-    }
-
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
-    private void validateVertex(int v) {
-        int V = marked.length;
-        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
-    }
-
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
-    private void validateVertices(Iterable<Integer> vertices) {
-        requiresNotNull(vertices, "argument is null");
-        for (Integer v : vertices) {
-            requiresNotNull(v, "vertex is null");
-            validateVertex(v);
-        }
-    }
-
 
     /**
      * Unit tests the {@code DirectedDFS} data type.

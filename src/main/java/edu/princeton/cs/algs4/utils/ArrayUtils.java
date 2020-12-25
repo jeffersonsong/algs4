@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.function.IntFunction;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 public class ArrayUtils {
     private ArrayUtils() {
@@ -20,10 +21,15 @@ public class ArrayUtils {
     }
 
     public static int[] newIndexArray(int length) {
+        return newIntArray(length, i->i);
+    }
+
+    public static int[] newIntArray(int length, IntToIntFunction function) {
         checkArgument(length >= 0, "Array dimension is non-negative");
+        requiresNotNull(function, "Function not set.");
         int[] array = new int[length];
         for (int i=0; i < length; i++) {
-            array[i] = i;
+            array[i] = function.applyAsInt(i);
         }
         return array;
     }

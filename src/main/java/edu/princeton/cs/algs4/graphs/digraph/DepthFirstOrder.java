@@ -180,10 +180,8 @@ public class DepthFirstOrder {
         return reverse;
     }
 
-
     // check that pre() and post() are consistent with pre(v) and post(v)
     private boolean check() {
-
         // check that post(v) is consistent with post()
         int r = 0;
         for (int v : post()) {
@@ -246,10 +244,7 @@ public class DepthFirstOrder {
             StdOut.print(v + " ");
         }
         StdOut.println();
-
-
     }
-
 }
 
 /******************************************************************************
