@@ -106,6 +106,7 @@ public class LinkedList<Item> implements List<Item> {
 
         if (Objects.equals(first.data, item)) {
             deleteFront();
+
         } else {
             Node<Item> prev = first;
 
@@ -113,15 +114,13 @@ public class LinkedList<Item> implements List<Item> {
                 prev = prev.next;
             }
 
-            if (prev.next != null) {
-                if (prev.next == last) {
-                    last = prev;
-                }
-                prev.next = prev.next.next;
-                n--;
-            } else {
-                throw new NoSuchElementException("No item found.");
+            if (prev.next == null) throw new NoSuchElementException("No item found.");
+
+            if (prev.next == last) {
+                last = prev;
             }
+            prev.next = prev.next.next;
+            n--;
         }
     }
 
@@ -136,15 +135,15 @@ public class LinkedList<Item> implements List<Item> {
             Node<Item> node = new Node<>(item, prev.next);
             prev.next = node;
             n++;
-            if (i == size() -1) last = node;
+            if (i == size() - 1) last = node;
         }
     }
 
     private Node<Item> getNode(int i) {
-        assert i>=0 && i < size();
+        assert i >= 0 && i < size();
 
         Node<Item> node = first;
-        for (int k=0; k < i && node != null; k++) {
+        for (int k = 0; k < i && node != null; k++) {
             node = node.next;
         }
         return node;
