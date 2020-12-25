@@ -52,7 +52,7 @@ public class TopM {
      */
     public static void main(String[] args) {
         int m = Integer.parseInt(args[0]); 
-        MinPQImpl<Transaction> pq = new MinPQImpl<>(m + 1);
+        MinPQ<Transaction> pq = new MinPQImpl<>(m + 1);
 
         while (StdIn.hasNextLine()) {
             // Create an entry from the next line and put on the PQ. 

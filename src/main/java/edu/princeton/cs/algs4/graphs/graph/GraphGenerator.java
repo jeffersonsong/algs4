@@ -13,6 +13,7 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.set.SET;
+import edu.princeton.cs.algs4.sorting.pq.MinPQ;
 import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
 import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -365,7 +366,7 @@ public class GraphGenerator {
             degree[prufer[i]]++;
 
         // pq contains all vertices of degree 1
-        MinPQImpl<Integer> pq = new MinPQImpl<>();
+        MinPQ<Integer> pq = new MinPQImpl<>();
         for (int v = 0; v < V; v++)
             if (degree[v] == 1) pq.insert(v);
 
