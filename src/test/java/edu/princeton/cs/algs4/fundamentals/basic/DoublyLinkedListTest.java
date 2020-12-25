@@ -1,12 +1,13 @@
 package edu.princeton.cs.algs4.fundamentals.basic;
 
+import edu.princeton.cs.algs4.fundamentals.list.DoublyLinkedList;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.princeton.cs.algs4.fundamentals.basic.DoublyLinkedList.Node;
+import edu.princeton.cs.algs4.fundamentals.list.DoublyLinkedList.Node;
 
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static java.util.Arrays.asList;
