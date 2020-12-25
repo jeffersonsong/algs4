@@ -39,12 +39,12 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
-import edu.princeton.cs.algs4.sorting.pq.IndexMinPQImpl;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQImpl;
 import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -73,7 +73,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 public class DijkstraUndirectedSP {
     private final double[] distTo;          // distTo[v] = distance  of shortest s->v path
     private final Edge[] edgeTo;            // edgeTo[v] = last edge on shortest s->v path
-    private final IndexMinPQ<Double> pq;    // priority queue of vertices
+    private final IndexPQ<Double> pq;    // priority queue of vertices
 
     /**
      * Computes a shortest-paths tree from the source vertex {@code s} to every
@@ -99,10 +99,10 @@ public class DijkstraUndirectedSP {
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
-        pq = new IndexMinPQImpl<>(G.V());
+        pq = IndexPQImpl.indexMinPQ(G.V());
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
-            int v = pq.delMin();
+            int v = pq.poll();
             for (Edge e : G.adj(v))
                 relax(e, v);
         }

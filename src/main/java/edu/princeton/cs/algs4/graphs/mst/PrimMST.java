@@ -40,11 +40,11 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.sorting.pq.IndexMinPQ;
-import edu.princeton.cs.algs4.sorting.pq.IndexMinPQImpl;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQImpl;
 import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code PrimMST} class represents a data type for computing a
@@ -80,7 +80,7 @@ public class PrimMST implements MST {
     private final Edge[] edgeTo;        // edgeTo[v] = shortest edge from tree vertex to non-tree vertex
     private final double[] distTo;      // distTo[v] = weight of shortest such edge
     private final boolean[] marked;     // marked[v] = true if v on tree, false otherwise
-    private final IndexMinPQ<Double> pq;
+    private final IndexPQ<Double> pq;
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
@@ -90,7 +90,7 @@ public class PrimMST implements MST {
         edgeTo = new Edge[G.V()];
         distTo = new double[G.V()];
         marked = new boolean[G.V()];
-        pq = new IndexMinPQImpl<>(G.V());
+        pq = IndexPQImpl.indexMinPQ(G.V());
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
 
@@ -106,7 +106,7 @@ public class PrimMST implements MST {
         distTo[s] = 0.0;
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
-            int v = pq.delMin();
+            int v = pq.poll();
             scan(G, v);
         }
     }

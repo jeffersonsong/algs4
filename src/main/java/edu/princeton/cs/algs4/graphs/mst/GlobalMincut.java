@@ -21,14 +21,14 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
-import edu.princeton.cs.algs4.sorting.pq.IndexMaxPQ;
-import edu.princeton.cs.algs4.utils.io.In;
-import edu.princeton.cs.algs4.sorting.pq.IndexMaxPQImpl;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
 import edu.princeton.cs.algs4.graphs.maxflow.FordFulkerson;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQImpl;
+import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -199,13 +199,13 @@ public class GlobalMincut {
      * @return the cut-of-the-phase
      */
     private CutPhase minCutPhase(EdgeWeightedGraph G, boolean[] marked, CutPhase cp) {
-        IndexMaxPQ<Double> pq = new IndexMaxPQImpl<>(G.V());
+        IndexPQ<Double> pq = IndexPQImpl.indexMaxPQ(G.V());
         for (int v = 0; v < G.V(); v++) {
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
         }
         pq.insert(cp.s, Double.POSITIVE_INFINITY);
         while (!pq.isEmpty()) {
-            int v = pq.delMax();
+            int v = pq.poll();
             cp.s = cp.t;
             cp.t = v;
             for (Edge e : G.adj(v)) {
