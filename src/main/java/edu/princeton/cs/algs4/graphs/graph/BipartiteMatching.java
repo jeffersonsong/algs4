@@ -14,6 +14,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -85,9 +86,7 @@ public class BipartiteMatching {
         this.V = G.V();
 
         // initialize empty matching
-        mate = new int[V];
-        for (int v = 0; v < V; v++)
-            mate[v] = UNMATCHED;
+        mate = newIntArray(V, UNMATCHED);
 
         // alternating path algorithm
         while (hasAugmentingPath(G)) {
@@ -138,9 +137,7 @@ public class BipartiteMatching {
     private boolean hasAugmentingPath(Graph G) {
         marked = new boolean[V];
 
-        edgeTo = new int[V];
-        for (int v = 0; v < V; v++)
-            edgeTo[v] = -1;
+        edgeTo = newIntArray(V, -1);
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
         Queue<Integer> queue = new LinkedQueue<>();

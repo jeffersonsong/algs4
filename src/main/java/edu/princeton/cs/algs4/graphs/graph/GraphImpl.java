@@ -43,6 +43,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -128,16 +129,13 @@ public class GraphImpl implements Graph {
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
-                validateVertex(v);
-                validateVertex(w);
-                addEdge(v, w); 
+                addEdge(v, w);
             }
         }
         catch (NoSuchElementException e) {
             throw new IllegalArgumentException("invalid input format in Graph constructor", e);
         }
     }
-
 
     /**
      * Initializes a new GraphImpl that is a deep copy of {@code G}.
@@ -146,15 +144,7 @@ public class GraphImpl implements Graph {
      * @throws IllegalArgumentException if {@code G} is {@code null}
      */
     public GraphImpl(Graph G) {
-        this.V = G.V();
-        this.E = G.E();
-        checkArgument(V >= 0, "Number of vertices must be nonnegative");
-
-        // update adjacency lists
-        adj = (Bag<Integer>[]) new Bag[V];
-        for (int v = 0; v < V; v++) {
-            adj[v] = new LinkedBag<>();
-        }
+        this(G.V());
 
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
@@ -166,6 +156,7 @@ public class GraphImpl implements Graph {
                 adj[v].add(w);
             }
         }
+        this.E = G.E();
     }
 
     /**
@@ -206,7 +197,6 @@ public class GraphImpl implements Graph {
         adj[w].add(v);
     }
 
-
     /**
      * Returns the vertices adjacent to vertex {@code v}.
      *
@@ -231,7 +221,6 @@ public class GraphImpl implements Graph {
         return adj[v].size();
     }
 
-
     /**
      * Returns a string representation of this graph.
      *
@@ -251,7 +240,6 @@ public class GraphImpl implements Graph {
         return s.toString();
     }
 
-
     /**
      * Unit tests the {@code Graph} data type.
      *
@@ -262,7 +250,6 @@ public class GraphImpl implements Graph {
         GraphImpl G = new GraphImpl(in);
         StdOut.println(G);
     }
-
 }
 
 /******************************************************************************

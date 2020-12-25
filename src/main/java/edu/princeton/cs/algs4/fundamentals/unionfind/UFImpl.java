@@ -29,6 +29,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
@@ -105,10 +106,7 @@ public class UFImpl implements UF {
     public UFImpl(int n) {
         checkArgument(n >= 0);
         count = n;
-        parent = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
+        parent = newIndexArray(n);
         rank = new byte[n];
         Arrays.fill(rank, (byte)0);
     }

@@ -35,6 +35,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -71,10 +72,8 @@ public class BreadthFirstDirectedPaths {
      */
     public BreadthFirstDirectedPaths(Digraph G, int s) {
         marked = new boolean[G.V()];
-        distTo = new int[G.V()];
+        distTo = newIntArray(G.V(), INFINITY);
         edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = INFINITY;
         validateVertex(s);
         bfs(G, s);
     }
@@ -90,10 +89,8 @@ public class BreadthFirstDirectedPaths {
      */
     public BreadthFirstDirectedPaths(Digraph G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
-        distTo = new int[G.V()];
+        distTo = newIntArray(G.V(), INFINITY);
         edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = INFINITY;
         validateVertices(sources);
         bfs(G, sources);
     }

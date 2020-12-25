@@ -31,6 +31,7 @@ package edu.princeton.cs.algs4.context.suffixarray;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -80,9 +81,7 @@ public class SuffixArrayX {
         n = text.length();
         text = text + '\0';
         this.text = text.toCharArray();
-        this.index = new int[n];
-        for (int i = 0; i < n; i++)
-            index[i] = i;
+        this.index = newIndexArray(n);
 
         sort(0, n-1, 0);
     }

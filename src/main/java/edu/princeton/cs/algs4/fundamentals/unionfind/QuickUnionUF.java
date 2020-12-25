@@ -15,6 +15,7 @@ package edu.princeton.cs.algs4.fundamentals.unionfind;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
@@ -80,11 +81,8 @@ public class QuickUnionUF implements UF {
      * @throws IllegalArgumentException if {@code n < 0}
      */
     public QuickUnionUF(int n) {
-        parent = new int[n];
+        parent = newIndexArray(n);
         count = n;
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
     }
 
     /**

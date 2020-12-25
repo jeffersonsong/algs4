@@ -27,4 +27,15 @@ public class GraphImplTest {
 
         LOGGER.info(G.toString());
     }
+
+    @Test
+    public void testCopyConstructor() {
+        Graph G2 = new GraphImpl(G);
+        assertThat(G2.V(), is(13));
+        assertThat(G2.E(), is(13));
+
+        assertThat(G2.toString(), is(G.toString()));
+
+        LOGGER.info(G2.toString());
+    }
 }

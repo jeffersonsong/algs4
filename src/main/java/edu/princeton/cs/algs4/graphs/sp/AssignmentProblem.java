@@ -13,6 +13,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -74,12 +75,8 @@ public class AssignmentProblem {
         py = new double[n];
 
         // initial matching is empty
-        xy = new int[n];
-        yx = new int[n];
-        for (int i = 0; i < n; i++)
-             xy[i] = UNMATCHED;
-        for (int j = 0; j < n; j++)
-             yx[j] = UNMATCHED;
+        xy = newIntArray(n, UNMATCHED);
+        yx = newIntArray(n, UNMATCHED);
 
         // add n edges to matching
         for (int k = 0; k < n; k++) {

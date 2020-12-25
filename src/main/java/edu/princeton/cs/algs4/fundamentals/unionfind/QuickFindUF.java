@@ -15,6 +15,7 @@ package edu.princeton.cs.algs4.fundamentals.unionfind;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
@@ -82,9 +83,7 @@ public class QuickFindUF implements UF {
      */
     public QuickFindUF(int n) {
         count = n;
-        id = new int[n];
-        for (int i = 0; i < n; i++)
-            id[i] = i;
+        id = newIndexArray(n);
     }
 
     /**

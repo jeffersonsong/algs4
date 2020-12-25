@@ -17,6 +17,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
@@ -85,12 +87,8 @@ public class WeightedQuickUnionUF implements UF {
      */
     public WeightedQuickUnionUF(int n) {
         count = n;
-        parent = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-        size = new int[n];
-        Arrays.fill(size, 1);
+        parent = newIndexArray(n);
+        size = newIntArray(n, 1);
     }
 
     /**

@@ -19,6 +19,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -86,9 +87,7 @@ public class HopcroftKarp {
 
         // initialize empty matching
         this.V = G.V();
-        mate = new int[V];
-        for (int v = 0; v < V; v++)
-            mate[v] = UNMATCHED;
+        mate = newIntArray(V, UNMATCHED);
 
         // the call to hasAugmentingPath() provides enough info to reconstruct level graph
         while (hasAugmentingPath(G)) {
@@ -183,12 +182,9 @@ public class HopcroftKarp {
      * an augmenting path is an alternating path that starts and ends at unmatched vertices
      */
     private boolean hasAugmentingPath(Graph G) {
-
         // shortest path distances
         marked = new boolean[V];
-        distTo = new int[V];
-        for (int v = 0; v < V; v++)
-            distTo[v] = Integer.MAX_VALUE;
+        distTo = newIntArray(V, Integer.MAX_VALUE);
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
         Queue<Integer> queue = new LinkedQueue<>();

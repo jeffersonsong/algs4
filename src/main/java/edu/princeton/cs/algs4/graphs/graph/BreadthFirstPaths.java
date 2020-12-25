@@ -41,6 +41,8 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 
+import edu.princeton.cs.algs4.fundamentals.bag.Bag;
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -48,6 +50,9 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -85,13 +90,13 @@ public class BreadthFirstPaths {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public BreadthFirstPaths(Graph G, int s) {
-        marked = new boolean[G.V()];
-        distTo = new int[G.V()];
-        edgeTo = new int[G.V()];
-        validateVertex(s);
-        bfs(G, s);
+        this(G, singleton(s));
+    }
 
-        assert check(G, s);
+    private static Iterable<Integer> singleton(int s) {
+        Bag<Integer> bag = new LinkedBag<>();
+        bag.add(s);
+        return bag;
     }
 
     /**
@@ -105,20 +110,16 @@ public class BreadthFirstPaths {
      */
     public BreadthFirstPaths(Graph G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
-        distTo = new int[G.V()];
-        edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = INFINITY;
+        distTo = newIntArray(G.V(), INFINITY);
+        edgeTo = newIntArray(G.V(), -1);
         validateVertices(sources);
+
         bfs(G, sources);
     }
-
 
     // breadth-first search from a single source
     private void bfs(Graph G, int s) {
         Queue<Integer> q = new LinkedQueue<>();
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = INFINITY;
         distTo[s] = 0;
         marked[s] = true;
         q.enqueue(s);
