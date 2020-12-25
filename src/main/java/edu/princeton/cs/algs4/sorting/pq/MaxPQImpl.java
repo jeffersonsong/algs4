@@ -58,7 +58,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *  @param <Key> the generic type of key on this priority queue
  */
 
-public class MaxPQImpl<Key> implements MaxPQ<Key> {
+public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
     private Comparator<Key> comparator;  // optional comparator
@@ -186,30 +186,9 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
     }
 
    /***************************************************************************
-    * Helper functions to restore the heap invariant.
-    ***************************************************************************/
-
-    private void swim(int k) {
-        while (k > 1 && less(k/2, k)) {
-            exch(k, k/2);
-            k = k/2;
-        }
-    }
-
-    private void sink(int k) {
-        while (2*k <= n) {
-            int j = 2*k;
-            if (j < n && less(j, j+1)) j++;
-            if (!less(k, j)) break;
-            exch(k, j);
-            k = j;
-        }
-    }
-
-   /***************************************************************************
     * Helper functions for compares and swaps.
     ***************************************************************************/
-    private boolean less(int i, int j) {
+    protected boolean less(int i, int j) {
         if (comparator == null) {
             return ((Comparable<Key>) pq[i]).compareTo(pq[j]) < 0;
         }
@@ -218,7 +197,7 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
         }
     }
 
-    private void exch(int i, int j) {
+    protected void exch(int i, int j) {
         ArrayUtils.exch(pq, i, j);
     }
 
@@ -232,16 +211,6 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
         }
         if (pq[0] != null) return false;
         return isMaxHeapOrdered(1);
-    }
-
-    // is subtree of pq[1..n] rooted at k a max heap?
-    private boolean isMaxHeapOrdered(int k) {
-        if (k > n) return true;
-        int left = 2*k;
-        int right = 2*k + 1;
-        if (left  <= n && less(k, left))  return false;
-        if (right <= n && less(k, right)) return false;
-        return isMaxHeapOrdered(left) && isMaxHeapOrdered(right);
     }
 
 

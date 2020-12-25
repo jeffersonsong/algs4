@@ -23,7 +23,6 @@ import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -57,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class MinPQImpl<Key> implements MinPQ<Key> {
+public class MinPQImpl<Key> extends MinPQInvariant implements MinPQ<Key> {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
     private Comparator<Key> comparator;  // optional comparator
@@ -185,32 +184,10 @@ public class MinPQImpl<Key> implements MinPQ<Key> {
         return min;
     }
 
-
-   /***************************************************************************
-    * Helper functions to restore the heap invariant.
-    ***************************************************************************/
-
-    private void swim(int k) {
-        while (k > 1 && greater(k/2, k)) {
-            exch(k, k/2);
-            k = k/2;
-        }
-    }
-
-    private void sink(int k) {
-        while (2*k <= n) {
-            int j = 2*k;
-            if (j < n && greater(j, j+1)) j++;
-            if (!greater(k, j)) break;
-            exch(k, j);
-            k = j;
-        }
-    }
-
    /***************************************************************************
     * Helper functions for compares and swaps.
     ***************************************************************************/
-    private boolean greater(int i, int j) {
+    protected boolean greater(int i, int j) {
         if (comparator == null) {
             return ((Comparable<Key>) pq[i]).compareTo(pq[j]) > 0;
         }
@@ -219,7 +196,7 @@ public class MinPQImpl<Key> implements MinPQ<Key> {
         }
     }
 
-    private void exch(int i, int j) {
+    protected void exch(int i, int j) {
         ArrayUtils.exch(pq, i, j);
     }
 
@@ -233,16 +210,6 @@ public class MinPQImpl<Key> implements MinPQ<Key> {
         }
         if (pq[0] != null) return false;
         return isMinHeapOrdered(1);
-    }
-
-    // is subtree of pq[1..n] rooted at k a min heap?
-    private boolean isMinHeapOrdered(int k) {
-        if (k > n) return true;
-        int left = 2*k;
-        int right = 2*k + 1;
-        if (left  <= n && greater(k, left))  return false;
-        if (right <= n && greater(k, right)) return false;
-        return isMinHeapOrdered(left) && isMinHeapOrdered(right);
     }
 
     /**
@@ -293,7 +260,6 @@ public class MinPQImpl<Key> implements MinPQ<Key> {
         }
         StdOut.println("(" + pq.size() + " left on pq)");
     }
-
 }
 
 /******************************************************************************

@@ -50,7 +50,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<Key> {
+public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant implements IndexMaxPQ<Key> {
     private final int maxN;        // maximum number of elements on PQ
     private int n;           // number of elements on PQ
     private final int[] pq;        // binary heap using 1-based indexing
@@ -227,34 +227,14 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
    /***************************************************************************
     * General helper functions.
     ***************************************************************************/
-    private boolean less(int i, int j) {
+    protected boolean less(int i, int j) {
         return keys[pq[i]].compareTo(keys[pq[j]]) < 0;
     }
 
-    private void exch(int i, int j) {
+    protected void exch(int i, int j) {
         ArrayUtils.exch(pq, i, j);
         qp[pq[i]] = i;
         qp[pq[j]] = j;
-    }
-
-   /***************************************************************************
-    * Heap helper functions.
-    ***************************************************************************/
-    private void swim(int k) {
-        while (k > 1 && less(k/2, k)) {
-            exch(k, k/2);
-            k = k/2;
-        }
-    }
-
-    private void sink(int k) {
-        while (2*k <= n) {
-            int j = 2*k;
-            if (j < n && less(j, j+1)) j++;
-            if (!less(k, j)) break;
-            exch(k, j);
-            k = j;
-        }
     }
 
     /**
