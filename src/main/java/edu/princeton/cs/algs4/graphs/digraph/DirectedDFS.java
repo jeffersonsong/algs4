@@ -29,6 +29,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code DirectedDFS} class represents a data type for 
@@ -122,9 +123,9 @@ public class DirectedDFS {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertices(Iterable<Integer> vertices) {
-        checkArgument(vertices != null, "argument is null");
+        requiresNotNull(vertices, "argument is null");
         for (Integer v : vertices) {
-            checkArgument(v != null, "vertex is null");
+            requiresNotNull(v, "vertex is null");
             validateVertex(v);
         }
     }

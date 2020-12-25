@@ -35,6 +35,7 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code EdgeWeightedGraph} class represents an edge-weighted
@@ -124,7 +125,7 @@ public class EdgeWeightedGraph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public EdgeWeightedGraph(In in) {
-        checkArgument(in != null, "argument is null");
+        requiresNotNull(in, "argument is null");
 
         try {
             V = in.readInt();

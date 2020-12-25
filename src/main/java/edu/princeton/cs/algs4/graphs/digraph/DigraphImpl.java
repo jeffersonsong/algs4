@@ -39,6 +39,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code Digraph} class represents a directed graph of vertices
@@ -138,7 +139,7 @@ public class DigraphImpl implements Digraph {
      * @throws IllegalArgumentException if {@code G} is {@code null}
      */
     public DigraphImpl(Digraph G) {
-        checkArgument(G != null, "argument is null");
+        requiresNotNull(G, "argument is null");
 
         this.V = G.V();
         this.E = G.E();

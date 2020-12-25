@@ -36,6 +36,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code BreadthDirectedFirstPaths} class represents a data type for
@@ -187,9 +188,9 @@ public class BreadthFirstDirectedPaths {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertices(Iterable<Integer> vertices) {
-        checkArgument(vertices != null, "argument is null");
+        requiresNotNull(vertices, "argument is null");
         for (Integer v : vertices) {
-            checkArgument(v != null, "vertex is null");
+            requiresNotNull(v, "vertex is null");
             validateVertex(v);
         }
     }

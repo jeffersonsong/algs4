@@ -46,6 +46,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code Graph} class represents an undirected graph of vertices
@@ -114,7 +115,7 @@ public class GraphImpl implements Graph {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public GraphImpl(In in) {
-        checkArgument(in != null, "argument is null");
+        requiresNotNull(in, "argument is null");
         try {
             this.V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");

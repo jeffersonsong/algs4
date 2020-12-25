@@ -23,6 +23,7 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code EdgeWeightedDigraph} class represents a edge-weighted
@@ -111,7 +112,7 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public EdgeWeightedDigraph(In in) {
-        checkArgument(in != null,"argument is null");
+        requiresNotNull(in,"argument is null");
         try {
             this.V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");

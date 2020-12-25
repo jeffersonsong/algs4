@@ -18,6 +18,7 @@ package edu.princeton.cs.algs4.context.btree;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code BTree} class represents an ordered symbol table of generic
@@ -122,7 +123,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        checkArgument(key != null, "argument to get() is null");
+        requiresNotNull(key, "argument to get() is null");
         return search(root, key, height);
     }
 

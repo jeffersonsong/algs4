@@ -14,6 +14,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code AssignmentProblem} class represents a data type for computing
@@ -56,7 +57,7 @@ public class AssignmentProblem {
      * @throws IllegalArgumentException if {@code weight} is {@code null}
      */ 
     public AssignmentProblem(double[][] weight) {
-        checkArgument(weight != null, "constructor argument is null");
+        requiresNotNull(weight, "constructor argument is null");
 
         n = weight.length;
         this.weight = new double[n][n];

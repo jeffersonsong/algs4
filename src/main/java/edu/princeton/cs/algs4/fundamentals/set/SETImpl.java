@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code SET} class represents an ordered set of comparable keys.
@@ -82,7 +83,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void add(Key key) {
-        checkArgument(key != null, "called add() with a null key");
+        requiresNotNull(key, "called add() with a null key");
         set.add(key);
     }
 
@@ -95,7 +96,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        checkArgument(key != null, "called contains() with a null key");
+        requiresNotNull(key, "called contains() with a null key");
         return set.contains(key);
     }
 
@@ -107,7 +108,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        checkArgument(key != null, "called delete() with a null key");
+        requiresNotNull(key,"called delete() with a null key");
         set.remove(key);
     }
 
@@ -119,7 +120,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void remove(Key key) {
-        checkArgument(key != null, "called remove() with a null key");
+        requiresNotNull(key,"called remove() with a null key");
         set.remove(key);
     }
 
@@ -185,7 +186,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws NoSuchElementException if there is no such key
      */
     public Key ceiling(Key key) {
-        checkArgument(key != null, "called ceiling() with a null key");
+        requiresNotNull(key, "called ceiling() with a null key");
         Key k = set.ceiling(key);
         if (k == null) throw new NoSuchElementException("all keys are less than " + key);
         return k;
@@ -200,7 +201,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws NoSuchElementException if there is no such key
      */
     public Key floor(Key key) {
-        checkArgument(key != null, "called floor() with a null key");
+        requiresNotNull(key, "called floor() with a null key");
         Key k = set.floor(key);
         if (k == null) throw new NoSuchElementException("all keys are greater than " + key);
         return k;
@@ -214,7 +215,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws IllegalArgumentException if {@code that} is {@code null}
      */
     public SETImpl<Key> union(SET<Key> that) {
-        checkArgument(that != null, "called union() with a null argument");
+        requiresNotNull(that,"called union() with a null argument");
         SETImpl<Key> c = new SETImpl<>();
         for (Key x : this) {
             c.add(x);
@@ -233,7 +234,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @throws IllegalArgumentException if {@code that} is {@code null}
      */
     public SETImpl<Key> intersects(SET<Key> that) {
-        checkArgument(that != null, "called intersects() with a null argument");
+        requiresNotNull(that, "called intersects() with a null argument");
         SETImpl<Key> c = new SETImpl<>();
         if (this.size() < that.size()) {
             for (Key x : this) {

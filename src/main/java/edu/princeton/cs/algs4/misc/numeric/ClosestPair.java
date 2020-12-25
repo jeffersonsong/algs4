@@ -21,6 +21,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Arrays;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code ClosestPair} data type computes a closest pair of points
@@ -54,7 +55,7 @@ public class ClosestPair {
      *         entry in {@code points[]} is {@code null}
      */
     public ClosestPair(Point2D[] points) {
-        checkArgument(points != null, "constructor argument is null");
+        requiresNotNull(points, "constructor argument is null");
         for (int i = 0; i < points.length; i++) {
             checkArgument(points[i] != null, "array element " + i + " is null");
         }

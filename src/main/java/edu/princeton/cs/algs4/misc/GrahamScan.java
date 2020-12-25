@@ -35,6 +35,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.util.Arrays;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 
 /**
@@ -63,7 +64,7 @@ public class GrahamScan {
      * @throws IllegalArgumentException if {@code points.length} is {@code 0}
      */
     public GrahamScan(Point2D[] points) {
-        checkArgument(points != null, "argument is null");
+        requiresNotNull(points, "argument is null");
         checkArgument(points.length > 0, "array is of length 0");
 
         // defensive copy
