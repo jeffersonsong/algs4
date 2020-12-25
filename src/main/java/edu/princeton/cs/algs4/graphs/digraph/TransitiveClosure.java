@@ -32,6 +32,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -61,16 +62,16 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Kevin Wayne
  */
 public class TransitiveClosure {
-    private final DirectedDFS[] tc;  // tc[v] = reachable from v
+    private final DepthFirstSearch[] tc;  // tc[v] = reachable from v
 
     /**
      * Computes the transitive closure of the digraph {@code G}.
      * @param G the digraph
      */
     public TransitiveClosure(Digraph G) {
-        tc = new DirectedDFS[G.V()];
+        tc = new DepthFirstSearch[G.V()];
         for (int v = 0; v < G.V(); v++)
-            tc[v] = new DirectedDFS(G, v);
+            tc[v] = new DepthFirstSearch(G, v);
     }
 
     /**

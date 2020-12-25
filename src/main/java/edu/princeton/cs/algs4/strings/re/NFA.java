@@ -32,9 +32,9 @@ import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
-import edu.princeton.cs.algs4.graphs.digraph.DirectedDFS;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -118,7 +118,7 @@ public class NFA {
      *         {@code false} otherwise
      */
     public boolean recognizes(String txt) {
-        DirectedDFS dfs = new DirectedDFS(graph, 0);
+        DepthFirstSearch dfs = new DepthFirstSearch(graph, 0);
         Bag<Integer> pc = new LinkedBag<>();
         for (int v = 0; v < graph.V(); v++)
             if (dfs.marked(v)) pc.add(v);
@@ -134,7 +134,7 @@ public class NFA {
                 if ((regexp.charAt(v) == txt.charAt(i)) || regexp.charAt(v) == '.')
                     match.add(v+1); 
             }
-            dfs = new DirectedDFS(graph, match); 
+            dfs = new DepthFirstSearch(graph, match);
             pc = new LinkedBag<>();
             for (int v = 0; v < graph.V(); v++)
                 if (dfs.marked(v)) pc.add(v);
