@@ -21,6 +21,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  <i>Binary input</i>. This class provides methods for reading
  *  in bits from a binary input stream, either
@@ -222,7 +224,7 @@ public final class BinaryIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 16}
      */
     public char readChar(int r) {
-        if (r < 1 || r > 16) throw new IllegalArgumentException("Illegal value of r = " + r);
+        checkArgument(r >= 1 && r <= 16, "Illegal value of r = " + r);
 
         // optimize r = 8 case
         if (r == 8) return readChar();
@@ -298,7 +300,7 @@ public final class BinaryIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 32}
      */
     public int readInt(int r) {
-        if (r < 1 || r > 32) throw new IllegalArgumentException("Illegal value of r = " + r);
+        checkArgument(r >= 1 && r <= 32, "Illegal value of r = " + r);
 
         // optimize r = 32 case
         if (r == 32) return readInt();

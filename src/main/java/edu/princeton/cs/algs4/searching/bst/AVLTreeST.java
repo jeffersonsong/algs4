@@ -38,6 +38,9 @@ import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code AVLTreeST} class represents an ordered symbol table of
  *  generic key-value pairs. It supports the usual <em>put</em>, <em>get</em>,
@@ -170,7 +173,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        requiresNotNull(key,"argument to get() is null");
         Node x = get(root, key);
         if (x == null) return null;
         return x.val;
@@ -216,7 +219,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+        requiresNotNull(key,"first argument to put() is null");
         if (val == null) {
             delete(key);
             return;
@@ -332,7 +335,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        requiresNotNull(key,"argument to delete() is null");
         if (!contains(key)) return;
         root = delete(root, key);
         assert check();
@@ -478,7 +481,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
+        requiresNotNull(key,"argument to floor() is null");
         if (isEmpty()) throw new NoSuchElementException("called floor() with empty symbol table");
         Node x = floor(root, key);
         if (x == null) return null;
@@ -515,7 +518,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
+        requiresNotNull(key,"argument to ceiling() is null");
         if (isEmpty()) throw new NoSuchElementException("called ceiling() with empty symbol table");
         Node x = ceiling(root, key);
         if (x == null) return null;
@@ -550,7 +553,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      *             {@code size() -1 }
      */
     public Key select(int k) {
-        if (k < 0 || k >= size()) throw new IllegalArgumentException("k is not in range 0-" + (size() - 1));
+        checkArgument(k >= 0 && k < size(), "k is not in range 0-" + (size() - 1));
         Node x = select(root, k);
         return x.key;
     }
@@ -580,7 +583,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public int rank(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to rank() is null");
+        requiresNotNull(key,"argument to rank() is null");
         return rank(key, root);
     }
 
@@ -667,8 +670,8 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      *             is {@code null}
      */
     public Iterable<Key> keys(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+        requiresNotNull(lo, "first argument to keys() is null");
+        requiresNotNull(hi,"second argument to keys() is null");
         Queue<Key> queue = new LinkedQueue<>();
         keys(root, queue, lo, hi);
         return queue;
@@ -703,8 +706,8 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> implements OrderedST<
      *             is {@code null}
      */
     public int size(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to size() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to size() is null");
+        requiresNotNull(lo, "first argument to size() is null");
+        requiresNotNull(hi,"second argument to size() is null");
         if (lo.compareTo(hi) > 0) return 0;
         if (contains(hi)) return rank(hi) - rank(lo) + 1;
         else return rank(hi) - rank(lo);

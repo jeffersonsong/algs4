@@ -16,6 +16,8 @@ package edu.princeton.cs.algs4.utils.io;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  <i>Binary standard output</i>. This class provides methods for converting
  *  primtive type variables ({@code boolean}, {@code byte}, {@code char},
@@ -175,17 +177,13 @@ public final class BinaryStdOut {
             write(x);
             return;
         }
-        if (r < 1 || r > 32)        throw new IllegalArgumentException("Illegal value for r = " + r);
-        if (x < 0 || x >= (1 << r)) throw new IllegalArgumentException("Illegal " + r + "-bit char = " + x);
+        checkArgument(r >= 1 && r <= 12, "Illegal value for r = " + r);
+        checkArgument(x >= 0 && x < (1 << r), "Illegal " + r + "-bit char = " + x);
         for (int i = 0; i < r; i++) {
             boolean bit = ((x >>> (r - i - 1)) & 1) == 1;
             writeBit(bit);
         }
     }
-
-
-
-
 
    /**
      * Writes the 64-bit double to standard output.
@@ -233,7 +231,7 @@ public final class BinaryStdOut {
      * @throws IllegalArgumentException if {@code x} is not betwen 0 and 255.
      */
     public static void write(char x) {
-        if (x < 0 || x >= 256) throw new IllegalArgumentException("Illegal 8-bit char = " + x);
+        checkArgument(x >= 0 && x < 256, "Illegal 8-bit char = " + x);
         writeByte(x);
     }
 
@@ -249,8 +247,8 @@ public final class BinaryStdOut {
             write(x);
             return;
         }
-        if (r < 1 || r > 16) throw new IllegalArgumentException("Illegal value for r = " + r);
-        if (x >= (1 << r))   throw new IllegalArgumentException("Illegal " + r + "-bit char = " + x);
+        checkArgument(r >= 1 && r <= 12, "Illegal value for r = " + r);
+        checkArgument(x < (1 << r), "Illegal " + r + "-bit char = " + x);
         for (int i = 0; i < r; i++) {
             boolean bit = ((x >>> (r - i - 1)) & 1) == 1;
             writeBit(bit);

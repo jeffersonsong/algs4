@@ -31,6 +31,8 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code SequentialSearchST} class represents an (unordered)
  *  symbol table of generic key-value pairs.
@@ -114,7 +116,7 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        requiresNotNull(key,"argument to contains() is null");
         return get(key) != null;
     }
 
@@ -127,7 +129,7 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null"); 
+        requiresNotNull(key,"argument to get() is null");
         for (Node x = first; x != null; x = x.next) {
             if (key.equals(x.key))
                 return x.val;
@@ -146,7 +148,7 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null"); 
+        requiresNotNull(key,"first argument to put() is null");
         if (val == null) {
             delete(key);
             return;
@@ -170,7 +172,7 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null"); 
+        requiresNotNull(key,"argument to delete() is null");
         first = delete(first, key);
     }
 

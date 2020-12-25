@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /*
  *  The IndexFibonacciMinPQ class represents an indexed priority queue of generic keys.
  *  It supports the usual insert and delete-the-minimum operations,
@@ -62,7 +64,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code N < 0}
      */
 	public IndexFibonacciMinPQ(int N) {
-		if (N < 0) throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		checkArgument(N >= 0, "Cannot create a priority queue of negative size");
 		n = N;
 		nodes = (Node<Key>[]) new Node[n];
 		comp = new MyComparator();
@@ -76,7 +78,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code N < 0}
      */
 	public IndexFibonacciMinPQ(Comparator<Key> C, int N) {
-		if (N < 0) throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		checkArgument(N >= 0, "Cannot create a priority queue of negative size");
 		n = N;
 		nodes = (Node<Key>[]) new Node[n];
 		comp = C;
@@ -101,8 +103,8 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public boolean contains(int i) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		else 				 return nodes[i] != null;
+		checkArgument(i >= 0 && i < n);
+		return nodes[i] != null;
 	}
 
 	/**
@@ -125,8 +127,8 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void insert(int i, Key key) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		if (contains(i)) throw new IllegalArgumentException("Specified index is already in the queue");
+		checkArgument( i >= 0 && i < n);
+		checkArgument(!contains(i), "Specified index is already in the queue");
 		Node<Key> x = new Node<>();
 		x.key = key;
 		x.index = i;
@@ -199,8 +201,8 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public Key keyOf(int i) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		if (!contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument( i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
 		return nodes[i].key;
 	}
 
@@ -215,8 +217,8 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void changeKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument( i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
 		if (greater(key, nodes[i].key))  increaseKey(i, key);
 		else 							 decreaseKey(i, key);
 	}
@@ -232,9 +234,9 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void decreaseKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
-		if (greater(key, nodes[i].key))  throw new IllegalArgumentException("Calling with this argument would not decrease the key");
+		checkArgument( i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
+		checkArgument(!greater(key, nodes[i].key), "Calling with this argument would not decrease the key");
 		Node<Key> x = nodes[i];
 		x.key = key;
 		if (greater(min.key, key)) min = x;
@@ -254,9 +256,9 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void increaseKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
-		if (greater(nodes[i].key, key))  throw new IllegalArgumentException("Calling with this argument would not increase the key");
+		checkArgument( i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
+		checkArgument(!greater(nodes[i].key, key), "Calling with this argument would not increase the key");
 		delete(i);
 		insert(i, key);
 	}
@@ -270,8 +272,9 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void delete(int i) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument( i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
+
 		Node<Key> x = nodes[i];
 		x.key = null;				//For garbage collection
 		if (x.parent != null) {

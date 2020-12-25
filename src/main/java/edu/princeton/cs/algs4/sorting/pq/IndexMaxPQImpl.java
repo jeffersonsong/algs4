@@ -15,6 +15,8 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code IndexMaxPQ} class represents an indexed priority queue of generic keys.
  *  It supports the usual <em>insert</em> and <em>delete-the-maximum</em>
@@ -59,7 +61,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
      * @throws IllegalArgumentException if {@code maxN < 0}
      */
     public IndexMaxPQImpl(int maxN) {
-        if (maxN < 0) throw new IllegalArgumentException();
+        checkArgument(maxN >= 0);
         this.maxN = maxN;
         n = 0;
         keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
@@ -112,7 +114,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
      */
     public void insert(int i, Key key) {
         validateIndex(i);
-        if (contains(i)) throw new IllegalArgumentException("index is already in the priority queue");
+        checkArgument(!contains(i), "index is already in the priority queue");
         n++;
         qp[i] = n;
         pq[n] = i;
@@ -215,11 +217,9 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
      */
     public void increaseKey(int i, Key key) {
         validateIndex(i);
-        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        if (keys[i].compareTo(key) == 0)
-            throw new IllegalArgumentException("Calling increaseKey() with a key equal to the key in the priority queue");
-        if (keys[i].compareTo(key) > 0)
-            throw new IllegalArgumentException("Calling increaseKey() with a key that is strictly less than the key in the priority queue");
+        checkArgument(contains(i),"index is not in the priority queue");
+        checkArgument(keys[i].compareTo(key) != 0, "Calling increaseKey() with a key equal to the key in the priority queue");
+        checkArgument(keys[i].compareTo(key) <= 0, "Calling increaseKey() with a key that is strictly less than the key in the priority queue");
 
         keys[i] = key;
         swim(qp[i]);
@@ -236,11 +236,9 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
      */
     public void decreaseKey(int i, Key key) {
         validateIndex(i);
-        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        if (keys[i].compareTo(key) == 0)
-            throw new IllegalArgumentException("Calling decreaseKey() with a key equal to the key in the priority queue");
-        if (keys[i].compareTo(key) < 0)
-            throw new IllegalArgumentException("Calling decreaseKey() with a key that is strictly greater than the key in the priority queue");
+        checkArgument(contains(i),"index is not in the priority queue");
+        checkArgument(keys[i].compareTo(key) != 0, "Calling decreaseKey() with a key equal to the key in the priority queue");
+        checkArgument(keys[i].compareTo(key) >= 0, "Calling decreaseKey() with a key that is strictly greater than the key in the priority queue");
         keys[i] = key;
         sink(qp[i]);
     }
@@ -265,8 +263,8 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
 
     // throw an IllegalArgumentException if i is an invalid index
     private void validateIndex(int i) {
-        if (i < 0) throw new IllegalArgumentException("index is negative: " + i);
-        if (i >= maxN) throw new IllegalArgumentException("index >= capacity: " + i);
+        checkArgument(i >= 0, "index is negative: " + i);
+        checkArgument(i < maxN, "index >= capacity: " + i);
     }
 
    /***************************************************************************

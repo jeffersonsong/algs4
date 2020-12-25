@@ -36,6 +36,9 @@ import edu.princeton.cs.algs4.searching.hashtable.SeparateChainingHashST;
 
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code BST} class represents an ordered symbol table of generic
  *  key-value pairs.
@@ -138,7 +141,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        requiresNotNull(key, "argument to contains() is null");
         return get(key) != null;
     }
 
@@ -151,7 +154,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null"); 
+        requiresNotNull(key,"argument to get() is null");
         if (isEmpty()) return null;
         int i = rank(key); 
         if (i < n && keys[i].compareTo(key) == 0) return vals[i];
@@ -166,7 +169,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public int rank(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to rank() is null"); 
+        requiresNotNull(key,"argument to rank() is null");
 
         int lo = 0, hi = n-1; 
         while (lo <= hi) { 
@@ -192,7 +195,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val)  {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null"); 
+        requiresNotNull(key,"first argument to put() is null");
 
         if (val == null) {
             delete(key);
@@ -229,7 +232,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null"); 
+        requiresNotNull(key,"argument to delete() is null");
         if (isEmpty()) return;
 
         // compute rank
@@ -311,9 +314,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      *        <em>n</em>–1
      */
     public Key select(int k) {
-        if (k < 0 || k >= size()) {
-            throw new IllegalArgumentException("called select() with invalid argument: " + k);
-        }
+        checkArgument(k >= 0 && k < size(),"called select() with invalid argument: " + k);
         return keys[k];
     }
 
@@ -326,7 +327,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null"); 
+        requiresNotNull(key,"argument to floor() is null");
         int i = rank(key);
         if (i < n && key.compareTo(keys[i]) == 0) return keys[i];
         if (i == 0) return null;
@@ -342,7 +343,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null"); 
+        requiresNotNull(key,"argument to ceiling() is null");
         int i = rank(key);
         if (i == n) return null; 
         else return keys[i];
@@ -359,8 +360,8 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      *         is {@code null}
      */
     public int size(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to size() is null"); 
-        if (hi == null) throw new IllegalArgumentException("second argument to size() is null"); 
+        requiresNotNull(lo, "first argument to size() is null");
+        requiresNotNull(hi,"second argument to size() is null");
 
         if (lo.compareTo(hi) > 0) return 0;
         if (contains(hi)) return rank(hi) - rank(lo) + 1;
@@ -390,8 +391,8 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
      *         is {@code null}
      */
     public Iterable<Key> keys(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null"); 
-        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null"); 
+        requiresNotNull(lo, "first argument to keys() is null");
+        requiresNotNull(hi,"second argument to keys() is null");
 
         Queue<Key> queue = new LinkedQueue<>();
         if (lo.compareTo(hi) > 0) return queue;

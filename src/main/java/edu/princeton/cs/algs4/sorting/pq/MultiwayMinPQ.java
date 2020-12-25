@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The MultiwayMinPQ class represents a priority queue of generic keys.
  *  It supports the usual insert and delete-the-minimum operations.
@@ -45,7 +47,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
 	public MultiwayMinPQ(int d) {
-		if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		checkArgument(d >= 2, "Dimension should be 2 or over");
 		this.d = d;
 		order = 1;
 		keys = (Key[]) new Comparable[d << 1];
@@ -61,7 +63,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
 	public MultiwayMinPQ(Comparator<Key> comparator, int d) {
-		if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		checkArgument(d >= 2, "Dimension should be 2 or over");
 		this.d = d;
 		order = 1;
 		keys = (Key[]) new Comparable[d << 1];
@@ -77,7 +79,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
 	public MultiwayMinPQ(Key[] a, int d) {
-		if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		checkArgument(d >= 2, "Dimension should be 2 or over");
 		this.d = d;
 		order = 1;
 		keys = (Key[]) new Comparable[d << 1];
@@ -95,7 +97,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
 	public MultiwayMinPQ(Comparator<Key> comparator, Key[] a, int d) {
-		if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		checkArgument(d >= 2, "Dimension should be 2 or over");
 		this.d = d;
 		order = 1;
 		keys = (Key[]) new Comparable[d << 1];

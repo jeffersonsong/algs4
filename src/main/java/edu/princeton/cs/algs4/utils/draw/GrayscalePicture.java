@@ -45,6 +45,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 
 /**
  *  This class provides methods for manipulating individual pixels of
@@ -96,8 +99,8 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code height} is negative
      */
     public GrayscalePicture(int width, int height) {
-        if (width  < 0) throw new IllegalArgumentException("width must be non-negative");
-        if (height < 0) throw new IllegalArgumentException("height must be non-negative");
+        checkArgument(width >= 0, "width must be non-negative");
+        checkArgument(height >= 0,"height must be non-negative");
         this.width  = width;
         this.height = height;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -110,7 +113,7 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code picture} is {@code null}
      */
     public GrayscalePicture(GrayscalePicture picture) {
-        if (picture == null) throw new IllegalArgumentException("constructor argument is null");
+        requiresNotNull(picture, "constructor argument is null");
 
         width  = picture.width();
         height = picture.height();
@@ -130,7 +133,7 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public GrayscalePicture(String name) {
-        if (name == null) throw new IllegalArgumentException("constructor argument is null");
+        requiresNotNull(name, "constructor argument is null");
         this.filename = name;
         try {
             // try to read from file in working directory
@@ -157,9 +160,7 @@ public final class GrayscalePicture implements ActionListener {
                 image = ImageIO.read(url);
             }
 
-            if (image == null) {
-                throw new IllegalArgumentException("could not read image: " + name);
-            }
+            requiresNotNull(image, "could not read image: " + name);
 
             width  = image.getWidth(null);
             height = image.getHeight(null);
@@ -268,18 +269,15 @@ public final class GrayscalePicture implements ActionListener {
     }
 
     private void validateRowIndex(int row) {
-        if (row < 0 || row >= height())
-            throw new IllegalArgumentException("row index must be between 0 and " + (height() - 1) + ": " + row);
+        checkArgument(row >= 0 && row < height(), "row index must be between 0 and " + (height() - 1) + ": " + row);
     }
 
     private void validateColumnIndex(int col) {
-        if (col < 0 || col >= width())
-            throw new IllegalArgumentException("column index must be between 0 and " + (width() - 1) + ": " + col);
+        checkArgument(col >= 0 && col < width(), "column index must be between 0 and " + (width() - 1) + ": " + col);
     }
 
     private void validateGrayscaleValue(int gray) {
-        if (gray < 0 || gray >= 256)
-            throw new IllegalArgumentException("grayscale value must be between 0 and 255");
+        checkArgument(gray >= 0 && gray < 256, "grayscale value must be between 0 and 255");
     }
 
    /**
@@ -327,7 +325,7 @@ public final class GrayscalePicture implements ActionListener {
     public void set(int col, int row, Color color) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (color == null) throw new IllegalArgumentException("color argument is null");
+        requiresNotNull(color, "color argument is null");
         Color gray = toGray(color);
         image.setRGB(col, row, gray.getRGB());
     }
@@ -410,7 +408,7 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public void save(String name) {
-        if (name == null) throw new IllegalArgumentException("argument to save() is null");
+        requiresNotNull(name, "argument to save() is null");
         save(new File(name));
         filename = name;
     }
@@ -422,7 +420,7 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public void save(File file) {
-        if (file == null) throw new IllegalArgumentException("argument to save() is null");
+        requiresNotNull(file, "argument to save() is null");
         filename = file.getName();
         if (frame != null) frame.setTitle(filename);
         String suffix = filename.substring(filename.lastIndexOf('.') + 1);

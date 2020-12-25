@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The IndexBinomialMinPQ class represents an indexed priority queue of generic keys.
  *  It supports the usual insert and delete-the-minimum operations,
@@ -54,7 +56,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code N < 0}
      */
 	public IndexBinomialMinPQ(int N) {
-		if (N < 0) throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		checkArgument(N >= 0, "Cannot create a priority queue of negative size");
 		comparator = new MyComparator();
 		nodes = (Node<Key>[]) new Node[N];
 		this.n = N;
@@ -68,7 +70,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code N < 0}
      */
 	public IndexBinomialMinPQ(int N, Comparator<Key> comparator) {
-		if (N < 0) throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		checkArgument(N >= 0, "Cannot create a priority queue of negative size");
 		this.comparator = comparator;
 		nodes = (Node<Key>[]) new Node[N];
 		this.n = N;
@@ -91,8 +93,8 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return true if i is on the priority queue, false if not
 	 */
 	public boolean contains(int i) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		else return nodes[i] != null;
+		checkArgument(i >= 0 && i < n);
+		return nodes[i] != null;
 	}
 
 	/**
@@ -119,8 +121,9 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the index is already in the queue
 	 */
 	public void insert(int i, Key key) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		if (contains(i)) throw new IllegalArgumentException("Specified index is already in the queue");
+		checkArgument(i >= 0 && i < n);
+		checkArgument(!contains(i), "Specified index is already in the queue");
+
 		Node<Key> x = new Node<>();
 		x.key = key;
 		x.index = i;
@@ -206,8 +209,8 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public Key keyOf(int i) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		if (!contains(i)) throw new IllegalArgumentException("Specified index is not in the queue");
+		checkArgument(i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
 		return nodes[i].key;
 	}
 
@@ -221,8 +224,8 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void changeKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new IllegalArgumentException("Specified index is not in the queue");
+		checkArgument(i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
 		if (greater(nodes[i].key, key))  decreaseKey(i, key);
 		else 							 increaseKey(i, key);
 	}
@@ -238,9 +241,9 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void decreaseKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
-		if (greater(key, nodes[i].key))  throw new IllegalArgumentException("Calling with this argument would not decrease the key");
+		checkArgument(i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
+		checkArgument(!greater(key, nodes[i].key), "Calling with this argument would not decrease the key");
 		Node<Key> x = nodes[i];
 		x.key = key;
 		swim(i);
@@ -257,9 +260,9 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void increaseKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
-		if (greater(nodes[i].key, key))  throw new IllegalArgumentException("Calling with this argument would not increase the key");
+		checkArgument(i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
+		checkArgument(!greater(nodes[i].key, key), "Calling with this argument would not increase the key");
 		delete(i);
 		insert(i, key);
 	}
@@ -273,8 +276,8 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 */
 	
 	public void delete(int i) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument(i >= 0 && i < n);
+		checkArgument(contains(i), "Specified index is not in the queue");
 		toTheRoot(i);
 		Node<Key> x = erase(i);
 		if (x.child != null) {

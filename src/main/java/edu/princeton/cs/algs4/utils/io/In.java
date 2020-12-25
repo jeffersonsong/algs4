@@ -25,6 +25,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  <i>Input</i>. This class provides methods for reading strings
  *  and numbers from standard input, file input, URLs, and sockets. 
@@ -94,7 +97,7 @@ public final class In {
      * @throws IllegalArgumentException if {@code socket} is {@code null}
      */
     public In(Socket socket) {
-        if (socket == null) throw new IllegalArgumentException("socket argument is null");
+        requiresNotNull(socket, "socket argument is null");
         try {
             InputStream is = socket.getInputStream();
             scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
@@ -113,7 +116,7 @@ public final class In {
      * @throws IllegalArgumentException if {@code url} is {@code null}
      */
     public In(URL url) {
-        if (url == null) throw new IllegalArgumentException("url argument is null");
+        requiresNotNull(url,"url argument is null");
         try {
             URLConnection site = url.openConnection();
             InputStream is     = site.getInputStream();
@@ -133,7 +136,7 @@ public final class In {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public In(File file) {
-        if (file == null) throw new IllegalArgumentException("file argument is null");
+        requiresNotNull(file, "file argument is null");
         try {
             // for consistency with StdIn, wrap with BufferedInputStream instead of use
             // file as argument to Scanner
@@ -156,8 +159,8 @@ public final class In {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public In(String name) {
-        if (name == null) throw new IllegalArgumentException("argument is null");
-        if (name.length() == 0) throw new IllegalArgumentException("argument is the empty string");
+        requiresNotNull(name, "argument is null");
+        checkArgument(name.length() > 0, "argument is the empty string");
         try {
             // first try to read file from local file system
             File file = new File(name);
@@ -209,7 +212,7 @@ public final class In {
      * @throws IllegalArgumentException if {@code scanner} is {@code null}
      */
     public In(Scanner scanner) {
-        if (scanner == null) throw new IllegalArgumentException("scanner argument is null");
+        requiresNotNull(scanner, "scanner argument is null");
         this.scanner = scanner;
     }
 

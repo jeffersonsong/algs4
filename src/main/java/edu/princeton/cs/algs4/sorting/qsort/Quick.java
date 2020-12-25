@@ -32,6 +32,8 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Quick} class provides static methods for sorting an
  *  array and selecting the ith smallest element in an array using quicksort.
@@ -109,9 +111,7 @@ public class Quick {
      * @throws IllegalArgumentException unless {@code 0 <= k < a.length}
      */
     public static Comparable select(Comparable[] a, int k) {
-        if (k < 0 || k >= a.length) {
-            throw new IllegalArgumentException("index is not between 0 and " + a.length + ": " + k);
-        }
+        checkArgument(k >= 0 && k < a.length, "index is not between 0 and " + a.length + ": " + k);
         StdRandom.shuffle(a);
         int lo = 0, hi = a.length - 1;
         while (hi > lo) {

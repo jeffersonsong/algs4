@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  <i>Binary output</i>. This class provides methods for converting
  *  primtive type variables ({@code boolean}, {@code byte}, {@code char},
@@ -209,8 +211,8 @@ public final class BinaryOut {
             write(x);
             return;
         }
-        if (r < 1 || r > 32) throw new IllegalArgumentException("Illegal value for r = " + r);
-        if (x >= (1 << r))   throw new IllegalArgumentException("Illegal " + r + "-bit char = " + x);
+        checkArgument(r >= 1 && r <= 32,"Illegal value for r = " + r);
+        checkArgument(x < (1 << r), "Illegal " + r + "-bit char = " + x);
         for (int i = 0; i < r; i++) {
             boolean bit = ((x >>> (r - i - 1)) & 1) == 1;
             writeBit(bit);
@@ -265,7 +267,7 @@ public final class BinaryOut {
      * @throws IllegalArgumentException unless {@code x} is betwen 0 and 255
      */
     public void write(char x) {
-        if (x < 0 || x >= 256) throw new IllegalArgumentException("Illegal 8-bit char = " + x);
+        checkArgument(x >= 0 && x < 256, "Illegal 8-bit char = " + x);
         writeByte(x);
     }
 
@@ -282,8 +284,8 @@ public final class BinaryOut {
             write(x);
             return;
         }
-        if (r < 1 || r > 16) throw new IllegalArgumentException("Illegal value for r = " + r);
-        if (x >= (1 << r))   throw new IllegalArgumentException("Illegal " + r + "-bit char = " + x);
+        checkArgument(r >= 1 && r <= 16, "Illegal value for r = " + r);
+        checkArgument(x < (1 << r), "Illegal " + r + "-bit char = " + x);
         for (int i = 0; i < r; i++) {
             boolean bit = ((x >>> (r - i - 1)) & 1) == 1;
             writeBit(bit);

@@ -38,6 +38,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 
 /**
  *  This class provides methods for manipulating individual pixels of
@@ -101,8 +104,8 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code height} is negative or zero
      */
     public Picture(int width, int height) {
-        if (width  <= 0) throw new IllegalArgumentException("width must be positive");
-        if (height <= 0) throw new IllegalArgumentException("height must be positive");
+        checkArgument(width > 0,"width must be positive");
+        checkArgument(height > 0, "height must be positive");
         this.width  = width;
         this.height = height;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -116,7 +119,7 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code picture} is {@code null}
      */
     public Picture(Picture picture) {
-        if (picture == null) throw new IllegalArgumentException("constructor argument is null");
+        requiresNotNull(picture, "constructor argument is null");
 
         width  = picture.width();
         height = picture.height();

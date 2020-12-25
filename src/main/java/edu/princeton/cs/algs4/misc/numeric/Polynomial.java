@@ -23,6 +23,8 @@ package edu.princeton.cs.algs4.misc.numeric;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Polynomial} class represents a polynomial with integer
  *  coefficients.
@@ -49,9 +51,7 @@ public class Polynomial {
      * @throws IllegalArgumentException if {@code b} is negative
      */
     public Polynomial(int a, int b) {
-        if (b < 0) {
-            throw new IllegalArgumentException("exponent cannot be negative: " + b);
-        }
+        checkArgument(b >= 0, "exponent cannot be negative: " + b);
         coef = new int[b+1];
         coef[b] = a;
         reduce();

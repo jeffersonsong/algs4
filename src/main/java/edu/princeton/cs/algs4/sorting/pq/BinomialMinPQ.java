@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The BinomialMinPQ class represents a priority queue of generic keys.
  *  It supports the usual insert and delete-the-minimum operations, 
@@ -169,7 +171,7 @@ public class BinomialMinPQ<Key> implements MinPQ<Key> {
 	 * @return the union of two heaps
 	 */
 	public BinomialMinPQ<Key> union(BinomialMinPQ<Key> heap) {
-		if (heap == null) throw new IllegalArgumentException("Cannot merge a Binomial Heap with null");
+		requiresNotNull(heap, "Cannot merge a Binomial Heap with null");
 		this.head = merge(new Node(), this.head, heap.head).sibling;
 		Node x = this.head;
 		Node prevx = null, nextx = x.sibling;

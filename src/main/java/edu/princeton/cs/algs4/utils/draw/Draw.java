@@ -76,6 +76,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  <i>Draw</i>. This class provides a basic capability for
  *  creating drawings with your programs. It uses a simple graphics model that
@@ -320,7 +323,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * @throws IllegalArgumentException if the width or height is 0 or negative
      */
     public void setLocationOnScreen(int x, int y) {
-        if (x <= 0 || y <= 0) throw new IllegalArgumentException();
+        checkArgument(x > 0 && y > 0);
         frame.setLocation(x, y);
     }
 
@@ -348,9 +351,8 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      *         and {@code canvasHeight} are positive
      */
     public void setCanvasSize(int canvasWidth, int canvasHeight) {
-        if (canvasWidth < 1 || canvasHeight < 1) {
-            throw new IllegalArgumentException("width and height must be positive");
-        }
+        checkArgument(canvasWidth > 0 && canvasHeight > 0, "width and height must be positive");
+
         width = canvasWidth;
         height = canvasHeight;
         init();
@@ -378,18 +380,18 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     // throw an IllegalArgumentException if x is NaN or infinite
     private static void validate(double x, String name) {
-        if (Double.isNaN(x)) throw new IllegalArgumentException(name + " is NaN");
-        if (Double.isInfinite(x)) throw new IllegalArgumentException(name + " is infinite");
+        checkArgument(!Double.isNaN(x), name + " is NaN");
+        checkArgument(!Double.isInfinite(x), name + " is infinite");
     }
 
     // throw an IllegalArgumentException if s is null
     private static void validateNonnegative(double x, String name) {
-        if (x < 0) throw new IllegalArgumentException(name + " negative");
+        checkArgument(x >= 0, name + " negative");
     }
 
     // throw an IllegalArgumentException if s is null
     private static void validateNotNull(Object x, String name) {
-        if (x == null) throw new IllegalArgumentException(name + " is null");
+        requiresNotNull(x, name + " is null");
     }
 
     /**
@@ -418,7 +420,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         validate(min, "min");
         validate(max, "max");
         double size = max - min;
-        if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
+        checkArgument(size != 0.0, "the min and max are the same");
         xmin = min - BORDER * size;
         xmax = max + BORDER * size;
     }
@@ -435,7 +437,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         validate(min, "min");
         validate(max, "max");
         double size = max - min;
-        if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
+        checkArgument(size != 0.0, "the min and max are the same");
         ymin = min - BORDER * size;
         ymax = max + BORDER * size;
     }
@@ -540,12 +542,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      *         or {@code blue} is outside its prescribed range
      */
     public void setPenColor(int red, int green, int blue) {
-        if (red   < 0 || red   >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
-        if (green < 0 || green >= 256) throw new IllegalArgumentException("green must be between 0 and 255");
-        if (blue  < 0 || blue  >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
+        checkArgument(red   >= 0 && red < 256, "red must be between 0 and 255");
+        checkArgument(green >= 0 && green < 256, "green must be between 0 and 255");
+        checkArgument(blue  >= 0 && blue  < 256, "blue must be between 0 and 255");
         setPenColor(new Color(red, green, blue));
     }
-
 
     /**
      * Turns on xor mode.
@@ -917,7 +918,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         int n1 = x.length;
         int n2 = y.length;
-        if (n1 != n2) throw new IllegalArgumentException("arrays must be of the same length");
+        checkArgument(n1 == n2, "arrays must be of the same length");
         int n = n1;
         if (n == 0) return;
 
@@ -951,7 +952,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         int n1 = x.length;
         int n2 = y.length;
-        if (n1 != n2) throw new IllegalArgumentException("arrays must be of the same length");
+        checkArgument(n1 == n2, "arrays must be of the same length");
         int n = n1;
         if (n == 0) return;
 
@@ -972,7 +973,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     // get an image from the given filename
     private static Image getImage(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
+        requiresNotNull(filename);
 
         // to read from file
         ImageIcon icon = new ImageIcon(filename);
@@ -998,7 +999,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         // in case file is inside a .jar (classpath relative to root of jar)
         if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             URL url = Draw.class.getResource("/" + filename);
-            if (url == null) throw new IllegalArgumentException("image " + filename + " not found");
+            requiresNotNull(url, "image " + filename + " not found");
             icon = new ImageIcon(url);
         }
 
@@ -1029,7 +1030,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         int ws = image.getWidth(null);
         int hs = image.getHeight(null);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
+        checkArgument(ws >= 0 && hs >= 0, "image " + filename + " is corrupt");
 
         offscreen.drawImage(image, (int) Math.round(xs - ws/2.0), (int) Math.round(ys - hs/2.0), null);
         draw();
@@ -1059,7 +1060,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         int ws = image.getWidth(null);
         int hs = image.getHeight(null);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
+        checkArgument(ws >= 0 && hs >= 0, "image " + filename + " is corrupt");
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
         offscreen.drawImage(image, (int) Math.round(xs - ws/2.0), (int) Math.round(ys - hs/2.0), null);
@@ -1098,7 +1099,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(scaledWidth);
         double hs = factorY(scaledHeight);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
+        checkArgument(ws >= 0 && hs >= 0, "image " + filename + " is corrupt");
         if (ws <= 1 && hs <= 1) pixel(x, y);
         else {
             offscreen.drawImage(image, (int) Math.round(xs - ws/2.0),
@@ -1140,7 +1141,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(scaledWidth);
         double hs = factorY(scaledHeight);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
+        checkArgument(ws >= 0 && hs >= 0, "image " + filename + " is corrupt");
         if (ws <= 1 && hs <= 1) pixel(x, y);
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);

@@ -35,6 +35,8 @@ package edu.princeton.cs.algs4.misc.numeric;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code GaussianElimination} data type provides methods
  *  to solve a linear system of equations <em>Ax</em> = <em>b</em>,
@@ -78,7 +80,7 @@ public class GaussianElimination {
         m = A.length;
         n = A[0].length;
 
-        if (b.length != m) throw new IllegalArgumentException("Dimensions disagree");
+        checkArgument(b.length == m, "Dimensions disagree");
 
         // build augmented matrix
         a = new double[m][n+1];

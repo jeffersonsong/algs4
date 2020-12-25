@@ -64,6 +64,8 @@ package edu.princeton.cs.algs4.misc.numeric;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code FFT} class provides methods for computing the 
  *  FFT (Fast-Fourier Transform), inverse FFT, linear convolution,
@@ -107,9 +109,7 @@ public class FFT {
         }
 
         // radix 2 Cooley-Tukey FFT
-        if (n % 2 != 0) {
-            throw new IllegalArgumentException("n is not a power of 2");
-        }
+        checkArgument(n % 2 == 0, "n is not a power of 2");
 
         // fft of even terms
         Complex[] even = new Complex[n/2];
@@ -183,9 +183,7 @@ public class FFT {
 
         // should probably pad x and y with 0s so that they have same length
         // and are powers of 2
-        if (x.length != y.length) {
-            throw new IllegalArgumentException("Dimensions don't agree");
-        }
+        checkArgument(x.length == y.length, "Dimensions don't agree");
 
         int n = x.length;
 

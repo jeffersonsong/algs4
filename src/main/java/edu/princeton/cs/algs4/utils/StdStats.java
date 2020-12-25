@@ -37,6 +37,9 @@ import edu.princeton.cs.algs4.utils.draw.StdDraw;
 import edu.princeton.cs.algs4.utils.io.StdArrayIO;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code StdStats} class provides static methods for computing
  *  statistics such as min, max, mean, sample standard deviation, and
@@ -509,14 +512,13 @@ public final class StdStats {
     // throw an IllegalArgumentException if x is null
     // (x is either of type double[] or int[])
     private static void validateNotNull(Object x) {
-        if (x == null)
-            throw new IllegalArgumentException("argument is null");
+        requiresNotNull(x, "argument is null");
     }
 
     // throw an exception unless 0 <= lo <= hi <= length
     private static void validateSubarrayIndices(int lo, int hi, int length) {
-        if (lo < 0 || hi > length || lo > hi)
-            throw new IllegalArgumentException("subarray indices out of bounds: [" + lo + ", " + hi + ")");
+        checkArgument(lo >= 0 && hi <= length && lo <= hi,
+                "subarray indices out of bounds: [" + lo + ", " + hi + ")");
     }
 
 

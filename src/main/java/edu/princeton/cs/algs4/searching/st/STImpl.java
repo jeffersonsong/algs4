@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code ST} class represents an ordered symbol table of generic
  *  key-value pairs.
@@ -78,7 +80,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls get() with null key");
+        requiresNotNull(key,"calls get() with null key");
         return st.get(key);
     }
 
@@ -93,7 +95,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("calls put() with null key");
+        requiresNotNull(key,"calls put() with null key");
         if (val == null) st.remove(key);
         else             st.put(key, val);
     }
@@ -107,7 +109,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls delete() with null key");
+        requiresNotNull(key,"calls delete() with null key");
         st.remove(key);
     }
 
@@ -120,7 +122,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void remove(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls remove() with null key");
+        requiresNotNull(key,"calls remove() with null key");
         st.remove(key);
     }
 
@@ -133,7 +135,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls contains() with null key");
+        requiresNotNull(key,"calls contains() with null key");
         return st.containsKey(key);
     }
 
@@ -214,7 +216,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
+        requiresNotNull(key,"argument to ceiling() is null");
         Key k = st.ceilingKey(key);
         if (k == null) throw new NoSuchElementException("argument to ceiling() is too large");
         return k;
@@ -229,7 +231,7 @@ public class STImpl<Key extends Comparable<Key>, Value> implements ST<Key, Value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
+        requiresNotNull(key,"argument to floor() is null");
         Key k = st.floorKey(key);
         if (k == null) throw new NoSuchElementException("argument to floor() is too small");
         return k;

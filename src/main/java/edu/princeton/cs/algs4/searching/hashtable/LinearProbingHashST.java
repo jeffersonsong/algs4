@@ -21,6 +21,8 @@ import edu.princeton.cs.algs4.searching.st.BinarySearchST;
 import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code LinearProbingHashST} class represents a symbol table of generic
  *  key-value pairs.
@@ -109,7 +111,7 @@ public class LinearProbingHashST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        requiresNotNull(key, "argument to contains() is null");
         return get(key) != null;
     }
 
@@ -150,7 +152,7 @@ public class LinearProbingHashST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+        requiresNotNull(key, "first argument to put() is null");
 
         if (val == null) {
             delete(key);
@@ -180,7 +182,7 @@ public class LinearProbingHashST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        requiresNotNull(key, "argument to get() is null");
         for (int i = hash(key); keys[i] != null; i = (i + 1) % m)
             if (keys[i].equals(key))
                 return vals[i];
@@ -195,7 +197,7 @@ public class LinearProbingHashST<Key, Value> implements ST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        requiresNotNull(key, "argument to delete() is null");
         if (!contains(key)) return;
 
         // find position i of key

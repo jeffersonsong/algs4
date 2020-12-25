@@ -33,6 +33,10 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.Iterator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+import static java.util.Objects.requireNonNull;
+
 /**
  *  The {@code PatriciaSET} class provides an implementation of an
  *  unordered set, with the restriction that the items (keys) are of class
@@ -133,8 +137,8 @@ public class PatriciaSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
     public void add(String key) {
-        if (key == null) throw new IllegalArgumentException("called add(null)");
-        if (key.length() == 0) throw new IllegalArgumentException("invalid key");
+        requiresNotNull(key, "called add(null)");
+        checkArgument(key.length() > 0, "invalid key");
         Node p;
         Node x = head;
         do {
@@ -174,8 +178,8 @@ public class PatriciaSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
     public boolean contains(String key) {
-        if (key == null) throw new IllegalArgumentException("called contains(null)");
-        if (key.length() == 0) throw new IllegalArgumentException("invalid key");
+        requiresNotNull(key, "called contains(null)");
+        checkArgument(key.length() > 0, "invalid key");
         Node p;
         Node x = head;
         do {
@@ -193,8 +197,8 @@ public class PatriciaSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
     public void delete(String key) {
-        if (key == null) throw new IllegalArgumentException("called delete(null)");
-        if (key.length() == 0) throw new IllegalArgumentException("invalid key");
+        requiresNotNull(key, "called delete(null)");
+        checkArgument(key.length() > 0, "invalid key");
         Node g;             // previous previous (grandparent)
         Node p = head;      // previous (parent)
         Node x = head;      // node to delete

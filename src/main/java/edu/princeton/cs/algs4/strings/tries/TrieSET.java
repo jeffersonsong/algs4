@@ -20,6 +20,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code TrieSET} class represents an ordered set of strings over
  *  the extended ASCII alphabet.
@@ -67,7 +69,7 @@ public class TrieSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(String key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        requiresNotNull(key, "argument to contains() is null");
         Node x = get(root, key, 0);
         if (x == null) return false;
         return x.isString;
@@ -86,7 +88,7 @@ public class TrieSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void add(String key) {
-        if (key == null) throw new IllegalArgumentException("argument to add() is null");
+        requiresNotNull(key, "argument to add() is null");
         root = add(root, key, 0);
     }
 
@@ -197,7 +199,7 @@ public class TrieSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code query} is {@code null}
      */
     public String longestPrefixOf(String query) {
-        if (query == null) throw new IllegalArgumentException("argument to longestPrefixOf() is null");
+        requiresNotNull(query, "argument to longestPrefixOf() is null");
         int length = longestPrefixOf(root, query, 0, -1);
         if (length == -1) return null;
         return query.substring(0, length);
@@ -221,7 +223,7 @@ public class TrieSET implements Iterable<String> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(String key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        requiresNotNull(key, "argument to delete() is null");
         root = delete(root, key, 0);
     }
 

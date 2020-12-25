@@ -38,6 +38,9 @@ import edu.princeton.cs.algs4.searching.st.SequentialSearchST;
 
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code BST} class represents an ordered symbol table of generic
  *  key-value pairs.
@@ -131,7 +134,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        requiresNotNull(key, "argument to contains() is null");
         return get(key) != null;
     }
 
@@ -148,7 +151,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     }
 
     private Value get(Node x, Key key) {
-        if (key == null) throw new IllegalArgumentException("calls get() with a null key");
+        requiresNotNull(key, "calls get() with a null key");
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
         if      (cmp < 0) return get(x.left, key);
@@ -167,7 +170,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("calls put() with a null key");
+        requiresNotNull(key, "calls put() with a null key");
         if (val == null) {
             delete(key);
             return;
@@ -231,7 +234,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls delete() with a null key");
+        requiresNotNull(key, "calls delete() with a null key");
         root = delete(root, key);
         assert check();
     }
@@ -296,7 +299,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
+        requiresNotNull(key, "argument to floor() is null");
         if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
         Node x = floor(root, key);
         if (x == null) throw new NoSuchElementException("argument to floor() is too small");
@@ -337,7 +340,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
+        requiresNotNull(key, "argument to ceiling() is null");
         if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
         Node x = ceiling(root, key);
         if (x == null) throw new NoSuchElementException("argument to floor() is too large");
@@ -368,9 +371,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      *        <em>n</em>–1
      */
     public Key select(int rank) {
-        if (rank < 0 || rank >= size()) {
-            throw new IllegalArgumentException("argument to select() is invalid: " + rank);
-        }
+        checkArgument(rank >= 0 && rank < size(), "argument to select() is invalid: " + rank);
         return select(root, rank);
     }
 
@@ -392,7 +393,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public int rank(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to rank() is null");
+        requiresNotNull(key, "argument to rank() is null");
         return rank(key, root);
     } 
 
@@ -429,8 +430,8 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      *         is {@code null}
      */
     public Iterable<Key> keys(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+        requiresNotNull(lo, "first argument to keys() is null");
+        requiresNotNull(hi,"second argument to keys() is null");
 
         Queue<Key> queue = new LinkedQueue<>();
         keys(root, queue, lo, hi);
@@ -457,8 +458,8 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
      *         is {@code null}
      */
     public int size(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to size() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to size() is null");
+        requiresNotNull(lo, "first argument to size() is null");
+        requiresNotNull(hi,"second argument to size() is null");
 
         if (lo.compareTo(hi) > 0) return 0;
         if (contains(hi)) return rank(hi) - rank(lo) + 1;

@@ -32,6 +32,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  <i>Standard audio</i>. This class provides a basic capability for
  *  creating, reading, and saving audio. 
@@ -103,9 +106,7 @@ public final class StdAudio {
 
     // get an AudioInputStream object from a file
     private static AudioInputStream getAudioInputStreamFromFile(String filename) {
-        if (filename == null) {
-            throw new IllegalArgumentException("filename is null");
-        }
+        requiresNotNull(filename, "filename is null");
 
         try {
             // first try to read file from local file system
@@ -155,7 +156,7 @@ public final class StdAudio {
      * @throws IllegalArgumentException if the sample is {@code Double.NaN}
      */
     public static void play(double sample) {
-        if (Double.isNaN(sample)) throw new IllegalArgumentException("sample is NaN");
+        checkArgument(!Double.isNaN(sample), "sample is NaN");
 
         // clip if outside [-1, +1]
         if (sample < -1.0) sample = -1.0;
@@ -183,7 +184,7 @@ public final class StdAudio {
      * @throws IllegalArgumentException if {@code samples} is {@code null}
      */
     public static void play(double[] samples) {
-        if (samples == null) throw new IllegalArgumentException("argument to play() is null");
+        requiresNotNull(samples, "argument to play() is null");
         for (double sample : samples) {
             play(sample);
         }
@@ -205,22 +206,19 @@ public final class StdAudio {
         AudioFormat audioFormat = ais.getFormat();
 
         // require sampling rate = 44,100 Hz
-        if (audioFormat.getSampleRate() != SAMPLE_RATE) {
-            throw new IllegalArgumentException("StdAudio.read() currently supports only a sample rate of " + SAMPLE_RATE + " Hz\n"
+        checkArgument(audioFormat.getSampleRate() == SAMPLE_RATE,
+                "StdAudio.read() currently supports only a sample rate of " + SAMPLE_RATE + " Hz\n"
                                              + "audio format: " + audioFormat);
-        }
 
         // require 16-bit audio
-        if (audioFormat.getSampleSizeInBits() != BITS_PER_SAMPLE) {
-            throw new IllegalArgumentException("StdAudio.read() currently supports only " + BITS_PER_SAMPLE + "-bit audio\n"
+        checkArgument(audioFormat.getSampleSizeInBits() == BITS_PER_SAMPLE,
+                "StdAudio.read() currently supports only " + BITS_PER_SAMPLE + "-bit audio\n"
                                              + "audio format: " + audioFormat);
-        }
 
         // require little endian
-        if (audioFormat.isBigEndian()) {
-            throw new IllegalArgumentException("StdAudio.read() currently supports only audio stored using little endian\n"
+        checkArgument(!audioFormat.isBigEndian(),
+                "StdAudio.read() currently supports only audio stored using little endian\n"
                                              + "audio format: " + audioFormat);
-        }
 
         byte[] bytes = null;
         try {
@@ -274,12 +272,8 @@ public final class StdAudio {
      *         or {@code .au}
      */
     public static void save(String filename, double[] samples) {
-        if (filename == null) {
-            throw new IllegalArgumentException("filenameis null");
-        }
-        if (samples == null) {
-            throw new IllegalArgumentException("samples[] is null");
-        }
+        requiresNotNull(filename,"filenameis null");
+        requiresNotNull(samples,"samples[] is null");
 
         // assumes 16-bit samples with sample rate = 44,100 Hz
         // use 16-bit audio, mono, signed PCM, little Endian
@@ -367,7 +361,7 @@ public final class StdAudio {
      * @throws IllegalArgumentException if {@code filename} is {@code null}
      */
     public static synchronized void loop(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
+        requiresNotNull(filename);
 
         final AudioInputStream ais = getAudioInputStreamFromFile(filename);
 

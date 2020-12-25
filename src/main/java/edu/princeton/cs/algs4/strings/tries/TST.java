@@ -43,6 +43,9 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code TST} class represents an symbol table of key-value
  *  pairs, with string keys and generic values.
@@ -106,9 +109,7 @@ public class TST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(String key) {
-        if (key == null) {
-            throw new IllegalArgumentException("argument to contains() is null");
-        }
+        requiresNotNull(key, "argument to contains() is null");
         return get(key) != null;
     }
 
@@ -120,10 +121,8 @@ public class TST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(String key) {
-        if (key == null) {
-            throw new IllegalArgumentException("calls get() with null argument");
-        }
-        if (key.length() == 0) throw new IllegalArgumentException("key must have length >= 1");
+        requiresNotNull(key, "calls get() with null argument");
+        checkArgument(key.length() > 0,"key must have length >= 1");
         Node<Value> x = get(root, key, 0);
         if (x == null) return null;
         return x.val;
@@ -132,7 +131,7 @@ public class TST<Value> implements Trie<Value> {
     // return subtrie corresponding to given key
     private Node<Value> get(Node<Value> x, String key, int d) {
         if (x == null) return null;
-        if (key.length() == 0) throw new IllegalArgumentException("key must have length >= 1");
+        checkArgument(key.length() > 0, "key must have length >= 1");
         char c = key.charAt(d);
         if      (c < x.c)              return get(x.left,  key, d);
         else if (c > x.c)              return get(x.right, key, d);
@@ -149,9 +148,7 @@ public class TST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(String key, Value val) {
-        if (key == null) {
-            throw new IllegalArgumentException("calls put() with null key");
-        }
+        requiresNotNull(key, "calls put() with null key");
         if (!contains(key)) n++;
         else if(val == null) n--;       // delete existing key
         root = put(root, key, val, 0);
@@ -172,9 +169,7 @@ public class TST<Value> implements Trie<Value> {
 
     @Override
     public void delete(String key) {
-        if (key == null) {
-            throw new IllegalArgumentException("calls delete() with null key");
-        }
+        requiresNotNull(key, "calls delete() with null key");
         root = delete(root, key, 0);
     }
 
@@ -201,9 +196,7 @@ public class TST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code query} is {@code null}
      */
     public String longestPrefixOf(String query) {
-        if (query == null) {
-            throw new IllegalArgumentException("calls longestPrefixOf() with null argument");
-        }
+        requiresNotNull(query,"calls longestPrefixOf() with null argument");
         if (query.length() == 0) return null;
         int length = 0;
         Node<Value> x = root;
@@ -241,9 +234,8 @@ public class TST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code prefix} is {@code null}
      */
     public Iterable<String> keysWithPrefix(String prefix) {
-        if (prefix == null) {
-            throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
-        }
+        requiresNotNull(prefix, "calls keysWithPrefix() with null argument");
+
         Queue<String> queue = new LinkedQueue<>();
         Node<Value> x = get(root, prefix, 0);
         if (x == null) return queue;

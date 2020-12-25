@@ -16,6 +16,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  <i>Binary standard input</i>. This class provides methods for reading
  *  in bits from standard input, either one bit at a time (as a {@code boolean}),
@@ -144,7 +146,7 @@ public final class BinaryStdIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 16}
      */
     public static char readChar(int r) {
-        if (r < 1 || r > 16) throw new IllegalArgumentException("Illegal value of r = " + r);
+        checkArgument(r >= 1 && r <= 16, "Illegal value of r = " + r);
 
         // optimize r = 8 case
         if (r == 8) return readChar();
@@ -218,7 +220,7 @@ public final class BinaryStdIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 32}
      */
     public static int readInt(int r) {
-        if (r < 1 || r > 32) throw new IllegalArgumentException("Illegal value of r = " + r);
+        checkArgument(r >= 1 && r <= 32, "Illegal value of r = " + r);
 
         // optimize r = 32 case
         if (r == 32) return readInt();

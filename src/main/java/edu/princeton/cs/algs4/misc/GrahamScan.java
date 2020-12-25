@@ -70,8 +70,7 @@ public class GrahamScan {
         int n = points.length;
         Point2D[] a = new Point2D[n];
         for (int i = 0; i < n; i++) {
-            if (points[i] == null)
-                throw new IllegalArgumentException("points[" + i + "] is null");
+            checkArgument(points[i] != null, "points[" + i + "] is null");
             a[i] = points[i];
         }
 

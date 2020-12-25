@@ -36,6 +36,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedDFS;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code NFA} class provides a data type for creating a
  *  <em>nondeterministic finite state automaton</em> (NFA) from a regular
@@ -105,8 +107,7 @@ public class NFA {
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == ')') 
                 graph.addEdge(i, i+1);
         }
-        if (ops.size() != 0)
-            throw new IllegalArgumentException("Invalid regular expression");
+        checkArgument(ops.size() == 0, "Invalid regular expression");
     } 
 
     /**

@@ -25,6 +25,8 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code TrieST} class represents an symbol table of key-value
  *  pairs, with string keys and generic values.
@@ -80,7 +82,7 @@ public class TrieST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(String key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        requiresNotNull(key, "argument to get() is null");
         Node x = get(root, key, 0);
         if (x == null) return null;
         return (Value) x.val;
@@ -94,7 +96,7 @@ public class TrieST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(String key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        requiresNotNull(key, "argument to contains() is null");
         return get(key) != null;
     }
 
@@ -114,7 +116,7 @@ public class TrieST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(String key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+        requiresNotNull(key, "first argument to put() is null");
         if (val == null) delete(key);
         else root = put(root, key, val, 0);
     }
@@ -224,7 +226,7 @@ public class TrieST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code query} is {@code null}
      */
     public String longestPrefixOf(String query) {
-        if (query == null) throw new IllegalArgumentException("argument to longestPrefixOf() is null");
+        requiresNotNull(query, "argument to longestPrefixOf() is null");
         int length = longestPrefixOf(root, query, 0, -1);
         if (length == -1) return null;
         else return query.substring(0, length);
@@ -248,7 +250,7 @@ public class TrieST<Value> implements Trie<Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(String key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        requiresNotNull(key, "argument to delete() is null");
         root = delete(root, key, 0);
     }
 

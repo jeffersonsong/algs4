@@ -11,6 +11,8 @@
 package edu.princeton.cs.algs4.misc.numeric;
 
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code LinearRegression} class performs a simple linear regression
  *  on an set of <em>n</em> data points (<em>y<sub>i</sub></em>, <em>x<sub>i</sub></em>).
@@ -38,9 +40,7 @@ public class LinearRegression {
      * @throws IllegalArgumentException if the lengths of the two arrays are not equal
      */
     public LinearRegression(double[] x, double[] y) {
-        if (x.length != y.length) {
-            throw new IllegalArgumentException("array lengths are not equal");
-        }
+        checkArgument(x.length == y.length, "array lengths are not equal");
         int n = x.length;
 
         // first pass

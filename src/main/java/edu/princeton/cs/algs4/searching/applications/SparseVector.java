@@ -16,6 +16,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Vector;
 import edu.princeton.cs.algs4.searching.st.STImpl;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code SparseVector} class represents a <em>d</em>-dimensional mathematical vector.
  *  Vectors are mutable: their values can be changed after they are created.
@@ -55,7 +57,7 @@ public class SparseVector {
      * @throws IllegalArgumentException unless i is between 0 and d-1
      */
     public void put(int i, double value) {
-        if (i < 0 || i >= d) throw new IllegalArgumentException("Illegal index");
+        checkArgument(i >= 0 && i < d, "Illegal index");
         if (value == 0.0) st.delete(i);
         else              st.put(i, value);
     }
@@ -68,7 +70,7 @@ public class SparseVector {
      * @throws IllegalArgumentException unless i is between 0 and d-1
      */
     public double get(int i) {
-        if (i < 0 || i >= d) throw new IllegalArgumentException("Illegal index");
+        checkArgument(i >= 0 && i < d, "Illegal index");
         if (st.contains(i)) return st.get(i);
         else                return 0.0;
     }
@@ -110,7 +112,7 @@ public class SparseVector {
      * @throws IllegalArgumentException if the lengths of the two vectors are not equal
      */
     public double dot(SparseVector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Vector lengths disagree");
+        checkArgument(this.d == that.d, "Vector lengths disagree");
         double sum = 0.0;
 
         // iterate over the vector with the fewest nonzeros
@@ -182,7 +184,7 @@ public class SparseVector {
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
     public SparseVector plus(SparseVector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Vector lengths disagree");
+        checkArgument(this.d == that.d, "Vector lengths disagree");
         SparseVector c = new SparseVector(d);
         for (int i : this.st.keys()) c.put(i, this.get(i));                // c = this
         for (int i : that.st.keys()) c.put(i, that.get(i) + c.get(i));     // c = c + that

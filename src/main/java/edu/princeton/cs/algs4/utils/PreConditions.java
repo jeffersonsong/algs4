@@ -4,6 +4,10 @@ public class PreConditions {
     private PreConditions() {
     }
 
+    public static void requiresNotNull(Object val) {
+        checkArgument(val != null);
+    }
+
     public static void requiresNotNull(Object val, String msg) {
         checkArgument(val != null, msg);
     }

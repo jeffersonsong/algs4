@@ -31,6 +31,9 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+
 /**
  *  The {@code PatriciaST} class provides an implementation of an unordered
  *  symbol table of key-value pairs, with the restriction that the key is of
@@ -142,8 +145,8 @@ public class PatriciaST<Value> {
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
     public void put(String key, Value val) {
-        if (key == null) throw new IllegalArgumentException("called put(null)");
-        if (key.length() == 0) throw new IllegalArgumentException("invalid key");
+        requiresNotNull(key, "called put(null)");
+        checkArgument(key.length() > 0, "invalid key");
         if (val == null) delete(key);
         Node p;
         Node x = head;
@@ -185,8 +188,8 @@ public class PatriciaST<Value> {
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
     public Value get(String key) {
-        if (key == null) throw new IllegalArgumentException("called get(null)");
-        if (key.length() == 0) throw new IllegalArgumentException("invalid key");
+        requiresNotNull(key, "called get(null)");
+        checkArgument(key.length() > 0, "invalid key");
         Node p;
         Node x = head;
         do {
@@ -206,8 +209,8 @@ public class PatriciaST<Value> {
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
     public void delete(String key) {
-        if (key == null) throw new IllegalArgumentException("called delete(null)");
-        if (key.length() == 0) throw new IllegalArgumentException("invalid key");
+        requiresNotNull(key, "called delete(null)");
+        checkArgument(key.length() > 0, "invalid key");
         Node g;             // previous previous (grandparent)
         Node p = head;      // previous (parent)
         Node x = head;      // node to delete

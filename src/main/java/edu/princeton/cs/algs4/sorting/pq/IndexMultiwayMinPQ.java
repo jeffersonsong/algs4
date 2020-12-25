@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The IndexMultiwayMinPQ class represents an indexed priority queue of generic keys.
  *  It supports the usual insert and delete-the-minimum operations,
@@ -56,8 +58,8 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code D < 2}
      */
 	public IndexMultiwayMinPQ(int N, int D) {
-		if (N < 0) throw new IllegalArgumentException("Maximum number of elements cannot be negative");
-		if (D < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		checkArgument(N >= 0, "Maximum number of elements cannot be negative");
+		checkArgument(D >= 2, "Dimension should be 2 or over");
 		this.d = D;
 		nmax = N;
 		pq = new int[nmax+D];
@@ -77,8 +79,8 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
      * @throws java.lang.IllegalArgumentException if {@code D < 2}
      */
 	public IndexMultiwayMinPQ(int N, Comparator<Key> C, int D) {
-		if (N < 0) throw new IllegalArgumentException("Maximum number of elements cannot be negative");
-		if (D < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		checkArgument(N >= 0, "Maximum number of elements cannot be negative");
+		checkArgument(D >= 2, "Dimension should be 2 or over");
 		this.d = D;
 		nmax = N;
 		pq = new int[nmax+D];
@@ -105,7 +107,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return true if i is on the priority queue, false if not
 	 */
 	public boolean contains(int i) {
-		if (i < 0 ||i >= nmax) throw new IllegalArgumentException();
+		checkArgument(i >= 0 && i < nmax);
 		return qp[i+d] != -1;
 	}
 
@@ -127,8 +129,9 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the index is already in the queue
 	 */
 	public void insert(int i, Key key) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (contains(i)) throw new IllegalArgumentException("Index already there");
+		checkArgument(i >= 0 && i < nmax);
+		checkArgument(!contains(i), "Index already there");
+
 		keys[i+d] = key;
 		pq[n+d] = i;
 		qp[i+d] = n;
@@ -183,8 +186,9 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the key associated with index i
 	 */
 	public Key keyOf(int i) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument(i >= 0 && i < nmax);
+		checkArgument(contains(i), "Specified index is not in the queue");
+
 		return keys[i+d];
 	}
 
@@ -198,8 +202,9 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the index has no key associated with
 	 */
 	public void changeKey(int i, Key key) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument(i >= 0 && i < nmax);
+		checkArgument(contains(i), "Specified index is not in the queue");
+
 		Key tmp = keys[i+d];
 		keys[i+d] = key;
 		if (comp.compare(key, tmp) <= 0) { swim(qp[i+d]);}
@@ -216,9 +221,9 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the given key is greater than the current key
 	 */
 	public void decreaseKey(int i, Key key) {
-		if (i < 0 || i >=nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
-		if (comp.compare(keys[i+d], key) <= 0) throw new IllegalArgumentException("Calling with this argument would not decrease the Key");
+		checkArgument(i >= 0 && i < nmax);
+		checkArgument(contains(i), "Specified index is not in the queue");
+		checkArgument(comp.compare(keys[i+d], key) > 0, "Calling with this argument would not decrease the Key");
 		keys[i+d] = key;
 		swim(qp[i+d]);
 	}
@@ -233,9 +238,9 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.lang.IllegalArgumentException if the given key is lower than the current key
 	 */
 	public void increaseKey(int i, Key key) {
-		if (i < 0 || i >=nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
-		if (comp.compare(keys[i+d], key) >= 0) throw new IllegalArgumentException("Calling with this argument would not increase the Key");
+		checkArgument(i >= 0 && i < nmax);
+		checkArgument(contains(i), "Specified index is not in the queue");
+		checkArgument(comp.compare(keys[i+d], key) < 0, "Calling with this argument would not increase the Key");
 		keys[i+d] = key;
 		sink(qp[i+d]);
 	}
@@ -248,8 +253,8 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the given index has no key associated with
 	 */
 	public void delete(int i) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		checkArgument(i >= 0 && i < nmax);
+		checkArgument(contains(i), "Specified index is not in the queue");
 		int idx = qp[i+d];
 		exch(idx, --n);
 		swim(idx);

@@ -18,6 +18,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 public class Alphabet {
 
     /**
@@ -97,8 +99,7 @@ public class Alphabet {
         boolean[] unicode = new boolean[Character.MAX_VALUE];
         for (int i = 0; i < alpha.length(); i++) {
             char c = alpha.charAt(i);
-            if (unicode[c])
-                throw new IllegalArgumentException("Illegal alphabet: repeated character = '" + c + "'");
+            checkArgument(!unicode[c], "Illegal alphabet: repeated character = '" + c + "'");
             unicode[c] = true;
         }
 
@@ -187,9 +188,7 @@ public class Alphabet {
      * @throws IllegalArgumentException unless {@code c} is a character in this alphabet
      */
     public int toIndex(char c) {
-        if (c >= inverse.length || inverse[c] == -1) {
-            throw new IllegalArgumentException("Character " + c + " not in alphabet");
-        }
+        checkArgument(c < inverse.length && inverse[c] != -1, "Character " + c + " not in alphabet");
         return inverse[c];
     }
 
@@ -217,9 +216,7 @@ public class Alphabet {
      * @throws IllegalArgumentException unless {@code 0 <= index < R}
      */
     public char toChar(int index) {
-        if (index < 0 || index >= R) {
-            throw new IllegalArgumentException("index must be between 0 and " + R + ": " + index);
-        }
+        checkArgument(index >= 0 && index < R,"index must be between 0 and " + R + ": " + index);
         return alphabet[index];
     }
 
