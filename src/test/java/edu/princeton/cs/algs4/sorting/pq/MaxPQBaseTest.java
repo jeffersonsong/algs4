@@ -7,30 +7,30 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public abstract class MaxPQBaseTest {
-    private MaxPQ<Character> pq;
+    private PQ<Character> pq;
 
     @Before
     public void setUp() {
         pq = createMaxPQ();
     }
 
-    protected abstract MaxPQ<Character> createMaxPQ();
+    protected abstract PQ<Character> createMaxPQ();
 
     @Test
     public void test() {
         pq.insert('P');
         pq.insert('Q');
         pq.insert('E');
-        assertThat(pq.delMax(), is('Q'));
+        assertThat(pq.poll(), is('Q'));
 
         pq.insert('X');
         pq.insert('A');
         pq.insert('M');
-        assertThat(pq.delMax(), is('X'));
+        assertThat(pq.poll(), is('X'));
 
         pq.insert('P');
         pq.insert('L');
         pq.insert('E');
-        assertThat(pq.delMax(), is('P'));
+        assertThat(pq.poll(), is('P'));
     }
 }

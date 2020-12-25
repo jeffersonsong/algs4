@@ -91,12 +91,12 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
     private class HeapIterator implements Iterator<Key> {
 
         // create a new pq
-        private final MaxPQ<Key> copy;
+        private final PQ<Key> copy;
 
         // add all items to copy of heap
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
-            copy = new MaxPQImpl<>(size());
+            copy = PQImpl.maxPQ(size());
             for (int i = 1; i <= n; i++)
                 copy.insert(pq[i]);
         }
@@ -106,7 +106,7 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
 
         public Key next() {
             if (!hasNext()) throw new NoSuchElementException();
-            return copy.delMax();
+            return copy.poll();
         }
     }
 }
