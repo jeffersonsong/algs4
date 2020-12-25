@@ -51,6 +51,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Random;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -559,9 +560,7 @@ public final class StdRandom {
      */
     public static int[] permutation(int n) {
         checkArgument(n >= 0, "n must be non-negative: " + n);
-        int[] perm = new int[n];
-        for (int i = 0; i < n; i++)
-            perm[i] = i;
+        int[] perm = newIndexArray(n);
         shuffle(perm);
         return perm;
     }

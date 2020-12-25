@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
@@ -65,9 +66,8 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 		this.d = D;
 		nmax = N;
 		pq = new int[nmax+D];
-		qp = new int[nmax+D];
+		qp = newIntArray(nmax+D, -1);
 		keys = (Key[]) new Comparable[nmax+D];
-		for (int i = 0; i < nmax+D; qp[i++] = -1);
 		comp = new MyComparator();
 	}
 	
@@ -86,9 +86,8 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 		this.d = D;
 		nmax = N;
 		pq = new int[nmax+D];
-		qp = new int[nmax+D];
+		qp = newIntArray(nmax+D, -1);
 		keys = (Key[]) new Comparable[nmax+D];
-		for (int i = 0; i < nmax+D; qp[i++] = -1);
 		comp = C;
 	}
 

@@ -20,6 +20,8 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.Iterator;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+
 /**
  *  The {@code DirectedEulerianCycle} class represents a data type
  *  for finding an Eulerian cycle or path in a digraph.
@@ -234,9 +236,7 @@ public class DirectedEulerianCycle {
         // union of two disjoint cycles
         Digraph H1 = DigraphGenerator.eulerianCycle(V/2, E/2);
         Digraph H2 = DigraphGenerator.eulerianCycle(V - V/2, E - E/2);
-        int[] perm = new int[V];
-        for (int i = 0; i < V; i++)
-            perm[i] = i;
+        int[] perm = newIndexArray(V);
         StdRandom.shuffle(perm);
         Digraph G5 = new DigraphImpl(V);
         for (int v = 0; v < H1.V(); v++)

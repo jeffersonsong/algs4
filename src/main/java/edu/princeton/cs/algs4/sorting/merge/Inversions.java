@@ -12,6 +12,8 @@ package edu.princeton.cs.algs4.sorting.merge;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
 /**
  *  The {@code Inversions} class provides static methods to count the 
  *  number of <em>inversions</em> in either an array of integers or comparables.
@@ -78,10 +80,8 @@ public class Inversions {
      *         and {@code a[i] > a[j]}.
      */
     public static long count(int[] a) {
-        int[] b   = new int[a.length];
+        int[] b   = Arrays.copyOf(a, a.length);
         int[] aux = new int[a.length];
-        for (int i = 0; i < a.length; i++)
-            b[i] = a[i];
         long inversions = count(a, b, aux, 0, a.length - 1);
         return inversions;
     }
@@ -91,9 +91,7 @@ public class Inversions {
         long inversions = 0;
 
         // copy to aux[]
-        for (int k = lo; k <= hi; k++) {
-            aux[k] = a[k]; 
-        }
+        System.arraycopy(a, lo, aux, lo, hi - lo + 1);
 
         // merge back to a[]
         int i = lo, j = mid+1;
@@ -130,8 +128,8 @@ public class Inversions {
      *         and {@code a[i].compareTo(a[j]) > 0}.
      */
     public static <Key extends Comparable<Key>> long count(Key[] a) {
-        Key[] b   = a.clone();
-        Key[] aux = a.clone();
+        Key[] b   = Arrays.copyOf(a, a.length);
+        Key[] aux = Arrays.copyOf(a, a.length);
         long inversions = count(a, b, aux, 0, a.length - 1);
         return inversions;
     }

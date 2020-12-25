@@ -30,8 +30,7 @@ import java.util.Comparator;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.sorting.SortUtils.less;
-import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
-import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.*;
 
 /**
  *  The {@code Insertion} class provides static methods for sorting an
@@ -134,9 +133,7 @@ public class Insertion {
      */
     public static <T extends Comparable<T>> int[] indexSort(T[] a) {
         int n = a.length;
-        int[] index = new int[n];
-        for (int i = 0; i < n; i++)
-            index[i] = i;
+        int[] index = newIndexArray(n);
 
         for (int i = 1; i < n; i++)
             for (int j = i; j > 0 && less(a[index[j]], a[index[j-1]]); j--)

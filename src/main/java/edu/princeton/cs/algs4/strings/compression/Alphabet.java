@@ -18,6 +18,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 public class Alphabet {
@@ -105,8 +107,7 @@ public class Alphabet {
 
         alphabet = alpha.toCharArray();
         R = alpha.length();
-        inverse = new int[Character.MAX_VALUE];
-        Arrays.fill(inverse, -1);
+        inverse = newIntArray(Character.MAX_VALUE, -1);
 
         // can't use char since R can be as big as 65,536
         for (int c = 0; c < R; c++)
@@ -121,13 +122,11 @@ public class Alphabet {
     private Alphabet(int radix) {
         this.R = radix;
         alphabet = new char[R];
-        inverse = new int[R];
-
-        // can't use char since R can be as big as 65,536
         for (int i = 0; i < R; i++)
             alphabet[i] = (char) i;
-        for (int i = 0; i < R; i++)
-            inverse[i] = i;
+
+        // can't use char since R can be as big as 65,536
+        inverse = newIndexArray(R);
     }
 
     /**

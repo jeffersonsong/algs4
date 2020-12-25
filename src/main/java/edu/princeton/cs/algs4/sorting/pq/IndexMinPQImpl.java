@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
@@ -69,8 +70,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> extends MinPQInvariant 
         n = 0;
         keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
         pq   = new int[maxN + 1];
-        qp   = new int[maxN + 1];                   // make this of length maxN??
-        Arrays.fill(qp, -1);
+        qp   = newIntArray(maxN + 1, -1); // make this of length maxN??
     }
 
     /**

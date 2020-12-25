@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
@@ -70,8 +72,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
         n = 0;
         keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
         pq   = new int[maxN + 1];
-        qp   = new int[maxN + 1];                   // make this of length maxN??
-        Arrays.fill(qp, -1);
+        qp   = newIntArray(maxN + 1, -1); // make this of length maxN??
     }
 
     /**
@@ -312,9 +313,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
         }
 
         // delete them in random order
-        int[] perm = new int[strings.length];
-        for (int i = 0; i < strings.length; i++)
-            perm[i] = i;
+        int[] perm = newIndexArray(strings.length);
         StdRandom.shuffle(perm);
         for (int j : perm) {
             String key = pq.keyOf(j);

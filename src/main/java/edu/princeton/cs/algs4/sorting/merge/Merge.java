@@ -30,6 +30,7 @@ import java.util.Arrays;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**
@@ -125,9 +126,7 @@ public class Merge {
      */
     public static <T extends Comparable<T>> int[] indexSort(T[] a) {
         int n = a.length;
-        int[] index = new int[n];
-        for (int i = 0; i < n; i++)
-            index[i] = i;
+        int[] index = newIndexArray(n);
 
         int[] aux = new int[n];
         sort(a, index, aux, 0, n-1);

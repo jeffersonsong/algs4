@@ -30,6 +30,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -81,10 +82,8 @@ public class GabowSCC {
         marked = new boolean[G.V()];
         stack1 = new LinkedStack<>();
         stack2 = new LinkedStack<>();
-        id = new int[G.V()]; 
+        id = newIntArray(G.V(), -1);
         preorder = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            id[v] = -1;
 
         for (int v = 0; v < G.V(); v++) {
             if (!marked[v]) dfs(G, v);

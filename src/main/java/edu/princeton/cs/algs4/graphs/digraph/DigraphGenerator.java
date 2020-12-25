@@ -14,6 +14,7 @@ import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -124,9 +125,7 @@ public class DigraphGenerator {
         checkArgument(E >= 0, "Too few edges");
         Digraph G = new DigraphImpl(V);
         SET<Edge> set = new SETImpl<>();
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
@@ -168,9 +167,7 @@ public class DigraphGenerator {
      */
     public static Digraph completeRootedInDAG(int V) {
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V; i++)
             for (int j = i+1; j < V; j++)
@@ -195,9 +192,7 @@ public class DigraphGenerator {
         SET<Edge> set = new SETImpl<>();
 
         // fix a topological order
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
 
         // one edge pointing from each vertex, other than the root = vertices[V-1]
@@ -229,9 +224,7 @@ public class DigraphGenerator {
      */
     public static Digraph completeRootedOutDAG(int V) {
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V; i++)
             for (int j = i+1; j < V; j++)
@@ -257,9 +250,7 @@ public class DigraphGenerator {
         SET<Edge> set = new SETImpl<>();
 
         // fix a topological order
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
 
         // one edge pointing from each vertex, other than the root = vertices[V-1]
@@ -313,9 +304,7 @@ public class DigraphGenerator {
      */
     public static Digraph path(int V) {
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
@@ -330,9 +319,7 @@ public class DigraphGenerator {
      */
     public static Digraph binaryTree(int V) {
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
             G.addEdge(vertices[i], vertices[(i-1)/2]);
@@ -347,9 +334,7 @@ public class DigraphGenerator {
      */
     public static Digraph cycle(int V) {
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);

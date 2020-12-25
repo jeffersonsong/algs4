@@ -34,6 +34,10 @@ package edu.princeton.cs.algs4.strings.search;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+
 /**
  *  The {@code BoyerMoore} class finds the first occurrence of a pattern string
  *  in a text string.
@@ -62,9 +66,7 @@ public class BoyerMoore implements CompiledPatternSearch {
         this.pat = pat;
 
         // position of rightmost occurrence of c in the pattern
-        right = new int[R];
-        for (int c = 0; c < R; c++)
-            right[c] = -1;
+        right = newIntArray(R, -1);
         for (int j = 0; j < pat.length(); j++)
             right[pat.charAt(j)] = j;
     }
@@ -77,14 +79,10 @@ public class BoyerMoore implements CompiledPatternSearch {
      */
     public BoyerMoore(char[] pattern, int R) {
         this.R = R;
-        this.pattern = new char[pattern.length];
-        for (int j = 0; j < pattern.length; j++)
-            this.pattern[j] = pattern[j];
+        this.pattern = Arrays.copyOf(pattern, pattern.length);
 
         // position of rightmost occurrence of c in the pattern
-        right = new int[R];
-        for (int c = 0; c < R; c++)
-            right[c] = -1;
+        right = newIntArray(R, -1);
         for (int j = 0; j < pattern.length; j++)
             right[pattern[j]] = j;
     }

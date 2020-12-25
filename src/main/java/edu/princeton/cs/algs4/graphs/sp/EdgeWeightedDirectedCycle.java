@@ -17,6 +17,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+
 /**
  *  The {@code EdgeWeightedDirectedCycle} class represents a data type for 
  *  determining whether an edge-weighted digraph has a directed cycle.
@@ -158,9 +160,7 @@ public class EdgeWeightedDirectedCycle {
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
         EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {
             int v, w;

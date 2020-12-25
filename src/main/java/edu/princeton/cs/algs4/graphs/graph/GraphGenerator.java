@@ -18,6 +18,8 @@ import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -137,9 +139,7 @@ public class GraphGenerator {
         checkArgument(E >= 0, "Too few edges");
         Graph G = new GraphImpl(V1 + V2);
 
-        int[] vertices = new int[V1 + V2];
-        for (int i = 0; i < V1 + V2; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V1 + V2);
         StdRandom.shuffle(vertices);
 
         SET<Edge> set = new SETImpl<>();
@@ -167,9 +167,7 @@ public class GraphGenerator {
      */
     public static Graph bipartite(int V1, int V2, double p) {
         checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
-        int[] vertices = new int[V1 + V2];
-        for (int i = 0; i < V1 + V2; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V1 + V2);
         StdRandom.shuffle(vertices);
         Graph G = new GraphImpl(V1 + V2);
         for (int i = 0; i < V1; i++)
@@ -186,9 +184,7 @@ public class GraphGenerator {
      */
     public static Graph path(int V) {
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
@@ -203,9 +199,7 @@ public class GraphGenerator {
      */
     public static Graph binaryTree(int V) {
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
             G.addEdge(vertices[i], vertices[(i-1)/2]);
@@ -220,9 +214,7 @@ public class GraphGenerator {
      */
     public static Graph cycle(int V) {
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
@@ -285,9 +277,7 @@ public class GraphGenerator {
     public static Graph wheel(int V) {
         checkArgument(V > 1, "Number of vertices must be at least 2");
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
 
         // simple cycle on V-1 vertices
@@ -313,9 +303,7 @@ public class GraphGenerator {
     public static Graph star(int V) {
         checkArgument(V > 0, "Number of vertices must be at least 1");
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
 
         // connect vertices[0] to every other vertex
@@ -378,9 +366,7 @@ public class GraphGenerator {
             prufer[i] = StdRandom.uniform(V);
 
         // degree of vertex v = 1 + number of times it appers in Prufer sequence
-        int[] degree = new int[V];
-        for (int v = 0; v < V; v++)
-            degree[v] = 1;
+        int[] degree = newIntArray(V, 1);
         for (int i = 0; i < V-2; i++)
             degree[prufer[i]]++;
 
