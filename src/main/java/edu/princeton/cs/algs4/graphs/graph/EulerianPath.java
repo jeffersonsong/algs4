@@ -18,6 +18,8 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianCycle;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianPath;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
+
 /**
  *  The {@code EulerianPath} class represents a data type
  *  for finding an Eulerian path in a graph.
@@ -95,9 +97,7 @@ public class EulerianPath {
 
         // create local view of adjacency lists, to iterate one vertex at a time
         // the helper Edge data type is used to avoid exploring both copies of an edge v-w
-        Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            adj[v] = new LinkedQueue<>();
+        Queue<Edge>[] adj = newArray(G.V(), v->new LinkedQueue<>());
 
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
