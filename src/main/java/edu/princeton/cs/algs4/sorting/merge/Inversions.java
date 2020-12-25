@@ -86,8 +86,6 @@ public class Inversions {
         return inversions;
     }
 
-
-
     // merge and count (Comparable version)
     private static <Key extends Comparable<Key>> long merge(Key[] a, Key[] aux, int lo, int mid, int hi) {
         long inversions = 0;

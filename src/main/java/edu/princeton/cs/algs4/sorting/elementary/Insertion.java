@@ -28,6 +28,10 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Comparator;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+
 /**
  *  The {@code Insertion} class provides static methods for sorting an
  *  array using insertion sort.
@@ -60,7 +64,7 @@ public class Insertion {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         int n = a.length;
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0 && less(a[j], a[j-1]); j--) {
@@ -77,13 +81,13 @@ public class Insertion {
      * @param lo left endpoint (inclusive)
      * @param hi right endpoint (exclusive)
      */
-    public static void sort(Comparable[] a, int lo, int hi) {
+    public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         for (int i = lo + 1; i < hi; i++) {
             for (int j = i; j > lo && less(a[j], a[j-1]); j--) {
                 exch(a, j, j-1);
             }
         }
-        assert isSorted(a, lo, hi);
+        assert isSorted(a, lo, hi - 1);
     }
 
     /**
@@ -91,7 +95,7 @@ public class Insertion {
      * @param a the array
      * @param comparator the comparator specifying the order
      */
-    public static void sort(Object[] a, Comparator comparator) {
+    public static <T> void sort(T[] a, Comparator<T> comparator) {
         int n = a.length;
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0 && less(a[j], a[j-1], comparator); j--) {
@@ -109,13 +113,13 @@ public class Insertion {
      * @param hi right endpoint (exclusive)
      * @param comparator the comparator specifying the order
      */
-    public static void sort(Object[] a, int lo, int hi, Comparator comparator) {
+    public static <T> void sort(T[] a, int lo, int hi, Comparator<T> comparator) {
         for (int i = lo + 1; i < hi; i++) {
             for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--) {
                 exch(a, j, j-1);
             }
         }
-        assert isSorted(a, lo, hi, comparator);
+        assert isSorted(a, lo, hi - 1, comparator);
     }
 
 
@@ -127,7 +131,7 @@ public class Insertion {
      * @return a permutation {@code p[]} such that {@code a[p[0]]}, {@code a[p[1]]},
      *    ..., {@code a[p[n-1]]} are in ascending order
      */
-    public static int[] indexSort(Comparable[] a) {
+    public static <T extends Comparable<T>> int[] indexSort(T[] a) {
         int n = a.length;
         int[] index = new int[n];
         for (int i = 0; i < n; i++)
@@ -140,62 +144,9 @@ public class Insertion {
         return index;
     }
 
-   /***************************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-
-    // is v < w ?
-    private static boolean less(Object v, Object w, Comparator comparator) {
-        return comparator.compare(v, w) < 0;
-    }
-        
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-    // exchange a[i] and a[j]  (for indirect sort)
-    private static void exch(int[] a, int i, int j) {
-        int swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length);
-    }
-
-    // is the array a[lo..hi) sorted
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i < hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
-    private static boolean isSorted(Object[] a, Comparator comparator) {
-        return isSorted(a, 0, a.length, comparator);
-    }
-
-    // is the array a[lo..hi) sorted
-    private static boolean isSorted(Object[] a, int lo, int hi, Comparator comparator) {
-        for (int i = lo + 1; i < hi; i++)
-            if (less(a[i], a[i-1], comparator)) return false;
-        return true;
-    }
-
-   // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    // print array to standard output
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }

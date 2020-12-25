@@ -29,6 +29,10 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Comparator;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+
 /**
  *  The {@code MergeX} class provides static methods for sorting an
  *  array using an optimized version of mergesort.
@@ -53,7 +57,7 @@ public class MergeX {
     // This class should not be instantiated.
     private MergeX() { }
 
-    private static void merge(Comparable[] src, Comparable[] dst, int lo, int mid, int hi) {
+    private static <T extends Comparable<T>> void merge(T[] src, T[] dst, int lo, int mid, int hi) {
 
         // precondition: src[lo .. mid] and src[mid+1 .. hi] are sorted subarrays
         assert isSorted(src, lo, mid);
@@ -71,7 +75,7 @@ public class MergeX {
         assert isSorted(dst, lo, hi);
     }
 
-    private static void sort(Comparable[] src, Comparable[] dst, int lo, int hi) {
+    private static <T extends Comparable<T>> void sort(T[] src, T[] dst, int lo, int hi) {
         // if (hi <= lo) return;
         if (hi <= lo + CUTOFF) { 
             insertionSort(dst, lo, hi);
@@ -99,41 +103,18 @@ public class MergeX {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
-        Comparable[] aux = a.clone();
+    public static <T extends Comparable<T>> void sort(T[] a) {
+        T[] aux = a.clone();
         sort(aux, a, 0, a.length-1);  
         assert isSorted(a);
     }
 
     // sort from a[lo] to a[hi] using insertion sort
-    private static void insertionSort(Comparable[] a, int lo, int hi) {
+    private static <T extends Comparable<T>> void insertionSort(T[] a, int lo, int hi) {
         for (int i = lo; i <= hi; i++)
             for (int j = i; j > lo && less(a[j], a[j-1]); j--)
                 exch(a, j, j-1);
     }
-
-
-    /*******************************************************************
-     *  Utility methods.
-     *******************************************************************/
-
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-    // is a[i] < a[j]?
-    private static boolean less(Comparable a, Comparable b) {
-        return a.compareTo(b) < 0;
-    }
-
-    // is a[i] < a[j]?
-    private static boolean less(Object a, Object b, Comparator comparator) {
-        return comparator.compare(a, b) < 0;
-    }
-
 
     /*******************************************************************
      *  Version that takes Comparator as argument.
@@ -145,13 +126,13 @@ public class MergeX {
      * @param a the array to be sorted
      * @param comparator the comparator that defines the total order
      */
-    public static void sort(Object[] a, Comparator comparator) {
-        Object[] aux = a.clone();
+    public static <T> void sort(T[] a, Comparator<T> comparator) {
+        T[] aux = a.clone();
         sort(aux, a, 0, a.length-1, comparator);
         assert isSorted(a, comparator);
     }
 
-    private static void merge(Object[] src, Object[] dst, int lo, int mid, int hi, Comparator comparator) {
+    private static <T> void merge(T[] src, T[] dst, int lo, int mid, int hi, Comparator<T> comparator) {
 
         // precondition: src[lo .. mid] and src[mid+1 .. hi] are sorted subarrays
         assert isSorted(src, lo, mid, comparator);
@@ -169,8 +150,7 @@ public class MergeX {
         assert isSorted(dst, lo, hi, comparator);
     }
 
-
-    private static void sort(Object[] src, Object[] dst, int lo, int hi, Comparator comparator) {
+    private static <T> void sort(T[] src, T[] dst, int lo, int hi, Comparator<T> comparator) {
         // if (hi <= lo) return;
         if (hi <= lo + CUTOFF) { 
             insertionSort(dst, lo, hi, comparator);
@@ -190,39 +170,15 @@ public class MergeX {
     }
 
     // sort from a[lo] to a[hi] using insertion sort
-    private static void insertionSort(Object[] a, int lo, int hi, Comparator comparator) {
+    private static <T> void insertionSort(T[] a, int lo, int hi, Comparator<T> comparator) {
         for (int i = lo; i <= hi; i++)
             for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--)
                 exch(a, j, j-1);
     }
 
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
-    private static boolean isSorted(Object[] a, Comparator comparator) {
-        return isSorted(a, 0, a.length - 1, comparator);
-    }
-
-    private static boolean isSorted(Object[] a, int lo, int hi, Comparator comparator) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1], comparator)) return false;
-        return true;
-    }
-
     // print array to standard output
-    private static void show(Object[] a) {
-        for (Object o : a) {
+    private static <T> void show(T[] a) {
+        for (T o : a) {
             StdOut.println(o);
         }
     }

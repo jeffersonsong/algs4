@@ -28,6 +28,10 @@ package edu.princeton.cs.algs4.sorting.elementary;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+
 /**
  *  The {@code InsertionX} class provides static methods for sorting
  *  an array using an optimized version of insertion sort (with half exchanges
@@ -58,7 +62,7 @@ public class InsertionX {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         int n = a.length;
 
         // put smallest element in position to serve as sentinel
@@ -74,7 +78,7 @@ public class InsertionX {
 
         // insertion sort with half-exchanges
         for (int i = 2; i < n; i++) {
-            Comparable v = a[i];
+            T v = a[i];
             int j = i;
             while (less(v, a[j-1])) {
                 a[j] = a[j-1];
@@ -86,36 +90,9 @@ public class InsertionX {
         assert isSorted(a);
     }
 
-
-   /***************************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-        
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }

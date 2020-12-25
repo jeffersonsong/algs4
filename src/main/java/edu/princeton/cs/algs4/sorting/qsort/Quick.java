@@ -32,6 +32,9 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -54,14 +57,14 @@ public class Quick {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         StdRandom.shuffle(a);
         sort(a, 0, a.length - 1);
         assert isSorted(a);
     }
 
     // quicksort the subarray from a[lo] to a[hi]
-    private static void sort(Comparable[] a, int lo, int hi) { 
+    private static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         if (hi <= lo) return;
         int j = partition(a, lo, hi);
         sort(a, lo, j-1);
@@ -71,26 +74,21 @@ public class Quick {
 
     // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
     // and return the index j.
-    private static int partition(Comparable[] a, int lo, int hi) {
-        int i = lo;
-        int j = hi + 1;
-        Comparable v = a[lo];
-        while (true) { 
-
+    private static <T extends Comparable<T>> int partition(T[] a, int lo, int hi) {
+        int i = lo + 1;
+        int j = hi;
+        T v = a[lo];
+        while (i <= j) {
             // find item on lo to swap
-            while (less(a[++i], v)) {
-                if (i == hi) break;
-            }
-
+            while (i <= j && less(a[i], v)) i++;
             // find item on hi to swap
-            while (less(v, a[--j])) {
-                if (j == lo) break;      // redundant since a[lo] acts as sentinel
+            while (i <= j && less(v, a[j])) j--;
+
+            if (i <= j) {
+                exch(a, i, j);
+                i++;
+                j--;
             }
-
-            // check if pointers cross
-            if (i >= j) break;
-
-            exch(a, i, j);
         }
 
         // put partitioning item v at a[j]
@@ -110,7 +108,7 @@ public class Quick {
      * @return the key of rank {@code k}
      * @throws IllegalArgumentException unless {@code 0 <= k < a.length}
      */
-    public static Comparable select(Comparable[] a, int k) {
+    public static <T extends Comparable<T>> T select(T[] a, int k) {
         checkArgument(k >= 0 && k < a.length, "index is not between 0 and " + a.length + ": " + k);
         StdRandom.shuffle(a);
         int lo = 0, hi = a.length - 1;
@@ -123,43 +121,9 @@ public class Quick {
         return a[lo];
     }
 
-
-
-   /***************************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        if (v == w) return false;   // optimization when reference equals
-        return v.compareTo(w) < 0;
-    }
-        
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
-
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }

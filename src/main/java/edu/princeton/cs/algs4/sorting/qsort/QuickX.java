@@ -16,6 +16,10 @@ import edu.princeton.cs.algs4.sorting.elementary.Insertion;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+
 /**
  *  The {@code QuickX} class provides static methods for sorting an array
  *  using an optimized version of quicksort (using Hoare's 2-way partitioning
@@ -41,14 +45,14 @@ public class QuickX {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         // StdRandom.shuffle(a);
         sort(a, 0, a.length - 1);
         assert isSorted(a);
     }
 
     // quicksort the subarray from a[lo] to a[hi]
-    private static void sort(Comparable[] a, int lo, int hi) { 
+    private static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         if (hi <= lo) return;
 
         // cutoff to insertion sort (Insertion.sort() uses half-open intervals)
@@ -65,14 +69,14 @@ public class QuickX {
 
     // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
     // and return the index j.
-    private static int partition(Comparable[] a, int lo, int hi) {
+    private static <T extends Comparable<T>> int partition(T[] a, int lo, int hi) {
         int n = hi - lo + 1;
         int m = median3(a, lo, lo + n/2, hi);
         exch(a, m, lo);
 
         int i = lo;
         int j = hi + 1;
-        Comparable v = a[lo];
+        T v = a[lo];
 
         // a[lo] is unique largest element
         while (less(a[++i], v)) {
@@ -99,41 +103,15 @@ public class QuickX {
     }
 
     // return the index of the median element among a[i], a[j], and a[k]
-    private static int median3(Comparable[] a, int i, int j, int k) {
+    private static <T extends Comparable<T>> int median3(T[] a, int i, int j, int k) {
         return (less(a[i], a[j]) ?
                (less(a[j], a[k]) ? j : less(a[i], a[k]) ? k : i) :
                (less(a[k], a[j]) ? j : less(a[k], a[i]) ? k : i));
     }
 
-   /***************************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }
@@ -151,7 +129,6 @@ public class QuickX {
         assert isSorted(a);
         show(a);
     }
-
 }
 
 /******************************************************************************

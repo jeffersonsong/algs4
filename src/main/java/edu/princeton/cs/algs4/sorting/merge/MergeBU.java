@@ -27,6 +27,11 @@ package edu.princeton.cs.algs4.sorting.merge;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+
 /**
  *  The {@code MergeBU} class provides static methods for sorting an
  *  array using <em>bottom-up mergesort</em>. It is non-recursive.
@@ -53,7 +58,7 @@ public class MergeBU {
     private MergeBU() { }
 
     // stably merge a[lo..mid] with a[mid+1..hi] using aux[lo..hi]
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+    private static <T extends Comparable<T>> void merge(T[] a, T[] aux, int lo, int mid, int hi) {
 
         // copy to aux[]
         for (int k = lo; k <= hi; k++) {
@@ -75,9 +80,9 @@ public class MergeBU {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         int n = a.length;
-        Comparable[] aux = new Comparable[n];
+        T[] aux = Arrays.copyOf(a, n);
         for (int len = 1; len < n; len *= 2) {
             for (int lo = 0; lo < n-len; lo += len+len) {
                 int mid  = lo+len-1;
@@ -88,28 +93,9 @@ public class MergeBU {
         assert isSorted(a);
     }
 
-  /***********************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }

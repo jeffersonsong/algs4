@@ -26,6 +26,11 @@ package edu.princeton.cs.algs4.sorting.merge;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+
 /**
  *  The {@code Merge} class provides static methods for sorting an
  *  array using a top-down, recursive version of <em>mergesort</em>.
@@ -53,7 +58,7 @@ public class Merge {
     private Merge() { }
 
     // stably merge a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi]
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+    private static <T extends Comparable<T>> void merge(T[] a, T[] aux, int lo, int mid, int hi) {
         // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
         assert isSorted(a, lo, mid);
         assert isSorted(a, mid+1, hi);
@@ -77,7 +82,7 @@ public class Merge {
     }
 
     // mergesort a[lo..hi] using auxiliary array aux[lo..hi]
-    private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
+    private static <T extends Comparable<T>> void sort(T[] a, T[] aux, int lo, int hi) {
         if (hi <= lo) return;
         int mid = lo + (hi - lo) / 2;
         sort(a, aux, lo, mid);
@@ -89,41 +94,17 @@ public class Merge {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
-        Comparable[] aux = new Comparable[a.length];
+    public static <T extends Comparable<T>> void sort(T[] a) {
+        T[] aux = Arrays.copyOf(a, a.length);
         sort(a, aux, 0, a.length-1);
         assert isSorted(a);
     }
-
-
-   /***************************************************************************
-    *  Helper sorting function.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-        
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
 
    /***************************************************************************
     *  Index mergesort.
     ***************************************************************************/
     // stably merge a[lo .. mid] with a[mid+1 .. hi] using aux[lo .. hi]
-    private static void merge(Comparable[] a, int[] index, int[] aux, int lo, int mid, int hi) {
+    private static <T extends Comparable<T>> void merge(T[] a, int[] index, int[] aux, int lo, int mid, int hi) {
 
         // copy to aux[]
         for (int k = lo; k <= hi; k++) {
@@ -146,7 +127,7 @@ public class Merge {
      * @return a permutation {@code p[]} such that {@code a[p[0]]}, {@code a[p[1]]},
      *    ..., {@code a[p[N-1]]} are in ascending order
      */
-    public static int[] indexSort(Comparable[] a) {
+    public static <T extends Comparable<T>> int[] indexSort(T[] a) {
         int n = a.length;
         int[] index = new int[n];
         for (int i = 0; i < n; i++)
@@ -158,7 +139,7 @@ public class Merge {
     }
 
     // mergesort a[lo..hi] using auxiliary array aux[lo..hi]
-    private static void sort(Comparable[] a, int[] index, int[] aux, int lo, int hi) {
+    private static <T extends Comparable<T>> void sort(T[] a, int[] index, int[] aux, int lo, int hi) {
         if (hi <= lo) return;
         int mid = lo + (hi - lo) / 2;
         sort(a, index, aux, lo, mid);
@@ -167,8 +148,8 @@ public class Merge {
     }
 
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }

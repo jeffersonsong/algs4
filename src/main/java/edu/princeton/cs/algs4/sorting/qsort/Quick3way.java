@@ -27,6 +27,9 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
+
 /**
  *  The {@code Quick3way} class provides static methods for sorting an
  *  array using quicksort with 3-way partitioning.
@@ -47,17 +50,17 @@ public class Quick3way {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         StdRandom.shuffle(a);
         sort(a, 0, a.length - 1);
         assert isSorted(a);
     }
 
     // quicksort the subarray a[lo .. hi] using 3-way partitioning
-    private static void sort(Comparable[] a, int lo, int hi) { 
+    private static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         if (hi <= lo) return;
         int lt = lo, gt = hi;
-        Comparable v = a[lo];
+        T v = a[lo];
         int i = lo + 1;
         while (i <= gt) {
             int cmp = a[i].compareTo(v);
@@ -72,43 +75,9 @@ public class Quick3way {
         assert isSorted(a, lo, hi);
     }
 
-
-
-   /***************************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-        
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
-
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
-
-
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }

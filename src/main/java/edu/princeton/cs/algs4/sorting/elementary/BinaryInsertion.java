@@ -27,6 +27,9 @@ package edu.princeton.cs.algs4.sorting.elementary;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.sorting.SortUtils.less;
+
 /**
  *  The {@code BinaryInsertion} class provides a static method for sorting an
  *  array using an optimized binary insertion sort with half exchanges.
@@ -59,12 +62,12 @@ public class BinaryInsertion {
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         int n = a.length;
         for (int i = 1; i < n; i++) {
 
             // binary search to determine index j at which to insert a[i]
-            Comparable v = a[i];
+            T v = a[i];
             int lo = 0, hi = i;
             while (lo < hi) {
                 int mid = lo + (hi - lo) / 2; 
@@ -81,34 +84,9 @@ public class BinaryInsertion {
         assert isSorted(a);
     }
 
-
-
-   /***************************************************************************
-    *  Helper sorting function.
-    ***************************************************************************/
-    
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    // is the array sorted from a[lo] to a[hi]
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo+1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
     // print array to standard output
-    private static void show(Comparable[] a) {
-        for (Comparable comparable : a) {
+    private static <T> void show(T[] a) {
+        for (T comparable : a) {
             StdOut.println(comparable);
         }
     }
