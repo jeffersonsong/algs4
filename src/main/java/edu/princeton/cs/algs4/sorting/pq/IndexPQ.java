@@ -9,13 +9,13 @@ public interface IndexPQ<Key> extends Iterable<Integer> {
 
     int poll();
 
+    int peek();
+
     void changeKey(int i, Key key);
 
     boolean contains(int i);
 
-    int minIndex();
-
-    Key peek();
+    Key peekKey();
 
     boolean isEmpty();
 

@@ -145,7 +145,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
      * @return an index associated with a minimum key
      * @throws NoSuchElementException if this priority queue is empty
      */
-    public int minIndex() {
+    public int peek() {
         noSuchElement(n == 0, "Priority queue underflow");
         return pq[1];
     }
@@ -156,7 +156,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
      * @return a minimum key
      * @throws NoSuchElementException if this priority queue is empty
      */
-    public Key peek() {
+    public Key peekKey() {
         noSuchElement(n == 0, "Priority queue underflow");
         return keys[pq[1]];
     }

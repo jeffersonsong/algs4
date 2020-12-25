@@ -108,7 +108,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int minIndex() {
-        return pq.minIndex();
+        return pq.peek();
     }
 
     /**
@@ -118,7 +118,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public Key minKey() {
-        return pq.peek();
+        return pq.peekKey();
     }
 
     /**

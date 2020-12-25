@@ -111,7 +111,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int maxIndex() {
-        return pq.minIndex();
+        return pq.peek();
     }
 
     /**
@@ -121,7 +121,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public Key maxKey() {
-        return pq.peek();
+        return pq.peekKey();
     }
 
     /**
