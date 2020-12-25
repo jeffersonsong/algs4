@@ -22,8 +22,7 @@ public class PQImpl<Key> implements PQ<Key> {
 
     public static <T extends Comparable<T>> PQ<T> maxPQ(int initCapacity) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        comparator.reversed();
-        return new PQImpl<T>(initCapacity, comparator);
+        return new PQImpl<T>(initCapacity, comparator.reversed());
     }
 
     public static <T extends Comparable<T>> PQ<T> minPQ(T[] keys) {
@@ -32,8 +31,7 @@ public class PQImpl<Key> implements PQ<Key> {
 
     public static <T extends Comparable<T>> PQ<T> maxPQ(T[] keys) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        comparator.reversed();
-        return new PQImpl<>(keys, comparator);
+        return new PQImpl<>(keys, comparator.reversed());
     }
 
     public static <T> PQ<T> newPQ(T[] keys, Comparator<T> comparator) {

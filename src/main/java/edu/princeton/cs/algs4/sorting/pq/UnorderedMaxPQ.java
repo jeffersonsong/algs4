@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class UnorderedMaxPQ<Key> implements MaxPQ<Key> {
+public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
     private Key[] pq; // pq[i] = ith element on pq
     private int n; // number of elements on pq
     private final Comparator<Key> comparator;
@@ -96,8 +96,7 @@ public class UnorderedMaxPQ<Key> implements MaxPQ<Key> {
         // add all items to copy of heap
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
-            if (comparator == null) copy = new MaxPQImpl<>(size());
-            else                    copy = new MaxPQImpl<>(size(), comparator);
+            copy = new MaxPQImpl<>(size());
             for (int i = 1; i <= n; i++)
                 copy.insert(pq[i]);
         }

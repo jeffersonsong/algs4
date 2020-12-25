@@ -58,10 +58,8 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *  @param <Key> the generic type of key on this priority queue
  */
 
-public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
-    private Key[] pq;                    // store items at indices 1 to n
-    private int n;                       // number of items on priority queue
-    private Comparator<Key> comparator;  // optional comparator
+public class MaxPQImpl<Key extends Comparable<Key>> implements MaxPQ<Key> {
+    private PQ<Key> pq;
 
     /**
      * Initializes an empty priority queue with the given initial capacity.
@@ -69,8 +67,7 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      * @param  initCapacity the initial capacity of this priority queue
      */
     public MaxPQImpl(int initCapacity) {
-        pq = (Key[]) new Object[initCapacity + 1];
-        n = 0;
+        pq = PQImpl.maxPQ(initCapacity);
     }
 
     /**
@@ -81,40 +78,13 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
     }
 
     /**
-     * Initializes an empty priority queue with the given initial capacity,
-     * using the given comparator.
-     *
-     * @param  initCapacity the initial capacity of this priority queue
-     * @param  comparator the order in which to compare the keys
-     */
-    public MaxPQImpl(int initCapacity, Comparator<Key> comparator) {
-        pq = (Key[]) new Object[initCapacity + 1];
-        n = 0;
-        this.comparator = comparator;
-    }
-
-    /**
-     * Initializes an empty priority queue using the given comparator.
-     *
-     * @param  comparator the order in which to compare the keys
-     */
-    public MaxPQImpl(Comparator<Key> comparator) {
-        this(1, comparator);
-    }
-
-    /**
      * Initializes a priority queue from the array of keys.
      * Takes time proportional to the number of keys, using sink-based heap construction.
      *
      * @param  keys the array of keys
      */
     public MaxPQImpl(Key[] keys) {
-        n = keys.length;
-        pq = (Key[]) new Object[keys.length + 1];
-        System.arraycopy(keys, 0, pq, 1, keys.length);
-        for (int k = n/2; k >= 1; k--)
-            sink(k);
-        assert isMaxHeap();
+        pq = PQImpl.maxPQ(keys);
     }
 
     /**
@@ -124,7 +94,7 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      *         {@code false} otherwise
      */
     public boolean isEmpty() {
-        return n == 0;
+        return pq.isEmpty();
     }
 
     /**
@@ -133,7 +103,7 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      * @return the number of keys on this priority queue
      */
     public int size() {
-        return n;
+        return pq.size();
     }
 
     /**
@@ -143,14 +113,7 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      * @throws NoSuchElementException if this priority queue is empty
      */
     public Key maxKey() {
-        if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
-        return pq[1];
-    }
-
-    // resize the underlying array to have the given capacity
-    private void resize(int capacity) {
-        assert capacity > n;
-        pq = Arrays.copyOf(pq, capacity);
+        return pq.peek();
     }
 
     /**
@@ -159,13 +122,7 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      * @param  x the new key to add to this priority queue
      */
     public void insert(Key x) {
-        // double size of array if necessary
-        if (n == pq.length - 1) resize(2 * pq.length);
-
-        // add x, and percolate it up to maintain heap invariant
-        pq[++n] = x;
-        swim(n);
-        assert isMaxHeap();
+        pq.insert(x);
     }
 
     /**
@@ -175,44 +132,8 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      * @throws NoSuchElementException if this priority queue is empty
      */
     public Key delMax() {
-        if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
-        Key max = pq[1];
-        exch(1, n--);
-        sink(1);
-        pq[n+1] = null;     // to avoid loitering and help with garbage collection
-        if ((n > 0) && (n == (pq.length - 1) / 4)) resize(pq.length / 2);
-        assert isMaxHeap();
-        return max;
+        return pq.poll();
     }
-
-   /***************************************************************************
-    * Helper functions for compares and swaps.
-    ***************************************************************************/
-    protected boolean less(int i, int j) {
-        if (comparator == null) {
-            return ((Comparable<Key>) pq[i]).compareTo(pq[j]) < 0;
-        }
-        else {
-            return comparator.compare(pq[i], pq[j]) < 0;
-        }
-    }
-
-    protected void exch(int i, int j) {
-        ArrayUtils.exch(pq, i, j);
-    }
-
-    // is pq[1..n] a max heap?
-    private boolean isMaxHeap() {
-        for (int i = 1; i <= n; i++) {
-            if (pq[i] == null) return false;
-        }
-        for (int i = n+1; i < pq.length; i++) {
-            if (pq[i] != null) return false;
-        }
-        if (pq[0] != null) return false;
-        return isMaxHeapOrdered(1);
-    }
-
 
    /***************************************************************************
     * Iterator.
@@ -226,30 +147,7 @@ public class MaxPQImpl<Key> extends MaxPQInvariant implements MaxPQ<Key> {
      * @return an iterator that iterates over the keys in descending order
      */
     public Iterator<Key> iterator() {
-        return new HeapIterator();
-    }
-
-    private class HeapIterator implements Iterator<Key> {
-
-        // create a new pq
-        private final MaxPQ<Key> copy;
-
-        // add all items to copy of heap
-        // takes linear time since already in heap order so no keys move
-        public HeapIterator() {
-            if (comparator == null) copy = new MaxPQImpl<>(size());
-            else                    copy = new MaxPQImpl<>(size(), comparator);
-            for (int i = 1; i <= n; i++)
-                copy.insert(pq[i]);
-        }
-
-        public boolean hasNext()  { return !copy.isEmpty();                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
-
-        public Key next() {
-            noSuchElement(!hasNext());
-            return copy.delMax();
-        }
+        return pq.iterator();
     }
 
     /**
