@@ -139,8 +139,8 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public Picture(String name) {
-        if (name == null) throw new IllegalArgumentException("constructor argument is null");
-        if (name.length() == 0) throw new IllegalArgumentException("constructor argument is the empty string");
+        requiresNotNull(name,"constructor argument is null");
+        checkArgument(name.length() > 0, "constructor argument is the empty string");
 
         this.filename = name;
         try {
@@ -168,9 +168,7 @@ public final class Picture implements ActionListener {
                 image = ImageIO.read(url);
             }
 
-            if (image == null) {
-                throw new IllegalArgumentException("could not read image: " + name);
-            }
+            requiresNotNull(image == null,"could not read image: " + name);
 
             width  = image.getWidth(null);
             height = image.getHeight(null);
@@ -188,7 +186,7 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public Picture(File file) {
-        if (file == null) throw new IllegalArgumentException("constructor argument is null");
+        requiresNotNull(file, "constructor argument is null");
 
         try {
             image = ImageIO.read(file);
@@ -288,13 +286,13 @@ public final class Picture implements ActionListener {
     }
 
     private void validateRowIndex(int row) {
-        if (row < 0 || row >= height())
-            throw new IllegalArgumentException("row index must be between 0 and " + (height() - 1) + ": " + row);
+        checkArgument(row >= 0 && row < height(),
+                "row index must be between 0 and " + (height() - 1) + ": " + row);
     }
 
     private void validateColumnIndex(int col) {
-        if (col < 0 || col >= width())
-            throw new IllegalArgumentException("column index must be between 0 and " + (width() - 1) + ": " + col);
+        checkArgument(col >= 0 && col < width(),
+                "column index must be between 0 and " + (width() - 1) + ": " + col);
     }
 
    /**
@@ -341,7 +339,7 @@ public final class Picture implements ActionListener {
     public void set(int col, int row, Color color) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (color == null) throw new IllegalArgumentException("color argument is null");
+        requiresNotNull(color, "color argument is null");
         int rgb = color.getRGB();
         setRGB(col, row, rgb);
     }
@@ -422,10 +420,10 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public void save(String name) {
-        if (name == null) throw new IllegalArgumentException("argument to save() is null");
-  	if (name.length() == 0) throw new IllegalArgumentException("argument to save() is the empty string");
+        requiresNotNull(name, "argument to save() is null");
+        checkArgument(name.length() > 0, "argument to save() is the empty string");
         File file = new File(name);
-        if (file == null) throw new IllegalArgumentException("could not open file: '" + name + "'");
+        requiresNotNull(file, "could not open file: '" + name + "'");
         filename = file.getName();
         String suffix = filename.substring(filename.lastIndexOf('.') + 1);
         if ("jpg".equalsIgnoreCase(suffix) || "png".equalsIgnoreCase(suffix)) {
@@ -448,7 +446,7 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public void save(File file) {
-        if (file == null) throw new IllegalArgumentException("argument to save() is null");
+        requiresNotNull(file,"argument to save() is null");
         filename = file.getName();
         if (frame != null) frame.setTitle(filename);
         String suffix = filename.substring(filename.lastIndexOf('.') + 1);
