@@ -22,8 +22,8 @@
 
 package edu.princeton.cs.algs4.strings.compression;
 
-import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQ;
+import edu.princeton.cs.algs4.sorting.pq.PQImpl;
 import edu.princeton.cs.algs4.utils.io.BinaryStdIn;
 import edu.princeton.cs.algs4.utils.io.BinaryStdOut;
 
@@ -119,19 +119,19 @@ public class Huffman {
     private static Node buildTrie(int[] freq) {
 
         // initialze priority queue with singleton trees
-        MinPQ<Node> pq = new MinPQImpl<>();
+        PQ<Node> pq = PQImpl.minPQ();
         for (char c = 0; c < R; c++)
             if (freq[c] > 0)
                 pq.insert(new Node(c, freq[c], null, null));
 
         // merge two smallest trees
         while (pq.size() > 1) {
-            Node left  = pq.delMin();
-            Node right = pq.delMin();
+            Node left  = pq.poll();
+            Node right = pq.poll();
             Node parent = new Node('\0', left.freq + right.freq, left, right);
             pq.insert(parent);
         }
-        return pq.delMin();
+        return pq.poll();
     }
 
 

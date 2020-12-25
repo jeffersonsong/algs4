@@ -43,8 +43,8 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQ;
+import edu.princeton.cs.algs4.sorting.pq.PQImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -83,7 +83,7 @@ public class LazyPrimMST implements MST {
     private double weight;       // total weight of MST
     private final Queue<Edge> mst;     // edges in the MST
     private final boolean[] marked;    // marked[v] = true iff v on tree
-    private final MinPQ<Edge> pq;      // edges with one endpoint in tree
+    private final PQ<Edge> pq;      // edges with one endpoint in tree
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
@@ -91,7 +91,7 @@ public class LazyPrimMST implements MST {
      */
     public LazyPrimMST(EdgeWeightedGraph G) {
         mst = new LinkedQueue<>();
-        pq = new MinPQImpl<>();
+        pq = PQImpl.minPQ();
         marked = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)     // run Prim from all vertices to
             if (!marked[v]) prim(G, v);     // get a minimum spanning forest
@@ -104,7 +104,7 @@ public class LazyPrimMST implements MST {
     private void prim(EdgeWeightedGraph G, int s) {
         scan(G, s);
         while (!pq.isEmpty()) {                        // better to stop when mst has V-1 edges
-            Edge e = pq.delMin();                      // smallest edge on pq
+            Edge e = pq.poll();                      // smallest edge on pq
             int v = e.either(), w = e.other(v);        // two endpoints
             assert marked[v] || marked[w];
             if (marked[v] && marked[w]) continue;      // lazy, both v and w already scanned

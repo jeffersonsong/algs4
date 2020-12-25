@@ -7,15 +7,15 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class MinPQImplTest {
-    private MinPQ<Character> pq;
+    private PQ<Character> pq;
 
     @Before
     public void setUp() {
         pq = createMinPQ();
     }
 
-    protected MinPQ<Character> createMinPQ() {
-        return new MinPQImpl<>();
+    protected PQ<Character> createMinPQ() {
+        return PQImpl.minPQ();
     }
 
     @Test
@@ -23,16 +23,16 @@ public class MinPQImplTest {
         pq.insert('P');
         pq.insert('Q');
         pq.insert('E');
-        assertThat(pq.delMin(), is('E'));
+        assertThat(pq.poll(), is('E'));
 
         pq.insert('X');
         pq.insert('A');
         pq.insert('M');
-        assertThat(pq.delMin(), is('A'));
+        assertThat(pq.poll(), is('A'));
 
         pq.insert('P');
         pq.insert('L');
         pq.insert('E');
-        assertThat(pq.delMin(), is('E'));
+        assertThat(pq.poll(), is('E'));
     }
 }

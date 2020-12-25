@@ -38,8 +38,8 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQ;
+import edu.princeton.cs.algs4.sorting.pq.PQImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -82,7 +82,7 @@ public class KruskalMST implements MST {
      */
     public KruskalMST(EdgeWeightedGraph G) {
         // more efficient to build heap by passing array of edges
-        MinPQ<Edge> pq = new MinPQImpl<>();
+        PQ<Edge> pq = PQImpl.minPQ();
         for (Edge e : G.edges()) {
             pq.insert(e);
         }
@@ -90,7 +90,7 @@ public class KruskalMST implements MST {
         // run greedy algorithm
         UFImpl uf = new UFImpl(G.V());
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
-            Edge e = pq.delMin();
+            Edge e = pq.poll();
             int v = e.either();
             int w = e.other(v);
             if (uf.find(v) != uf.find(w)) { // v-w does not create a cycle

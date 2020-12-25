@@ -18,8 +18,8 @@
 
 package edu.princeton.cs.algs4.context.collision;
 
-import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQ;
+import edu.princeton.cs.algs4.sorting.pq.PQImpl;
 import edu.princeton.cs.algs4.utils.draw.StdDraw;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
@@ -40,7 +40,7 @@ import java.awt.Color;
 public class CollisionSystem {
     private static final double HZ = 0.5;    // number of redraw events per clock tick
 
-    private MinPQ<Event> pq;          // the priority queue
+    private PQ<Event> pq;          // the priority queue
     private double t  = 0.0;          // simulation clock time
     private final Particle[] particles;     // the array of particles
 
@@ -94,7 +94,7 @@ public class CollisionSystem {
     public void simulate(double limit) {
         
         // initialize PQ with collision events and redraw event
-        pq = new MinPQImpl<>();
+        pq = PQImpl.minPQ();
         for (Particle value : particles) {
             predict(value, limit);
         }
@@ -105,7 +105,7 @@ public class CollisionSystem {
         while (!pq.isEmpty()) { 
 
             // get impending event, discard if invalidated
-            Event e = pq.delMin();
+            Event e = pq.poll();
             if (!e.isValid()) continue;
             Particle a = e.a;
             Particle b = e.b;

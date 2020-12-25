@@ -13,9 +13,9 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.set.SET;
-import edu.princeton.cs.algs4.sorting.pq.MinPQ;
-import edu.princeton.cs.algs4.sorting.pq.MinPQImpl;
 import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQ;
+import edu.princeton.cs.algs4.sorting.pq.PQImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -366,19 +366,19 @@ public class GraphGenerator {
             degree[prufer[i]]++;
 
         // pq contains all vertices of degree 1
-        MinPQ<Integer> pq = new MinPQImpl<>();
+        PQ<Integer> pq = PQImpl.minPQ();
         for (int v = 0; v < V; v++)
             if (degree[v] == 1) pq.insert(v);
 
         // repeatedly delMin() degree 1 vertex that has the minimum index
         for (int i = 0; i < V-2; i++) {
-            int v = pq.delMin();
+            int v = pq.poll();
             G.addEdge(v, prufer[i]);
             degree[v]--;
             degree[prufer[i]]--;
             if (degree[prufer[i]] == 1) pq.insert(prufer[i]);
         }
-        G.addEdge(pq.delMin(), pq.delMin());
+        G.addEdge(pq.poll(), pq.poll());
         return G;
     }
 

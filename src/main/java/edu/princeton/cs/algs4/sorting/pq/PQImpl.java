@@ -16,6 +16,10 @@ public class PQImpl<Key> implements PQ<Key> {
     private int n;                       // number of items on priority queue
     private Comparator<Key> comparator;  // optional comparator
 
+    public static <T extends Comparable<T>> PQ<T> minPQ() {
+        return minPQ(1);
+    }
+
     public static <T extends Comparable<T>> PQ<T> minPQ(int initCapacity) {
         return new PQImpl<T>(initCapacity, Comparator.naturalOrder());
     }
