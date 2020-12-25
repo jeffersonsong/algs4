@@ -9,19 +9,13 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
-import edu.princeton.cs.algs4.utils.ArrayUtils;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
-import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
-import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
-import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The {@code IndexMaxPQ} class represents an indexed priority queue of generic keys.
@@ -52,12 +46,8 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant implements IndexMaxPQ<Key> {
-    private final int maxN;        // maximum number of elements on PQ
-    private int n;           // number of elements on PQ
-    private final int[] pq;        // binary heap using 1-based indexing
-    private final int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
-    private final Key[] keys;      // keys[i] = priority of i
+public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<Key> {
+    private IndexPQ<Key> pq;
 
     /**
      * Initializes an empty indexed priority queue with indices between {@code 0}
@@ -67,12 +57,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws IllegalArgumentException if {@code maxN < 0}
      */
     public IndexMaxPQImpl(int maxN) {
-        checkArgument(maxN >= 0);
-        this.maxN = maxN;
-        n = 0;
-        keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
-        pq   = new int[maxN + 1];
-        qp   = newIntArray(maxN + 1, -1); // make this of length maxN??
+        pq = IndexPQImpl.indexMaxPQ(maxN);
     }
 
     /**
@@ -82,7 +67,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      *         {@code false} otherwise
      */
     public boolean isEmpty() {
-        return n == 0;
+        return pq.isEmpty();
     }
 
     /**
@@ -94,8 +79,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      */
     public boolean contains(int i) {
-        validateIndex(i);
-        return qp[i] != -1;
+        return pq.contains(i);
     }
 
     /**
@@ -104,7 +88,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @return the number of keys on this priority queue 
      */
     public int size() {
-        return n;
+        return pq.size();
     }
 
    /**
@@ -117,13 +101,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      *         associated with index {@code i}
      */
     public void insert(int i, Key key) {
-        validateIndex(i);
-        checkArgument(!contains(i), "index is already in the priority queue");
-        n++;
-        qp[i] = n;
-        pq[n] = i;
-        keys[i] = key;
-        swim(n);
+        pq.insert(i, key);
     }
 
     /**
@@ -133,8 +111,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int maxIndex() {
-        if (n == 0) throw new NoSuchElementException("Priority queue underflow");
-        return pq[1];
+        return pq.minIndex();
     }
 
     /**
@@ -144,8 +121,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws NoSuchElementException if this priority queue is empty
      */
     public Key maxKey() {
-        if (n == 0) throw new NoSuchElementException("Priority queue underflow");
-        return keys[pq[1]];
+        return pq.peek();
     }
 
     /**
@@ -155,16 +131,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int delMax() {
-        if (n == 0) throw new NoSuchElementException("Priority queue underflow");
-        int max = pq[1];
-        exch(1, n--);
-        sink(1);
-
-        assert pq[n+1] == max;
-        qp[max] = -1;        // delete
-        keys[max] = null;    // to help with garbage collection
-        pq[n+1] = -1;        // not needed
-        return max;
+        return pq.poll();
     }
 
     /**
@@ -176,9 +143,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
     public Key keyOf(int i) {
-        validateIndex(i);
-        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        else return keys[i];
+        return pq.keyOf(i);
     }
 
     /**
@@ -189,17 +154,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      */
     public void changeKey(int i, Key key) {
-        validateIndex(i);
-        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-
-        int cmp = key.compareTo(keys[i]);
-        if (cmp > 0) {
-            keys[i] = key;
-            swim(qp[i]);
-        } else if (cmp < 0) {
-            keys[i] = key;
-            sink(qp[i]);
-        }
+        pq.changeKey(i, key);
     }
 
     /**
@@ -210,32 +165,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
     public void delete(int i) {
-        validateIndex(i);
-        noSuchElement(!contains(i), "index is not in the priority queue");
-        int index = qp[i];
-        exch(index, n--);
-        swim(index);
-        sink(index);
-        keys[i] = null;
-        qp[i] = -1;
-    }
-
-    // throw an IllegalArgumentException if i is an invalid index
-    private void validateIndex(int i) {
-        checkIndexInRange(i, 0, maxN);
-    }
-
-   /***************************************************************************
-    * General helper functions.
-    ***************************************************************************/
-    protected boolean less(int i, int j) {
-        return keys[pq[i]].compareTo(keys[pq[j]]) < 0;
-    }
-
-    protected void exch(int i, int j) {
-        ArrayUtils.exch(pq, i, j);
-        qp[pq[i]] = i;
-        qp[pq[j]] = j;
+        pq.delete(i);
     }
 
     /**
@@ -246,28 +176,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
      * @return an iterator that iterates over the keys in descending order
      */
     public Iterator<Integer> iterator() {
-        return new HeapIterator();
-    }
-
-    private class HeapIterator implements Iterator<Integer> {
-        // create a new pq
-        private final IndexMaxPQ<Key> copy;
-
-        // add all elements to copy of heap
-        // takes linear time since already in heap order so no keys move
-        public HeapIterator() {
-            copy = new IndexMaxPQImpl<>(pq.length - 1);
-            for (int i = 1; i <= n; i++)
-                copy.insert(pq[i], keys[pq[i]]);
-        }
-
-        public boolean hasNext()  { return !copy.isEmpty();                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
-
-        public Integer next() {
-            if (!hasNext()) throw new NoSuchElementException();
-            return copy.delMax();
-        }
+        return pq.iterator();
     }
 
     /**
