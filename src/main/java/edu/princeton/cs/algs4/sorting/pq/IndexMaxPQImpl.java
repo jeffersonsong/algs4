@@ -279,7 +279,7 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> extends MaxPQInvariant 
         // insert a bunch of strings
         String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
 
-        IndexMaxPQImpl<String> pq = new IndexMaxPQImpl<>(strings.length);
+        IndexMaxPQ<String> pq = new IndexMaxPQImpl<>(strings.length);
         for (int i = 0; i < strings.length; i++) {
             pq.insert(i, strings[i]);
         }

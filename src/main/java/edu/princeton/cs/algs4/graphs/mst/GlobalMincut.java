@@ -21,6 +21,7 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
+import edu.princeton.cs.algs4.sorting.pq.IndexMaxPQ;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.sorting.pq.IndexMaxPQImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -198,7 +199,7 @@ public class GlobalMincut {
      * @return the cut-of-the-phase
      */
     private CutPhase minCutPhase(EdgeWeightedGraph G, boolean[] marked, CutPhase cp) {
-        IndexMaxPQImpl<Double> pq = new IndexMaxPQImpl<>(G.V());
+        IndexMaxPQ<Double> pq = new IndexMaxPQImpl<>(G.V());
         for (int v = 0; v < G.V(); v++) {
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
         }
