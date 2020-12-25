@@ -125,7 +125,6 @@ public class NonrecursiveDirectedDFS {
                 StdOut.print(v + " ");
         StdOut.println();
     }
-
 }
 
 /******************************************************************************

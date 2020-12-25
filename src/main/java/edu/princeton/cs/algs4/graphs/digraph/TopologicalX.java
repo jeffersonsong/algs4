@@ -50,7 +50,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class TopologicalX {
     private Queue<Integer> order;     // vertices in topological order
-    private final int[] ranks;              // ranks[v] = order where vertex v appers in order
+    private final int[] ranks;        // ranks[v] = order where vertex v appears in order
 
     /**
      * Determines whether the digraph {@code G} has a topological order and, if so,
@@ -68,8 +68,9 @@ public class TopologicalX {
 
         // initialize queue to contain all vertices with indegree = 0
         Queue<Integer> queue = new LinkedQueue<>();
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             if (indegree[v] == 0) queue.enqueue(v);
+        }
 
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
@@ -105,8 +106,9 @@ public class TopologicalX {
 
         // initialize queue to contain all vertices with indegree = 0
         Queue<Integer> queue = new LinkedQueue<>();
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             if (indegree[v] == 0) queue.enqueue(v);
+        }
 
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
