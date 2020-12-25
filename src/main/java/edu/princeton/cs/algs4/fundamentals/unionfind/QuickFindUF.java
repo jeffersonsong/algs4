@@ -16,6 +16,7 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkIndexInRange;
 
 /**
  *  The {@code QuickFindUF} class represents a <em>union–find data type</em>
@@ -109,8 +110,7 @@ public class QuickFindUF implements UF {
 
     // validate that p is a valid index
     private void validate(int p) {
-        int n = id.length;
-        checkArgument (p >= 0 && p < n, "index " + p + " is not between 0 and " + (n-1));
+        checkIndexInRange(p, 0, id.length);
     }
 
     /**

@@ -15,7 +15,10 @@ package edu.princeton.cs.algs4.fundamentals.unionfind;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkIndexInRange;
 
 /**
  *  The {@code WeightedQuickUnionUF} class represents a <em>union–find data type</em>
@@ -83,11 +86,11 @@ public class WeightedQuickUnionUF implements UF {
     public WeightedQuickUnionUF(int n) {
         count = n;
         parent = new int[n];
-        size = new int[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
-            size[i] = 1;
         }
+        size = new int[n];
+        Arrays.fill(size, 1);
     }
 
     /**
@@ -131,8 +134,7 @@ public class WeightedQuickUnionUF implements UF {
 
     // validate that p is a valid index
     private void validate(int p) {
-        int n = parent.length;
-        checkArgument(p >= 0 && p < n, "index " + p + " is not between 0 and " + (n-1));
+        checkIndexInRange(p, 0, parent.length);
     }
 
     /**
@@ -160,7 +162,6 @@ public class WeightedQuickUnionUF implements UF {
         }
         count--;
     }
-
 
     /**
      * Reads an integer {@code n} and a sequence of pairs of integers
