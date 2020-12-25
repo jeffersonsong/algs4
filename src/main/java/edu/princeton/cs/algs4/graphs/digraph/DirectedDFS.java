@@ -25,6 +25,8 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
+import edu.princeton.cs.algs4.graphs.graph.DepthFirstPaths;
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -33,7 +35,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  The {@code DirectedDFS} class represents a data type for 
  *  determining the vertices reachable from a given source vertex <em>s</em>
  *  (or set of source vertices) in a digraph. For versions that find the paths,
- *  see {@link DepthFirstDirectedPaths} and {@link BreadthFirstDirectedPaths}.
+ *  see {@link DepthFirstPaths} and {@link BreadthFirstPaths}.
  *  <p>
  *  This implementation uses depth-first search.
  *  The constructor takes time proportional to <em>V</em> + <em>E</em>

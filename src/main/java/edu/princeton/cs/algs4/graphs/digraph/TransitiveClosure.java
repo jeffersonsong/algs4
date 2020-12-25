@@ -1,7 +1,7 @@
 /******************************************************************************
  *  Compilation:  javac TransitiveClosure.java
  *  Execution:    java TransitiveClosure filename.txt
- *  Dependencies: Digraph.java DepthFirstDirectedPaths.java In.java StdOut.java
+ *  Dependencies: Digraph.java DepthFirstPaths.java In.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/42digraph/tinyDG.txt
  *
  *  Compute transitive closure of a digraph and support
