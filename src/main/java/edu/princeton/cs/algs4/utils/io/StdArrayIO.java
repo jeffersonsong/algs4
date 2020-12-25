@@ -49,6 +49,8 @@
 package edu.princeton.cs.algs4.utils.io;
 
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+
 /**
  *  <i>Standard array IO</i>. This class provides methods for reading
  *  in 1D and 2D arrays from standard input and printing out to 
@@ -138,11 +140,7 @@ public class StdArrayIO {
      */
     public static int[] readInt1D() {
         int n = StdIn.readInt();
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = StdIn.readInt();
-        }
-        return a;
+        return newIntArray(n, i->StdIn.readInt());
     }
 
     /**

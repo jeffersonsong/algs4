@@ -16,6 +16,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+
 /**
  *  The {@code StdIn} class provides static methods for reading strings
  *  and numbers from standard input.
@@ -552,10 +554,7 @@ public final class StdIn {
      */
     public static int[] readAllInts() {
         String[] fields = readAllStrings();
-        int[] vals = new int[fields.length];
-        for (int i = 0; i < fields.length; i++)
-            vals[i] = Integer.parseInt(fields[i]);
-        return vals;
+        return newIntArray(fields.length, i->Integer.parseInt(fields[i]));
     }
 
     /**

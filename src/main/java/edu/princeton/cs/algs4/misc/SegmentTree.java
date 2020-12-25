@@ -13,6 +13,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+
 /**
  * The {@code SegmentTree} class is an structure for efficient search of cummulative data.
  * It performs  Range Minimum Query and Range Sum Query in O(log(n)) time.
@@ -303,8 +305,7 @@ public class SegmentTree {
                 st = new SegmentTree(array);
             }
             else if (line[0].equals("init")) {
-                array = new int[arg1];
-                Arrays.fill(array, arg2);
+                array = newIntArray(arg1, arg2);
                 st = new SegmentTree(array);
 
                 for (int i = 0; i < st.size(); i++) {

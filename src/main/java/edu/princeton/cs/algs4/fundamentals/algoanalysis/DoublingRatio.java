@@ -21,6 +21,8 @@ package edu.princeton.cs.algs4.fundamentals.algoanalysis;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+
 /**
  *  The {@code DoublingRatio} class provides a client for measuring
  *  the running time of a method using a doubling ratio test.
@@ -45,10 +47,7 @@ public class DoublingRatio {
      *   with <em>n</em> random 6-digit integers
      */
     public static double timeTrial(int n) {
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = StdRandom.uniform(-MAXIMUM_INTEGER, MAXIMUM_INTEGER);
-        }
+        int[] a = newIntArray(n, i->StdRandom.uniform(-MAXIMUM_INTEGER, MAXIMUM_INTEGER));
         Stopwatch timer = new Stopwatch();
         ThreeSum.count(a);
         return timer.elapsedTime();

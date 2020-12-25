@@ -25,6 +25,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -545,10 +546,7 @@ public final class In {
      */
     public int[] readAllInts() {
         String[] fields = readAllStrings();
-        int[] vals = new int[fields.length];
-        for (int i = 0; i < fields.length; i++)
-            vals[i] = Integer.parseInt(fields[i]);
-        return vals;
+        return newIntArray(fields.length, i->Integer.parseInt(fields[i]));
     }
 
     /**

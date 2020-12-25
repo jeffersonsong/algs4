@@ -24,6 +24,8 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianCycle;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianPath;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+
 /**
  *  The {@code EulerianCycle} class represents a data type
  *  for finding an Eulerian cycle or path in a graph.
@@ -281,9 +283,7 @@ public class EulerianCycle {
         // union of two disjoint cycles
         Graph H1 = GraphGenerator.eulerianCycle(V/2, E/2);
         Graph H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
-        int[] perm = new int[V];
-        for (int i = 0; i < V; i++)
-            perm[i] = i;
+        int[] perm = newIndexArray(V);
         StdRandom.shuffle(perm);
         Graph G5 = new GraphImpl(V);
         for (int v = 0; v < H1.V(); v++)

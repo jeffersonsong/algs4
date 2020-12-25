@@ -18,6 +18,7 @@ package edu.princeton.cs.algs4.context;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -79,10 +80,7 @@ public class LinearProgramming {
         for (int i = 0; i < m; i++)
             a[i][m+n] = b[i];
 
-        basis = new int[m];
-        for (int i = 0; i < m; i++)
-            basis[i] = n + i;
-
+        basis = newIntArray(m, i->n+i);
         solve();
 
         // check optimality conditions

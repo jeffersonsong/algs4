@@ -236,9 +236,7 @@ public class GraphGenerator {
         checkArgument(E > 0, "An Eulerian cycle must have at least one edge");
         checkArgument(V > 0, "An Eulerian cycle must have at least one vertex");
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[E];
-        for (int i = 0; i < E; i++)
-            vertices[i] = StdRandom.uniform(V);
+        int[] vertices = newIntArray(E, i->StdRandom.uniform(V));
         for (int i = 0; i < E-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -259,9 +257,7 @@ public class GraphGenerator {
         checkArgument(E >= 0, "negative number of edges");
         checkArgument(V > 0, "An Eulerian path must have at least one vertex");
         Graph G = new GraphImpl(V);
-        int[] vertices = new int[E+1];
-        for (int i = 0; i < E+1; i++)
-            vertices[i] = StdRandom.uniform(V);
+        int[] vertices = newIntArray(E+1, i->StdRandom.uniform(V));
         for (int i = 0; i < E; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -361,9 +357,7 @@ public class GraphGenerator {
         // Prufer sequence: sequence of V-2 values between 0 and V-1
         // Prufer's proof of Cayley's theorem: Prufer sequences are in 1-1
         // with labeled trees on V vertices
-        int[] prufer = new int[V-2];
-        for (int i = 0; i < V-2; i++)
-            prufer[i] = StdRandom.uniform(V);
+        int[] prufer = newIntArray(V-2, i->StdRandom.uniform(V));
 
         // degree of vertex v = 1 + number of times it appers in Prufer sequence
         int[] degree = newIntArray(V, 1);

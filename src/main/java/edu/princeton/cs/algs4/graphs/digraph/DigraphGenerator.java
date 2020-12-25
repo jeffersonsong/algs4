@@ -15,6 +15,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -356,9 +357,7 @@ public class DigraphGenerator {
         checkArgument(E > 0, "An Eulerian cycle must have at least one edge");
         checkArgument(V > 0, "An Eulerian cycle must have at least one vertex");
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[E];
-        for (int i = 0; i < E; i++)
-            vertices[i] = StdRandom.uniform(V);
+        int[] vertices = newIntArray(E, v->StdRandom.uniform(V));
         for (int i = 0; i < E-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -379,9 +378,7 @@ public class DigraphGenerator {
         checkArgument(E >= 0, "negative number of edges");
         checkArgument(V > 0, "An Eulerian path must have at least one vertex");
         Digraph G = new DigraphImpl(V);
-        int[] vertices = new int[E+1];
-        for (int i = 0; i < E+1; i++)
-            vertices[i] = StdRandom.uniform(V);
+        int[] vertices = newIntArray(E+1, i->StdRandom.uniform(V));
         for (int i = 0; i < E; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -416,9 +413,7 @@ public class DigraphGenerator {
         // edges added to G (to avoid duplicate edges)
         SET<Edge> set = new SETImpl<>();
 
-        int[] label = new int[V];
-        for (int v = 0; v < V; v++)
-            label[v] = StdRandom.uniform(c);
+        int[] label = newIntArray(V, v->StdRandom.uniform(c));
 
         // make all vertices with label c a strong component by
         // combining a rooted in-tree and a rooted out-tree

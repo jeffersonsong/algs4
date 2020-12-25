@@ -17,6 +17,8 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+
 /**
  *  The {@code DirectedCycleX} class represents a data type for 
  *  determining whether a digraph has a directed cycle.
@@ -50,10 +52,7 @@ public class DirectedCycleX {
     public DirectedCycleX(Digraph G) {
 
         // indegrees of remaining vertices
-        int[] indegree = new int[G.V()];
-        for (int v = 0; v < G.V(); v++) {
-            indegree[v] = G.indegree(v);
-        }
+        int[] indegree = newIntArray(G.V(), G::indegree);
 
         // initialize queue to contain all vertices with indegree = 0
         Queue<Integer> queue = new LinkedQueue<>();

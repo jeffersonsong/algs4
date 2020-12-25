@@ -95,12 +95,8 @@ public class TopologicalX {
      * @param G the digraph
      */
     public TopologicalX(EdgeWeightedDigraph G) {
-
         // indegrees of remaining vertices
-        int[] indegree = new int[G.V()];
-        for (int v = 0; v < G.V(); v++) {
-            indegree[v] = G.indegree(v);
-        }
+        int[] indegree = newIntArray(G.V(), G::indegree);
 
         // initialize 
         ranks = new int[G.V()]; 

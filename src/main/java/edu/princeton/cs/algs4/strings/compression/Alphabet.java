@@ -200,11 +200,8 @@ public class Alphabet {
      *         is a character in this alphabet
      */
     public int[] toIndices(String s) {
-        char[] source = s.toCharArray();
-        int[] target  = new int[s.length()];
-        for (int i = 0; i < source.length; i++)
-            target[i] = toIndex(source[i]);
-        return target;
+        final char[] source = s.toCharArray();
+        return newIntArray(s.length(), i-> toIndex(source[i]));
     }
 
     /**
