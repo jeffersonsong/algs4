@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkState;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 public class DoublyLinkedList<Item> implements Iterable<Item> {
     public static class Node<Item> {
@@ -29,9 +30,7 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 
         @Override
         public Item next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
+            noSuchElement(!hasNext());
             Item data = current.data;
             current = current.next;
             return data;
@@ -60,7 +59,7 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
     }
 
     public Item removeFirst() {
-        if (isEmpty()) throw new NoSuchElementException("List is empty");
+        noSuchElement(isEmpty(), "List is empty");
 
         Node<Item> node = head.next;
         remove(node);

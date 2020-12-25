@@ -88,9 +88,9 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
      * @param  comparator the order in which to compare the keys
      */
     public MaxPQImpl(int initCapacity, Comparator<Key> comparator) {
-        this.comparator = comparator;
         pq = (Key[]) new Object[initCapacity + 1];
         n = 0;
+        this.comparator = comparator;
     }
 
     /**
@@ -116,7 +116,6 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
             sink(k);
         assert isMaxHeap();
     }
-
 
     /**
      * Returns true if this priority queue is empty.
@@ -160,7 +159,6 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
      * @param  x the new key to add to this priority queue
      */
     public void insert(Key x) {
-
         // double size of array if necessary
         if (n == pq.length - 1) resize(2 * pq.length);
 
@@ -186,7 +184,6 @@ public class MaxPQImpl<Key> implements MaxPQ<Key> {
         assert isMaxHeap();
         return max;
     }
-
 
    /***************************************************************************
     * Helper functions to restore the heap invariant.

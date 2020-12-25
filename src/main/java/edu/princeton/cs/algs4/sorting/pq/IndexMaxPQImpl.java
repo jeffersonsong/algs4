@@ -190,58 +190,15 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
     public void changeKey(int i, Key key) {
         validateIndex(i);
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        keys[i] = key;
-        swim(qp[i]);
-        sink(qp[i]);
-    }
 
-   /**
-     * Change the key associated with index {@code i} to the specified value.
-     *
-     * @param  i the index of the key to change
-     * @param  key change the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @deprecated Replaced by {@code changeKey(int, Key)}.
-     */
-    @Deprecated
-    public void change(int i, Key key) {
-        validateIndex(i);
-        changeKey(i, key);
-    }
-
-    /**
-     * Increase the key associated with index {@code i} to the specified value.
-     *
-     * @param  i the index of the key to increase
-     * @param  key increase the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @throws IllegalArgumentException if {@code key <= keyOf(i)}
-     * @throws NoSuchElementException no key is associated with index {@code i}
-     */
-    public void increaseKey(int i, Key key) {
-        validateIndex(i);
-        checkArgument(contains(i),"index is not in the priority queue");
-        checkArgument(keys[i].compareTo(key) < 0, "Calling increaseKey() with a key that is strictly less than the key in the priority queue");
-
-        keys[i] = key;
-        swim(qp[i]);
-    }
-
-    /**
-     * Decrease the key associated with index {@code i} to the specified value.
-     *
-     * @param  i the index of the key to decrease
-     * @param  key decrease the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @throws IllegalArgumentException if {@code key >= keyOf(i)}
-     * @throws NoSuchElementException no key is associated with index {@code i}
-     */
-    public void decreaseKey(int i, Key key) {
-        validateIndex(i);
-        checkArgument(contains(i),"index is not in the priority queue");
-        checkArgument(keys[i].compareTo(key) > 0, "Calling decreaseKey() with a key that is strictly greater than the key in the priority queue");
-        keys[i] = key;
-        sink(qp[i]);
+        int cmp = key.compareTo(keys[i]);
+        if (cmp > 0) {
+            keys[i] = key;
+            swim(qp[i]);
+        } else if (cmp < 0) {
+            keys[i] = key;
+            sink(qp[i]);
+        }
     }
 
     /**
@@ -356,9 +313,9 @@ public class IndexMaxPQImpl<Key extends Comparable<Key>> implements IndexMaxPQ<K
         // increase or decrease the key
         for (int i = 0; i < strings.length; i++) {
             if (StdRandom.uniform() < 0.5)
-                pq.increaseKey(i, strings[i] + strings[i]);
+                pq.changeKey(i, strings[i] + strings[i]);
             else
-                pq.decreaseKey(i, strings[i].substring(0, 1));
+                pq.changeKey(i, strings[i].substring(0, 1));
         }
 
         // delete and print each key

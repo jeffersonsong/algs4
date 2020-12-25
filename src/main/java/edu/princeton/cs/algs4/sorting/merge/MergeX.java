@@ -27,6 +27,7 @@ package edu.princeton.cs.algs4.sorting.merge;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
@@ -105,7 +106,7 @@ public class MergeX {
      * @param a the array to be sorted
      */
     public static <T extends Comparable<T>> void sort(T[] a) {
-        T[] aux = a.clone();
+        T[] aux = Arrays.copyOf(a, a.length);
         sort(aux, a, 0, a.length-1);  
         assert isSorted(a);
     }
@@ -128,7 +129,7 @@ public class MergeX {
      * @param comparator the comparator that defines the total order
      */
     public static <T> void sort(T[] a, Comparator<T> comparator) {
-        T[] aux = a.clone();
+        T[] aux = Arrays.copyOf(a, a.length);
         sort(aux, a, 0, a.length-1, comparator);
         assert isSorted(a, comparator);
     }

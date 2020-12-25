@@ -65,9 +65,7 @@ public class Merge {
         assert isSorted(a, mid+1, hi);
 
         // copy to aux[]
-        for (int k = lo; k <= hi; k++) {
-            aux[k] = a[k]; 
-        }
+        System.arraycopy(a, lo, aux, lo, hi - lo + 1);
 
         // merge back to a[]
         int i = lo, j = mid+1;
@@ -106,11 +104,8 @@ public class Merge {
     ***************************************************************************/
     // stably merge a[lo .. mid] with a[mid+1 .. hi] using aux[lo .. hi]
     private static <T extends Comparable<T>> void merge(T[] a, int[] index, int[] aux, int lo, int mid, int hi) {
-
         // copy to aux[]
-        for (int k = lo; k <= hi; k++) {
-            aux[k] = index[k]; 
-        }
+        System.arraycopy(index, lo, aux, lo, hi - lo + 1);
 
         // merge back to a[]
         int i = lo, j = mid+1;

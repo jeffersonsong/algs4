@@ -120,7 +120,7 @@ public class PrimMST implements MST {
             if (e.weight() < distTo[w]) {
                 distTo[w] = e.weight();
                 edgeTo[w] = e;
-                if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+                if (pq.contains(w)) pq.changeKey(w, distTo[w]);
                 else                pq.insert(w, distTo[w]);
             }
         }

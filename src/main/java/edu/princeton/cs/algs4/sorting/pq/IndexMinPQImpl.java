@@ -131,7 +131,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int minIndex() {
-        if (n == 0) throw new NoSuchElementException("Priority queue underflow");
+        noSuchElement(n == 0, "Priority queue underflow");
         return pq[1];
     }
 
@@ -142,7 +142,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public Key minKey() {
-        if (n == 0) throw new NoSuchElementException("Priority queue underflow");
+        noSuchElement(n == 0, "Priority queue underflow");
         return keys[pq[1]];
     }
 
@@ -152,7 +152,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int delMin() {
-        if (n == 0) throw new NoSuchElementException("Priority queue underflow");
+        noSuchElement(n == 0, "Priority queue underflow");
         int min = pq[1];
         exch(1, n--);
         sink(1);
@@ -188,56 +188,15 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
     public void changeKey(int i, Key key) {
         validateIndex(i);
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        keys[i] = key;
-        swim(qp[i]);
-        sink(qp[i]);
-    }
+        int cmp = key.compareTo(keys[i]);
 
-    /**
-     * Change the key associated with index {@code i} to the specified value.
-     *
-     * @param  i the index of the key to change
-     * @param  key change the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @deprecated Replaced by {@code changeKey(int, Key)}.
-     */
-    @Deprecated
-    public void change(int i, Key key) {
-        changeKey(i, key);
-    }
-
-    /**
-     * Decrease the key associated with index {@code i} to the specified value.
-     *
-     * @param  i the index of the key to decrease
-     * @param  key decrease the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @throws IllegalArgumentException if {@code key >= keyOf(i)}
-     * @throws NoSuchElementException no key is associated with index {@code i}
-     */
-    public void decreaseKey(int i, Key key) {
-        validateIndex(i);
-        checkArgument(contains(i), "index is not in the priority queue");
-        checkArgument(keys[i].compareTo(key) > 0, "Calling decreaseKey() with a key strictly greater than the key in the priority queue");
-        keys[i] = key;
-        swim(qp[i]);
-    }
-
-    /**
-     * Increase the key associated with index {@code i} to the specified value.
-     *
-     * @param  i the index of the key to increase
-     * @param  key increase the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @throws IllegalArgumentException if {@code key <= keyOf(i)}
-     * @throws NoSuchElementException no key is associated with index {@code i}
-     */
-    public void increaseKey(int i, Key key) {
-        validateIndex(i);
-        checkArgument(contains(i), "index is not in the priority queue");
-        checkArgument(keys[i].compareTo(key) < 0,"Calling increaseKey() with a key strictly less than the key in the priority queue");
-        keys[i] = key;
-        sink(qp[i]);
+        if (cmp < 0) {
+            keys[i] = key;
+            swim(qp[i]);
+        } else if (cmp > 0) {
+            keys[i] = key;
+            sink(qp[i]);
+        }
     }
 
     /**
@@ -329,7 +288,6 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
             return copy.delMin();
         }
     }
-
 
     /**
      * Unit tests the {@code IndexMinPQ} data type.
