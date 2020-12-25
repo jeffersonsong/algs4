@@ -28,16 +28,9 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
-import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
+import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
 import edu.princeton.cs.algs4.utils.io.In;
-import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-
-import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
-import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code BreadthDirectedFirstPaths} class represents a data type for
@@ -58,12 +51,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BreadthFirstDirectedPaths {
-    private static final int INFINITY = Integer.MAX_VALUE;
-    private final boolean[] marked;  // marked[v] = is there an s->v path?
-    private final int[] edgeTo;      // edgeTo[v] = last edge on shortest s->v path
-    private final int[] distTo;      // distTo[v] = length of shortest s->v path
-
+public class BreadthFirstDirectedPaths extends BreadthFirstPaths {
     /**
      * Computes the shortest path from {@code s} and every other vertex in graph {@code G}.
      * @param G the digraph
@@ -71,11 +59,7 @@ public class BreadthFirstDirectedPaths {
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public BreadthFirstDirectedPaths(Digraph G, int s) {
-        marked = new boolean[G.V()];
-        distTo = newIntArray(G.V(), INFINITY);
-        edgeTo = new int[G.V()];
-        validateVertex(s);
-        bfs(G, s);
+        super(G, s);
     }
 
     /**
@@ -88,110 +72,8 @@ public class BreadthFirstDirectedPaths {
      *         {@code sources} satisfies {@code 0 <= v < V}
      */
     public BreadthFirstDirectedPaths(Digraph G, Iterable<Integer> sources) {
-        marked = new boolean[G.V()];
-        distTo = newIntArray(G.V(), INFINITY);
-        edgeTo = new int[G.V()];
-        validateVertices(sources);
-        bfs(G, sources);
+        super(G, sources);
     }
-
-    // BFS from single source
-    private void bfs(Digraph G, int s) {
-        Queue<Integer> q = new LinkedQueue<>();
-        marked[s] = true;
-        distTo[s] = 0;
-        q.enqueue(s);
-        while (!q.isEmpty()) {
-            int v = q.dequeue();
-            for (int w : G.adj(v)) {
-                if (!marked[w]) {
-                    edgeTo[w] = v;
-                    distTo[w] = distTo[v] + 1;
-                    marked[w] = true;
-                    q.enqueue(w);
-                }
-            }
-        }
-    }
-
-    // BFS from multiple sources
-    private void bfs(Digraph G, Iterable<Integer> sources) {
-        Queue<Integer> q = new LinkedQueue<>();
-        for (int s : sources) {
-            marked[s] = true;
-            distTo[s] = 0;
-            q.enqueue(s);
-        }
-        while (!q.isEmpty()) {
-            int v = q.dequeue();
-            for (int w : G.adj(v)) {
-                if (!marked[w]) {
-                    edgeTo[w] = v;
-                    distTo[w] = distTo[v] + 1;
-                    marked[w] = true;
-                    q.enqueue(w);
-                }
-            }
-        }
-    }
-
-    /**
-     * Is there a directed path from the source {@code s} (or sources) to vertex {@code v}?
-     * @param v the vertex
-     * @return {@code true} if there is a directed path, {@code false} otherwise
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
-     */
-    public boolean hasPathTo(int v) {
-        validateVertex(v);
-        return marked[v];
-    }
-
-    /**
-     * Returns the number of edges in a shortest path from the source {@code s}
-     * (or sources) to vertex {@code v}?
-     * @param v the vertex
-     * @return the number of edges in a shortest path
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
-     */
-    public int distTo(int v) {
-        validateVertex(v);
-        return distTo[v];
-    }
-
-    /**
-     * Returns a shortest path from {@code s} (or sources) to {@code v}, or
-     * {@code null} if no such path.
-     * @param v the vertex
-     * @return the sequence of vertices on a shortest path, as an Iterable
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
-     */
-    public Iterable<Integer> pathTo(int v) {
-        validateVertex(v);
-
-        if (!hasPathTo(v)) return null;
-        Stack<Integer> path = new LinkedStack<>();
-        int x;
-        for (x = v; distTo[x] != 0; x = edgeTo[x])
-            path.push(x);
-        path.push(x);
-        return path;
-    }
-
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
-    private void validateVertex(int v) {
-        int V = marked.length;
-        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
-    }
-
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
-    private void validateVertices(Iterable<Integer> vertices) {
-        requiresNotNull(vertices, "argument is null");
-        for (Integer v : vertices) {
-            requiresNotNull(v, "vertex is null");
-            validateVertex(v);
-        }
-    }
-
 
     /**
      * Unit tests the {@code BreadthFirstDirectedPaths} data type.
@@ -222,8 +104,6 @@ public class BreadthFirstDirectedPaths {
 
         }
     }
-
-
 }
 
 /******************************************************************************

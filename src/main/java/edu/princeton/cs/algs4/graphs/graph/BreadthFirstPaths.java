@@ -112,7 +112,6 @@ public class BreadthFirstPaths {
         distTo = newIntArray(G.V(), INFINITY);
         edgeTo = newIntArray(G.V(), -1);
         validateVertices(sources);
-
         bfs(G, sources);
     }
 
