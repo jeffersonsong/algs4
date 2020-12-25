@@ -38,6 +38,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -84,17 +85,14 @@ public class DigraphImpl implements Digraph {
      * Initializes an empty digraph with <em>V</em> vertices.
      *
      * @param  V the number of vertices
-     * @throws IllegalArgumentException if {@code V < 0}
+     * @throws IllegalArgumentException if {@code V < 0}o
      */
     public DigraphImpl(int V) {
         checkArgument(V >= 0, "Number of vertices in a Digraph must be nonnegative");
         this.V = V;
         this.E = 0;
         indegree = new int[V];
-        adj = (Bag<Integer>[]) new Bag[V];
-        for (int v = 0; v < V; v++) {
-            adj[v] = new LinkedBag<>();
-        }
+        adj = newArray(V, i->new LinkedBag<>());
     }
 
     /**
@@ -115,10 +113,7 @@ public class DigraphImpl implements Digraph {
             this.V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
             indegree = new int[V];
-            adj = (Bag<Integer>[]) new Bag[V];
-            for (int v = 0; v < V; v++) {
-                adj[v] = new LinkedBag<>();
-            }
+            adj = newArray(V, i->new LinkedBag<>());
             int E = in.readInt();
             checkArgument(E >= 0, "number of edges in a Digraph must be nonnegative");
             for (int i = 0; i < E; i++) {
@@ -151,10 +146,7 @@ public class DigraphImpl implements Digraph {
             this.indegree[v] = G.indegree(v);
 
         // update adjacency lists
-        adj = (Bag<Integer>[]) new Bag[V];
-        for (int v = 0; v < V; v++) {
-            adj[v] = new LinkedBag<>();
-        }
+        adj = newArray(V, i->new LinkedBag<>());
 
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original

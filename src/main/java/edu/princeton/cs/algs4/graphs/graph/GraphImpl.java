@@ -46,6 +46,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -97,10 +98,7 @@ public class GraphImpl implements Graph {
         checkArgument(V >= 0, "Number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
-        adj = (Bag<Integer>[]) new Bag[V];
-        for (int v = 0; v < V; v++) {
-            adj[v] = new LinkedBag<>();
-        }
+        adj = newArray(V, i->new LinkedBag<>());
     }
 
     /**  
@@ -120,10 +118,7 @@ public class GraphImpl implements Graph {
         try {
             this.V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            adj = (Bag<Integer>[]) new Bag[V];
-            for (int v = 0; v < V; v++) {
-                adj[v] = new LinkedBag<>();
-            }
+            adj = newArray(V, i->new LinkedBag<>());
             int E = in.readInt();
             checkArgument(E >= 0, "number of edges in a Graph must be nonnegative");
             for (int i = 0; i < E; i++) {

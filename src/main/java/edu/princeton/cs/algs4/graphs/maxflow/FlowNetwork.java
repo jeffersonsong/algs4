@@ -16,6 +16,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -57,9 +58,7 @@ public class FlowNetwork {
         checkArgument(V >= 0, "Number of vertices in a Graph must be nonnegative");
         this.V = V;
         this.E = 0;
-        adj = (Bag<FlowEdge>[]) new Bag[V];
-        for (int v = 0; v < V; v++)
-            adj[v] = new LinkedBag<>();
+        adj = newArray(V, i->new LinkedBag<>());
     }
 
     /**

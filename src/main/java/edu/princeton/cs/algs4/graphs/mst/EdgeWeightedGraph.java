@@ -34,6 +34,7 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -86,10 +87,7 @@ public class EdgeWeightedGraph {
         checkArgument(V >= 0, "Number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
-        adj = (Bag<Edge>[]) new Bag[V];
-        for (int v = 0; v < V; v++) {
-            adj[v] = new LinkedBag<>();
-        }
+        adj = newArray(V, i->new LinkedBag<>());
     }
 
     /**
@@ -129,10 +127,7 @@ public class EdgeWeightedGraph {
 
         try {
             V = in.readInt();
-            adj = (Bag<Edge>[]) new Bag[V];
-            for (int v = 0; v < V; v++) {
-                adj[v] = new LinkedBag<>();
-            }
+            adj = newArray(V, i->new LinkedBag<>());
 
             int E = in.readInt();
             checkArgument(E >= 0, "Number of edges must be nonnegative");
