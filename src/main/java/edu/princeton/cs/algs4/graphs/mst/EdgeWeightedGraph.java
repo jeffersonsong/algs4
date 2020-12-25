@@ -149,7 +149,6 @@ public class EdgeWeightedGraph {
         catch (NoSuchElementException e) {
             throw new IllegalArgumentException("invalid input format in EdgeWeightedGraph constructor", e);
         }
-
     }
 
     /**

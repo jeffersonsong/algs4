@@ -134,7 +134,6 @@ public class CC {
         }
     }
 
-
     /**
      * Returns the component id of the connected component containing vertex {@code v}.
      *

@@ -72,7 +72,6 @@ public class Cycle {
                 dfs(G, -1, v);
     }
 
-
     // does this graph have a self loop?
     // side effect: initialize cycle to be self loop
     private boolean hasSelfLoop(Graph G) {
