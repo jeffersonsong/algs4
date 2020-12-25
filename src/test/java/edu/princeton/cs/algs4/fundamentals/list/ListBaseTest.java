@@ -144,7 +144,7 @@ public abstract class ListBaseTest {
         list.delete(0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NoSuchElementException.class)
     public void testDeleteIndexOutOfRange() {
         list.add(0, "1");
         list.delete(1);

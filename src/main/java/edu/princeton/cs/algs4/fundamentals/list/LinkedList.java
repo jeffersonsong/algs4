@@ -9,6 +9,9 @@ import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 public class LinkedList<Item> implements List<Item> {
+    private Node<Item> first, last;
+    private int n;
+
     private static class Node<Item> {
         final Item data;
         Node<Item> next;
@@ -23,29 +26,21 @@ public class LinkedList<Item> implements List<Item> {
         }
     }
 
-    private static class ListIterator<Item> implements Iterator<Item> {
-        private Node<Item> current;
-
-        public ListIterator(Node<Item> current) {
-            this.current = current;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        @Override
-        public Item next() {
-            noSuchElement(!hasNext());
-            Item result = current.data;
-            current = current.next;
-            return result;
-        }
+    public LinkedList() {
+        first = null;
+        last = null;
+        n = 0;
     }
 
-    private Node<Item> first, last;
-    private int n;
+    @Override
+    public boolean isEmpty() {
+        return n == 0;
+    }
+
+    @Override
+    public int size() {
+        return n;
+    }
 
     @Override
     public void addFront(Item item) {
@@ -152,7 +147,7 @@ public class LinkedList<Item> implements List<Item> {
     @Override
     public Item delete(int i) {
         noSuchElement(isEmpty(), "Empty list");
-        checkArgument(i < size(), "No such item.");
+        noSuchElement(i >= size(), "No such item.");
 
         if (i == 0) {
             return deleteFront();
@@ -178,18 +173,30 @@ public class LinkedList<Item> implements List<Item> {
         return node != null;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return n == 0;
-    }
-
-    @Override
-    public int size() {
-        return n;
-    }
 
     @Override
     public Iterator<Item> iterator() {
         return new ListIterator<>(first);
+    }
+
+    private static class ListIterator<Item> implements Iterator<Item> {
+        private Node<Item> current;
+
+        public ListIterator(Node<Item> current) {
+            this.current = current;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Item next() {
+            noSuchElement(!hasNext());
+            Item result = current.data;
+            current = current.next;
+            return result;
+        }
     }
 }

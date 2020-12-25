@@ -1,12 +1,12 @@
 package edu.princeton.cs.algs4.fundamentals.tree;
 
+import edu.princeton.cs.algs4.fundamentals.list.LinkedList;
+import edu.princeton.cs.algs4.fundamentals.list.List;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 
-import java.util.LinkedList;
-import java.util.List;
 
 import static java.util.Collections.emptyList;
 
@@ -52,13 +52,15 @@ public class TraversalIterative {
     }
 
     public static <T> List<T> postOrder(TreeNode<T> root) {
-        if (root == null) return emptyList();
-        LinkedList<T> result = new LinkedList<>();
+        List<T> result = new LinkedList<>();
+
+        if (root == null) return result;
+
         Stack<TreeNode<T>> stack = new LinkedStack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode<T> node = stack.pop();
-            result.addFirst(node.data);
+            result.addFront(node.data);
             if (node.left != null) stack.push(node.left);
             if (node.right != null) stack.push(node.right);
         }
