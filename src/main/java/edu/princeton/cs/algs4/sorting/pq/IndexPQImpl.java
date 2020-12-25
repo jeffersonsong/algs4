@@ -9,10 +9,18 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
+import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
+import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
+import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 /**
  *  The {@code IndexMinPQ} class represents an indexed priority queue of generic keys.
@@ -43,18 +51,41 @@ import java.util.NoSuchElementException;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<Key>  {
-    private IndexPQ<Key> pq;
+public class IndexPQImpl<Key> implements IndexPQ<Key>  {
+    private final int maxN;        // maximum number of elements on PQ
+    private int n;           // number of elements on PQ
+    private final int[] pq;        // binary heap using 1-based indexing
+    private final int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
+    private final Key[] keys;      // keys[i] = priority of i
+    private Comparator<Key> comparator;  // comparator
+
+    public static <T extends Comparable<T>> IndexPQ<T> indexMinPQ(int maxN) {
+        return new IndexPQImpl<T>(maxN, Comparator.naturalOrder());
+    }
+
+    public static <T extends Comparable<T>> IndexPQ<T> indexMaxPQ(int maxN) {
+        Comparator<T> comparator = Comparator.naturalOrder();
+        return new IndexPQImpl<T>(maxN, comparator.reversed());
+    }
 
     /**
      * Initializes an empty indexed priority queue with indices between {@code 0}
      * and {@code maxN - 1}.
      * @param  maxN the keys on this priority queue are index from {@code 0}
      *         {@code maxN - 1}
-     * @throws IllegalArgumentException if {@code maxN < 0}
+     * @param comparator define the order of priority queue.
+     * @throws IllegalArgumentException if {@code maxN < 0} or comparator not set.
      */
-    public IndexMinPQImpl(int maxN) {
-        pq = IndexPQImpl.indexMinPQ(maxN);
+    public IndexPQImpl(int maxN, Comparator<Key> comparator) {
+        checkArgument(maxN >= 0);
+        requiresNotNull(comparator);
+
+        this.comparator = comparator;
+        this.maxN = maxN;
+        n = 0;
+        keys = (Key[]) new Object[maxN + 1];    // make this of length maxN??
+        pq   = new int[maxN + 1];
+        qp   = newIntArray(maxN + 1, -1); // make this of length maxN??
     }
 
     /**
@@ -64,7 +95,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      *         {@code false} otherwise
      */
     public boolean isEmpty() {
-        return pq.isEmpty();
+        return n == 0;
     }
 
     /**
@@ -76,7 +107,8 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      */
     public boolean contains(int i) {
-        return pq.contains(i);
+        validateIndex(i);
+        return qp[i] != -1;
     }
 
     /**
@@ -85,7 +117,7 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @return the number of keys on this priority queue
      */
     public int size() {
-        return pq.size();
+        return n;
     }
 
     /**
@@ -98,7 +130,13 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      *         with index {@code i}
      */
     public void insert(int i, Key key) {
-        pq.insert(i, key);
+        validateIndex(i);
+        checkArgument(!contains(i),"index is already in the priority queue");
+        n++;
+        qp[i] = n;
+        pq[n] = i;
+        keys[i] = key;
+        swim(n);
     }
 
     /**
@@ -108,7 +146,8 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException if this priority queue is empty
      */
     public int minIndex() {
-        return pq.minIndex();
+        noSuchElement(n == 0, "Priority queue underflow");
+        return pq[1];
     }
 
     /**
@@ -117,8 +156,9 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @return a minimum key
      * @throws NoSuchElementException if this priority queue is empty
      */
-    public Key minKey() {
-        return pq.peek();
+    public Key peek() {
+        noSuchElement(n == 0, "Priority queue underflow");
+        return keys[pq[1]];
     }
 
     /**
@@ -126,8 +166,16 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @return an index associated with a minimum key
      * @throws NoSuchElementException if this priority queue is empty
      */
-    public int delMin() {
-        return pq.poll();
+    public int poll() {
+        noSuchElement(n == 0, "Priority queue underflow");
+        int min = pq[1];
+        exch(1, n--);
+        sink(1);
+        assert min == pq[n+1];
+        qp[min] = -1;        // delete
+        keys[min] = null;    // to help with garbage collection
+        pq[n+1] = -1;        // not needed
+        return min;
     }
 
     /**
@@ -139,7 +187,9 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
     public Key keyOf(int i) {
-        return pq.keyOf(i);
+        validateIndex(i);
+        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
+        else return keys[i];
     }
 
     /**
@@ -151,7 +201,17 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
     public void changeKey(int i, Key key) {
-        pq.changeKey(i, key);
+        validateIndex(i);
+        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
+        int cmp = comparator.compare(key, keys[i]);
+
+        if (cmp < 0) {
+            keys[i] = key;
+            swim(qp[i]);
+        } else if (cmp > 0) {
+            keys[i] = key;
+            sink(qp[i]);
+        }
     }
 
     /**
@@ -162,7 +222,52 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
     public void delete(int i) {
-        pq.delete(i);
+        validateIndex(i);
+        noSuchElement(!contains(i), "index is not in the priority queue");
+        int index = qp[i];
+        exch(index, n--);
+        swim(index);
+        sink(index);
+        keys[i] = null;
+        qp[i] = -1;
+    }
+
+    // throw an IllegalArgumentException if i is an invalid index
+    private void validateIndex(int i) {
+        checkIndexInRange(i, 0, maxN);
+    }
+
+    /***************************************************************************
+     * Helper functions to restore the heap invariant.
+     ***************************************************************************/
+    protected void swim(int k) {
+        while (k > 1 && greater(k/2, k)) {
+            exch(k, k/2);
+            k = k/2;
+        }
+    }
+
+    protected void sink(int k) {
+        int n = size();
+        while (2*k <= n) {
+            int j = 2*k;
+            if (j < n && greater(j, j+1)) j++;
+            if (!greater(k, j)) break;
+            exch(k, j);
+            k = j;
+        }
+    }
+   /***************************************************************************
+    * General helper functions.
+    ***************************************************************************/
+    protected boolean greater(int i, int j) {
+        return comparator.compare(keys[pq[i]], keys[pq[j]]) > 0;
+    }
+
+    protected void exch(int i, int j) {
+        ArrayUtils.exch(pq, i, j);
+        qp[pq[i]] = i;
+        qp[pq[j]] = j;
     }
 
    /***************************************************************************
@@ -176,7 +281,28 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
      *
      * @return an iterator that iterates over the keys in ascending order
      */
-    public Iterator<Integer> iterator() { return pq.iterator(); }
+    public Iterator<Integer> iterator() { return new HeapIterator(); }
+
+    private class HeapIterator implements Iterator<Integer> {
+        // create a new pq
+        private final IndexPQ<Key> copy;
+
+        // add all elements to copy of heap
+        // takes linear time since already in heap order so no keys move
+        public HeapIterator() {
+            copy = new IndexPQImpl<>(pq.length - 1, comparator);
+            for (int i = 1; i <= n; i++)
+                copy.insert(pq[i], keys[pq[i]]);
+        }
+
+        public boolean hasNext()  { return !copy.isEmpty();                     }
+        public void remove()      { throw new UnsupportedOperationException();  }
+
+        public Integer next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            return copy.poll();
+        }
+    }
 
     /**
      * Unit tests the {@code IndexMinPQ} data type.
@@ -187,14 +313,14 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
         // insert a bunch of strings
         String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
 
-        IndexMinPQ<String> pq = new IndexMinPQImpl<>(strings.length);
+        IndexPQ<String> pq = new IndexPQImpl<String>(strings.length, Comparator.naturalOrder());
         for (int i = 0; i < strings.length; i++) {
             pq.insert(i, strings[i]);
         }
 
         // delete and print each key
         while (!pq.isEmpty()) {
-            int i = pq.delMin();
+            int i = pq.poll();
             StdOut.println(i + " " + strings[i]);
         }
         StdOut.println();
@@ -209,9 +335,8 @@ public class IndexMinPQImpl<Key extends Comparable<Key>> implements IndexMinPQ<K
             StdOut.println(i + " " + strings[i]);
         }
         while (!pq.isEmpty()) {
-            pq.delMin();
+            pq.poll();
         }
-
     }
 }
 

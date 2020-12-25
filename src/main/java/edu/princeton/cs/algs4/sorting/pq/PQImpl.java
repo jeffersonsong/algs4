@@ -14,7 +14,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 public class PQImpl<Key> implements PQ<Key> {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
-    private Comparator<Key> comparator;  // optional comparator
+    private Comparator<Key> comparator;  // comparator
 
     public static <T extends Comparable<T>> PQ<T> minPQ() {
         return minPQ(1);
@@ -24,6 +24,9 @@ public class PQImpl<Key> implements PQ<Key> {
         return new PQImpl<T>(initCapacity, Comparator.naturalOrder());
     }
 
+    public static <T extends Comparable<T>> PQ<T> maxPQ() {
+        return maxPQ(1);
+    }
     public static <T extends Comparable<T>> PQ<T> maxPQ(int initCapacity) {
         Comparator<T> comparator = Comparator.naturalOrder();
         return new PQImpl<T>(initCapacity, comparator.reversed());
