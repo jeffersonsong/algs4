@@ -91,7 +91,7 @@ public class AssignmentProblem {
     private void augment() {
 
         // build residual graph
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(2*n+2);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(2*n+2);
         int s = 2*n, t = 2*n+1;
         for (int i = 0; i < n; i++) {
             if (xy[i] == UNMATCHED)

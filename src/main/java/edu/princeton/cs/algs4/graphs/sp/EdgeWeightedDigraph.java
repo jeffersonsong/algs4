@@ -12,21 +12,6 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.fundamentals.bag.Bag;
-import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
-import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
-import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.utils.io.In;
-import edu.princeton.cs.algs4.utils.StdRandom;
-
-import java.util.NoSuchElementException;
-
-import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
-import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
-
 /**
  *  The {@code EdgeWeightedDigraph} class represents a edge-weighted
  *  digraph of vertices named 0 through <em>V</em> - 1, where each
@@ -38,18 +23,6 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  the number of edges <em>E</em> in the digraph.
  *  Parallel edges and self-loops are permitted.
  *  <p>
- *  This implementation uses an <em>adjacency-lists representation</em>, which
- *  is a vertex-indexed array of {@link Bag} objects.
- *  It uses &Theta;(<em>E</em> + <em>V</em>) space, where <em>E</em> is
- *  the number of edges and <em>V</em> is the number of vertices.
- *  All instance methods take &Theta;(1) time. (Though, iterating over
- *  the edges returned by {@link #adj(int)} takes time proportional
- *  to the outdegree of the vertex.)
- *  Constructing an empty edge-weighted digraph with <em>V</em> vertices
- *  takes &Theta;(<em>V</em>) time; constructing an edge-weighted digraph
- *  with <em>E</em> edges and <em>V</em> vertices takes
- *  &Theta;(<em>E</em> + <em>V</em>) time. 
- *  <p>
  *  For additional documentation,
  *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
@@ -57,92 +30,20 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class EdgeWeightedDigraph {
-    private static final String NEWLINE = System.getProperty("line.separator");
-
-    private final int V;                // number of vertices in this digraph
-    private int E;                      // number of edges in this digraph
-    private final Bag<DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
-    private final int[] indegree;             // indegree[v] = indegree of vertex v
-    
-    /**
-     * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
-     *
-     * @param  V the number of vertices
-     * @throws IllegalArgumentException if {@code V < 0}
-     */
-    public EdgeWeightedDigraph(int V) {
-        checkArgument(V >= 0,"Number of vertices in a Digraph must be nonnegative");
-        this.V = V;
-        this.E = 0;
-        this.indegree = new int[V];
-        adj = newArray(V, i->new LinkedBag<>());
-    }
-
-    /**
-     * Initializes a random edge-weighted digraph with {@code V} vertices and <em>E</em> edges.
-     *
-     * @param  V the number of vertices
-     * @param  E the number of edges
-     * @throws IllegalArgumentException if {@code V < 0}
-     * @throws IllegalArgumentException if {@code E < 0}
-     */
-    public EdgeWeightedDigraph(int V, int E) {
-        this(V);
-        checkArgument(E >= 0, "Number of edges in a Digraph must be nonnegative");
-        for (int i = 0; i < E; i++) {
-            int v = StdRandom.uniform(V);
-            int w = StdRandom.uniform(V);
-            double weight = 0.01 * StdRandom.uniform(100);
-            DirectedEdge e = new DirectedEdge(v, w, weight);
-            addEdge(e);
-        }
-    }
-
-    /**
-     * Initializes a new edge-weighted digraph that is a deep copy of {@code G}.
-     *
-     * @param  G the edge-weighted digraph to copy
-     */
-    public EdgeWeightedDigraph(EdgeWeightedDigraph G) {
-        this(G.V());
-        this.E = G.E();
-        for (int v = 0; v < G.V(); v++)
-            this.indegree[v] = G.indegree(v);
-        for (int v = 0; v < G.V(); v++) {
-            // reverse so that adjacency list is in same order as original
-            Stack<DirectedEdge> reverse = new LinkedStack<>();
-            for (DirectedEdge e : G.adj[v]) {
-                reverse.push(e);
-            }
-            for (DirectedEdge e : reverse) {
-                adj[v].add(e);
-            }
-        }
-    }
-
+public interface EdgeWeightedDigraph {
     /**
      * Returns the number of vertices in this edge-weighted digraph.
      *
      * @return the number of vertices in this edge-weighted digraph
      */
-    public int V() {
-        return V;
-    }
+    int V();
 
     /**
      * Returns the number of edges in this edge-weighted digraph.
      *
      * @return the number of edges in this edge-weighted digraph
      */
-    public int E() {
-        return E;
-    }
-
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
-    private void validateVertex(int v) {
-        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
-    }
+    int E();
 
     /**
      * Adds the directed edge {@code e} to this edge-weighted digraph.
@@ -151,16 +52,7 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException unless endpoints of edge are between {@code 0}
      *         and {@code V-1}
      */
-    public void addEdge(DirectedEdge e) {
-        int v = e.from();
-        int w = e.to();
-        validateVertex(v);
-        validateVertex(w);
-        adj[v].add(e);
-        indegree[w]++;
-        E++;
-    }
-
+    void addEdge(DirectedEdge e);
 
     /**
      * Returns the directed edges incident from vertex {@code v}.
@@ -169,10 +61,7 @@ public class EdgeWeightedDigraph {
      * @return the directed edges incident from vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge> adj(int v) {
-        validateVertex(v);
-        return adj[v];
-    }
+    Iterable<DirectedEdge> adj(int v);
 
     /**
      * Returns the number of directed edges incident from vertex {@code v}.
@@ -182,10 +71,7 @@ public class EdgeWeightedDigraph {
      * @return the outdegree of vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public int outdegree(int v) {
-        validateVertex(v);
-        return adj[v].size();
-    }
+    int outdegree(int v);
 
     /**
      * Returns the number of directed edges incident to vertex {@code v}.
@@ -195,10 +81,7 @@ public class EdgeWeightedDigraph {
      * @return the indegree of vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public int indegree(int v) {
-        validateVertex(v);
-        return indegree[v];
-    }
+    int indegree(int v);
 
     /**
      * Returns all directed edges in this edge-weighted digraph.
@@ -207,46 +90,7 @@ public class EdgeWeightedDigraph {
      *
      * @return all edges in this edge-weighted digraph, as an iterable
      */
-    public Iterable<DirectedEdge> edges() {
-        Bag<DirectedEdge> list = new LinkedBag<>();
-        for (int v = 0; v < V; v++) {
-            for (DirectedEdge e : adj(v)) {
-                list.add(e);
-            }
-        }
-        return list;
-    } 
-
-    /**
-     * Returns a string representation of this edge-weighted digraph.
-     *
-     * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
-     *         followed by the <em>V</em> adjacency lists of edges
-     */
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append(V).append(" ").append(E).append(NEWLINE);
-        for (int v = 0; v < V; v++) {
-            s.append(v).append(": ");
-            for (DirectedEdge e : adj[v]) {
-                s.append(e).append("  ");
-            }
-            s.append(NEWLINE);
-        }
-        return s.toString();
-    }
-
-    /**
-     * Unit tests the {@code EdgeWeightedDigraph} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
-        StdOut.println(G);
-    }
-
+    Iterable<DirectedEdge> edges();
 }
 
 /******************************************************************************

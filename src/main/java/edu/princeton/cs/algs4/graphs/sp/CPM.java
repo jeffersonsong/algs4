@@ -72,7 +72,7 @@ public class CPM {
         int sink   = 2*n + 1;
 
         // build network
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(2*n + 2);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(2*n + 2);
         for (int i = 0; i < n; i++) {
             double duration = StdIn.readDouble();
             G.addEdge(new DirectedEdge(source, i, 0.0));

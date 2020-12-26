@@ -7,6 +7,7 @@ import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
+import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraphImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.NoSuchElementException;
@@ -123,7 +124,7 @@ public class GraphReader {
         requiresNotNull(in,"argument is null");
         try {
             int V = in.readInt();
-            EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
+            EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(V);
             checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
 
             int E = in.readInt();

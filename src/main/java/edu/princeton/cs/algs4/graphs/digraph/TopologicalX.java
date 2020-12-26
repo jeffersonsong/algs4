@@ -12,6 +12,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
@@ -272,7 +273,7 @@ public class TopologicalX {
         Digraph G1 = DigraphGenerator.dag(V, E);
 
         // corresponding edge-weighted digraph
-        EdgeWeightedDigraph G2 = new EdgeWeightedDigraph(V);
+        EdgeWeightedDigraph G2 = new EdgeWeightedDigraphImpl(V);
         for (int v = 0; v < G1.V(); v++)
             for (int w : G1.adj(v))
                 G2.addEdge(new DirectedEdge(v, w, 0.0));
