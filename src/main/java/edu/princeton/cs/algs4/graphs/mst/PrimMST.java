@@ -41,6 +41,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -219,7 +220,7 @@ public class PrimMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
         PrimMST mst = new PrimMST(G);
         for (Edge e : mst.edges()) {
             StdOut.println(e);

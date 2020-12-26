@@ -25,6 +25,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -192,7 +193,7 @@ public class BoruvkaMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
         BoruvkaMST mst = new BoruvkaMST(G);
         for (Edge e : mst.edges()) {
             StdOut.println(e);

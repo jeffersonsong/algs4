@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.mst;
 
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public abstract class MSTBaseTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/43mst/tinyEWG.txt");
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
         mst = createMST(G);
     }
 

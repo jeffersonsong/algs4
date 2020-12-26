@@ -1,12 +1,16 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
+import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.NoSuchElementException;
 import java.util.function.IntFunction;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -61,6 +65,42 @@ public class GraphReader {
         }
         catch (NoSuchElementException e) {
             throw new IllegalArgumentException("invalid input format in Graph constructor", e);
+        }
+    }
+
+    /**
+     * Initializes an edge-weighted graph from an input stream.
+     * The format is the number of vertices <em>V</em>,
+     * followed by the number of edges <em>E</em>,
+     * followed by <em>E</em> pairs of vertices and edge weights,
+     * with each entry separated by whitespace.
+     *
+     * @param  in the input stream
+     * @throws IllegalArgumentException if {@code in} is {@code null}
+     * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
+     * @throws IllegalArgumentException if the number of vertices or edges is negative
+     */
+    public static EdgeWeightedGraph readEdgeWeightedGraph(In in) {
+        requiresNotNull(in, "argument is null");
+
+        try {
+            int V = in.readInt();
+            EdgeWeightedGraph G = new EdgeWeightedGraph(V);
+
+            int E = in.readInt();
+            checkArgument(E >= 0, "Number of edges must be nonnegative");
+            for (int i = 0; i < E; i++) {
+                int v = in.readInt();
+                int w = in.readInt();
+                double weight = in.readDouble();
+                Edge e = new Edge(v, w, weight);
+                G.addEdge(e);
+            }
+
+            return G;
+        }
+        catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("invalid input format in EdgeWeightedGraph constructor", e);
         }
     }
 }

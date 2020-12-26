@@ -39,6 +39,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
@@ -235,7 +236,7 @@ public class DijkstraUndirectedSP {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths

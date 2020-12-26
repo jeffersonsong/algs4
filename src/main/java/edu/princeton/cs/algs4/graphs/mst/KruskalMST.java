@@ -38,6 +38,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
 import edu.princeton.cs.algs4.sorting.pq.PQBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -188,7 +189,7 @@ public class KruskalMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
         KruskalMST mst = new KruskalMST(G);
         for (Edge e : mst.edges()) {
             StdOut.println(e);

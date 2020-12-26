@@ -22,6 +22,7 @@
 package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
 import edu.princeton.cs.algs4.graphs.maxflow.FordFulkerson;
@@ -288,7 +289,7 @@ public class GlobalMincut {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
         GlobalMincut mc = new GlobalMincut(G);
         StdOut.print("Min cut: ");
         for (int v = 0; v < G.V(); v++) {
