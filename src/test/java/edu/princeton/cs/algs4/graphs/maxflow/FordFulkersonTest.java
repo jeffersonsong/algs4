@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FordFulkersonTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(FordFulkersonTest.class);

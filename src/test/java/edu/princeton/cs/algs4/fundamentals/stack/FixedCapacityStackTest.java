@@ -3,7 +3,7 @@ package edu.princeton.cs.algs4.fundamentals.stack;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FixedCapacityStackTest extends StackBaseTest {
     @Override

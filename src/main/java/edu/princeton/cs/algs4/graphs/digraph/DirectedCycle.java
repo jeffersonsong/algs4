@@ -111,10 +111,8 @@ public class DirectedCycle {
         return cycle;
     }
 
-
     // certify that digraph has a directed cycle if it reports one
     private boolean check() {
-
         if (hasCycle()) {
             // verify cycle
             int first = -1, last = -1;

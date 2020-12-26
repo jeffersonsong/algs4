@@ -85,7 +85,7 @@ public interface Digraph extends Graph {
     int indegree(int v);
 
     default int degree(int v) {
-        return indegree(v) + outdegree(v);
+        return outdegree(v);
     }
 
     /**

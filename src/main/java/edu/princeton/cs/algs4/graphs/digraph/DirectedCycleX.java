@@ -50,14 +50,14 @@ public class DirectedCycleX {
     private Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
 
     public DirectedCycleX(Digraph G) {
-
         // indegrees of remaining vertices
         int[] indegree = newIntArray(G.V(), G::indegree);
 
         // initialize queue to contain all vertices with indegree = 0
         Queue<Integer> queue = new LinkedQueue<>();
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             if (indegree[v] == 0) queue.enqueue(v);
+        }
 
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
@@ -81,7 +81,6 @@ public class DirectedCycleX {
         }
 
         if (root != -1) {
-
             // find any vertex on cycle
             boolean[] visited = new boolean[G.V()];
             while (!visited[root]) {
@@ -121,7 +120,6 @@ public class DirectedCycleX {
 
     // certify that digraph has a directed cycle if it reports one
     private boolean check() {
-
         if (hasCycle()) {
             // verify cycle
             int first = -1, last = -1;
@@ -135,13 +133,10 @@ public class DirectedCycleX {
             }
         }
 
-
         return true;
     }
 
-
     public static void main(String[] args) {
-
         // create random DAG with V vertices and E edges; then add F random edges
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
