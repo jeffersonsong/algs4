@@ -32,6 +32,8 @@ package edu.princeton.cs.algs4.strings.sort;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
 /**
  *  The {@code LSD} class provides static methods for sorting an
  *  array of <em>w</em>-character strings or 32-bit integers using LSD radix sort.
@@ -60,24 +62,29 @@ public class LSD {
         int R = 256;   // extend ASCII alphabet size
         String[] aux = new String[n];
 
-        for (int d = w-1; d >= 0; d--) {
-            // sort by key-indexed counting on dth character
+        // compute frequency counts
+        int[] count = new int[R+1];
 
-            // compute frequency counts
-            int[] count = new int[R+1];
+        for (int d = w-1; d >= 0; d--) {
+            Arrays.fill(count, 0);
+
+            // sort by key-indexed counting on dth character
             for (String value : a) count[value.charAt(d) + 1]++;
 
             // compute cumulates
-            for (int r = 0; r < R; r++)
-                count[r+1] += count[r];
+            computeCumulates(count);
 
             // move data
             for (String s : a) aux[count[s.charAt(d)]++] = s;
 
             // copy back
-            for (int i = 0; i < n; i++)
-                a[i] = aux[i];
+            System.arraycopy(aux, 0, a, 0, n);
         }
+    }
+
+    private static void computeCumulates(int[] count) {
+        for (int r = 0; r < count.length - 1; r++)
+            count[r + 1] += count[r];
     }
 
    /**
@@ -87,7 +94,7 @@ public class LSD {
      * @param a the array to be sorted
      */
     public static void sort(int[] a) {
-        final int BITS = 32;                 // each int is 32 bits 
+        final int BITS = 32;                 // each int is 32 bits
         final int R = 1 << BITS_PER_BYTE;    // each bytes is between 0 and 255
         final int MASK = R - 1;              // 0xFF
         final int w = BITS / BITS_PER_BYTE;  // each int is 4 bytes
@@ -95,18 +102,18 @@ public class LSD {
         int n = a.length;
         int[] aux = new int[n];
 
-        for (int d = 0; d < w; d++) {         
+        // compute frequency counts
+        int[] count = new int[R+1];
+        for (int d = 0; d < w; d++) {
+            Arrays.fill(count,0);
 
-            // compute frequency counts
-            int[] count = new int[R+1];
             for (int k : a) {
                 int c = (k >> BITS_PER_BYTE * d) & MASK;
                 count[c + 1]++;
             }
 
             // compute cumulates
-            for (int r = 0; r < R; r++)
-                count[r+1] += count[r];
+            computeCumulates(count);
 
             // for most significant byte, 0x80-0xFF comes before 0x00-0x7F
             if (d == w-1) {
@@ -125,8 +132,7 @@ public class LSD {
             }
 
             // copy back
-            for (int i = 0; i < n; i++)
-                a[i] = aux[i];
+            System.arraycopy(aux, 0, a, 0, n);
         }
     }
 

@@ -52,6 +52,16 @@ public class SortUtils {
         return true;
     }
 
+    public static boolean isSorted(final int[] a) {
+        return isSorted(a, 0, a.length - 1);
+    }
+
+    public static boolean isSorted(final int[] a, final int lo, final int hi) {
+        for (int i = lo + 1; i <= hi; i++)
+            if (less(a[i], a[i - 1])) return false;
+        return true;
+    }
+
 
     /**
      * Returns the number of keys in this symbol table strictly less than {@code key}.
