@@ -21,6 +21,7 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
+import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
@@ -155,7 +156,7 @@ public class GlobalMincut {
      * @param t the vertex {@code t}
      * @param uf the union-find data type
      */
-    private void makeCut(int t, UFImpl uf) {
+    private void makeCut(int t, UF uf) {
         for (int v = 0; v < cut.length; v++) {
             cut[v] = (uf.find(v) == uf.find(t));
         }
@@ -170,7 +171,7 @@ public class GlobalMincut {
      * @param a the starting vertex
      */
     private void minCut(EdgeWeightedGraph G, int a) {
-        UFImpl uf = new UFImpl(G.V());
+        UF uf = new UFImpl(G.V());
         boolean[] marked = new boolean[G.V()];
         cut = new boolean[G.V()];
         CutPhase cp = new CutPhase(0.0, a, a);

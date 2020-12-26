@@ -192,7 +192,7 @@ public class UFImpl implements UF {
      */
     public static void main(String[] args) {
         int n = StdIn.readInt();
-        UFImpl uf = new UFImpl(n);
+        UF uf = new UFImpl(n);
         while (!StdIn.isEmpty()) {
             int p = StdIn.readInt();
             int q = StdIn.readInt();
