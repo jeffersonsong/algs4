@@ -22,6 +22,7 @@ package edu.princeton.cs.algs4.strings.tries;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -54,25 +55,17 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class TrieST<Value> implements Trie<Value> {
+public class TrieST<Value> implements Trie<Value>, ST<String, Value> {
     private static final int R = 256;        // extended ASCII
 
-
-    private Node root;      // root of trie
+    private Node<Value> root;      // root of trie
     private int n;          // number of keys in trie
 
     // R-way trie node
-    private static class Node {
-        private Object val;
-        private final Node[] next = new Node[R];
+    private static class Node<Value> {
+        private Value val;
+        private final Node<Value>[] next = new Node[R];
     }
-
-   /**
-     * Initializes an empty string symbol table.
-     */
-    public TrieST() {
-    }
-
 
     /**
      * Returns the value associated with the given key.
@@ -83,9 +76,16 @@ public class TrieST<Value> implements Trie<Value> {
      */
     public Value get(String key) {
         requiresNotNull(key, "argument to get() is null");
-        Node x = get(root, key, 0);
+        Node<Value> x = get(root, key, 0);
         if (x == null) return null;
-        return (Value) x.val;
+        return x.val;
+    }
+
+    private Node<Value> get(Node<Value> x, String key, int d) {
+        if (x == null) return null;
+        if (d == key.length()) return x;
+        char c = key.charAt(d);
+        return get(x.next[c], key, d+1);
     }
 
     /**
@@ -98,13 +98,6 @@ public class TrieST<Value> implements Trie<Value> {
     public boolean contains(String key) {
         requiresNotNull(key, "argument to contains() is null");
         return get(key) != null;
-    }
-
-    private Node get(Node x, String key, int d) {
-        if (x == null) return null;
-        if (d == key.length()) return x;
-        char c = key.charAt(d);
-        return get(x.next[c], key, d+1);
     }
 
     /**
@@ -121,8 +114,8 @@ public class TrieST<Value> implements Trie<Value> {
         else root = put(root, key, val, 0);
     }
 
-    private Node put(Node x, String key, Value val, int d) {
-        if (x == null) x = new Node();
+    private Node<Value> put(Node<Value> x, String key, Value val, int d) {
+        if (x == null) x = new Node<>();
         if (d == key.length()) {
             if (x.val == null) n++;
             x.val = val;
@@ -134,7 +127,6 @@ public class TrieST<Value> implements Trie<Value> {
     }
 
     /**
-     * Returns the number of key-value pairs in this symbol table.
      * @return the number of key-value pairs in this symbol table
      */
     public int size() {
@@ -167,12 +159,12 @@ public class TrieST<Value> implements Trie<Value> {
      */
     public Iterable<String> keysWithPrefix(String prefix) {
         Queue<String> results = new LinkedQueue<>();
-        Node x = get(root, prefix, 0);
+        Node<Value> x = get(root, prefix, 0);
         collect(x, new StringBuilder(prefix), results);
         return results;
     }
 
-    private void collect(Node x, StringBuilder prefix, Queue<String> results) {
+    private void collect(Node<Value> x, StringBuilder prefix, Queue<String> results) {
         if (x == null) return;
         if (x.val != null) results.enqueue(prefix.toString());
         for (char c = 0; c < R; c++) {
@@ -195,7 +187,7 @@ public class TrieST<Value> implements Trie<Value> {
         return results;
     }
 
-    private void collect(Node x, StringBuilder prefix, String pattern, Queue<String> results) {
+    private void collect(Node<Value> x, StringBuilder prefix, String pattern, Queue<String> results) {
         if (x == null) return;
         int d = prefix.length();
         if (d == pattern.length() && x.val != null)
@@ -236,7 +228,7 @@ public class TrieST<Value> implements Trie<Value> {
     // rooted at x that is a prefix of the query string,
     // assuming the first d character match and we have already
     // found a prefix match of given length (-1 if no such match)
-    private int longestPrefixOf(Node x, String query, int d, int length) {
+    private int longestPrefixOf(Node<Value> x, String query, int d, int length) {
         if (x == null) return length;
         if (x.val != null) length = d;
         if (d == query.length()) return length;
@@ -254,7 +246,7 @@ public class TrieST<Value> implements Trie<Value> {
         root = delete(root, key, 0);
     }
 
-    private Node delete(Node x, String key, int d) {
+    private Node<Value> delete(Node<Value> x, String key, int d) {
         if (x == null) return null;
         if (d == key.length()) {
             if (x.val != null) n--;

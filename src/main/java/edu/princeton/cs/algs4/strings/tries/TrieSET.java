@@ -15,6 +15,7 @@ package edu.princeton.cs.algs4.strings.tries;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.set.SET;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -43,7 +44,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class TrieSET implements Iterable<String> {
+public class TrieSET implements SET<String> {
     private static final int R = 256;        // extended ASCII
 
     private Node root;      // root of trie
@@ -222,7 +223,7 @@ public class TrieSET implements Iterable<String> {
      * @param key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
-    public void delete(String key) {
+    public void remove(String key) {
         requiresNotNull(key, "argument to delete() is null");
         root = delete(root, key, 0);
     }
