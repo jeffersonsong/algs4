@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TopologicalTest {
     @Test
     public void test() {
-        In in = new In("src/test/resources/topological.txt");
+        In in = new In("src/test/resources/42digraph/topological.txt");
         Digraph g = new DigraphImpl(in);
         Iterable<Integer> order = new Topological(g).order();
         List<Integer> list = toList(order);
