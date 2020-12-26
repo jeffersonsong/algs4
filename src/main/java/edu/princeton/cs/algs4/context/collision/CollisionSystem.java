@@ -19,7 +19,7 @@
 package edu.princeton.cs.algs4.context.collision;
 
 import edu.princeton.cs.algs4.sorting.pq.PQ;
-import edu.princeton.cs.algs4.sorting.pq.PQBinaryHeapImpl;
+import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.draw.StdDraw;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
@@ -94,7 +94,7 @@ public class CollisionSystem {
     public void simulate(double limit) {
         
         // initialize PQ with collision events and redraw event
-        pq = PQBinaryHeapImpl.minPQ();
+        pq = BinaryHeapImpl.minPQ();
         for (Particle value : particles) {
             predict(value, limit);
         }

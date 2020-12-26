@@ -56,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class PQBinaryHeapImpl<Key> implements PQ<Key>, BinaryHeap {
+public class BinaryHeapImpl<Key> implements PQ<Key>, BinaryHeapInvariant {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
     private Comparator<Key> comparator;  // comparator
@@ -66,7 +66,7 @@ public class PQBinaryHeapImpl<Key> implements PQ<Key>, BinaryHeap {
     }
 
     public static <T extends Comparable<T>> PQ<T> minPQ(int initCapacity) {
-        return new PQBinaryHeapImpl<T>(initCapacity, Comparator.naturalOrder());
+        return new BinaryHeapImpl<T>(initCapacity, Comparator.naturalOrder());
     }
 
     public static <T extends Comparable<T>> PQ<T> maxPQ() {
@@ -74,24 +74,24 @@ public class PQBinaryHeapImpl<Key> implements PQ<Key>, BinaryHeap {
     }
     public static <T extends Comparable<T>> PQ<T> maxPQ(int initCapacity) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        return new PQBinaryHeapImpl<T>(initCapacity, comparator.reversed());
+        return new BinaryHeapImpl<T>(initCapacity, comparator.reversed());
     }
 
     public static <T extends Comparable<T>> PQ<T> minPQ(T[] keys) {
-        return new PQBinaryHeapImpl<>(keys, Comparator.naturalOrder());
+        return new BinaryHeapImpl<>(keys, Comparator.naturalOrder());
     }
 
     public static <T extends Comparable<T>> PQ<T> maxPQ(T[] keys) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        return new PQBinaryHeapImpl<>(keys, comparator.reversed());
+        return new BinaryHeapImpl<>(keys, comparator.reversed());
     }
 
     public static <T> PQ<T> newPQ(T[] keys, Comparator<T> comparator) {
-        return new PQBinaryHeapImpl<>(keys, comparator);
+        return new BinaryHeapImpl<>(keys, comparator);
     }
 
     public static <T> PQ<T> newPQ(int initCapacity, Comparator<T> comparator) {
-        return new PQBinaryHeapImpl<>(initCapacity, comparator);
+        return new BinaryHeapImpl<>(initCapacity, comparator);
     }
 
     /**
@@ -101,7 +101,7 @@ public class PQBinaryHeapImpl<Key> implements PQ<Key>, BinaryHeap {
      * @param  initCapacity the initial capacity of this priority queue
      * @param  comparator the order in which to compare the keys
      */
-    public PQBinaryHeapImpl(int initCapacity, Comparator<Key> comparator) {
+    public BinaryHeapImpl(int initCapacity, Comparator<Key> comparator) {
         checkArgument(initCapacity > 0, "Invalid initial capacity.");
         requiresNotNull(comparator);
 
@@ -118,7 +118,7 @@ public class PQBinaryHeapImpl<Key> implements PQ<Key>, BinaryHeap {
      * @param  keys the array of keys
      * @param  comparator the order in which to compare the keys
      */
-    public PQBinaryHeapImpl(Key[] keys, Comparator<Key> comparator) {
+    public BinaryHeapImpl(Key[] keys, Comparator<Key> comparator) {
         checkArgument(keys != null, "Array not set.");
         checkArgument(keys.length > 0, "Empty array.");
         requiresNotNull(comparator);
@@ -253,7 +253,7 @@ public class PQBinaryHeapImpl<Key> implements PQ<Key>, BinaryHeap {
         // add all items to copy of heap
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
-            copy = new PQBinaryHeapImpl<>(size(), comparator);
+            copy = new BinaryHeapImpl<>(size(), comparator);
             for (int i = 1; i <= n; i++) {
                 copy.insert(pq[i]);
             }

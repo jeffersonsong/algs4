@@ -16,7 +16,7 @@ public class IndexMinPQBaseTest {
     }
 
     protected IndexPQ<Character> createIndexMinPQ() {
-        return IndexPQBinaryHeapImpl.indexMinPQ(10);
+        return IndexBinaryHeapImpl.indexMinPQ(10);
     }
 
     @Test

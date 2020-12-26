@@ -12,16 +12,12 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.set.SET;
 import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
-import edu.princeton.cs.algs4.sorting.pq.PQBinaryHeapImpl;
-import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
-
-import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.*;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -370,7 +366,7 @@ public class GraphGenerator {
             degree[prufer[i]]++;
 
         // pq contains all vertices of degree 1
-        PQ<Integer> pq = PQBinaryHeapImpl.minPQ();
+        PQ<Integer> pq = BinaryHeapImpl.minPQ();
         for (int v = 0; v < V; v++)
             if (degree[v] == 1) pq.insert(v);
 

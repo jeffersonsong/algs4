@@ -1,6 +1,6 @@
 package edu.princeton.cs.algs4.sorting.pq;
 
-public interface BinaryHeap {
+public interface BinaryHeapInvariant {
     /***************************************************************************
      * Helper functions to restore the heap invariant.
      ***************************************************************************/

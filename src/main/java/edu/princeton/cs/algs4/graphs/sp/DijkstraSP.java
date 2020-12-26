@@ -36,7 +36,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
-import edu.princeton.cs.algs4.sorting.pq.IndexPQBinaryHeapImpl;
+import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -91,7 +91,7 @@ public class DijkstraSP implements SP {
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
-        pq = IndexPQBinaryHeapImpl.indexMinPQ(G.V());
+        pq = IndexBinaryHeapImpl.indexMinPQ(G.V());
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.poll();

@@ -15,7 +15,7 @@ public class MinPQBaseTest {
     }
 
     protected PQ<Character> createMinPQ() {
-        return PQBinaryHeapImpl.minPQ();
+        return BinaryHeapImpl.minPQ();
     }
 
     @Test
