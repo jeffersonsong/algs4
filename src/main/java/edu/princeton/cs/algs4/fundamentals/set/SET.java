@@ -12,4 +12,6 @@ public interface SET<Key extends Comparable<Key>> extends Iterable<Key> {
 
     // return the number of keys in the set.
     int size();
+
+    boolean isEmpty();
 }

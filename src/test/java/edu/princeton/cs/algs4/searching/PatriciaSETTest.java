@@ -1,7 +1,12 @@
 package edu.princeton.cs.algs4.searching;
 
-import static org.junit.Assert.*;
+import edu.princeton.cs.algs4.fundamentals.set.SET;
+import edu.princeton.cs.algs4.fundamentals.set.SETBaseTest;
 
-public class PatriciaSETTest {
+public class PatriciaSETTest extends SETBaseTest {
 
+    @Override
+    protected SET<String> createSET() {
+        return new PatriciaSET();
+    }
 }
