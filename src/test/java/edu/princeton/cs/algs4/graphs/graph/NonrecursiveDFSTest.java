@@ -1,0 +1,24 @@
+package edu.princeton.cs.algs4.graphs.graph;
+
+import edu.princeton.cs.algs4.utils.io.In;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class NonrecursiveDFSTest {
+    private Graph G;
+
+    @Before
+    public void setUp() {
+        In in = new In("src/test/resources/41graph/tinyG.txt");
+        G = new GraphImpl(in);
+    }
+
+    @Test
+    public void test() {
+        NonrecursiveDFS dfs = new NonrecursiveDFS(G, 0);
+        assertTrue(dfs.marked(1));
+        assertFalse(dfs.marked(7));
+    }
+}
