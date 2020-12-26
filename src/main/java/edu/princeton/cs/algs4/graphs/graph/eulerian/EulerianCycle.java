@@ -13,7 +13,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.graph.euler;
+package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;

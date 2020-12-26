@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4.graphs.graph.euler;
+package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
 import edu.princeton.cs.algs4.graphs.graph.Graph;

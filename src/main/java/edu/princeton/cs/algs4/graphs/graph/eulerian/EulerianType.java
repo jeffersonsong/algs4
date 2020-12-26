@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4.graphs.graph.euler;
+package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 public enum EulerianType {
     NON_EULERIAN,

@@ -1,9 +1,7 @@
-package edu.princeton.cs.algs4.graphs.graph.euler;
+package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
-import edu.princeton.cs.algs4.graphs.graph.euler.Eulerian;
-import edu.princeton.cs.algs4.graphs.graph.euler.EulerianType;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
