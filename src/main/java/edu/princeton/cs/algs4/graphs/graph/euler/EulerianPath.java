@@ -1,60 +1,59 @@
 /******************************************************************************
- *  Compilation:  javac EulerianCycle.java
- *  Execution:    java  EulerianCycle V E
+ *  Compilation:  javac EulerianPath.java
+ *  Execution:    java EulerianPath V E
  *  Dependencies: Graph.java Stack.java StdOut.java
  *
- *  Find an Eulerian cycle in a graph, if one exists.
- *
- *  Runs in O(E + V) time.
- *
- *  This implementation is tricker than the one for digraphs because
- *  when we use edge v-w from v's adjacency list, we must be careful
- *  not to use the second copy of the edge from w's adjaceny list.
+ *  Find an Eulerian path in a graph, if one exists.
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.graph;
+package edu.princeton.cs.algs4.graphs.graph.euler;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphGenerator;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianCycle;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedEulerianPath;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
-import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 
 /**
- *  The {@code EulerianCycle} class represents a data type
- *  for finding an Eulerian cycle or path in a graph.
- *  An <em>Eulerian cycle</em> is a cycle (not necessarily simple) that
+ *  The {@code EulerianPath} class represents a data type
+ *  for finding an Eulerian path in a graph.
+ *  An <em>Eulerian path</em> is a path (not necessarily simple) that
  *  uses every edge in the graph exactly once.
  *  <p>
  *  This implementation uses a nonrecursive depth-first search.
  *  The constructor takes &Theta;(<em>E</em> + <em>V</em>) time in the worst
- *  case, where <em>E</em> is the number of edges and <em>V</em> is the
- *  number of vertices
+ *  case, where <em>E</em> is the number of edges and <em>V</em> is
+ *  the number of vertices.
  *  Each instance method takes &Theta;(1) time.
  *  It uses &Theta;(<em>E</em> + <em>V</em>) extra space in the worst case
- *  (not including the graph).
+ *  (not including the digraph).
  *  <p>
- *  To compute Eulerian paths in graphs, see {@link EulerianPath}.
+ *  To compute Eulerian cycles in graphs, see {@link EulerianCycle}.
  *  To compute Eulerian cycles and paths in digraphs, see
  *  {@link DirectedEulerianCycle} and {@link DirectedEulerianPath}.
  *  <p>
  *  For additional documentation,
  *  see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ *  https://www.geeksforgeeks.org/eulerian-path-and-circuit/
  * 
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- *  @author Nate Liu
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
+ * @author Nate Liu
  */
-public class EulerianCycle {
-    private Stack<Integer> cycle = new LinkedStack<>();  // Eulerian cycle; null if no such cycle
+public class EulerianPath {
+    private Stack<Integer> path = null;   // Eulerian path; null if no suh path
 
     // an undirected edge, with a field to indicate whether the edge has already been used
     private static class Edge {
@@ -77,20 +76,30 @@ public class EulerianCycle {
     }
 
     /**
-     * Computes an Eulerian cycle in the specified graph, if one exists.
+     * Computes an Eulerian path in the specified graph, if one exists.
      * 
      * @param G the graph
      */
-    public EulerianCycle(Graph G) {
+    public EulerianPath(Graph G) {
 
-        // must have at least one edge
-        if (G.E() == 0) return;
+        // find vertex from which to start potential Eulerian path:
+        // a vertex v with odd degree(v) if it exits;
+        // otherwise a vertex with degree(v) > 0
+        int oddDegreeVertices = 0;
+        int s = nonIsolatedVertex(G);
+        for (int v = 0; v < G.V(); v++) {
+            if (G.degree(v) % 2 != 0) {
+                oddDegreeVertices++;
+                s = v;
+            }
+        }
 
-        // necessary condition: all vertices have even degree
-        // (this test is needed or it might find an Eulerian path instead of cycle)
-        for (int v = 0; v < G.V(); v++) 
-            if (G.degree(v) % 2 != 0)
-                return;
+        // graph can't have an Eulerian path
+        // (this condition is needed for correctness)
+        if (oddDegreeVertices > 2) return;
+
+        // special case for graph with zero edges (has a degenerate Eulerian path)
+        if (s == -1) s = 0;
 
         // create local view of adjacency lists, to iterate one vertex at a time
         // the helper Edge data type is used to avoid exploring both copies of an edge v-w
@@ -117,12 +126,11 @@ public class EulerianCycle {
         }
 
         // initialize stack with any non-isolated vertex
-        int s = nonIsolatedVertex(G);
         Stack<Integer> stack = new LinkedStack<>();
         stack.push(s);
 
         // greedily search through edges in iterative DFS style
-        cycle = new LinkedStack<>();
+        path = new LinkedStack<>();
         while (!stack.isEmpty()) {
             int v = stack.pop();
             while (!adj[v].isEmpty()) {
@@ -132,36 +140,37 @@ public class EulerianCycle {
                 stack.push(v);
                 v = edge.other(v);
             }
-            // push vertex with no more leaving edges to cycle
-            cycle.push(v);
+            // push vertex with no more leaving edges to path
+            path.push(v);
         }
 
         // check if all edges are used
-        if (cycle.size() != G.E() + 1)
-            cycle = null;
+        if (path.size() != G.E() + 1)
+            path = null;
 
         assert certifySolution(G);
     }
 
     /**
-     * Returns the sequence of vertices on an Eulerian cycle.
+     * Returns the sequence of vertices on an Eulerian path.
      * 
-     * @return the sequence of vertices on an Eulerian cycle;
-     *         {@code null} if no such cycle
+     * @return the sequence of vertices on an Eulerian path;
+     *         {@code null} if no such path
      */
-    public Iterable<Integer> cycle() {
-        return cycle;
+    public Iterable<Integer> path() {
+        return path;
     }
 
     /**
-     * Returns true if the graph has an Eulerian cycle.
+     * Returns true if the graph has an Eulerian path.
      * 
-     * @return {@code true} if the graph has an Eulerian cycle;
+     * @return {@code true} if the graph has an Eulerian path;
      *         {@code false} otherwise
      */
-    public boolean hasEulerianCycle() {
-        return cycle != null;
+    public boolean hasEulerianPath() {
+        return path != null;
     }
+
 
     // returns any non-isolated vertex; -1 if no such vertex
     private static int nonIsolatedVertex(Graph G) {
@@ -171,26 +180,27 @@ public class EulerianCycle {
         return -1;
     }
 
+
     /**************************************************************************
      *
      *  The code below is solely for testing correctness of the data type.
      *
      **************************************************************************/
 
-    // Determines whether a graph has an Eulerian cycle using necessary
-    // and sufficient conditions (without computing the cycle itself):
-    //    - at least one edge
-    //    - degree(v) is even for every vertex v
+    // Determines whether a graph has an Eulerian path using necessary
+    // and sufficient conditions (without computing the path itself):
+    //    - degree(v) is even for every vertex, except for possibly two
     //    - the graph is connected (ignoring isolated vertices)
+    // This method is solely for unit testing.
     private static boolean satisfiesNecessaryAndSufficientConditions(Graph G) {
+        if (G.E() == 0) return true;
 
-        // Condition 0: at least 1 edge
-        if (G.E() == 0) return false;
-
-        // Condition 1: degree(v) is even for every vertex
+        // Condition 1: degree(v) is even except for possibly two
+        int oddDegreeVertices = 0;
         for (int v = 0; v < G.V(); v++)
             if (G.degree(v) % 2 != 0)
-                return false;
+                oddDegreeVertices++;
+        if (oddDegreeVertices > 2) return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
         int s = nonIsolatedVertex(G);
@@ -206,41 +216,34 @@ public class EulerianCycle {
     private boolean certifySolution(Graph G) {
 
         // internal consistency check
-        if (hasEulerianCycle() == (cycle() == null)) return false;
+        if (hasEulerianPath() == (path() == null)) return false;
 
-        // hashEulerianCycle() returns correct value
-        if (hasEulerianCycle() != satisfiesNecessaryAndSufficientConditions(G)) return false;
+        // hashEulerianPath() returns correct value
+        if (hasEulerianPath() != satisfiesNecessaryAndSufficientConditions(G)) return false;
 
-        // nothing else to check if no Eulerian cycle
-        if (cycle == null) return true;
+        // nothing else to check if no Eulerian path
+        if (path == null) return true;
 
-        // check that cycle() uses correct number of edges
-        if (cycle.size() != G.E() + 1) return false;
+        // check that path() uses correct number of edges
+        if (path.size() != G.E() + 1) return false;
 
-        // check that cycle() is a cycle of G
+        // check that path() is a path in G
         // TODO
-
-        // check that first and last vertices in cycle() are the same
-        int first = -1, last = -1;
-        for (int v : cycle()) {
-            if (first == -1) first = v;
-            last = v;
-        }
-        if (first != last) return false;
 
         return true;
     }
+
 
     private static void unitTest(Graph G, String description) {
         StdOut.println(description);
         StdOut.println("-------------------------------------");
         StdOut.print(G);
 
-        EulerianCycle euler = new EulerianCycle(G);
+        EulerianPath euler = new EulerianPath(G);
 
-        StdOut.print("Eulerian cycle: ");
-        if (euler.hasEulerianCycle()) {
-            for (int v : euler.cycle()) {
+        StdOut.print("Eulerian path:  ");
+        if (euler.hasEulerianPath()) {
+            for (int v : euler.path()) {
                 StdOut.print(v + " ");
             }
             StdOut.println();
@@ -253,13 +256,14 @@ public class EulerianCycle {
 
 
     /**
-     * Unit tests the {@code EulerianCycle} data type.
+     * Unit tests the {@code EulerianPath} data type.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
+
 
         // Eulerian cycle
         Graph G1 = GraphGenerator.eulerianCycle(V, E);
@@ -269,9 +273,10 @@ public class EulerianCycle {
         Graph G2 = GraphGenerator.eulerianPath(V, E);
         unitTest(G2, "Eulerian path");
 
-        // empty graph
-        Graph G3 = new GraphImpl(V);
-        unitTest(G3, "empty graph");
+        // add one random edge
+        Graph G3 = new GraphImpl(G2);
+        G3.addEdge(StdRandom.uniform(V), StdRandom.uniform(V));
+        unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
         Graph G4 = new GraphImpl(V);
@@ -279,23 +284,18 @@ public class EulerianCycle {
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
 
-        // union of two disjoint cycles
-        Graph H1 = GraphGenerator.eulerianCycle(V/2, E/2);
-        Graph H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
-        int[] perm = newIndexArray(V);
-        StdRandom.shuffle(perm);
+        // single edge
         Graph G5 = new GraphImpl(V);
-        for (int v = 0; v < H1.V(); v++)
-            for (int w : H1.adj(v))
-                G5.addEdge(perm[v], perm[w]);
-        for (int v = 0; v < H2.V(); v++)
-            for (int w : H2.adj(v))
-                G5.addEdge(perm[V/2 + v], perm[V/2 + w]);
-        unitTest(G5, "Union of two disjoint cycles");
+        G5.addEdge(StdRandom.uniform(V), StdRandom.uniform(V));
+        unitTest(G5, "single edge");
 
-        // random digraph
-        Graph G6 = GraphGenerator.simple(V, E);
-        unitTest(G6, "simple graph");
+        // empty graph
+        Graph G6 = new GraphImpl(V);
+        unitTest(G6, "empty graph");
+
+        // random graph
+        Graph G7 = GraphGenerator.simple(V, E);
+        unitTest(G7, "simple graph");
     }
 }
 
