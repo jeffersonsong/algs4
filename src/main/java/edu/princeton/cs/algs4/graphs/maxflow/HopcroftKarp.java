@@ -9,12 +9,16 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.graph;
+package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.BipartiteMatching;
+import edu.princeton.cs.algs4.graphs.graph.BipartiteX;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphGenerator;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
