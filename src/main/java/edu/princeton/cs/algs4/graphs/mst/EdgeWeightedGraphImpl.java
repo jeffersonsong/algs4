@@ -113,13 +113,13 @@ public class EdgeWeightedGraphImpl implements EdgeWeightedGraph {
      *
      * @param  G the edge-weighted graph to copy
      */
-    public EdgeWeightedGraphImpl(EdgeWeightedGraphImpl G) {
+    public EdgeWeightedGraphImpl(EdgeWeightedGraph G) {
         this(G.V());
         this.E = G.E();
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
             Stack<Edge> reverse = new LinkedStack<>();
-            for (Edge e : G.adj[v]) {
+            for (Edge e : G.adj(v)) {
                 reverse.push(e);
             }
             for (Edge e : reverse) {

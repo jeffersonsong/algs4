@@ -101,7 +101,7 @@ public class EdgeWeightedDigraphImpl implements EdgeWeightedDigraph {
      *
      * @param  G the edge-weighted digraph to copy
      */
-    public EdgeWeightedDigraphImpl(EdgeWeightedDigraphImpl G) {
+    public EdgeWeightedDigraphImpl(EdgeWeightedDigraph G) {
         this(G.V());
         this.E = G.E();
         for (int v = 0; v < G.V(); v++)
@@ -109,7 +109,7 @@ public class EdgeWeightedDigraphImpl implements EdgeWeightedDigraph {
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
             Stack<DirectedEdge> reverse = new LinkedStack<>();
-            for (DirectedEdge e : G.adj[v]) {
+            for (DirectedEdge e : G.adj(v)) {
                 reverse.push(e);
             }
             for (DirectedEdge e : reverse) {
