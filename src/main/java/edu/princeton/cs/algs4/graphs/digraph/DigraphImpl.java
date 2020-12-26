@@ -281,7 +281,6 @@ public class DigraphImpl implements Digraph {
         DigraphImpl G = new DigraphImpl(in);
         StdOut.println(G);
     }
-
 }
 
 /******************************************************************************
