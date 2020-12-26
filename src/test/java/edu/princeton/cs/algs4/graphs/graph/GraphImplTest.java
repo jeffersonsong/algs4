@@ -16,7 +16,7 @@ public class GraphImplTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyG.txt");
+        In in = new In("src/test/resources/41graph/tinyG.txt");
         G = new GraphImpl(in);
     }
 
