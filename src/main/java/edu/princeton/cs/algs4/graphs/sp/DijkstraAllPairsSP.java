@@ -12,6 +12,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -114,7 +115,7 @@ public class DijkstraAllPairsSP {
 
         // read edge-weighted digraph
         In in = new In(args[0]);
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
 
         // compute shortest paths between all pairs of vertices
         DijkstraAllPairsSP spt = new DijkstraAllPairsSP(G);

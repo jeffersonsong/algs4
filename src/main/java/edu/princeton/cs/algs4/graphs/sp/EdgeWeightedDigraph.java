@@ -16,6 +16,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -95,42 +96,6 @@ public class EdgeWeightedDigraph {
             double weight = 0.01 * StdRandom.uniform(100);
             DirectedEdge e = new DirectedEdge(v, w, weight);
             addEdge(e);
-        }
-    }
-
-    /**  
-     * Initializes an edge-weighted digraph from the specified input stream.
-     * The format is the number of vertices <em>V</em>,
-     * followed by the number of edges <em>E</em>,
-     * followed by <em>E</em> pairs of vertices and edge weights,
-     * with each entry separated by whitespace.
-     *
-     * @param  in the input stream
-     * @throws IllegalArgumentException if {@code in} is {@code null}
-     * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
-     * @throws IllegalArgumentException if the number of vertices or edges is negative
-     */
-    public EdgeWeightedDigraph(In in) {
-        requiresNotNull(in,"argument is null");
-        try {
-            this.V = in.readInt();
-            checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
-            indegree = new int[V];
-            adj = newArray(V, i->new LinkedBag<>());
-
-            int E = in.readInt();
-            checkArgument(E >= 0, "Number of edges must be nonnegative");
-            for (int i = 0; i < E; i++) {
-                int v = in.readInt();
-                int w = in.readInt();
-                validateVertex(v);
-                validateVertex(w);
-                double weight = in.readDouble();
-                addEdge(new DirectedEdge(v, w, weight));
-            }
-        }   
-        catch (NoSuchElementException e) {
-            throw new IllegalArgumentException("invalid input format in EdgeWeightedDigraph constructor", e);
         }
     }
 
@@ -278,7 +243,7 @@ public class EdgeWeightedDigraph {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
         StdOut.println(G);
     }
 

@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
@@ -16,9 +17,9 @@ public class EdgeWeightedDigraphTest {
     private EdgeWeightedDigraph G;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         In in = new In("src/test/resources/44sp/tinyEWD.txt");
-        G = new EdgeWeightedDigraph(in);
+        G = GraphReader.readEdgeWeightedDigraph(in);
     }
 
     @Test
