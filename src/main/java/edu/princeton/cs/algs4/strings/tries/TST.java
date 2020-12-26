@@ -69,7 +69,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class TST<Value> implements Trie<Value>, ST<String, Value> {
+public class TST<Value> implements Trie<Value> {
     private int n;              // size
     private Node<Value> root;   // root of TST
 

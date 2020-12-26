@@ -57,12 +57,6 @@ public class TrieSET implements SET<String> {
     }
 
     /**
-     * Initializes an empty set of strings.
-     */
-    public TrieSET() {
-    }
-
-    /**
      * Does the set contain the given key?
      * @param key the key
      * @return {@code true} if the set contains {@code key} and
