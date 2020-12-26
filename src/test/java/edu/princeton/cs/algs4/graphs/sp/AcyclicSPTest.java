@@ -12,7 +12,7 @@ public class AcyclicSPTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyEDG2.txt");
+        In in = new In("src/test/resources/44sp/tinyEDG2.txt");
         EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
         sp = new AcyclicSP(G, 0);
     }
