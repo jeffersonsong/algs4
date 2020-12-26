@@ -16,7 +16,7 @@ public abstract class MSTBaseTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyEWG.txt");
+        In in = new In("src/test/resources/43mst/tinyEWG.txt");
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         mst = createMST(G);
     }
