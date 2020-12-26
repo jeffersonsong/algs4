@@ -2,7 +2,6 @@ package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
-import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,7 +23,7 @@ public class EulerianTest {
     }
 
     @Test
-    public void testEulerianCircle() {
+    public void testEulerianCycle() {
         Graph g2 = new GraphImpl(5);
         g2.addEdge(1, 0);
         g2.addEdge(0, 2);
@@ -32,7 +31,22 @@ public class EulerianTest {
         g2.addEdge(0, 3);
         g2.addEdge(3, 4);
         g2.addEdge(4, 0);
-        assertThat(euler.isEulerian(g2), is(EulerianType.EULER_CIRCLE));
+        assertThat(euler.isEulerian(g2), is(EulerianType.EULER_CYCLE));
+    }
+
+    @Test
+    public void testEulerianCycle2() {
+        Graph g4 = new GraphImpl(3);
+        g4.addEdge(0, 1);
+        g4.addEdge(1, 2);
+        g4.addEdge(2, 0);
+        assertThat(euler.isEulerian(g4), is(EulerianType.EULER_CYCLE));
+    }
+
+    @Test
+    public void testEulerianCycle3() {
+        Graph g5 = new GraphImpl(3);
+        assertThat(euler.isEulerian(g5), is(EulerianType.EULER_CYCLE));
     }
 
     @Test
@@ -44,21 +58,6 @@ public class EulerianTest {
         g3.addEdge(0, 3);
         g3.addEdge(3, 4);
         g3.addEdge(1, 3);
-        assertThat(euler.isEulerian(g3), is(EulerianType.NON_EULERIAN));
-    }
-
-    @Test
-    public void testEulerianCircle2() {
-        Graph g4 = new GraphImpl(3);
-        g4.addEdge(0, 1);
-        g4.addEdge(1, 2);
-        g4.addEdge(2, 0);
-        assertThat(euler.isEulerian(g4), is(EulerianType.EULER_CIRCLE));
-    }
-
-    @Test
-    public void testEulerianCircle3() {
-        Graph g5 = new GraphImpl(3);
-        assertThat(euler.isEulerian(g5), is(EulerianType.EULER_CIRCLE));
+        assertThat(euler.isEulerian(g3), is(EulerianType.NOT_EULERIAN));
     }
 }

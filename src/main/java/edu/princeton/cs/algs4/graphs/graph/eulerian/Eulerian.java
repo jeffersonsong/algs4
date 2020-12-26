@@ -21,7 +21,7 @@ public class Eulerian {
     public EulerianType isEulerian(Graph G) {
         // Check if all non-zero degree vertices are connected
         if (!isConnected(G)) {
-            return EulerianType.NON_EULERIAN;
+            return EulerianType.NOT_EULERIAN;
         }
 
         // Count vertices with odd degree
@@ -34,13 +34,13 @@ public class Eulerian {
 
         // If count is more than 2, then graph is not Eulerian
         if (odd > 2) {
-            return EulerianType.NON_EULERIAN;
+            return EulerianType.NOT_EULERIAN;
         }
 
         // If odd count is 2, then semi-eulerian.
         // If odd count is 0, then eulerian
         // Note that odd count can never be 1 for undirected graph
-        return (odd == 2) ? EulerianType.EULER_PATH : EulerianType.EULER_CIRCLE;
+        return (odd == 2) ? EulerianType.EULER_PATH : EulerianType.EULER_CYCLE;
     }
 
     private boolean isConnected(Graph G) {
