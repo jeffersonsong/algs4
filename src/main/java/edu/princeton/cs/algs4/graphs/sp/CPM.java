@@ -28,83 +28,122 @@ package edu.princeton.cs.algs4.graphs.sp;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Arrays;
+
 /**
- *  The {@code CPM} class provides a client that solves the
- *  parallel precedence-constrained job scheduling problem
- *  via the <em>critical path method</em>. It reduces the problem
- *  to the longest-paths problem in edge-weighted DAGs.
- *  It builds an edge-weighted digraph (which must be a DAG)
- *  from the job-scheduling problem specification,
- *  finds the longest-paths tree, and computes the longest-paths
- *  lengths (which are precisely the start times for each job).
- *  <p>
- *  This implementation uses {@link AcyclicLP} to find a longest
- *  path in a DAG.
- *  The program takes &Theta;(<em>V</em> + <em>E</em>) time in
- *  the worst case, where <em>V</em> is the number of jobs and
- *  <em>E</em> is the number of precedence constraints.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * The {@code CPM} class provides a client that solves the
+ * parallel precedence-constrained job scheduling problem
+ * via the <em>critical path method</em>. It reduces the problem
+ * to the longest-paths problem in edge-weighted DAGs.
+ * It builds an edge-weighted digraph (which must be a DAG)
+ * from the job-scheduling problem specification,
+ * finds the longest-paths tree, and computes the longest-paths
+ * lengths (which are precisely the start times for each job).
+ * <p>
+ * This implementation uses {@link AcyclicLP} to find a longest
+ * path in a DAG.
+ * The program takes &Theta;(<em>V</em> + <em>E</em>) time in
+ * the worst case, where <em>V</em> is the number of jobs and
+ * <em>E</em> is the number of precedence constraints.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * <p>
+ * <p>
+ * Parallel precedence-constrained scheduling. Given a set of jobs of specified duration
+ * to be completed, with precedence constraints that specify that certain jobs
+ * have to be completed before certain other jobs are begun, how can we schedule
+ * the jobs on identical processors (as many as needed ) such that they are all completed
+ * in the minimum amount of time while still respecting the constraints?
+ * <p>
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class CPM {
-    private int n;
-    private int source, sink;
-    private AcyclicLP lp;
 
-    // this class cannot be instantiated
-    private CPM(In in) {
-        // number of jobs
-        n = in.readInt();
-
+    public static JobSchedule[] schedule(Job[] jobs) {
         // source and sink
-        source = 2*n;
-        sink   = 2*n + 1;
+        int source = 2 * jobs.length;
+        int sink = 2 * jobs.length + 1;
 
-        // build network
-        EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(2*n + 2);
-        for (int i = 0; i < n; i++) {
-            double duration = in.readDouble();
-            G.addEdge(new DirectedEdge(source, i, 0.0));
-            G.addEdge(new DirectedEdge(i+n, sink, 0.0));
-            G.addEdge(new DirectedEdge(i, i+n,    duration));
-
-            // precedence constraints
-            int m = in.readInt();
-            for (int j = 0; j < m; j++) {
-                int precedent = in.readInt();
-                G.addEdge(new DirectedEdge(n+i, precedent, 0.0));
-            }
-        }
+        EdgeWeightedDigraphImpl G = buildNetwork(jobs, source, sink);
 
         // compute longest path
-        lp = new AcyclicLP(G, source);
-    }
+        AcyclicLP lp = new AcyclicLP(G, source);
 
-    public void print() {
-        // print results
-        StdOut.println(" job   start  finish");
-        StdOut.println("--------------------");
-        for (int i = 0; i < n; i++) {
-            StdOut.printf("%4d %7.1f %7.1f\n", i, lp.distTo(i), lp.distTo(i+n));
-        }
-        StdOut.printf("Finish time: %7.1f\n", lp.distTo(sink));
+        JobSchedule[] schedules = getJobSchedules(jobs, lp);
+
+        Arrays.sort(schedules);
+
+        return schedules;
     }
 
     /**
-     *  Reads the precedence constraints from standard input
-     *  and prints a feasible schedule to standard output.
+     * The critical path method for parallel scheduling is to proceed as follows:
+     * Create an edge-weighted DAG with a source s, a sink t, and two vertices for each
+     * job (a start vertex and an end vertex). For each job, add an edge from its start vertex
+     * to its end vertex with weight equal to its duration. For each precedence constraint
+     * v->w, add a zero-weight edge from the end vertex corresponding tovs to the beginning
+     * vertex corresponding to w. Also add zero-weight edges from the source to each
+     * job’s start vertex and from each job’s end vertex to the sink. Now, schedule each job
+     * at the time given by the length of its longest path from the source.
+     *
+     * @param jobs jobs.
+     * @param source source.
+     * @param sink sink.
+     * @return job network.
+     */
+    private static EdgeWeightedDigraphImpl buildNetwork(Job[] jobs, int source, int sink) {
+        int n = jobs.length;
+
+        EdgeWeightedDigraphImpl G = new EdgeWeightedDigraphImpl(2 * n + 2);
+        for (int i = 0; i < n; i++) {
+            Job job = jobs[i];
+            G.addEdge(new DirectedEdge(source, i, 0.0));
+            G.addEdge(new DirectedEdge(i + n, sink, 0.0));
+            G.addEdge(new DirectedEdge(i, i + n, job.duration));
+
+            // precedence constraints
+            for (int precedent : job.precedentTo) {
+                G.addEdge(new DirectedEdge(n + i, precedent, 0.0));
+            }
+        }
+        return G;
+    }
+
+    private static JobSchedule[] getJobSchedules(Job[] jobs, AcyclicLP lp) {
+        JobSchedule[] schedules = new JobSchedule[jobs.length];
+        for (int i = 0; i < jobs.length; i++) {
+            schedules[i] = new JobSchedule(i, lp.distTo(i), lp.distTo(i + jobs.length));
+        }
+        return schedules;
+    }
+
+    public static void print(Job[] jobs, JobSchedule[] schedules) {
+        StdOut.println("Job#\t  start\t    end\t    precedent constraints");
+        for (JobSchedule schedule : schedules) {
+            StdOut.print(String.format("%4d\t%7.1f\t%7.1f\t", schedule.id, schedule.start, schedule.end));
+
+            for (int i : jobs[schedule.id].precedentTo) {
+                StdOut.print('\t');
+                StdOut.print(i);
+            }
+            StdOut.println();
+        }
+    }
+
+    /**
+     * Reads the precedence constraints from standard input
+     * and prints a feasible schedule to standard output.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        CPM cpm = new CPM(in);
-        cpm.print();
+        Job[] jobs = Job.readJobs(in);
+        JobSchedule[] schedules = CPM.schedule(jobs);
+        CPM.print(jobs, schedules);
     }
 }
 
