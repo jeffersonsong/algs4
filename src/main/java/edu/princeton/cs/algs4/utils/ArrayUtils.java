@@ -34,6 +34,13 @@ public class ArrayUtils {
         return array;
     }
 
+    public static double[] newDoubleArray(int length, double defaultValue) {
+        checkArgument(length >= 0, "Array dimension is non-negative");
+        double[] array = new double[length];
+        Arrays.fill(array, defaultValue);
+        return array;
+    }
+
     public static <T> T[] newArray(int length, IntFunction<T> factoryMethod) {
         T sample = factoryMethod.apply(0);
         T[] array = (T[]) Array.newInstance(sample.getClass(), length);

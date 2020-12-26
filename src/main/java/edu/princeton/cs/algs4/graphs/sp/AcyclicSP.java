@@ -27,6 +27,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newDoubleArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -53,7 +54,6 @@ public class AcyclicSP implements SP {
     private final double[] distTo;         // distTo[v] = distance  of shortest s->v path
     private final DirectedEdge[] edgeTo;   // edgeTo[v] = last edge on shortest s->v path
 
-
     /**
      * Computes a shortest paths tree from {@code s} to every other vertex in
      * the directed acyclic graph {@code G}.
@@ -63,13 +63,11 @@ public class AcyclicSP implements SP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public AcyclicSP(EdgeWeightedDigraph G, int s) {
-        distTo = new double[G.V()];
+        distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
         edgeTo = new DirectedEdge[G.V()];
 
         validateVertex(s);
 
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = Double.POSITIVE_INFINITY;
         distTo[s] = 0.0;
 
         // visit vertices in topological order

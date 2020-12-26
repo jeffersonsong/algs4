@@ -105,7 +105,6 @@ public class DijkstraAllPairsSP {
         checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
 
-
     /**
      * Unit tests the {@code DijkstraAllPairsSP} data type.
      *

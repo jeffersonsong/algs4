@@ -47,6 +47,7 @@ import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newDoubleArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -90,13 +91,11 @@ public class DijkstraUndirectedSP {
             checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
         }
 
-        distTo = new double[G.V()];
+        distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
         edgeTo = new Edge[G.V()];
 
         validateVertex(s);
 
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = Double.POSITIVE_INFINITY;
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
