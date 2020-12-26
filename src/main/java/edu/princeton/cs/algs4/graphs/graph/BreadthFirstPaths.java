@@ -49,8 +49,6 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Arrays;
-
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
@@ -199,7 +197,7 @@ public class BreadthFirstPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphGenerator.read(in);
+        Graph G = GraphReader.read(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);

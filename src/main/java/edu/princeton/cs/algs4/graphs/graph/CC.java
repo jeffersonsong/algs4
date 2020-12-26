@@ -216,7 +216,7 @@ public class CC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphGenerator.read(in);
+        Graph G = GraphReader.read(in);
         CC cc = new CC(G);
 
         // number of connected components

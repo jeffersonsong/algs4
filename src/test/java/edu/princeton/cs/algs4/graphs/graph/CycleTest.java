@@ -9,7 +9,7 @@ public class CycleTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph G = GraphGenerator.read(in);
+        Graph G = GraphReader.read(in);
         Cycle finder = new Cycle(G);
         assertTrue(finder.hasCycle());
     }

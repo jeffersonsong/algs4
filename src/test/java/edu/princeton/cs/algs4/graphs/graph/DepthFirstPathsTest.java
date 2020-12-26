@@ -19,7 +19,7 @@ public class DepthFirstPathsTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        G = GraphGenerator.read(in);
+        G = GraphReader.read(in);
     }
 
     @Test

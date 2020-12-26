@@ -14,7 +14,7 @@ public class CCTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph g = GraphGenerator.read(in);
+        Graph g = GraphReader.read(in);
         cc = new CC(g);
     }
 

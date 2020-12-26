@@ -36,19 +36,15 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.fundamentals.bag.Bag;
-
-import java.lang.reflect.Array;
-import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code Graph} class represents an undirected graph of vertices
@@ -99,37 +95,6 @@ public class GraphImpl implements Graph {
         this.V = V;
         this.E = 0;
         adj = newArray(V, i->new LinkedBag<>());
-    }
-
-    /**  
-     * Initializes a graph from the specified input stream.
-     * The format is the number of vertices <em>V</em>,
-     * followed by the number of edges <em>E</em>,
-     * followed by <em>E</em> pairs of vertices, with each entry separated by whitespace.
-     *
-     * @param  in the input stream
-     * @throws IllegalArgumentException if {@code in} is {@code null}
-     * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
-     * @throws IllegalArgumentException if the number of vertices or edges is negative
-     * @throws IllegalArgumentException if the input stream is in the wrong format
-     */
-    public GraphImpl(In in) {
-        requiresNotNull(in, "argument is null");
-        try {
-            this.V = in.readInt();
-            checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            adj = newArray(V, i->new LinkedBag<>());
-            int E = in.readInt();
-            checkArgument(E >= 0, "number of edges in a Graph must be nonnegative");
-            for (int i = 0; i < E; i++) {
-                int v = in.readInt();
-                int w = in.readInt();
-                addEdge(v, w);
-            }
-        }
-        catch (NoSuchElementException e) {
-            throw new IllegalArgumentException("invalid input format in Graph constructor", e);
-        }
     }
 
     /**
@@ -242,7 +207,7 @@ public class GraphImpl implements Graph {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphGenerator.read(in);
+        Graph G = GraphReader.read(in);
         StdOut.println(G);
     }
 }
