@@ -42,7 +42,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
-import edu.princeton.cs.algs4.sorting.pq.IndexPQImpl;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -99,7 +99,7 @@ public class DijkstraUndirectedSP {
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
-        pq = IndexPQImpl.indexMinPQ(G.V());
+        pq = IndexPQBinaryHeapImpl.indexMinPQ(G.V());
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.poll();

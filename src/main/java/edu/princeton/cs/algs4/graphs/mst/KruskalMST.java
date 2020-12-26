@@ -39,7 +39,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
-import edu.princeton.cs.algs4.sorting.pq.PQImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -82,7 +82,7 @@ public class KruskalMST implements MST {
      */
     public KruskalMST(EdgeWeightedGraph G) {
         // more efficient to build heap by passing array of edges
-        PQ<Edge> pq = PQImpl.minPQ();
+        PQ<Edge> pq = PQBinaryHeapImpl.minPQ();
         for (Edge e : G.edges()) {
             pq.insert(e);
         }

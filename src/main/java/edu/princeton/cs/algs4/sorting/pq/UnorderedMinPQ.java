@@ -96,7 +96,7 @@ public class UnorderedMinPQ<Key extends Comparable<Key>> implements PQ<Key> {
         // add all items to copy of heap
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
-            copy = PQImpl.maxPQ(size());
+            copy = PQBinaryHeapImpl.maxPQ(size());
             for (int i = 1; i <= n; i++)
                 copy.insert(pq[i]);
         }

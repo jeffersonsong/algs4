@@ -42,7 +42,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
-import edu.princeton.cs.algs4.sorting.pq.IndexPQImpl;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -90,7 +90,7 @@ public class PrimMST implements MST {
         edgeTo = new Edge[G.V()];
         distTo = new double[G.V()];
         marked = new boolean[G.V()];
-        pq = IndexPQImpl.indexMinPQ(G.V());
+        pq = IndexPQBinaryHeapImpl.indexMinPQ(G.V());
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
 
