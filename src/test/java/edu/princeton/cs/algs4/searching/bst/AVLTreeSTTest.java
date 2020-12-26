@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.searching.st.OrderedSTBaseTest;
 
 public class AVLTreeSTTest extends OrderedSTBaseTest {
     @Override
-    protected OrderedST<Character, Integer> createOrderedST() {
+    protected OrderedST<String, Integer> createOrderedST() {
         return new AVLTreeST<>();
     }
 }

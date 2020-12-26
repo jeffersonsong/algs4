@@ -28,6 +28,7 @@ package edu.princeton.cs.algs4.searching;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -101,7 +102,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *
  *  @author John Hentosh (based on an implementation by Robert Sedgewick)
  */
-public class PatriciaST<Value> {
+public class PatriciaST<Value> implements ST<String, Value> {
     private final Node head;
     private int count;
 
@@ -147,7 +148,10 @@ public class PatriciaST<Value> {
     public void put(String key, Value val) {
         requiresNotNull(key, "called put(null)");
         checkArgument(key.length() > 0, "invalid key");
-        if (val == null) delete(key);
+        if (val == null) {
+            delete(key);
+            return;
+        }
         Node p;
         Node x = head;
         do {
@@ -269,7 +273,7 @@ public class PatriciaST<Value> {
      * @return {@code true} if this symbol table is empty and
      * {@code false} otherwise
      */
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return count == 0;
     }
 
@@ -277,7 +281,7 @@ public class PatriciaST<Value> {
      * Returns the number of key-value pairs within the symbol table.
      * @return the number of key-value pairs within this symbol table
      */
-    int size() {
+    public int size() {
         return count;
     }
 

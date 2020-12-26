@@ -1,13 +1,11 @@
-package edu.princeton.cs.algs4.searching.hashtable;
+package edu.princeton.cs.algs4.searching;
 
 import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.searching.st.STBaseTest;
 
-public class SeparateChainingHashSTTest extends STBaseTest {
-
+public class PatriciaSTTest extends STBaseTest {
     @Override
     protected ST<String, Integer> createST() {
-        return new SeparateChainingHashST<>();
+        return new PatriciaST<Integer>();
     }
-
 }

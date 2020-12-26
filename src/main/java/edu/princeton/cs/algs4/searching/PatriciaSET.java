@@ -28,6 +28,7 @@ package edu.princeton.cs.algs4.searching;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.set.SET;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -99,7 +100,7 @@ import static java.util.Objects.requireNonNull;
  *
  *  @author John Hentosh (based on an implementation by Robert Sedgewick)
  */
-public class PatriciaSET implements Iterable<String> {
+public class PatriciaSET implements SET<String> {
     private final Node head;
     private int count;
 
@@ -189,14 +190,13 @@ public class PatriciaSET implements Iterable<String> {
         } while (p.b < x.b);
         return x.key.equals(key);
     }
-
     /**
      * Removes the key from the set if the key is present.
      * @param key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      * @throws IllegalArgumentException if {@code key} is the empty string.
      */
-    public void delete(String key) {
+    public void remove(String key) {
         requiresNotNull(key, "called delete(null)");
         checkArgument(key.length() > 0, "invalid key");
         Node g;             // previous previous (grandparent)
@@ -244,7 +244,7 @@ public class PatriciaSET implements Iterable<String> {
      * @return {@code true} if the set is empty, and {@code false}
      * otherwise
      */
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return count == 0;
     }
 
@@ -252,7 +252,7 @@ public class PatriciaSET implements Iterable<String> {
      * Returns the number of keys in the set.
      * @return the number of keys in the set
      */
-    int size() {
+    public int size() {
         return count;
     }
 
@@ -401,7 +401,7 @@ public class PatriciaSET implements Iterable<String> {
             int limitDelete = limitItem / 2;
             StdOut.printf("Deleting (%d items)...\n", limitDelete);
             for (int i = 0; i < limitDelete; i++)
-                set.delete(a[i]);
+                set.remove(a[i]);
 
             countItems = 0;
             StdOut.printf("Iterating...\n");
@@ -430,7 +430,7 @@ public class PatriciaSET implements Iterable<String> {
             StdOut.printf("Deleting the rest (%d items)...\n",
                 limitItem - countDelete);
             for (int i = countDelete; i < limitItem; i++)
-                set.delete(a[i]);
+                set.remove(a[i]);
             if (!set.isEmpty()) ok = false;
 
             countPass++;
