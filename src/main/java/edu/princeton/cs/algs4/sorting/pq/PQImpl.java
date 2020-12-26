@@ -1,3 +1,22 @@
+/******************************************************************************
+ *  Compilation:  javac PQImpl.java
+ *  Execution:    java PQImpl < input.txt
+ *  Dependencies: StdIn.java StdOut.java
+ *  Data files:   https://algs4.cs.princeton.edu/24pq/tinyPQ.txt
+ *
+ *  Generic min priority queue implementation with a binary heap.
+ *  Can be used with a comparator instead of the natural order.
+ *
+ *  % java MinPQ < tinyPQ.txt
+ *  E A E (6 left on pq)
+ *
+ *  We use a one-based array to simplify parent and child calculations.
+ *
+ *  Can be optimized by replacing full exchanges with half exchanges
+ *  (ala insertion sort).
+ *
+ ******************************************************************************/
+
 package edu.princeton.cs.algs4.sorting.pq;
 
 import edu.princeton.cs.algs4.utils.ArrayUtils;
@@ -11,6 +30,32 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
+/**
+ *  The {@code PQImpl} class represents a priority queue of generic keys.
+ *  It supports the usual <em>insert</em> and <em>delete-the-minimum</em>
+ *  operations, along with methods for peeking at the minimum key,
+ *  testing if the priority queue is empty, and iterating through
+ *  the keys.
+ *  <p>
+ *  This implementation uses a <em>binary heap</em>.
+ *  The <em>insert</em> and <em>delete-the-minimum</em> operations take
+ *  &Theta;(log <em>n</em>) amortized time, where <em>n</em> is the number
+ *  of elements in the priority queue. This is an amortized bound
+ *  (and not a worst-case bound) because of array resizing operations.
+ *  The <em>min</em>, <em>size</em>, and <em>is-empty</em> operations take
+ *  &Theta;(1) time in the worst case.
+ *  Construction takes time proportional to the specified capacity or the
+ *  number of items used to initialize the data structure.
+ *  <p>
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
+ *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ *  @author Robert Sedgewick
+ *  @author Kevin Wayne
+ *
+ *  @param <Key> the generic type of key on this priority queue
+ */
 public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
@@ -49,6 +94,13 @@ public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
         return new PQImpl<>(initCapacity, comparator);
     }
 
+    /**
+     * Initializes an empty priority queue with the given initial capacity,
+     * using the given comparator.
+     *
+     * @param  initCapacity the initial capacity of this priority queue
+     * @param  comparator the order in which to compare the keys
+     */
     public PQImpl(int initCapacity, Comparator<Key> comparator) {
         checkArgument(initCapacity > 0, "Invalid initial capacity.");
         requiresNotNull(comparator);
@@ -58,6 +110,14 @@ public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
         n = 0;
     }
 
+    /**
+     * Initializes a priority queue from the array of keys.
+     * <p>
+     * Takes time proportional to the number of keys, using sink-based heap construction.
+     *
+     * @param  keys the array of keys
+     * @param  comparator the order in which to compare the keys
+     */
     public PQImpl(Key[] keys, Comparator<Key> comparator) {
         checkArgument(keys != null, "Array not set.");
         checkArgument(keys.length > 0, "Empty array.");
@@ -73,16 +133,32 @@ public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
         assert isMinHeap();
     }
 
+    /**
+     * Returns true if this priority queue is empty.
+     *
+     * @return {@code true} if this priority queue is empty;
+     *         {@code false} otherwise
+     */
     @Override
     public boolean isEmpty() {
         return n == 0;
     }
 
+    /**
+     * Returns the number of keys on this priority queue.
+     *
+     * @return the number of keys on this priority queue
+     */
     @Override
     public int size() {
         return n;
     }
 
+    /**
+     * Adds a new key to this priority queue.
+     *
+     * @param  x the key to add to this priority queue
+     */
     @Override
     public void insert(Key x) {
         // double size of array if necessary
@@ -95,6 +171,12 @@ public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
         assert isMinHeap();
     }
 
+    /**
+     * Removes and returns a smallest key on this priority queue.
+     *
+     * @return a smallest key on this priority queue
+     * @throws NoSuchElementException if this priority queue is empty
+     */
     @Override
     public Key poll() {
         if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
@@ -107,11 +189,18 @@ public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
         return min;
     }
 
+    // resize the underlying array to have the given capacity
     private void resize(int capacity) {
         assert capacity > n;
         pq = Arrays.copyOf(pq, capacity);
     }
 
+    /**
+     * Returns a smallest key on this priority queue.
+     *
+     * @return a smallest key on this priority queue
+     * @throws NoSuchElementException if this priority queue is empty
+     */
     @Override
     public Key peek() {
         if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
