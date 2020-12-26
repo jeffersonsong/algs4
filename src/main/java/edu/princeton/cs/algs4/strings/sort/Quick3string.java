@@ -105,13 +105,6 @@ public class Quick3string {
                 exch(a, j, j-1);
     }
 
-    // exchange a[i] and a[j]
-    private static void exch(String[] a, int i, int j) {
-        String temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-
     // is v less than w, starting at character d
     // DEPRECATED BECAUSE OF SLOW SUBSTRING EXTRACTION IN JAVA 7
     // private static boolean less(String v, String w, int d) {

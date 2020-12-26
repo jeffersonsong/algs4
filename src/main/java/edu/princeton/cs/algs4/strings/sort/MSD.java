@@ -119,13 +119,6 @@ public class MSD {
                 exch(a, j, j-1);
     }
 
-    // exchange a[i] and a[j]
-    private static void exch(String[] a, int i, int j) {
-        String temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-
     // is v less than w, starting at character d
     private static boolean less(String v, String w, int d) {
         // assert v.substring(0, d).equals(w.substring(0, d));
@@ -135,7 +128,6 @@ public class MSD {
         }
         return v.length() < w.length();
     }
-
 
    /**
      * Rearranges the array of 32-bit integers in ascending order.
