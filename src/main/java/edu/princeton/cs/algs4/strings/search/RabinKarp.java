@@ -47,6 +47,9 @@ import java.util.Random;
  *  For additional documentation,
  *  see <a href="https://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * x(i) = t(i)R^(m-1) + t(i+1)R^(m-2) + ... + t(i+m-1)R^0
+ * x(i+1) = (x(i) - t(i) R^(m-1)) + t(i+m)
  */
 public class RabinKarp implements CompiledPatternSearch {
     private final String pat;      // the pattern  // needed only for Las Vegas
@@ -55,18 +58,6 @@ public class RabinKarp implements CompiledPatternSearch {
     private final long q;          // a large prime, small enough to avoid long overflow
     private final int R;           // radix
     private long RM;         // R^(M-1) % Q
-
-    /**
-     * Preprocesses the pattern string.
-     *
-     * @param pattern the pattern string
-     * @param R the alphabet size
-     */
-    public RabinKarp(char[] pattern, int R) {
-        this.pat = String.valueOf(pattern);
-        this.R = R;        
-        throw new UnsupportedOperationException("Operation not supported yet");
-    }
 
     /**
      * Preprocesses the pattern string.
@@ -81,32 +72,27 @@ public class RabinKarp implements CompiledPatternSearch {
 
         // precompute R^(m-1) % q for use in removing leading digit
         RM = 1;
-        for (int i = 1; i <= m-1; i++)
+        for (int i = 1; i <= m-1; i++) {
             RM = (R * RM) % q;
+        }
         patHash = hash(pat, m);
-    } 
+    }
+
+    // a random 31-bit prime
+    private static long longRandomPrime() {
+        BigInteger prime = BigInteger.probablePrime(31, new Random());
+        return prime.longValue();
+    }
 
     // Compute hash for key[0..m-1]. 
     private long hash(String key, int m) { 
         long h = 0; 
-        for (int j = 0; j < m; j++) 
+        for (int j = 0; j < m; j++) {
             h = (R * h + key.charAt(j)) % q;
+        }
         return h;
     }
 
-    // Las Vegas version: does pat[] match txt[i..i-m+1] ?
-    private boolean check(String txt, int i) {
-        for (int j = 0; j < m; j++) 
-            if (pat.charAt(j) != txt.charAt(i + j)) 
-                return false; 
-        return true;
-    }
-
-    // Monte Carlo version: always return true
-    // private boolean check(int i) {
-    //    return true;
-    //}
- 
     /**
      * Returns the index of the first occurrrence of the pattern string
      * in the text string.
@@ -140,11 +126,12 @@ public class RabinKarp implements CompiledPatternSearch {
         return n;
     }
 
-
-    // a random 31-bit prime
-    private static long longRandomPrime() {
-        BigInteger prime = BigInteger.probablePrime(31, new Random());
-        return prime.longValue();
+    // Las Vegas version: does pat[] match txt[i..i-m+1] ?
+    private boolean check(String txt, int i) {
+        for (int j = 0; j < m; j++)
+            if (pat.charAt(j) != txt.charAt(i + j))
+                return false;
+        return true;
     }
 
     /** 

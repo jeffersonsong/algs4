@@ -37,7 +37,6 @@ import java.util.Arrays;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
-
 /**
  *  The {@code GrahamScan} data type provides methods for computing the 
  *  convex hull of a set of <em>n</em> points in the plane.
@@ -67,13 +66,13 @@ public class GrahamScan {
         requiresNotNull(points, "argument is null");
         checkArgument(points.length > 0, "array is of length 0");
 
+        for (int i = 0; i < points.length; i++) {
+            requiresNotNull(points[i], "points[" + i + "] is null");
+        }
+
         // defensive copy
         int n = points.length;
-        Point2D[] a = new Point2D[n];
-        for (int i = 0; i < n; i++) {
-            checkArgument(points[i] != null, "points[" + i + "] is null");
-            a[i] = points[i];
-        }
+        Point2D[] a = Arrays.copyOf(points, points.length);
 
         // preprocess so that a[0] has lowest y-coordinate; break ties by x-coordinate
         // a[0] is an extreme point of the convex hull

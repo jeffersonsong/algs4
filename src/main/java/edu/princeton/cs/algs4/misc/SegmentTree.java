@@ -54,7 +54,6 @@ public class SegmentTree {
         build(1, 0, array.length);
     }
 
-
     public int size() {
         return array.length;
     }
