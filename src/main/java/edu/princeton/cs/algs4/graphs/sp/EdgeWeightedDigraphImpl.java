@@ -198,23 +198,6 @@ public class EdgeWeightedDigraphImpl implements EdgeWeightedDigraph {
     }
 
     /**
-     * Returns all directed edges in this edge-weighted digraph.
-     * To iterate over the edges in this edge-weighted digraph, use foreach notation:
-     * {@code for (DirectedEdge e : G.edges())}.
-     *
-     * @return all edges in this edge-weighted digraph, as an iterable
-     */
-    public Iterable<DirectedEdge> edges() {
-        Bag<DirectedEdge> list = new LinkedBag<>();
-        for (int v = 0; v < V; v++) {
-            for (DirectedEdge e : adj(v)) {
-                list.add(e);
-            }
-        }
-        return list;
-    } 
-
-    /**
      * Returns a string representation of this edge-weighted digraph.
      *
      * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,

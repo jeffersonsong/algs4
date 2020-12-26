@@ -82,15 +82,6 @@ public interface EdgeWeightedDigraph {
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     int indegree(int v);
-
-    /**
-     * Returns all directed edges in this edge-weighted digraph.
-     * To iterate over the edges in this edge-weighted digraph, use foreach notation:
-     * {@code for (DirectedEdge e : G.edges())}.
-     *
-     * @return all edges in this edge-weighted digraph, as an iterable
-     */
-    Iterable<DirectedEdge> edges();
 }
 
 /******************************************************************************

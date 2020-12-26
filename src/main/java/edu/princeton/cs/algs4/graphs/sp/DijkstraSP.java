@@ -78,8 +78,10 @@ public class DijkstraSP implements SP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DijkstraSP(EdgeWeightedDigraph G, int s) {
-        for (DirectedEdge e : G.edges()) {
-            checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
+        for (int v = 0; v < G.V(); v++) {
+            for (DirectedEdge e : G.adj(v)) {
+                checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
+            }
         }
 
         distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
@@ -163,10 +165,12 @@ public class DijkstraSP implements SP {
     private boolean check(EdgeWeightedDigraph G, int s) {
 
         // check that edge weights are nonnegative
-        for (DirectedEdge e : G.edges()) {
-            if (e.weight() < 0) {
-                System.err.println("negative edge weight detected");
-                return false;
+        for (int v=0; v < G.V(); v++) {
+            for (DirectedEdge e : G.adj(v)) {
+                if (e.weight() < 0) {
+                    System.err.println("negative edge weight detected");
+                    return false;
+                }
             }
         }
 

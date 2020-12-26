@@ -40,7 +40,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class AdjMatrixEdgeWeightedDigraph {
+public class AdjMatrixEdgeWeightedDigraph implements EdgeWeightedDigraph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;
@@ -123,6 +123,24 @@ public class AdjMatrixEdgeWeightedDigraph {
         return new AdjIterator(v);
     }
 
+    @Override
+    public int outdegree(int v) {
+        int degree = 0;
+        for (int w = 0;w < V;w++) {
+            if (adj[v][w] != null) degree++;
+        }
+        return degree;
+    }
+
+    @Override
+    public int indegree(int v) {
+        int degree = 0;
+        for (int w = 0;w < V;w++) {
+            if (adj[w][v] != null) degree++;
+        }
+        return degree;
+    }
+
     // support iteration over graph vertices
     private class AdjIterator implements Iterator<DirectedEdge>, Iterable<DirectedEdge> {
         private final int v;
@@ -189,7 +207,7 @@ public class AdjMatrixEdgeWeightedDigraph {
     public static void main(String[] args) {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        AdjMatrixEdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V, E);
+        EdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V, E);
         StdOut.println(G);
     }
 

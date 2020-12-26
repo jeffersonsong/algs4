@@ -57,7 +57,7 @@ public class FloydWarshall {
      * some pair of vertices, it computes a negative cycle.
      * @param G the edge-weighted digraph
      */
-    public FloydWarshall(AdjMatrixEdgeWeightedDigraph G) {
+    public FloydWarshall(EdgeWeightedDigraph G) {
         int V = G.V();
         distTo = new double[V][V];
         edgeTo = new DirectedEdge[V][V];
@@ -188,7 +188,7 @@ public class FloydWarshall {
     }
 
     // check optimality conditions
-    private boolean check(AdjMatrixEdgeWeightedDigraph G) {
+    private boolean check(EdgeWeightedDigraph G) {
 
         // no negative cycle
         if (!hasNegativeCycle()) {
@@ -223,7 +223,7 @@ public class FloydWarshall {
         // random graph with V vertices and E edges, parallel edges allowed
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        AdjMatrixEdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V);
+        EdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V);
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
