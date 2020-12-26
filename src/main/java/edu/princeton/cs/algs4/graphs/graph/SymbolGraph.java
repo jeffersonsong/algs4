@@ -43,11 +43,15 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.graphs.digraph.Digraph;
+import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
+
+import java.util.function.IntFunction;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -73,10 +77,18 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class SymbolGraph {
+public class SymbolGraph<G extends Graph> {
     private final ST<String, Integer> st;  // string -> index
     private final String[] keys;           // index  -> string
-    private final Graph graph;             // the underlying graph
+    private final G graph;             // the underlying graph
+
+    public static SymbolGraph<Graph> symbolGraph(String filename, String delimiter) {
+        return new SymbolGraph<Graph>(filename, delimiter, GraphImpl::new);
+    }
+
+    public static SymbolGraph<Digraph> symbolDigraph(String filename, String delimiter) {
+        return new SymbolGraph<Digraph>(filename, delimiter, DigraphImpl::new);
+    }
 
     /**  
      * Initializes a graph from a file using the specified delimiter.
@@ -86,7 +98,7 @@ public class SymbolGraph {
      * @param filename the name of the file
      * @param delimiter the delimiter between fields
      */
-    public SymbolGraph(String filename, String delimiter) {
+    private SymbolGraph(String filename, String delimiter, IntFunction<G> graphFactoryMethod) {
         st = new STImpl<>();
 
         // First pass builds the index by reading strings to associate
@@ -109,7 +121,7 @@ public class SymbolGraph {
 
         // second pass builds the graph by connecting first vertex on each
         // line to all others
-        graph = new GraphImpl(st.size());
+        graph = graphFactoryMethod.apply(st.size());
         in = new In(filename);
         while (in.hasNextLine()) {
             String[] a = in.readLine().split(delimiter);
@@ -182,7 +194,7 @@ public class SymbolGraph {
      * @deprecated Replaced by {@link #graph()}.
      */
     @Deprecated
-    public Graph G() {
+    public G G() {
         return graph;
     }
 
@@ -191,7 +203,7 @@ public class SymbolGraph {
      * not to mutate the graph.
      * @return the graph associated with the symbol graph
      */
-    public Graph graph() {
+    public G graph() {
         return graph;
     }
 
@@ -209,7 +221,7 @@ public class SymbolGraph {
     public static void main(String[] args) {
         String filename  = args[0];
         String delimiter = args[1];
-        SymbolGraph sg = new SymbolGraph(filename, delimiter);
+        SymbolGraph sg = SymbolGraph.symbolGraph(filename, delimiter);
         Graph graph = sg.graph();
         while (StdIn.hasNextLine()) {
             String source = StdIn.readLine();

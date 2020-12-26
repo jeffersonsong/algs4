@@ -28,6 +28,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -156,8 +157,8 @@ public class Topological {
     public static void main(String[] args) {
         String filename  = args[0];
         String delimiter = args[1];
-        SymbolDigraph sg = new SymbolDigraph(filename, delimiter);
-        Topological topological = new Topological(sg.digraph());
+        SymbolGraph<Digraph> sg = SymbolGraph.symbolDigraph(filename, delimiter);
+        Topological topological = new Topological(sg.graph());
         for (int v : topological.order()) {
             StdOut.println(sg.nameOf(v));
         }
