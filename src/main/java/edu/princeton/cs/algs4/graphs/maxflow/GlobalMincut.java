@@ -26,6 +26,7 @@ import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
+import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraphImpl;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -236,7 +237,7 @@ public class GlobalMincut {
      *         vertices {@code s} and {@code t} were contracted
      */
     private EdgeWeightedGraph contractEdge(EdgeWeightedGraph G, int s, int t) {
-        EdgeWeightedGraph H = new EdgeWeightedGraph(G.V());
+        EdgeWeightedGraph H = new EdgeWeightedGraphImpl(G.V());
         for (int v = 0; v < G.V(); v++) {
             for (Edge e : G.adj(v)) {
                 int w = e.other(v);
