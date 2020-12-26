@@ -18,7 +18,7 @@ public abstract class STBaseTest {
     protected ST<String, Integer> st;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         st = createST();
     }
 

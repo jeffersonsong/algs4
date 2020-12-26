@@ -18,7 +18,7 @@ public abstract class ListBaseTest {
     protected abstract <T> List<T> createList();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         this.list = createList();
 
     }

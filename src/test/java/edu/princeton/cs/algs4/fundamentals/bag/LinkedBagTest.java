@@ -13,7 +13,7 @@ public class LinkedBagTest {
     private Bag<String> bag;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         this.bag = new LinkedBag<>();
     }
 

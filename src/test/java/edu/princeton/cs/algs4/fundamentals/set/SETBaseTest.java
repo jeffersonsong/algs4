@@ -15,7 +15,7 @@ public abstract class SETBaseTest {
     protected SET<String> set;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         set = createSET();
     }
 

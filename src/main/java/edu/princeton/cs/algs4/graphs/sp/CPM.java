@@ -25,7 +25,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
@@ -52,44 +52,40 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class CPM {
+    private int n;
+    private int source, sink;
+    private AcyclicLP lp;
 
     // this class cannot be instantiated
-    private CPM() { }
-
-    /**
-     *  Reads the precedence constraints from standard input
-     *  and prints a feasible schedule to standard output.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-
+    private CPM(In in) {
         // number of jobs
-        int n = StdIn.readInt();
+        n = in.readInt();
 
         // source and sink
-        int source = 2*n;
-        int sink   = 2*n + 1;
+        source = 2*n;
+        sink   = 2*n + 1;
 
         // build network
         EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(2*n + 2);
         for (int i = 0; i < n; i++) {
-            double duration = StdIn.readDouble();
+            double duration = in.readDouble();
             G.addEdge(new DirectedEdge(source, i, 0.0));
             G.addEdge(new DirectedEdge(i+n, sink, 0.0));
             G.addEdge(new DirectedEdge(i, i+n,    duration));
 
             // precedence constraints
-            int m = StdIn.readInt();
+            int m = in.readInt();
             for (int j = 0; j < m; j++) {
-                int precedent = StdIn.readInt();
+                int precedent = in.readInt();
                 G.addEdge(new DirectedEdge(n+i, precedent, 0.0));
             }
         }
 
         // compute longest path
-        AcyclicLP lp = new AcyclicLP(G, source);
+        lp = new AcyclicLP(G, source);
+    }
 
+    public void print() {
         // print results
         StdOut.println(" job   start  finish");
         StdOut.println("--------------------");
@@ -99,6 +95,17 @@ public class CPM {
         StdOut.printf("Finish time: %7.1f\n", lp.distTo(sink));
     }
 
+    /**
+     *  Reads the precedence constraints from standard input
+     *  and prints a feasible schedule to standard output.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        In in = new In(args[0]);
+        CPM cpm = new CPM(in);
+        cpm.print();
+    }
 }
 
 /******************************************************************************

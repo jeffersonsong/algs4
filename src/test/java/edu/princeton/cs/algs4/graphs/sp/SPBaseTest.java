@@ -17,7 +17,7 @@ public abstract class SPBaseTest {
     private SP sp;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         In in = new In("src/test/resources/44sp/tinyEWD.txt");
         EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
         sp = createSP(G, 0);
