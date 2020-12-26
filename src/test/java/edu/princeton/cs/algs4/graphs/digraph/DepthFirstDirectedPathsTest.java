@@ -1,6 +1,7 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstPaths;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class DepthFirstDirectedPathsTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/42digraph/tinyDG2.txt");
-        G = DigraphReader.readDigraph(in);
+        G = GraphReader.readDigraph(in);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package edu.princeton.cs.algs4.graphs.digraph.scc;
 
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
-import edu.princeton.cs.algs4.graphs.digraph.DigraphReader;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ public abstract class SCCBaseTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/42digraph/tinyDG.txt");
-        Digraph G = DigraphReader.readDigraph(in);
+        Digraph G = GraphReader.readDigraph(in);
         scc = createSCC(G);
     }
 

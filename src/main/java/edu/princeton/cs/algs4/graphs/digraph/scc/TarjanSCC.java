@@ -28,8 +28,8 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
-import edu.princeton.cs.algs4.graphs.digraph.DigraphReader;
 import edu.princeton.cs.algs4.graphs.digraph.TransitiveClosure;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -174,7 +174,7 @@ public class TarjanSCC implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.readDigraph(in);
+        Digraph G = GraphReader.readDigraph(in);
         TarjanSCC scc = new TarjanSCC(G);
 
         // number of connected components

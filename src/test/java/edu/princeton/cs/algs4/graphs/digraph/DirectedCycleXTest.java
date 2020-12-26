@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class DirectedCycleXTest {
     @Test
     public void testWithCycle() {
         In in = new In("src/test/resources/42digraph/tinyDG.txt");
-        Digraph G = DigraphReader.readDigraph(in);
+        Digraph G = GraphReader.readDigraph(in);
         DirectedCycleX finder = new DirectedCycleX(G);
         assertTrue(finder.hasCycle());
 
@@ -27,7 +28,7 @@ public class DirectedCycleXTest {
     @Test
     public void testWithDAG() {
         In in = new In("src/test/resources/42digraph/tinyDAG.txt");
-        Digraph G = DigraphReader.readDigraph(in);
+        Digraph G = GraphReader.readDigraph(in);
         DirectedCycleX finder = new DirectedCycleX(G);
         assertFalse(finder.hasCycle());
     }

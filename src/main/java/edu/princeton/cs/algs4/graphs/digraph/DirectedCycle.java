@@ -18,6 +18,7 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -137,7 +138,7 @@ public class DirectedCycle {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.readDigraph(in);
+        Digraph G = GraphReader.readDigraph(in);
 
         DirectedCycle finder = new DirectedCycle(G);
         if (finder.hasCycle()) {

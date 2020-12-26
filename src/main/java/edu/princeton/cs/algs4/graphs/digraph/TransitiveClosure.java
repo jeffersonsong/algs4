@@ -33,6 +33,7 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -102,7 +103,7 @@ public class TransitiveClosure {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.readDigraph(in);
+        Digraph G = GraphReader.readDigraph(in);
 
         TransitiveClosure tc = new TransitiveClosure(G);
 
