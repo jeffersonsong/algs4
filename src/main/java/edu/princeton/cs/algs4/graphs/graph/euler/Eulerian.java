@@ -44,13 +44,11 @@ public class Eulerian {
     }
 
     private boolean isConnected(Graph G) {
-        int i;
+        int i = findFirstNonZeroDegreeVertice(G);
 
-        // Find a vertex with non-zero degree
-        for (i = 0; i < G.V(); i++) {
-            if (G.degree(i) != 0) {
-                break;
-            }
+        // If there are no edges in the graph, return true
+        if (i == G.V()) {
+            return true;
         }
 
         // Start DFS traversal from a vertex with non-zero degree
@@ -64,5 +62,17 @@ public class Eulerian {
         }
 
         return true;
+    }
+
+    private int findFirstNonZeroDegreeVertice(Graph g) {
+        int i;
+
+        // Find a vertex with non-zero degree
+        for (i = 0; i < g.V(); i++) {
+            if (g.degree(i) != 0) {
+                return i;
+            }
+        }
+        return i;
     }
 }
