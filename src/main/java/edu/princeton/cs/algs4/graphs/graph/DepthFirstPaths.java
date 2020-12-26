@@ -128,7 +128,7 @@ public class DepthFirstPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.read(in);
+        Graph G = GraphReader.readGraph(in);
         int s = Integer.parseInt(args[1]);
         DepthFirstPaths dfs = new DepthFirstPaths(G, s);
 

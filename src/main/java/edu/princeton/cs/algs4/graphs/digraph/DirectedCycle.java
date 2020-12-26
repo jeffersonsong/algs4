@@ -137,7 +137,7 @@ public class DirectedCycle {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.read(in);
+        Digraph G = DigraphReader.readDigraph(in);
 
         DirectedCycle finder = new DirectedCycle(G);
         if (finder.hasCycle()) {

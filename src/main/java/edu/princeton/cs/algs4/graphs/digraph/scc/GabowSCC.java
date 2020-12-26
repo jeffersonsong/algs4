@@ -26,7 +26,6 @@ package edu.princeton.cs.algs4.graphs.digraph.scc;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
-import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.graphs.digraph.DigraphReader;
 import edu.princeton.cs.algs4.graphs.digraph.TransitiveClosure;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -181,7 +180,7 @@ public class GabowSCC implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.read(in);
+        Digraph G = DigraphReader.readDigraph(in);
         GabowSCC scc = new GabowSCC(G);
 
         // number of connected components

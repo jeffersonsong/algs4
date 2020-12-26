@@ -20,7 +20,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public static Graph read(In in) {
+    public static Graph readGraph(In in) {
         requiresNotNull(in, "argument is null");
         try {
             int V = in.readInt();

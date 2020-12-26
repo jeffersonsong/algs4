@@ -14,7 +14,7 @@ public class TopologicalXTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/42digraph/topological.txt");
-        Digraph g = DigraphReader.read(in);
+        Digraph g = DigraphReader.readDigraph(in);
         Iterable<Integer> order = new TopologicalX(g).order();
         List<Integer> list = toList(order);
         System.out.println(list);

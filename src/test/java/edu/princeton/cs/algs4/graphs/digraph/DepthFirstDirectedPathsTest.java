@@ -19,7 +19,7 @@ public class DepthFirstDirectedPathsTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/42digraph/tinyDG2.txt");
-        G = DigraphReader.read(in);
+        G = DigraphReader.readDigraph(in);
     }
 
     @Test

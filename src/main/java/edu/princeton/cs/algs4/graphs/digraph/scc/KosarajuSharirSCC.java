@@ -197,7 +197,7 @@ public class KosarajuSharirSCC implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.read(in);
+        Digraph G = DigraphReader.readDigraph(in);
         KosarajuSharirSCC scc = new KosarajuSharirSCC(G);
 
         // number of connected components

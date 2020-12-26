@@ -9,7 +9,7 @@ public class BipartiteTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph G = GraphReader.read(in);
+        Graph G = GraphReader.readGraph(in);
         Bipartite b = new Bipartite(G);
         assertFalse(b.isBipartite());
     }

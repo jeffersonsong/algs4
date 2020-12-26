@@ -278,7 +278,7 @@ public class DigraphImpl implements Digraph {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = DigraphReader.read(in);
+        Digraph G = DigraphReader.readDigraph(in);
         StdOut.println(G);
     }
 }
