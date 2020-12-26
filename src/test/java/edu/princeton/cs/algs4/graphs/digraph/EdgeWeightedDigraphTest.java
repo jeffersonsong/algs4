@@ -17,7 +17,7 @@ public class EdgeWeightedDigraphTest {
 
     @Before
     public void setUp() throws Exception {
-        In in = new In("src/test/resources/tinyEWD.txt");
+        In in = new In("src/test/resources/44sp/tinyEWD.txt");
         G = new EdgeWeightedDigraph(in);
     }
 
