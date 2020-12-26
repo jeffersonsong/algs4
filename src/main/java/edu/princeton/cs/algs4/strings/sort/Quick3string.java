@@ -28,9 +28,16 @@
 
 package edu.princeton.cs.algs4.strings.sort;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
+import edu.princeton.cs.algs4.sorting.elementary.Insertion;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
+
+import java.util.Comparator;
+
+import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 
 /**
  *  The {@code Quick3string} class provides static methods for sorting an
@@ -60,17 +67,8 @@ public class Quick3string {
         assert isSorted(a);
     }
 
-    // return the dth character of s, -1 if d = length of s
-    private static int charAt(String s, int d) { 
-        assert d >= 0 && d <= s.length();
-        if (d == s.length()) return -1;
-        return s.charAt(d);
-    }
-
-
     // 3-way string quicksort a[lo..hi] starting at dth character
     private static void sort(String[] a, int lo, int hi, int d) { 
-
         // cutoff to insertion sort for small subarrays
         if (hi <= lo + CUTOFF) {
             insertion(a, lo, hi, d);
@@ -93,6 +91,13 @@ public class Quick3string {
         sort(a, gt+1, hi, d);
     }
 
+    // return the dth character of s, -1 if d = length of s
+    private static int charAt(String s, int d) {
+        assert d >= 0 && d <= s.length();
+        if (d == s.length()) return -1;
+        return s.charAt(d);
+    }
+
     // sort from a[lo] to a[hi], starting at the dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
         for (int i = lo; i <= hi; i++)
@@ -111,7 +116,7 @@ public class Quick3string {
     // DEPRECATED BECAUSE OF SLOW SUBSTRING EXTRACTION IN JAVA 7
     // private static boolean less(String v, String w, int d) {
     //    assert v.substring(0, d).equals(w.substring(0, d));
-    //    return v.substring(d).compareTo(w.substring(d)) < 0; 
+    //    return v.substring(d).compareTo(w.substring(d)) < 0;
     // }
 
     // is v less than w, starting at character d

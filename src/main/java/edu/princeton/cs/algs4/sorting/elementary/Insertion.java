@@ -122,6 +122,14 @@ public class Insertion {
         assert isSorted(a, lo, hi - 1, comparator);
     }
 
+    public static void sort(int[] a, int lo, int hi) {
+        for (int i = lo + 1; i < hi; i++) {
+            for (int j = i; j > lo && a[j] < a[j-1]; j--) {
+                exch(a, j, j-1);
+            }
+        }
+        assert isSorted(a, lo, hi - 1);
+    }
 
     // return a permutation that gives the elements in a[] in ascending order
     // do not change the original array a[]

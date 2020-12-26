@@ -62,7 +62,6 @@ public class SortUtils {
         return true;
     }
 
-
     /**
      * Returns the number of keys in this symbol table strictly less than {@code key}.
      *
@@ -101,5 +100,21 @@ public class SortUtils {
             else return mid;
         }
         return -1;
+    }
+
+    public static Comparator<String> subStringComparator(final int d) {
+        return new Comparator<String>() {
+            @Override
+            public int compare(String v, String w) {
+                assert v.substring(0, d).equals(w.substring(0, d));
+                for (int i = d; i < Math.min(v.length(), w.length()); i++) {
+                    int cmp = Character.compare(v.charAt(i), w.charAt(i));
+                    if (cmp != 0) {
+                        return cmp;
+                    }
+                }
+                return Integer.compare(v.length(), w.length());
+            }
+        };
     }
 }

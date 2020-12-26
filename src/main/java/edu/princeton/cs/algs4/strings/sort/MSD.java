@@ -27,8 +27,14 @@
 
 package edu.princeton.cs.algs4.strings.sort;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
+import edu.princeton.cs.algs4.sorting.elementary.Insertion;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
+
+import java.util.Comparator;
+
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 
 /**
  *  The {@code MSD} class provides static methods for sorting an
@@ -61,16 +67,8 @@ public class MSD {
         sort(a, 0, n-1, 0, aux);
     }
 
-    // return dth character of s, -1 if d = length of string
-    private static int charAt(String s, int d) {
-        assert d >= 0 && d <= s.length();
-        if (d == s.length()) return -1;
-        return s.charAt(d);
-    }
-
     // sort from a[lo] to a[hi], starting at the dth character
     private static void sort(String[] a, int lo, int hi, int d, String[] aux) {
-
         // cutoff to insertion sort for small subarrays
         if (hi <= lo + CUTOFF) {
             insertion(a, lo, hi, d);
@@ -85,8 +83,7 @@ public class MSD {
         }
 
         // transform counts to indicies
-        for (int r = 0; r < R+1; r++)
-            count[r+1] += count[r];
+        computeCumulates(count);
 
         // distribute
         for (int i = lo; i <= hi; i++) {
@@ -95,15 +92,25 @@ public class MSD {
         }
 
         // copy back
-        for (int i = lo; i <= hi; i++) 
-            a[i] = aux[i - lo];
-
+        System.arraycopy(aux, 0, a, lo, hi - lo + 1);
 
         // recursively sort for each character (excludes sentinel -1)
-        for (int r = 0; r < R; r++)
-            sort(a, lo + count[r], lo + count[r+1] - 1, d+1, aux);
+        for (int r = 0; r < R; r++) {
+            sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1, aux);
+        }
     }
 
+    // return dth character of s, -1 if d = length of string
+    private static int charAt(String s, int d) {
+        assert d >= 0 && d <= s.length();
+        if (d == s.length()) return -1;
+        return s.charAt(d);
+    }
+
+    private static void computeCumulates(int[] count) {
+        for (int r = 0; r < count.length - 1; r++)
+            count[r + 1] += count[r];
+    }
 
     // insertion sort a[lo..hi], starting at dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
@@ -144,10 +151,9 @@ public class MSD {
 
     // MSD sort from a[lo] to a[hi], starting at the dth byte
     private static void sort(int[] a, int lo, int hi, int d, int[] aux) {
-
         // cutoff to insertion sort for small subarrays
         if (hi <= lo + CUTOFF) {
-            insertion(a, lo, hi, d);
+            Insertion.sort(a, lo, hi);
             return;
         }
 
@@ -161,20 +167,8 @@ public class MSD {
         }
 
         // transform counts to indicies
-        for (int r = 0; r < R; r++)
-            count[r+1] += count[r];
+        computeCumulates(count);
 
-/************* BUGGGY CODE.
-        // for most significant byte, 0x80-0xFF comes before 0x00-0x7F
-        if (d == 0) {
-            int shift1 = count[R] - count[R/2];
-            int shift2 = count[R/2];
-            for (int r = 0; r < R/2; r++)
-                count[r] += shift1;
-            for (int r = R/2; r < R; r++)
-                count[r] -= shift2;
-        }
-************************************/
         // distribute
         for (int i = lo; i <= hi; i++) {
             int c = (a[i] >> shift) & mask;
@@ -182,8 +176,7 @@ public class MSD {
         }
 
         // copy back
-        for (int i = lo; i <= hi; i++) 
-            a[i] = aux[i - lo];
+        System.arraycopy(aux, 0, a, lo, hi-lo+1);
 
         // no more bits
         if (d == 4) return;
@@ -195,21 +188,6 @@ public class MSD {
             if (count[r+1] > count[r])
                 sort(a, lo + count[r], lo + count[r+1] - 1, d+1, aux);
     }
-
-    // TODO: insertion sort a[lo..hi], starting at dth character
-    private static void insertion(int[] a, int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && a[j] < a[j-1]; j--)
-                exch(a, j, j-1);
-    }
-
-    // exchange a[i] and a[j]
-    private static void exch(int[] a, int i, int j) {
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-
 
     /**
      * Reads in a sequence of extended ASCII strings from standard input;

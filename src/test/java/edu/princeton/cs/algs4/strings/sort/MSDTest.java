@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.strings.sort;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -18,5 +19,14 @@ public class MSDTest {
         MSD.sort(a);
 
         assertThat(a, is(expected));
+    }
+
+    @Test
+    public void tessSortIntArray() {
+        int[] a = {4, 2, -1, 0, 5, -1, Integer.MAX_VALUE, Integer.MIN_VALUE};
+
+        MSD.sort(a);
+
+        SortUtils.isSorted(a);
     }
 }
