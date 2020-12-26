@@ -1,9 +1,11 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
@@ -20,6 +22,24 @@ public class TopologicalTest {
         List<Integer> list = toList(order);
         System.out.println(list);
         assertThat(list, is(asList(8, 7, 2, 3, 0, 1, 5, 6, 4, 9, 10, 11, 12)));
+    }
+
+    @Test
+    public void testCourseScheduling() {
+        String[] expected = {"Calculus", "Linear Algebra", "Introduction to CS", "Advanced Programming",
+                "Algorithms", "Theoretical CS", "Artificial Intelligence", "Robotics", "Machine Learning",
+                "Neural Networks", "Databases", "Scientific Computing", "Computational Biology"};
+
+        SymbolGraph<Digraph> sg = SymbolGraph.symbolDigraph("src/test/resources/42digraph/jobs.txt", "/");
+        Digraph G = sg.graph();
+        Topological topological = new Topological(G);
+
+        List<String> result = new ArrayList<>();
+        for (int v : topological.order()) {
+            result.add(sg.nameOf(v));
+        }
+
+        assertThat(result, is(asList(expected)));
     }
 
 }
