@@ -15,7 +15,7 @@ public abstract class UFBaseTest {
 
     @Before
     public void setUp() {
-        final In in = new In("src/test/resources/tinyUF.txt");
+        final In in = new In("src/test/resources/15uf/tinyUF.txt");
         this.uf = this.createUF(in.readInt());
 
         while (!in.isEmpty()) {
