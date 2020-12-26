@@ -15,7 +15,7 @@ public abstract class SCCBaseTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyDG.txt");
+        In in = new In("src/test/resources/42digraph/tinyDG.txt");
         Digraph G = new DigraphImpl(in);
         scc = createSCC(G);
     }

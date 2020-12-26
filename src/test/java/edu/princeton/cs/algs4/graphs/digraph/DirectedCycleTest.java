@@ -16,7 +16,7 @@ public class DirectedCycleTest {
 
     @Test
     public void testWithCycle() {
-        In in = new In("src/test/resources/tinyDG.txt");
+        In in = new In("src/test/resources/42digraph/tinyDG.txt");
         Digraph G = new DigraphImpl(in);
         DirectedCycle finder = new DirectedCycle(G);
         assertTrue(finder.hasCycle());
@@ -27,7 +27,7 @@ public class DirectedCycleTest {
 
     @Test
     public void testWithDAG() {
-        In in = new In("src/test/resources/tinyDAG.txt");
+        In in = new In("src/test/resources/42digraph/tinyDAG.txt");
         Digraph G = new DigraphImpl(in);
         DirectedCycle finder = new DirectedCycle(G);
         assertFalse(finder.hasCycle());

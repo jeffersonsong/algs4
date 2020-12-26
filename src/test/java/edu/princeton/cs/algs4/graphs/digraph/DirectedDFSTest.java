@@ -13,7 +13,7 @@ public class DirectedDFSTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyDG.txt");
+        In in = new In("src/test/resources/42digraph/tinyDG.txt");
         G = new DigraphImpl(in);
     }
 
