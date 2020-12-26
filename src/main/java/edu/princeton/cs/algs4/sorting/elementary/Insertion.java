@@ -82,7 +82,7 @@ public class Insertion {
      * @param hi right endpoint (exclusive)
      */
     public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
-        for (int i = lo + 1; i < hi; i++) {
+        for (int i = lo + 1; i <= hi; i++) {
             for (int j = i; j > lo && less(a[j], a[j-1]); j--) {
                 exch(a, j, j-1);
             }
@@ -114,7 +114,7 @@ public class Insertion {
      * @param comparator the comparator specifying the order
      */
     public static <T> void sort(T[] a, int lo, int hi, Comparator<T> comparator) {
-        for (int i = lo + 1; i < hi; i++) {
+        for (int i = lo + 1; i <= hi; i++) {
             for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--) {
                 exch(a, j, j-1);
             }
@@ -123,7 +123,7 @@ public class Insertion {
     }
 
     public static void sort(int[] a, int lo, int hi) {
-        for (int i = lo + 1; i < hi; i++) {
+        for (int i = lo + 1; i <= hi; i++) {
             for (int j = i; j > lo && a[j] < a[j-1]; j--) {
                 exch(a, j, j-1);
             }

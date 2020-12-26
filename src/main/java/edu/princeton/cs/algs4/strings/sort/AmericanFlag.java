@@ -30,8 +30,14 @@ package edu.princeton.cs.algs4.strings.sort;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.sorting.SortUtils;
+import edu.princeton.cs.algs4.sorting.elementary.Insertion;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
+
+import java.util.Comparator;
+
+import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 
 /**
  *  The {@code AmericanFlag} class provides static methods for sorting an
@@ -141,26 +147,8 @@ public class AmericanFlag {
     
     // insertion sort a[lo..hi], starting at dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1], d); j--)
-                exch(a, j, j-1);
-    }
-
-    // exchange a[i] and a[j]
-    private static void exch(String[] a, int i, int j) {
-        String temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-
-    // is v less than w, starting at character d
-    private static boolean less(String v, String w, int d) {
-        // assert v.substring(0, d).equals(w.substring(0, d));
-        for (int i = d; i <  Math.min(v.length(), w.length()); i++) {
-            if (v.charAt(i) < w.charAt(i)) return true;
-            if (v.charAt(i) > w.charAt(i)) return false;
-        }
-        return v.length() < w.length();
+        Comparator<String> comparator = SortUtils.subStringComparator(d);
+        Insertion.sort(a, lo, hi, comparator);
     }
 
    /**
@@ -245,13 +233,6 @@ public class AmericanFlag {
                 exch(a, j, j-1);
     }
 
-    // exchange a[i] and a[j]
-    private static void exch(int[] a, int i, int j) {
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-    
     // is v less than w, starting at byte d
     private static boolean less(int v, int w, int d) {
         int mask = R - 1;   // 0xFF;

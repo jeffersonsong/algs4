@@ -114,19 +114,8 @@ public class MSD {
 
     // insertion sort a[lo..hi], starting at dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1], d); j--)
-                exch(a, j, j-1);
-    }
-
-    // is v less than w, starting at character d
-    private static boolean less(String v, String w, int d) {
-        // assert v.substring(0, d).equals(w.substring(0, d));
-        for (int i = d; i < Math.min(v.length(), w.length()); i++) {
-            if (v.charAt(i) < w.charAt(i)) return true;
-            if (v.charAt(i) > w.charAt(i)) return false;
-        }
-        return v.length() < w.length();
+        Comparator<String> comparator = SortUtils.subStringComparator(d);
+        Insertion.sort(a, lo, hi, comparator);
     }
 
    /**

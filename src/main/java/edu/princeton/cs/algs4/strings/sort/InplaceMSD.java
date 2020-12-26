@@ -65,13 +65,6 @@ public class InplaceMSD {
         sort(a, 0, n-1, 0);
     }
 
-    // return dth character of s, -1 if d = length of string
-    private static int charAt(String s, int d) {
-        assert d >= 0 && d <= s.length();
-        if (d == s.length()) return -1;
-        return s.charAt(d);
-    }
-
     // sort from a[lo] to a[hi], starting at the dth character
     private static void sort(String[] a, int lo, int hi, int d) {
 
@@ -113,6 +106,12 @@ public class InplaceMSD {
             sort(a, tails[r], tails[r+1] - 1, d+1);
     }
 
+    // return dth character of s, -1 if d = length of string
+    private static int charAt(String s, int d) {
+        assert d >= 0 && d <= s.length();
+        if (d == s.length()) return -1;
+        return s.charAt(d);
+    }
 
     // insertion sort a[lo..hi], starting at dth character
     private static void insertion(String[] a, int lo, int hi, int d) {

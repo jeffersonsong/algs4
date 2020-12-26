@@ -100,26 +100,8 @@ public class Quick3string {
 
     // sort from a[lo] to a[hi], starting at the dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1], d); j--)
-                exch(a, j, j-1);
-    }
-
-    // is v less than w, starting at character d
-    // DEPRECATED BECAUSE OF SLOW SUBSTRING EXTRACTION IN JAVA 7
-    // private static boolean less(String v, String w, int d) {
-    //    assert v.substring(0, d).equals(w.substring(0, d));
-    //    return v.substring(d).compareTo(w.substring(d)) < 0;
-    // }
-
-    // is v less than w, starting at character d
-    private static boolean less(String v, String w, int d) {
-        assert v.substring(0, d).equals(w.substring(0, d));
-        for (int i = d; i < Math.min(v.length(), w.length()); i++) {
-            if (v.charAt(i) < w.charAt(i)) return true;
-            if (v.charAt(i) > w.charAt(i)) return false;
-        }
-        return v.length() < w.length();
+        Comparator<String> comparator = SortUtils.subStringComparator(d);
+        Insertion.sort(a, lo, hi, comparator);
     }
 
     // is the array sorted
@@ -128,7 +110,6 @@ public class Quick3string {
             if (a[i].compareTo(a[i-1]) < 0) return false;
         return true;
     }
-
 
     /**
      * Reads in a sequence of fixed-length strings from standard input;

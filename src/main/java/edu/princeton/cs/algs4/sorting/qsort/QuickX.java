@@ -59,7 +59,7 @@ public class QuickX {
         // cutoff to insertion sort (Insertion.sort() uses half-open intervals)
         int n = hi - lo + 1;
         if (n <= INSERTION_SORT_CUTOFF) {
-            Insertion.sort(a, lo, hi + 1);
+            Insertion.sort(a, lo, hi);
             return;
         }
 
