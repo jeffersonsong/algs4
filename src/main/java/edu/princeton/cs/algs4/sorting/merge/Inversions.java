@@ -42,9 +42,7 @@ public class Inversions {
         long inversions = 0;
 
         // copy to aux[]
-        for (int k = lo; k <= hi; k++) {
-            aux[k] = a[k]; 
-        }
+        System.arraycopy(a, lo, aux, lo, hi - lo + 1);
 
         // merge back to a[]
         int i = lo, j = mid+1;
@@ -69,7 +67,6 @@ public class Inversions {
         assert inversions == brute(a, lo, hi);
         return inversions;
     }
-
 
     /**
      * Returns the number of inversions in the integer array.
