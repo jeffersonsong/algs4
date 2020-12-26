@@ -19,7 +19,7 @@ public class EulerianTest {
         g1.addEdge(0, 3);
         g1.addEdge(3, 4);
 
-        assertThat(euler.isEulerian(g1), is(EulerianType.EULER_PATH));
+        assertThat(euler.isEulerian(g1), is(Eulerian.EulerianType.EULER_PATH));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class EulerianTest {
         g2.addEdge(0, 3);
         g2.addEdge(3, 4);
         g2.addEdge(4, 0);
-        assertThat(euler.isEulerian(g2), is(EulerianType.EULER_CYCLE));
+        assertThat(euler.isEulerian(g2), is(Eulerian.EulerianType.EULER_CYCLE));
     }
 
     @Test
@@ -40,13 +40,13 @@ public class EulerianTest {
         g4.addEdge(0, 1);
         g4.addEdge(1, 2);
         g4.addEdge(2, 0);
-        assertThat(euler.isEulerian(g4), is(EulerianType.EULER_CYCLE));
+        assertThat(euler.isEulerian(g4), is(Eulerian.EulerianType.EULER_CYCLE));
     }
 
     @Test
     public void testEulerianCycle3() {
         Graph g5 = new GraphImpl(3);
-        assertThat(euler.isEulerian(g5), is(EulerianType.EULER_CYCLE));
+        assertThat(euler.isEulerian(g5), is(Eulerian.EulerianType.EULER_CYCLE));
     }
 
     @Test
@@ -58,6 +58,6 @@ public class EulerianTest {
         g3.addEdge(0, 3);
         g3.addEdge(3, 4);
         g3.addEdge(1, 3);
-        assertThat(euler.isEulerian(g3), is(EulerianType.NOT_EULERIAN));
+        assertThat(euler.isEulerian(g3), is(Eulerian.EulerianType.NOT_EULERIAN));
     }
 }

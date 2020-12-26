@@ -10,6 +10,12 @@ import edu.princeton.cs.algs4.graphs.graph.Graph;
  */
 public class Eulerian {
 
+    public enum EulerianType {
+        NOT_EULERIAN,
+        EULER_PATH,
+        EULER_CYCLE
+    }
+
     /**
      * Check undirected graph Eulerian type.
      * @param G undirected graph.

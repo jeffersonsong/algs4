@@ -18,7 +18,7 @@ public class BreadthFirstPathsTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyCG.txt");
-        G = new GraphImpl(in);
+        G = GraphGenerator.read(in);
     }
 
     @Test

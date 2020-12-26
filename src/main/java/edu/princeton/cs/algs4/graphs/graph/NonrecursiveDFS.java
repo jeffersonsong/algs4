@@ -135,7 +135,7 @@ public class NonrecursiveDFS {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = new GraphImpl(in);
+        Graph G = GraphGenerator.read(in);
         int s = Integer.parseInt(args[1]);
         NonrecursiveDFS dfs = new NonrecursiveDFS(G, s);
         for (int v = 0; v < G.V(); v++)

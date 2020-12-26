@@ -242,7 +242,7 @@ public class GraphImpl implements Graph {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        GraphImpl G = new GraphImpl(in);
+        Graph G = GraphGenerator.read(in);
         StdOut.println(G);
     }
 }

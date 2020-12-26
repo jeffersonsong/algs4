@@ -12,7 +12,7 @@ public class NonrecursiveDFSTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        G = new GraphImpl(in);
+        G = GraphGenerator.read(in);
     }
 
     @Test

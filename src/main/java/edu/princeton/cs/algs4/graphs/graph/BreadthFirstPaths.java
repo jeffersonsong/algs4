@@ -199,7 +199,7 @@ public class BreadthFirstPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = new GraphImpl(in);
+        Graph G = GraphGenerator.read(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);

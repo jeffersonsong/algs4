@@ -12,12 +12,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GraphImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphImplTest.class);
 
-    private GraphImpl G;
+    private Graph G;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        G = new GraphImpl(in);
+        G = GraphGenerator.read(in);
     }
 
     @Test

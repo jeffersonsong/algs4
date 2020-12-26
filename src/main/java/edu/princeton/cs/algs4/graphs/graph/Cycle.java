@@ -164,7 +164,7 @@ public class Cycle {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = new GraphImpl(in);
+        Graph G = GraphGenerator.read(in);
         Cycle finder = new Cycle(G);
         if (finder.hasCycle()) {
             for (int v : finder.cycle()) {
