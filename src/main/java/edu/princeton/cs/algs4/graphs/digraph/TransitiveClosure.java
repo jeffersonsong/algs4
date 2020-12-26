@@ -102,7 +102,7 @@ public class TransitiveClosure {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = new DigraphImpl(in);
+        Digraph G = DigraphReader.read(in);
 
         TransitiveClosure tc = new TransitiveClosure(G);
 

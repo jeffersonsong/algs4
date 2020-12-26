@@ -17,7 +17,7 @@ public class DepthFirstOrderTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/42digraph/tinyDG3.txt");
-        G = new DigraphImpl(in);
+        G = DigraphReader.read(in);
     }
 
     @Test

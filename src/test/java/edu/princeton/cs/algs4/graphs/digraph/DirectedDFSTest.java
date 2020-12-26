@@ -14,7 +14,7 @@ public class DirectedDFSTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/42digraph/tinyDG.txt");
-        G = new DigraphImpl(in);
+        G = DigraphReader.read(in);
     }
 
     @Test

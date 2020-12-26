@@ -16,7 +16,7 @@ public class DirectedCycleXTest {
     @Test
     public void testWithCycle() {
         In in = new In("src/test/resources/42digraph/tinyDG.txt");
-        Digraph G = new DigraphImpl(in);
+        Digraph G = DigraphReader.read(in);
         DirectedCycleX finder = new DirectedCycleX(G);
         assertTrue(finder.hasCycle());
 
@@ -27,7 +27,7 @@ public class DirectedCycleXTest {
     @Test
     public void testWithDAG() {
         In in = new In("src/test/resources/42digraph/tinyDAG.txt");
-        Digraph G = new DigraphImpl(in);
+        Digraph G = DigraphReader.read(in);
         DirectedCycleX finder = new DirectedCycleX(G);
         assertFalse(finder.hasCycle());
     }

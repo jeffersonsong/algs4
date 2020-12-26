@@ -218,7 +218,7 @@ public class DepthFirstOrder {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = new DigraphImpl(in);
+        Digraph G = DigraphReader.read(in);
 
         DepthFirstOrder dfs = new DepthFirstOrder(G);
         StdOut.println("   v  pre post");
