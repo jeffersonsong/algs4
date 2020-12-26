@@ -36,7 +36,6 @@ import java.util.Iterator;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
-import static java.util.Objects.requireNonNull;
 
 /**
  *  The {@code PatriciaSET} class provides an implementation of an

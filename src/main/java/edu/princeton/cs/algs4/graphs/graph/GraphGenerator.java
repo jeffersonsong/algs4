@@ -21,7 +21,6 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.*;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
-import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code GraphGenerator} class provides static methods for creating

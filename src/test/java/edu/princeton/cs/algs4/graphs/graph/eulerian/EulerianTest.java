@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class EulerianTest {
-    private Eulerian euler = new Eulerian();
+    private final Eulerian euler = new Eulerian();
 
     @Test
     public void testEulerianPath() {

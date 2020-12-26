@@ -41,6 +41,7 @@ public class ArrayUtils {
         return array;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T[] newArray(int length, IntFunction<T> factoryMethod) {
         T sample = factoryMethod.apply(0);
         T[] array = (T[]) Array.newInstance(sample.getClass(), length);

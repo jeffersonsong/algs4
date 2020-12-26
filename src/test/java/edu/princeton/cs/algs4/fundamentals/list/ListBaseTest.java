@@ -3,6 +3,7 @@ package edu.princeton.cs.algs4.fundamentals.list;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
@@ -156,11 +157,11 @@ public abstract class ListBaseTest {
         list.addBack("2");
 
         list.delete(0);
-        assertThat(toList(list), is(asList("2")));
+        assertThat(toList(list), is(Collections.singletonList("2")));
 
         list.addBack("1");
         list.delete(1);
-        assertThat(toList(list), is(asList("2")));
+        assertThat(toList(list), is(Collections.singletonList("2")));
 
     }
 

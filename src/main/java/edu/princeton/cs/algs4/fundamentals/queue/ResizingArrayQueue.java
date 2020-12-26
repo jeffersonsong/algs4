@@ -17,7 +17,6 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 

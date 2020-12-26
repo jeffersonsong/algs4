@@ -142,7 +142,7 @@ public class Quick {
         // display results again using select
         StdOut.println();
         for (int i = 0; i < a.length; i++) {
-            String ith = (String) Quick.select(a, i);
+            String ith = Quick.select(a, i);
             StdOut.println(ith);
         }
     }

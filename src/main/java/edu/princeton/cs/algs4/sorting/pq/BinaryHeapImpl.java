@@ -59,7 +59,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 public class BinaryHeapImpl<Key> implements PQ<Key>, BinaryHeapInvariant {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
-    private Comparator<Key> comparator;  // comparator
+    private final Comparator<Key> comparator;  // comparator
 
     public static <T extends Comparable<T>> PQ<T> minPQ() {
         return minPQ(1);
@@ -101,6 +101,7 @@ public class BinaryHeapImpl<Key> implements PQ<Key>, BinaryHeapInvariant {
      * @param  initCapacity the initial capacity of this priority queue
      * @param  comparator the order in which to compare the keys
      */
+    @SuppressWarnings("unchecked")
     public BinaryHeapImpl(int initCapacity, Comparator<Key> comparator) {
         checkArgument(initCapacity > 0, "Invalid initial capacity.");
         requiresNotNull(comparator);

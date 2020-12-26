@@ -34,8 +34,6 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Comparator;
 
-import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
-
 /**
  *  The {@code MSD} class provides static methods for sorting an
  *  array of extended ASCII strings or integers using MSD radix sort.

@@ -46,8 +46,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class Arbitrage {
-    private String[] name;
-    private BellmanFordSP spt;
+    private final String[] name;
+    private final BellmanFordSP spt;
 
     // this class cannot be instantiated
     public Arbitrage(In in) {

@@ -13,7 +13,6 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 

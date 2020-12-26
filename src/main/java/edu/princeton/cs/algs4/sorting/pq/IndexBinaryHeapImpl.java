@@ -57,7 +57,7 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
     private final int[] pq;        // binary heap using 1-based indexing
     private final int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
     private final Key[] keys;      // keys[i] = priority of i
-    private Comparator<Key> comparator;  // comparator
+    private final Comparator<Key> comparator;  // comparator
 
     public static <T extends Comparable<T>> IndexPQ<T> indexMinPQ(int maxN) {
         return new IndexBinaryHeapImpl<T>(maxN, Comparator.naturalOrder());

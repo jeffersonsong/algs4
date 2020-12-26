@@ -1,6 +1,5 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
@@ -14,7 +13,6 @@ import edu.princeton.cs.algs4.utils.io.In;
 import java.util.NoSuchElementException;
 import java.util.function.IntFunction;
 
-import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 

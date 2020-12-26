@@ -1,7 +1,6 @@
 package edu.princeton.cs.algs4.fundamentals.list;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkState;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;

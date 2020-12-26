@@ -76,7 +76,7 @@ public class UnorderedMinPQ<Key extends Comparable<Key>> implements PQ<Key> {
 
     private boolean greater(int i, int j) {
         if (comparator == null) {
-            return ((Comparable<Key>) pq[i]).compareTo(pq[j]) > 0;
+            return pq[i].compareTo(pq[j]) > 0;
         }
         else {
             return comparator.compare(pq[i], pq[j]) > 0;

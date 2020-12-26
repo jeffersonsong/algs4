@@ -1,6 +1,5 @@
 package edu.princeton.cs.algs4.context.suffixarray;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static edu.princeton.cs.algs4.context.suffixarray.LongestRepeatedSubstring.lrs;

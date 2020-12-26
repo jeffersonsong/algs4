@@ -8,7 +8,8 @@ import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
 public class LinkedList2<Item> implements List<Item> {
-    private Node<Item> dummyHead, last;
+    private final Node<Item> dummyHead;
+    private Node<Item> last;
     private int n;
 
     private static class Node<Item> {

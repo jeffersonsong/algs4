@@ -13,7 +13,6 @@ import edu.princeton.cs.algs4.sorting.SortUtils;
 
 import java.util.Arrays;
 
-import static edu.princeton.cs.algs4.fundamentals.basic.BinarySearch.indexOf;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**

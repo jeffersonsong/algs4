@@ -26,10 +26,7 @@ package edu.princeton.cs.algs4.sorting.pq;
 import edu.princeton.cs.algs4.sorting.SortUtils;
 import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import static edu.princeton.cs.algs4.sorting.SortUtils.less;
-import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**

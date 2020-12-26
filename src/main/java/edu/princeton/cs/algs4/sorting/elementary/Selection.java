@@ -24,7 +24,6 @@
 package edu.princeton.cs.algs4.sorting.elementary;
 
 import edu.princeton.cs.algs4.utils.io.StdIn;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Comparator;
 

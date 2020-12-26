@@ -15,11 +15,8 @@ package edu.princeton.cs.algs4.fundamentals.unionfind;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Arrays;
-
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
-import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
 /**

@@ -22,7 +22,6 @@ package edu.princeton.cs.algs4.strings.tries;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 

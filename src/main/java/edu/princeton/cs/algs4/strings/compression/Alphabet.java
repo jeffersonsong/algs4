@@ -16,8 +16,6 @@ package edu.princeton.cs.algs4.strings.compression;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Arrays;
-
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;

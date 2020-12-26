@@ -10,13 +10,13 @@ public class InversionsTest {
     public void testCountInversesIntArray() {
         int[] a = {3, 1, 2};
 
-        assertThat(Inversions.count(a), is(2L));;
+        assertThat(Inversions.count(a), is(2L));
     }
 
     @Test
     public void testCountInversesComparableArray() {
         String[] a = {"3", "1", "2"};
 
-        assertThat(Inversions.count(a), is(2L));;
+        assertThat(Inversions.count(a), is(2L));
     }
 }

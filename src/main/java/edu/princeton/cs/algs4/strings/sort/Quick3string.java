@@ -36,7 +36,6 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.Comparator;
 
-import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 
 /**
@@ -119,7 +118,6 @@ public class Quick3string {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-
         // read in the strings from standard input
         String[] a = StdIn.readAllStrings();
         int n = a.length;

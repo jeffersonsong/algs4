@@ -1,7 +1,5 @@
 package edu.princeton.cs.algs4.sorting;
 
-import edu.princeton.cs.algs4.fundamentals.basic.BinarySearch;
-
 import java.util.Comparator;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;

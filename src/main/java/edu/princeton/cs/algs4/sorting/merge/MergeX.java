@@ -25,7 +25,6 @@
 package edu.princeton.cs.algs4.sorting.merge;
 
 import edu.princeton.cs.algs4.utils.io.StdIn;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
 import java.util.Comparator;

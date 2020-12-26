@@ -24,7 +24,6 @@
 package edu.princeton.cs.algs4.sorting.qsort;
 
 import edu.princeton.cs.algs4.utils.io.StdIn;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;

@@ -14,7 +14,6 @@ package edu.princeton.cs.algs4.sorting.qsort;
 
 import edu.princeton.cs.algs4.sorting.elementary.Insertion;
 import edu.princeton.cs.algs4.utils.io.StdIn;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
 import static edu.princeton.cs.algs4.sorting.SortUtils.less;

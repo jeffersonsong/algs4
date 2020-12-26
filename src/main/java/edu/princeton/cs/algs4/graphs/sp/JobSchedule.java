@@ -1,7 +1,5 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
-import java.util.Comparator;
-
 public class JobSchedule implements Comparable<JobSchedule> {
     int id;
     double start, end;
