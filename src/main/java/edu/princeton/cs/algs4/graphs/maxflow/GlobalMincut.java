@@ -19,14 +19,13 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.mst;
+package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
-import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
-import edu.princeton.cs.algs4.graphs.maxflow.FordFulkerson;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
+import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -116,8 +115,12 @@ public class GlobalMincut {
     private void validate(EdgeWeightedGraph G) {
         checkArgument(G.V() >= 2, "number of vertices of G is less than 2");
         for (Edge e : G.edges()) {
-            checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
+            nonNegativeWeight(e);
         }
+    }
+
+    private void nonNegativeWeight(Edge e) {
+        checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
     }
 
     /**
