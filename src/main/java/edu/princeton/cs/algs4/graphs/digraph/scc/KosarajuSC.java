@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4.graphs.digraph;
+package edu.princeton.cs.algs4.graphs.digraph.scc;
 
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;

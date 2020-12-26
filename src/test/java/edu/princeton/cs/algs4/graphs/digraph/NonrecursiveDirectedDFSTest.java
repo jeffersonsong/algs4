@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.NonrecursiveDFS;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class NonrecursiveDirectedDFSTest {
 
     @Test
     public void test() {
-        NonrecursiveDirectedDFS dfs = new NonrecursiveDirectedDFS(G, 0);
+        NonrecursiveDFS dfs = new NonrecursiveDFS(G, 0);
         assertTrue(dfs.marked(1));
         assertFalse(dfs.marked(11));
     }

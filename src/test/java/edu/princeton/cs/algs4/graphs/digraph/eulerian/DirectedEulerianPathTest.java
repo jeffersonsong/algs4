@@ -1,5 +1,8 @@
-package edu.princeton.cs.algs4.graphs.digraph;
+package edu.princeton.cs.algs4.graphs.digraph.eulerian;
 
+import edu.princeton.cs.algs4.graphs.digraph.Digraph;
+import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
+import edu.princeton.cs.algs4.graphs.digraph.eulerian.DirectedEulerianPath;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

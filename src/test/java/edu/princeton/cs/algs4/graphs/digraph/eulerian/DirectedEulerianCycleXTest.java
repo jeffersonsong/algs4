@@ -2,12 +2,11 @@ package edu.princeton.cs.algs4.graphs.digraph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
-import edu.princeton.cs.algs4.graphs.digraph.eulerian.DirectedEulerianCycle;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DirectedEulerianCycleTest {
+public class DirectedEulerianCycleXTest {
 
     @Test
     public void testEulerianCycle() {
@@ -19,7 +18,7 @@ public class DirectedEulerianCycleTest {
         g.addEdge(3, 4);
         g.addEdge(4, 0);
 
-        DirectedEulerianCycle eulerian = new DirectedEulerianCycle(g);
-        assertTrue(eulerian.hasEulerianCycle());
+        DirectedEulerianCycleX eulerian = new DirectedEulerianCycleX();
+        assertTrue(eulerian.isEulerianCycle(g));
     }
 }

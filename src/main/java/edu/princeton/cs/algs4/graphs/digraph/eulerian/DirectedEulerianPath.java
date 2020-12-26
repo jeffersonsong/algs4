@@ -9,10 +9,13 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.digraph;
+package edu.princeton.cs.algs4.graphs.digraph.eulerian;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.digraph.Digraph;
+import edu.princeton.cs.algs4.graphs.digraph.DigraphGenerator;
+import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.graphs.graph.eulerian.EulerianCycle;
 import edu.princeton.cs.algs4.graphs.graph.eulerian.EulerianPath;
