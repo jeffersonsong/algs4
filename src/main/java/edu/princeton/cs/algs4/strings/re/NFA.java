@@ -62,6 +62,19 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  see <a href="https://algs4.cs.princeton.edu/54regexp">Section 5.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
+ * Nondeterministic finite-state automata
+ *
+ * The NFAs that we define have the following characteristics:
+ * . The NFA corresponding to an RE of length M has exactly one state per pattern
+ * character, starts at state 0, and has a (virtual) accept state M.
+ * . States corresponding to a character from the alphabet have an outgoing edge
+ * that goes to the state corresponding to the next character in the pattern (black
+ * edges in the diagram).
+ * . States corresponding to the metacharacters (, ), |, and * have at least one outgoing
+ * edge (red edges in the diagram), which may go to any other state.
+ * . Some states have multiple outgoing edges, but no state has more than one outgoing
+ * black edge.
+ *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
