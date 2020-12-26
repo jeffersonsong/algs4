@@ -37,6 +37,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newDoubleArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -82,11 +83,10 @@ public class BellmanFordSP implements SP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public BellmanFordSP(EdgeWeightedDigraph G, int s) {
-        distTo  = new double[G.V()];
+        distTo  = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
         edgeTo  = new DirectedEdge[G.V()];
         onQueue = new boolean[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = Double.POSITIVE_INFINITY;
+
         distTo[s] = 0.0;
 
         // Bellman-Ford algorithm

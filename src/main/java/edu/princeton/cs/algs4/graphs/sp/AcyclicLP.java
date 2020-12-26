@@ -29,6 +29,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newDoubleArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -64,13 +65,11 @@ public class AcyclicLP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public AcyclicLP(EdgeWeightedDigraph G, int s) {
-        distTo = new double[G.V()];
+        distTo = newDoubleArray(G.V(), Double.NEGATIVE_INFINITY);
         edgeTo = new DirectedEdge[G.V()];
 
         validateVertex(s);
 
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = Double.NEGATIVE_INFINITY;
         distTo[s] = 0.0;
 
         // relax vertices in topological order

@@ -24,7 +24,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.utils.io.StdIn;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
@@ -46,36 +46,34 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Kevin Wayne
  */
 public class Arbitrage {
+    private String[] name;
+    private BellmanFordSP spt;
 
     // this class cannot be instantiated
-    private Arbitrage() { }
-
-    /**
-     *  Reads the currency exchange table from standard input and
-     *  prints an arbitrage opportunity to standard output (if one exists).
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-
+    public Arbitrage(In in) {
         // V currencies
-        int V = StdIn.readInt();
-        String[] name = new String[V];
+        int V = in.readInt();
+        name = new String[V];
 
         // create complete network
         EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(V);
         for (int v = 0; v < V; v++) {
-            name[v] = StdIn.readString();
+            name[v] = in.readString();
             for (int w = 0; w < V; w++) {
-                double rate = StdIn.readDouble();
+                double rate = in.readDouble();
                 DirectedEdge e = new DirectedEdge(v, w, -Math.log(rate));
                 G.addEdge(e);
             }
         }
+        spt = new BellmanFordSP(G, 0);
+    }
 
-        // find negative cycle
-        BellmanFordSP spt = new BellmanFordSP(G, 0);
-        if (spt.hasNegativeCycle()) {
+    public boolean hasOpportunity() {
+        return spt.hasNegativeCycle();
+    }
+
+    public void print() {
+        if (hasOpportunity()) {
             double stake = 1000.0;
             for (DirectedEdge e : spt.negativeCycle()) {
                 StdOut.printf("%10.5f %s ", stake, name[e.from()]);
@@ -88,6 +86,17 @@ public class Arbitrage {
         }
     }
 
+    /**
+     *  Reads the currency exchange table from standard input and
+     *  prints an arbitrage opportunity to standard output (if one exists).
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        In in = new In(args[0]);
+        Arbitrage arbitrage = new Arbitrage(in);
+        arbitrage.print();
+    }
 }
 
 /******************************************************************************
