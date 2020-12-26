@@ -11,7 +11,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
-public class PQImpl<Key> implements PQ<Key> {
+public class PQImpl<Key> implements PQ<Key>, BinaryHeap {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
     private Comparator<Key> comparator;  // comparator
@@ -74,12 +74,23 @@ public class PQImpl<Key> implements PQ<Key> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return n == 0;
+    }
+
+    @Override
+    public int size() {
+        return n;
+    }
+
+    @Override
     public void insert(Key x) {
         // double size of array if necessary
         if (n == pq.length - 1) resize(2 * pq.length);
 
         // add x, and percolate it up to maintain heap invariant
-        pq[++n] = x;
+        n++;
+        pq[n] = x;
         swim(n);
         assert isMinHeap();
     }
@@ -107,45 +118,14 @@ public class PQImpl<Key> implements PQ<Key> {
         return pq[1];
     }
 
-    @Override
-    public boolean isEmpty() {
-        return n == 0;
-    }
-
-    @Override
-    public int size() {
-        return n;
-    }
-
-    /***************************************************************************
-     * Helper functions to restore the heap invariant.
-     ***************************************************************************/
-    protected void swim(int k) {
-        while (k > 1 && greater(k / 2, k)) {
-            exch(k, k / 2);
-            k = k / 2;
-        }
-    }
-
-    protected void sink(int k) {
-        int n = size();
-        while (2 * k <= n) {
-            int j = 2 * k;
-            if (j < n && greater(j, j + 1)) j++;
-            if (!greater(k, j)) break;
-            exch(k, j);
-            k = j;
-        }
-    }
-
     /***************************************************************************
      * Helper functions for compares and swaps.
      ***************************************************************************/
-    protected boolean greater(int i, int j) {
+    public boolean greater(int i, int j) {
         return comparator.compare(pq[i], pq[j]) > 0;
     }
 
-    protected void exch(int i, int j) {
+    public void exch(int i, int j) {
         ArrayUtils.exch(pq, i, j);
     }
 

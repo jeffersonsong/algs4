@@ -51,7 +51,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexPQImpl<Key> implements IndexPQ<Key>  {
+public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap  {
     private final int maxN;        // maximum number of elements on PQ
     private int n;           // number of elements on PQ
     private final int[] pq;        // binary heap using 1-based indexing
@@ -99,6 +99,15 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
     }
 
     /**
+     * Returns the number of keys on this priority queue.
+     *
+     * @return the number of keys on this priority queue
+     */
+    public int size() {
+        return n;
+    }
+
+    /**
      * Is {@code i} an index on this priority queue?
      *
      * @param  i an index
@@ -109,15 +118,6 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
     public boolean contains(int i) {
         validateIndex(i);
         return qp[i] != -1;
-    }
-
-    /**
-     * Returns the number of keys on this priority queue.
-     *
-     * @return the number of keys on this priority queue
-     */
-    public int size() {
-        return n;
     }
 
     /**
@@ -133,10 +133,54 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
         validateIndex(i);
         checkArgument(!contains(i),"index is already in the priority queue");
         n++;
+        addToLast(i, key);
+        swim(n);
+    }
+
+    private void addToLast(int i, Key key) {
         qp[i] = n;
         pq[n] = i;
         keys[i] = key;
-        swim(n);
+    }
+
+    /**
+     * Removes a minimum key and returns its associated index.
+     * @return an index associated with a minimum key
+     * @throws NoSuchElementException if this priority queue is empty
+     */
+    public int poll() {
+        noSuchElement(n == 0, "Priority queue underflow");
+        int min = pq[1];
+        exch(1, n--);
+        sink(1);
+        assert min == pq[n+1];
+        removeLast();
+        return min;
+    }
+
+    private int removeLast() {
+        int min = pq[n+1];
+        qp[min] = -1;        // delete
+        keys[min] = null;    // to help with garbage collection
+        pq[n+1] = -1;        // not needed
+        return min;
+    }
+
+    /**
+     * Remove the key associated with index {@code i}.
+     *
+     * @param  i the index of the key to remove
+     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws NoSuchElementException no key is associated with index {@code i}
+     */
+    public void delete(int i) {
+        validateIndex(i);
+        noSuchElement(!contains(i), "index is not in the priority queue");
+        int index = qp[i];
+        exch(index, n--);
+        swim(index);
+        sink(index);
+        removeLast();
     }
 
     /**
@@ -159,23 +203,6 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
     public Key peekKey() {
         noSuchElement(n == 0, "Priority queue underflow");
         return keys[pq[1]];
-    }
-
-    /**
-     * Removes a minimum key and returns its associated index.
-     * @return an index associated with a minimum key
-     * @throws NoSuchElementException if this priority queue is empty
-     */
-    public int poll() {
-        noSuchElement(n == 0, "Priority queue underflow");
-        int min = pq[1];
-        exch(1, n--);
-        sink(1);
-        assert min == pq[n+1];
-        qp[min] = -1;        // delete
-        keys[min] = null;    // to help with garbage collection
-        pq[n+1] = -1;        // not needed
-        return min;
     }
 
     /**
@@ -214,57 +241,19 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>  {
         }
     }
 
-    /**
-     * Remove the key associated with index {@code i}.
-     *
-     * @param  i the index of the key to remove
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
-     * @throws NoSuchElementException no key is associated with index {@code i}
-     */
-    public void delete(int i) {
-        validateIndex(i);
-        noSuchElement(!contains(i), "index is not in the priority queue");
-        int index = qp[i];
-        exch(index, n--);
-        swim(index);
-        sink(index);
-        keys[i] = null;
-        qp[i] = -1;
-    }
-
     // throw an IllegalArgumentException if i is an invalid index
     private void validateIndex(int i) {
         checkIndexInRange(i, 0, maxN);
     }
 
-    /***************************************************************************
-     * Helper functions to restore the heap invariant.
-     ***************************************************************************/
-    protected void swim(int k) {
-        while (k > 1 && greater(k/2, k)) {
-            exch(k, k/2);
-            k = k/2;
-        }
-    }
-
-    protected void sink(int k) {
-        int n = size();
-        while (2*k <= n) {
-            int j = 2*k;
-            if (j < n && greater(j, j+1)) j++;
-            if (!greater(k, j)) break;
-            exch(k, j);
-            k = j;
-        }
-    }
    /***************************************************************************
     * General helper functions.
     ***************************************************************************/
-    protected boolean greater(int i, int j) {
+    public boolean greater(int i, int j) {
         return comparator.compare(keys[pq[i]], keys[pq[j]]) > 0;
     }
 
-    protected void exch(int i, int j) {
+    public void exch(int i, int j) {
         ArrayUtils.exch(pq, i, j);
         qp[pq[i]] = i;
         qp[pq[j]] = j;
