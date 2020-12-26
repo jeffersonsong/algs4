@@ -17,7 +17,7 @@ public class FordFulkersonTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyFN.txt");
+        In in = new In("src/test/resources/65maxflow/tinyFN.txt");
         G = new FlowNetwork(in);
     }
 
