@@ -35,7 +35,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @author Tristan Claverie
  */
-public class MultiwayMinPQ<Key> implements MinPQ<Key> {
+public class MultiwayMinPQ<Key> implements PQ<Key> {
 	private final int d; 				//Dimension of the heap
 	private int n;						//Number of keys currently in the heap
 	private int order;					//Number of levels of the tree
@@ -146,7 +146,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the minimum key currently in the priority queue
 	 */
-	public Key minKey() {
+	public Key peek() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		return keys[d];
 	}
@@ -157,7 +157,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the minimum key
 	 */
-	public Key delMin() {
+	public Key poll() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		exch(0, --n);
 		sink(0);
@@ -284,7 +284,7 @@ public class MultiwayMinPQ<Key> implements MinPQ<Key> {
 		
 		public Key next() {
                         if (!hasNext()) throw new NoSuchElementException();
-			return data.delMin();
+			return data.poll();
 		}
 		
 		public void remove() {

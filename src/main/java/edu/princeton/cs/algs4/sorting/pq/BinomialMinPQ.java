@@ -31,7 +31,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  * 
  *  @author Tristan Claverie
  */
-public class BinomialMinPQ<Key> implements MinPQ<Key> {
+public class BinomialMinPQ<Key> implements PQ<Key> {
 	private Node head;    				//head of the list of roots
 	private final Comparator<Key> comp;	//Comparator over the keys
 	
@@ -125,7 +125,7 @@ public class BinomialMinPQ<Key> implements MinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the minimum key currently in the priority queue
 	 */
-	public Key minKey() {
+	public Key peek() {
 		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
 		Node min = head;
 		Node current = head;
@@ -142,7 +142,7 @@ public class BinomialMinPQ<Key> implements MinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the minimum key
 	 */
-	public Key delMin() {
+	public Key poll() {
 		if(isEmpty()) throw new NoSuchElementException("Priority queue is empty");
 		Node min = eraseMin();
 		Node x = (min.child == null) ? min : min.child;
@@ -283,7 +283,7 @@ public class BinomialMinPQ<Key> implements MinPQ<Key> {
 		
 		public Key next() {
                         if (!hasNext()) throw new NoSuchElementException();
-			return data.delMin();
+			return data.poll();
 		}
 		
 		public void remove() {

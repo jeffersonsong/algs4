@@ -40,7 +40,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @author Tristan Claverie
  */
-public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
+public class IndexFibonacciMinPQ<Key> implements IndexPQ<Key> {
 	private final Node<Key>[] nodes;			//Array of Nodes in the heap
 	private Node<Key> head;				//Head of the circular root list
 	private Node<Key> min;				//Minimum Node in the heap
@@ -148,7 +148,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the index associated with the minimum key
 	 */
 	
-	public int minIndex() {
+	public int peek() {
 		noSuchElement(isEmpty(),"Priority queue is empty");
 		return min.index;
 	}
@@ -160,7 +160,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the minimum key currently in the priority queue
 	 */
 	
-	public Key minKey() {
+	public Key peekKey() {
 		noSuchElement(isEmpty(),"Priority queue is empty");
 		return min.key;
 	}
@@ -172,7 +172,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the index associated with the minimum key
 	 */
 	
-	public int delMin() {
+	public int poll() {
 		noSuchElement(isEmpty(),"Priority queue is empty");
 		head = cut(min, head);
 		Node<Key> x = min.child;
@@ -457,7 +457,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexMinPQ<Key> {
 		//Takes amortized logarithmic time
 		public Integer next() {
 			if (!hasNext()) throw new NoSuchElementException();
-			return copy.delMin();
+			return copy.poll();
 		}
 	}
 	

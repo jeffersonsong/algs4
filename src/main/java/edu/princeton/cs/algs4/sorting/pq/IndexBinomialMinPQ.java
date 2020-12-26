@@ -36,7 +36,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @author Tristan Claverie
  */
-public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
+public class IndexBinomialMinPQ<Key> implements IndexPQ<Key> {
 	private Node<Key> head;    			//Head of the list of roots
 	private Node<Key>[] nodes; 			//Array of indexed Nodes of the heap
 	private int n;			   		//Maximum size of the tree
@@ -143,7 +143,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the index associated with the minimum key
 	 */
 	
-	public int minIndex() {
+	public int peek() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		Node<Key> min = head;
 		Node<Key> current = head;
@@ -161,7 +161,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the minimum key currently in the priority queue
 	 */
 	
-	public Key minKey() {
+	public Key peekKey() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		Node<Key> min = head;
 		Node<Key> current = head;
@@ -179,7 +179,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @return the index associated with the minimum key
 	 */
 	
-	public int delMin() {
+	public int poll() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		Node<Key> min = eraseMin();
 		Node<Key> x = (min.child == null) ? min : min.child;
@@ -484,7 +484,7 @@ public class IndexBinomialMinPQ<Key> implements IndexMinPQ<Key> {
 		
 		public Integer next() {
                         if (!hasNext()) throw new NoSuchElementException();
-			return data.delMin();
+			return data.poll();
 		}
 		
 		public void remove() {

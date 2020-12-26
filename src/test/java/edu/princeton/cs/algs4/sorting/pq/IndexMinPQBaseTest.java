@@ -7,12 +7,16 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class IndexMinPQImplTest {
+public class IndexMinPQBaseTest {
     private IndexPQ<Character> pq;
 
     @Before
     public void setUp() {
-        pq = IndexPQImpl.indexMinPQ(10);
+        pq = createIndexMinPQ();
+    }
+
+    protected IndexPQ<Character> createIndexMinPQ() {
+        return IndexPQImpl.indexMinPQ(10);
     }
 
     @Test

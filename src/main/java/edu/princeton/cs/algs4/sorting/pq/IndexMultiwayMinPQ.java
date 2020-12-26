@@ -42,7 +42,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @author Tristan Claverie
  */
-public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
+public class IndexMultiwayMinPQ<Key> implements IndexPQ<Key> {
 	private final int d;				//Dimension of the heap
 	private int n;						//Number of keys currently in the queue
 	private final int nmax;					//Maximum number of items in the queue
@@ -145,7 +145,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the index associated with the minimum key
 	 */
-	public int minIndex() {
+	public int peek() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		return pq[d];
 	}
@@ -156,7 +156,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the minimum key currently in the priority queue
 	 */
-	public Key minKey() {
+	public Key peekKey() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		return keys[pq[d]+d];
 	}
@@ -167,7 +167,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the priority queue is empty
 	 * @return the index associated with the minimum key
 	 */
-	public int delMin() {
+	public int poll() {
 		noSuchElement(isEmpty(), "Priority queue is empty");
 		int min = pq[d];
 		exch(0, --n);
@@ -354,7 +354,7 @@ public class IndexMultiwayMinPQ<Key> implements IndexMinPQ<Key> {
 		
 		public Integer next() {
                         if (!hasNext()) throw new NoSuchElementException();
-			return clone.delMin();
+			return clone.poll();
 		}
 		
 		public void remove() {

@@ -7,17 +7,17 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
+public class UnorderedMinPQ<Key extends Comparable<Key>> implements PQ<Key> {
     private Key[] pq; // pq[i] = ith element on pq
     private int n; // number of elements on pq
     private final Comparator<Key> comparator;
 
-    public UnorderedMaxPQ(Comparator<Key> comparator) {
+    public UnorderedMinPQ(Comparator<Key> comparator) {
         this(1, comparator);
     }
 
     @SuppressWarnings("unchecked")
-    public UnorderedMaxPQ(int capacity, Comparator<Key> comparator) {
+    public UnorderedMinPQ(int capacity, Comparator<Key> comparator) {
         pq = (Key[]) new Comparable[capacity];
         this.comparator = comparator;
     }
@@ -31,7 +31,7 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
     }
 
     @Override
-    public Key delMax() {
+    public Key poll() {
         int max = maxIndex(0, n - 1);
         exch(max, n - 1);
         Key key = pq[--n];
@@ -52,7 +52,7 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
     }
 
     @Override
-    public Key maxKey() {
+    public Key peek() {
         int max = maxIndex(0, n - 1);
         return pq[max];
     }
@@ -60,7 +60,7 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
     private int maxIndex(int lo, int hi) {
         int max = lo;
         for (int i = lo + 1; i <= hi; i++) {
-            if (less(max, i)) max = i;
+            if (greater(max, i)) max = i;
         }
         return max;
     }
@@ -74,12 +74,12 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> implements MaxPQ<Key> {
         ArrayUtils.exch(pq, i, j);
     }
 
-    private boolean less(int i, int j) {
+    private boolean greater(int i, int j) {
         if (comparator == null) {
-            return ((Comparable<Key>) pq[i]).compareTo(pq[j]) < 0;
+            return ((Comparable<Key>) pq[i]).compareTo(pq[j]) > 0;
         }
         else {
-            return comparator.compare(pq[i], pq[j]) < 0;
+            return comparator.compare(pq[i], pq[j]) > 0;
         }
     }
 
