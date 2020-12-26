@@ -18,7 +18,7 @@ public class DepthFirstDirectedPathsTest {
 
     @Before
     public void setUp() {
-        In in = new In("src/test/resources/tinyDG2.txt");
+        In in = new In("src/test/resources/42digraph/tinyDG2.txt");
         G = new DigraphImpl(in);
     }
 
