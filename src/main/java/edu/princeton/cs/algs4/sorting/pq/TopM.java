@@ -22,6 +22,7 @@ package edu.princeton.cs.algs4.sorting.pq;
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Transaction;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -43,6 +44,28 @@ public class TopM {
     // This class should not be instantiated.
     private TopM() { }
 
+    public static Iterable<Transaction> topM(In in, int m){
+        PQ<Transaction> pq = BinaryHeapImpl.minPQ(m + 1);
+
+        while (in.hasNextLine()) {
+            // Create an entry from the next line and put on the PQ.
+            String line = in.readLine();
+            Transaction transaction = new Transaction(line);
+            pq.insert(transaction);
+
+            // remove minimum if m+1 entries on the PQ
+            if (pq.size() > m)
+                pq.poll();
+        }   // top m entries are on the PQ
+
+        // print entries on PQ in reverse order
+        Stack<Transaction> stack = new LinkedStack<>();
+        for (Transaction transaction : pq)
+            stack.push(transaction);
+
+        return stack;
+    }
+
     /**
      *  Reads a sequence of transactions from standard input; takes a
      *  command-line integer m; prints to standard output the m largest
@@ -51,25 +74,11 @@ public class TopM {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        int m = Integer.parseInt(args[0]); 
-        PQ<Transaction> pq = BinaryHeapImpl.minPQ(m + 1);
+        int m = Integer.parseInt(args[0]);
+        In in = new In(args[1]);
 
-        while (StdIn.hasNextLine()) {
-            // Create an entry from the next line and put on the PQ. 
-            String line = StdIn.readLine();
-            Transaction transaction = new Transaction(line);
-            pq.insert(transaction); 
-
-            // remove minimum if m+1 entries on the PQ
-            if (pq.size() > m) 
-                pq.poll();
-        }   // top m entries are on the PQ
-
-        // print entries on PQ in reverse order
-        Stack<Transaction> stack = new LinkedStack<>();
-        for (Transaction transaction : pq)
-            stack.push(transaction);
-        for (Transaction transaction : stack)
+        Iterable<Transaction> transactions = TopM.topM(in, m);
+        for (Transaction transaction : transactions)
             StdOut.println(transaction);
     } 
 } 
