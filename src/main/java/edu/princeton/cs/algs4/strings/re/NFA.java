@@ -80,6 +80,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class NFA {
 
+    private static final String NEWLINE = "\n";
     private final Digraph graph;     // digraph of epsilon transitions
     private final String regexp;     // regular expression
     private final int m;       // number of characters in regular expression
@@ -160,6 +161,24 @@ public class NFA {
         for (int v : pc)
             if (v == m) return true;
         return false;
+    }
+
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(graph.V()).append(" vertices, ").append(graph.E()).append(" edges ").append(NEWLINE);
+        for (int v = 0; v < graph.V(); v++) {
+            if (v < graph.V() -1) {
+                s.append(String.format("%2d: %s ", v, regexp.charAt(v)));
+            } else {
+                s.append(String.format("%2d: (%s)", v, "accept state"));
+            }
+
+            for (int w : graph.adj(v)) {
+                s.append(String.format("%d ", w));
+            }
+            s.append(NEWLINE);
+        }
+        return s.toString();
     }
 
     /**

@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.strings.re;
 
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class NFATest {
     public void setUp() {
         String regexp = "((A*B|AC)D)";
         nfa = new NFA(regexp);
+        StdOut.println(nfa);
     }
 
     @Test
