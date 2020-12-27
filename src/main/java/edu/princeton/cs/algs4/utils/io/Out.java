@@ -10,11 +10,7 @@
 package edu.princeton.cs.algs4.utils.io;
 
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.Locale;
 
@@ -30,7 +26,7 @@ import java.util.Locale;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Out {
+public class Out implements Closeable {
 
     // force Unicode UTF-8 encoding; otherwise it's system dependent
     private static final String CHARSET_NAME = "UTF-8";

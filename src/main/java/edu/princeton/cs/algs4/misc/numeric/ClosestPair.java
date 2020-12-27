@@ -19,6 +19,7 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
@@ -37,6 +38,8 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  <p>
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/99hull">Section 9.9</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ *  https://www.geeksforgeeks.org/closest-pair-of-points-using-divide-and-conquer-algorithm/
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
@@ -64,11 +67,9 @@ public class ClosestPair {
         if (n <= 1) return;
 
         // sort by x-coordinate (breaking ties by y-coordinate via stability)
-        Point2D[] pointsByX = new Point2D[n];
-        for (int i = 0; i < n; i++)
-            pointsByX[i] = points[i];
-        Arrays.sort(pointsByX, Point2D.Y_ORDER);
-        Arrays.sort(pointsByX, Point2D.X_ORDER);
+        Point2D[] pointsByX = Arrays.copyOf(points, points.length);
+        Comparator<Point2D> xThenY = Comparator.comparing(Point2D::x).thenComparing(Point2D::y);
+        Arrays.sort(pointsByX, xThenY);
 
         // check for coincident points
         for (int i = 0; i < n-1; i++) {
@@ -81,9 +82,7 @@ public class ClosestPair {
         }
 
         // sort by y-coordinate (but not yet sorted) 
-        Point2D[] pointsByY = new Point2D[n];
-        for (int i = 0; i < n; i++)
-            pointsByY[i] = pointsByX[i];
+        Point2D[] pointsByY = Arrays.copyOf(pointsByX, pointsByX.length);
 
         // auxiliary array
         Point2D[] aux = new Point2D[n];
@@ -127,12 +126,32 @@ public class ClosestPair {
                         bestDistance = delta;
                         best1 = aux[i];
                         best2 = aux[j];
-                        // StdOut.println("better distance = " + delta + " from " + best1 + " to " + best2);
                     }
                 }
             }
         }
         return delta;
+    }
+
+    // stably merge a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi]
+    // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
+    private static <T extends Comparable<T>> void merge(T[] a, T[] aux, int lo, int mid, int hi) {
+        // copy to aux[]
+        System.arraycopy(a, lo, aux, lo, hi - lo + 1);
+
+        // merge back to a[]
+        int i = lo, j = mid+1;
+        for (int k = lo; k <= hi; k++) {
+            if      (i > mid)              a[k] = aux[j++];
+            else if (j > hi)               a[k] = aux[i++];
+            else if (less(aux[j], aux[i])) a[k] = aux[j++];
+            else                           a[k] = aux[i++];
+        }
+    }
+
+    // is v < w ?
+    private static <T extends Comparable<T>> boolean less(T v, T w) {
+        return v.compareTo(w) < 0;
     }
 
     /**
@@ -165,31 +184,6 @@ public class ClosestPair {
     public double distance() {
         return bestDistance;
     }
-
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
-
-    // stably merge a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi]
-    // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
-        // copy to aux[]
-        for (int k = lo; k <= hi; k++) {
-            aux[k] = a[k];
-        }
-    
-        // merge back to a[] 
-        int i = lo, j = mid+1;
-        for (int k = lo; k <= hi; k++) {
-            if      (i > mid)              a[k] = aux[j++];
-            else if (j > hi)               a[k] = aux[i++];
-            else if (less(aux[j], aux[i])) a[k] = aux[j++];
-            else                           a[k] = aux[i++];
-        }
-    }
-
-
 
    /**
      * Unit tests the {@code ClosestPair} data type.

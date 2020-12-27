@@ -58,6 +58,25 @@ public class Merge {
     // This class should not be instantiated.
     private Merge() { }
 
+    /**
+     * Rearranges the array in ascending order, using the natural order.
+     * @param a the array to be sorted
+     */
+    public static <T extends Comparable<T>> void sort(T[] a) {
+        T[] aux = Arrays.copyOf(a, a.length);
+        sort(a, aux, 0, a.length-1);
+        assert isSorted(a);
+    }
+
+    // mergesort a[lo..hi] using auxiliary array aux[lo..hi]
+    private static <T extends Comparable<T>> void sort(T[] a, T[] aux, int lo, int hi) {
+        if (hi <= lo) return;
+        int mid = lo + (hi - lo) / 2;
+        sort(a, aux, lo, mid);
+        sort(a, aux, mid + 1, hi);
+        merge(a, aux, lo, mid, hi);
+    }
+
     // stably merge a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi]
     private static <T extends Comparable<T>> void merge(T[] a, T[] aux, int lo, int mid, int hi) {
         // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
@@ -78,25 +97,6 @@ public class Merge {
 
         // postcondition: a[lo .. hi] is sorted
         assert isSorted(a, lo, hi);
-    }
-
-    // mergesort a[lo..hi] using auxiliary array aux[lo..hi]
-    private static <T extends Comparable<T>> void sort(T[] a, T[] aux, int lo, int hi) {
-        if (hi <= lo) return;
-        int mid = lo + (hi - lo) / 2;
-        sort(a, aux, lo, mid);
-        sort(a, aux, mid + 1, hi);
-        merge(a, aux, lo, mid, hi);
-    }
-
-    /**
-     * Rearranges the array in ascending order, using the natural order.
-     * @param a the array to be sorted
-     */
-    public static <T extends Comparable<T>> void sort(T[] a) {
-        T[] aux = Arrays.copyOf(a, a.length);
-        sort(a, aux, 0, a.length-1);
-        assert isSorted(a);
     }
 
    /***************************************************************************

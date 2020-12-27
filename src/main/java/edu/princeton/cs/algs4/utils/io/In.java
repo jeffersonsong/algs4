@@ -9,11 +9,7 @@
 
 package edu.princeton.cs.algs4.utils.io;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.Socket;
 // import java.net.HttpURLConnection;
@@ -57,7 +53,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public final class In {
+public final class In implements Closeable {
     
     ///// begin: section (1 of 2) of code duplicated from In to StdIn.
     
