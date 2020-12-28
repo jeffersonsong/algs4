@@ -46,6 +46,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
@@ -120,11 +121,7 @@ public class GraphImpl<T extends Edge> implements Graph<T> {
         this.E = G.E();
 
         // update indegrees
-        this.indegree = new int[V];
-        for (int v = 0; v < V; v++) {
-            this.indegree[v] = G.indegree(v);
-        }
-
+        this.indegree = newIntArray(V, G::indegree);
         this.adj = newArray(V, i->new LinkedBag<>());
 
         for (int v = 0; v < G.V(); v++) {
