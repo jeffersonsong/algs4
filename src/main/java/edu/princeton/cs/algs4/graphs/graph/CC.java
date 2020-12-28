@@ -37,6 +37,7 @@ import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -81,8 +82,9 @@ public class CC<T extends Edge> {
      */
     public CC(Graph<T> G) {
         marked = new boolean[G.V()];
-        id = new int[G.V()];
-        size = new int[G.V()];
+        id = newIntArray(G.V(), -1);
+        size = newIntArray(G.V(), 0);
+        count = 0;
         for (int v = 0; v < G.V(); v++) {
             if (!marked[v]) {
                 dfs(G, v);
