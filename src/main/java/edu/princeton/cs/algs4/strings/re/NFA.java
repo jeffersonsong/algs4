@@ -173,7 +173,7 @@ public class NFA {
             }
 
             for (Edge e : graph.adj(v)) {
-                int w = e.w();
+                int w = e.other(v);
                 s.append(String.format("%d ", w));
             }
             s.append(NEWLINE);

@@ -87,7 +87,7 @@ public class BoruvkaMST implements MST {
             WeightedEdge[] closest = new WeightedEdge[G.V()];
 
             for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
-                int v = e.v(), w = e.w();
+                int v = e.v(), w = e.other(v);
                 int i = uf.find(v), j = uf.find(w);
                 if (i == j) continue;   // same tree
                 if (closest[i] == null || less(e, closest[i])) closest[i] = e;
@@ -98,7 +98,7 @@ public class BoruvkaMST implements MST {
             for (int i = 0; i < G.V(); i++) {
                 WeightedEdge e = closest[i];
                 if (e != null) {
-                    int v = e.v(), w = e.w();
+                    int v = e.v(), w = e.other(v);
                     // don't add the same edge twice
                     if (uf.find(v) != uf.find(w)) {
                         mst.add(e);

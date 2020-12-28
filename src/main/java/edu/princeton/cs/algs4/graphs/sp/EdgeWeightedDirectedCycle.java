@@ -76,7 +76,7 @@ public class EdgeWeightedDirectedCycle<T extends WeightedEdge> {
         onStack[v] = true;
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.w();
+            int w = e.other(v);
 
             // short circuit if directed cycle found
             if (cycle != null) return;

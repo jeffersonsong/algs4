@@ -112,7 +112,7 @@ public class LazyPrimMST implements MST {
         scan(G, s);
         while (!pq.isEmpty()) {                        // better to stop when mst has V-1 edges
             WeightedEdge e = pq.poll();                      // smallest edge on pq
-            int v = e.v(), w = e.w();        // two endpoints
+            int v = e.v(), w = e.other(v);      // two endpoints
             assert marked[v] || marked[w];
             if (marked[v] && marked[w]) continue;      // lazy, both v and w already scanned
             mst.enqueue(e);                            // add e to MST

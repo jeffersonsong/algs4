@@ -110,7 +110,7 @@ public class DijkstraSP implements SP {
 
     // relax edge e and update pq if changed
     private void relax(WeightedEdge e) {
-        int v = e.v(), w = e.w();
+        int v = e.v(), w = e.other(v);
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
@@ -194,7 +194,7 @@ public class DijkstraSP implements SP {
         // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
             for (WeightedEdge e : G.adj(v)) {
-                int w = e.w();
+                int w = e.other(v);
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
                     return false;

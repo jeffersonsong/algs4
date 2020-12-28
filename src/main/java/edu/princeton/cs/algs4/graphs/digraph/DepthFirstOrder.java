@@ -96,7 +96,7 @@ public class DepthFirstOrder<T extends Edge> {
         pre[v] = preCounter++;
         preorder.enqueue(v);
         for (T e : G.adj(v)) {
-            int w = e.w();
+            int w = e.other(v);
             if (!marked[w]) {
                 dfs(G, w);
             }

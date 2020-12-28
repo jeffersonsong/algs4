@@ -268,7 +268,7 @@ public class GlobalMincut {
         for (int s = 0, t = 1; t < G.V(); t++) {
             Graph<FlowEdge> F = new GraphImpl<>(G.V(), false);
             for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
-                int v = e.v(), w = e.w();
+                int v = e.v(), w = e.other(v);
                 F.addEdge(v, new FlowEdge(v, w, e.weight()));
                 F.addEdge(w, new FlowEdge(w, v, e.weight()));
             }

@@ -100,7 +100,7 @@ public class KruskalMST implements MST {
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
             WeightedEdge e = pq.poll();
             int v = e.v();
-            int w = e.w();
+            int w = e.other(v);
             if (uf.find(v) != uf.find(w)) { // v-w does not create a cycle
                 uf.union(v, w);  // merge v and w components
                 mst.enqueue(e);  // add edge e to mst

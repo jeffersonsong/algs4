@@ -222,7 +222,7 @@ public class FordFulkerson {
         double mincutValue = 0.0;
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
-                if ((v == e.v()) && inCut(e.v()) && !inCut(e.w()))
+                if ((v == e.v()) && inCut(e.v()) && !inCut(e.other(v)))
                     mincutValue += e.capacity();
             }
         }

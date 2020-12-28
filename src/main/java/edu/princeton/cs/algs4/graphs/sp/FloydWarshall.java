@@ -78,8 +78,8 @@ public class FloydWarshall<T extends WeightedEdge> {
         // initialize distances using edge-weighted digraph's
         for (int v = 0; v < G.V(); v++) {
             for (T e : G.adj(v)) {
-                distTo[e.v()][e.w()] = e.weight();
-                edgeTo[e.v()][e.w()] = e;
+                distTo[e.v()][e.other(v)] = e.weight();
+                edgeTo[e.v()][e.other(v)] = e;
             }
             // in case of self-loops
             if (distTo[v][v] >= 0.0) {
@@ -200,7 +200,7 @@ public class FloydWarshall<T extends WeightedEdge> {
         if (!hasNegativeCycle()) {
             for (int v = 0; v < G.V(); v++) {
                 for (T e : G.adj(v)) {
-                    int w = e.w();
+                    int w = e.other(v);
                     for (int i = 0; i < G.V(); i++) {
                         if (distTo[i][w] > distTo[i][v] + e.weight()) {
                             System.err.println("edge " + e + " is eligible");

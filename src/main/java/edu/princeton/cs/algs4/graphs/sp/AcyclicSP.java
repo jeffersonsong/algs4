@@ -85,7 +85,7 @@ public class AcyclicSP implements SP {
 
     // relax edge e
     private void relax(WeightedEdge e) {
-        int v = e.v(), w = e.w();
+        int v = e.v(), w = e.other(v);
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
