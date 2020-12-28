@@ -1,6 +1,7 @@
 package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 
 /**
@@ -8,7 +9,7 @@ import edu.princeton.cs.algs4.graphs.graph.Graph;
  *
  * @author Aakash Hasija
  */
-public class Eulerian {
+public class Eulerian<T extends EdgeNode> {
 
     public enum EulerianType {
         NOT_EULERIAN,
@@ -24,7 +25,7 @@ public class Eulerian {
      *  EULER_PATH if the graph has a Eulerian path (Semi-Eulerian).
      *  EULER_CIRCLE If graph has an Euler Circle (Eulerian)
      */
-    public EulerianType isEulerian(Graph G) {
+    public EulerianType isEulerian(Graph<T> G) {
         // Check if all non-zero degree vertices are connected
         if (!isConnected(G)) {
             return EulerianType.NOT_EULERIAN;
@@ -49,7 +50,7 @@ public class Eulerian {
         return (odd == 2) ? EulerianType.EULER_PATH : EulerianType.EULER_CYCLE;
     }
 
-    private boolean isConnected(Graph G) {
+    private boolean isConnected(Graph<T> G) {
         int i = findFirstNonZeroDegreeVertice(G);
 
         // If there are no edges in the graph, return true
@@ -58,7 +59,7 @@ public class Eulerian {
         }
 
         // Start DFS traversal from a vertex with non-zero degree
-        DepthFirstSearch dfs = new DepthFirstSearch(G, i);
+        DepthFirstSearch<T> dfs = new DepthFirstSearch<>(G, i);
 
         // Check if all non-zero degree vertices are visited
         for (int v = 0; v < G.V(); v++) {
@@ -70,7 +71,7 @@ public class Eulerian {
         return true;
     }
 
-    private int findFirstNonZeroDegreeVertice(Graph g) {
+    private int findFirstNonZeroDegreeVertice(Graph<T> g) {
         int i;
 
         // Find a vertex with non-zero degree

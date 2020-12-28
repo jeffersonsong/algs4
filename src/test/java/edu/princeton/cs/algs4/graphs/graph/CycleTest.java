@@ -9,8 +9,8 @@ public class CycleTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph G = GraphReader.readGraph(in);
-        Cycle finder = new Cycle(G);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Cycle<UnweightedEdgeNode> finder = new Cycle<>(G);
         assertTrue(finder.hasCycle());
     }
 }

@@ -15,10 +15,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.graph.BipartiteMatching;
-import edu.princeton.cs.algs4.graphs.graph.BipartiteX;
-import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.GraphGenerator;
+import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
@@ -66,11 +63,11 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class HopcroftKarp {
+public class HopcroftKarp<T extends EdgeNode> {
     private static final int UNMATCHED = -1;
 
     private final int V;                 // number of vertices in the graph
-    private final BipartiteX bipartition;      // the bipartition
+    private final BipartiteX<T> bipartition;      // the bipartition
     private int cardinality;             // cardinality of current matching
     private final int[] mate;                  // mate[v] =  w if v-w is an edge in current matching
                                          //         = -1 if v is not in current matching
@@ -85,8 +82,8 @@ public class HopcroftKarp {
      * @param  G the bipartite graph
      * @throws IllegalArgumentException if {@code G} is not bipartite
      */
-    public HopcroftKarp(Graph G) {
-        bipartition = new BipartiteX(G);
+    public HopcroftKarp(Graph<T> G) {
+        bipartition = new BipartiteX<>(G);
         checkArgument(bipartition.isBipartite(), "graph is not bipartite");
 
         // initialize empty matching
@@ -98,7 +95,7 @@ public class HopcroftKarp {
 
             // to be able to iterate over each adjacency list, keeping track of which
             // vertex in each adjacency list needs to be explored next
-            Iterator<Integer>[] adj = (Iterator<Integer>[]) new Iterator[G.V()];
+            Iterator<T>[] adj = (Iterator<T>[]) new Iterator[G.V()];
             for (int v = 0; v < G.V(); v++)
                 adj[v] = G.adj(v).iterator();
 
@@ -119,7 +116,8 @@ public class HopcroftKarp {
                     // advance
                     else {
                         // process edge v-w only if it is an edge in level graph
-                        int w = adj[v].next();
+                        T e = adj[v].next();
+                        int w = e.to();
                         if (!isLevelGraphEdge(v, w)) continue;
 
                         // add w to augmenting path
@@ -185,7 +183,7 @@ public class HopcroftKarp {
      *
      * an augmenting path is an alternating path that starts and ends at unmatched vertices
      */
-    private boolean hasAugmentingPath(Graph G) {
+    private boolean hasAugmentingPath(Graph<T> G) {
         // shortest path distances
         marked = new boolean[V];
         distTo = newIntArray(V, Integer.MAX_VALUE);
@@ -205,8 +203,8 @@ public class HopcroftKarp {
         boolean hasAugmentingPath = false;
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
-            for (int w : G.adj(v)) {
-
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 // forward edge not in matching or backwards edge in matching
                 if (isResidualGraphEdge(v, w)) {
                     if (!marked[w]) {
@@ -303,7 +301,7 @@ public class HopcroftKarp {
      **************************************************************************/
 
     // check that mate[] and inVertexCover[] define a max matching and min vertex cover, respectively
-    private boolean certifySolution(Graph G) {
+    private boolean certifySolution(Graph<T> G) {
 
         // check that mate(v) = w iff mate(w) = v
         for (int v = 0; v < V; v++) {
@@ -340,7 +338,8 @@ public class HopcroftKarp {
         for (int v = 0; v < V; v++) {
             if (mate(v) == -1) continue;
             boolean isEdge = false;
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (mate(v) == w) isEdge = true;
             }
             if (!isEdge) return false;
@@ -348,8 +347,10 @@ public class HopcroftKarp {
 
         // check that inMinVertexCover() is a vertex cover
         for (int v = 0; v < V; v++)
-            for (int w : G.adj(v))
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (!inMinVertexCover(v) && !inMinVertexCover(w)) return false;
+            }
 
         return true;
     }

@@ -56,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DepthFirstPaths {
+public class DepthFirstPaths<T extends EdgeNode> {
     private final boolean[] marked;    // marked[v] = is there an s-v path?
     private final int[] edgeTo;        // edgeTo[v] = last edge on s-v path
     private final int s;         // source vertex
@@ -67,7 +67,7 @@ public class DepthFirstPaths {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DepthFirstPaths(Graph G, int s) {
+    public DepthFirstPaths(Graph<T> G, int s) {
         this.s = s;
         edgeTo = new int[G.V()];
         marked = new boolean[G.V()];
@@ -76,9 +76,10 @@ public class DepthFirstPaths {
     }
 
     // depth first search from v
-    private void dfs(Graph G, int v) {
+    private void dfs(Graph<T> G, int v) {
         marked[v] = true;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
             if (!marked[w]) {
                 edgeTo[w] = v;
                 dfs(G, w);
@@ -128,9 +129,9 @@ public class DepthFirstPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
         int s = Integer.parseInt(args[1]);
-        DepthFirstPaths dfs = new DepthFirstPaths(G, s);
+        DepthFirstPaths<UnweightedEdgeNode> dfs = new DepthFirstPaths<>(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (dfs.hasPathTo(v)) {

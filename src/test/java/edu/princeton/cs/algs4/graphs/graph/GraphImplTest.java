@@ -12,12 +12,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GraphImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphImplTest.class);
 
-    private Graph G;
+    private Graph<UnweightedEdgeNode> G;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        G = GraphReader.readGraph(in);
+        G = GraphReader.readGraph(in, false);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class GraphImplTest {
 
     @Test
     public void testCopyConstructor() {
-        Graph G2 = new GraphImpl(G);
+        Graph<UnweightedEdgeNode> G2 = new GraphImpl<>(G);
         assertThat(G2.V(), is(13));
         assertThat(G2.E(), is(13));
 

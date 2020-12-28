@@ -77,7 +77,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DegreesOfSeparation {
+public class DegreesOfSeparation<T extends EdgeNode> {
 
     // this class cannot be instantiated
     private DegreesOfSeparation() { }
@@ -101,15 +101,15 @@ public class DegreesOfSeparation {
 
         // StdOut.println("Source: " + source);
 
-        SymbolGraph<Graph> sg = SymbolGraph.symbolGraph(filename, delimiter);
-        Graph G = sg.graph();
+        SymbolGraph sg = SymbolGraph.symbolGraph(filename, delimiter);
+        Graph<UnweightedEdgeNode> G = sg.graph();
         if (!sg.contains(source)) {
             StdOut.println(source + " not in database.");
             return;
         }
 
         int s = sg.indexOf(source);
-        BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
+        BreadthFirstPaths<UnweightedEdgeNode> bfs = new BreadthFirstPaths<>(G, s);
 
         while (!StdIn.isEmpty()) {
             String sink = StdIn.readLine();

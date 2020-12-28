@@ -18,10 +18,15 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.StdOut;
+
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code DirectedCycle} class represents a data type for 
@@ -47,7 +52,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DirectedCycle {
+public class DirectedCycle<T extends EdgeNode> {
     private final boolean[] marked;        // marked[v] = has vertex v been marked?
     private final int[] edgeTo;            // edgeTo[v] = previous vertex on path to v
     private final boolean[] onStack;       // onStack[v] = is vertex on the stack?
@@ -58,7 +63,8 @@ public class DirectedCycle {
      * finds such a cycle.
      * @param G the digraph
      */
-    public DirectedCycle(Digraph G) {
+    public DirectedCycle(Graph<T> G) {
+        checkArgument(G.isDirected());
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
         edgeTo  = new int[G.V()];
@@ -67,10 +73,11 @@ public class DirectedCycle {
     }
 
     // run DFS and find a directed cycle (if one exists)
-    private void dfs(Digraph G, int v) {
+    private void dfs(Graph<T> G, int v) {
         onStack[v] = true;
         marked[v] = true;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
 
             // short circuit if directed cycle found
             if (cycle != null) return;
@@ -138,9 +145,9 @@ public class DirectedCycle {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = GraphReader.readDigraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
 
-        DirectedCycle finder = new DirectedCycle(G);
+        DirectedCycle<UnweightedEdgeNode> finder = new DirectedCycle<>(G);
         if (finder.hasCycle()) {
             StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {

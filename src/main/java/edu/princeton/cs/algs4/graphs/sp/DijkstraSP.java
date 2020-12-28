@@ -34,6 +34,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
@@ -77,7 +78,9 @@ public class DijkstraSP implements SP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraSP(EdgeWeightedDigraph G, int s) {
+    public DijkstraSP(Graph<DirectedEdge> G, int s) {
+        checkArgument(G.isDirected());
+
         for (int v = 0; v < G.V(); v++) {
             for (DirectedEdge e : G.adj(v)) {
                 checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
@@ -162,7 +165,7 @@ public class DijkstraSP implements SP {
     // check optimality conditions:
     // (i) for all edges e:            distTo[e.to()] <= distTo[e.from()] + e.weight()
     // (ii) for all edge e on the SPT: distTo[e.to()] == distTo[e.from()] + e.weight()
-    private boolean check(EdgeWeightedDigraph G, int s) {
+    private boolean check(Graph<DirectedEdge> G, int s) {
 
         // check that edge weights are nonnegative
         for (int v=0; v < G.V(); v++) {
@@ -225,7 +228,7 @@ public class DijkstraSP implements SP {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths

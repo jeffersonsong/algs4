@@ -10,6 +10,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -40,7 +41,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class AdjMatrixEdgeWeightedDigraph implements EdgeWeightedDigraph {
+public class AdjMatrixEdgeWeightedDigraph implements Graph<DirectedEdge> {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;
@@ -76,7 +77,7 @@ public class AdjMatrixEdgeWeightedDigraph implements EdgeWeightedDigraph {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
             double weight = Math.round(100 * StdRandom.uniform()) / 100.0;
-            addEdge(new DirectedEdge(v, w, weight));
+            addEdge(v, new DirectedEdge(v, w, weight));
         }
     }
 
@@ -101,8 +102,8 @@ public class AdjMatrixEdgeWeightedDigraph implements EdgeWeightedDigraph {
      * is not already an edge with the same endpoints).
      * @param e the edge
      */
-    public void addEdge(DirectedEdge e) {
-        int v = e.from();
+    public void addEdge(int v, DirectedEdge e) {
+        checkArgument(v == e.from());
         int w = e.to();
         validateVertex(v);
         validateVertex(w);
@@ -139,6 +140,16 @@ public class AdjMatrixEdgeWeightedDigraph implements EdgeWeightedDigraph {
             if (adj[w][v] != null) degree++;
         }
         return degree;
+    }
+
+    @Override
+    public boolean isDirected() {
+        return true;
+    }
+
+    @Override
+    public Graph<DirectedEdge> reverse() {
+        throw new UnsupportedOperationException();
     }
 
     // support iteration over graph vertices
@@ -207,7 +218,7 @@ public class AdjMatrixEdgeWeightedDigraph implements EdgeWeightedDigraph {
     public static void main(String[] args) {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        EdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V, E);
+        Graph<DirectedEdge> G = new AdjMatrixEdgeWeightedDigraph(V, E);
         StdOut.println(G);
     }
 

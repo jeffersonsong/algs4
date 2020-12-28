@@ -12,6 +12,7 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -48,7 +49,9 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraAllPairsSP(EdgeWeightedDigraph G) {
+    public DijkstraAllPairsSP(Graph<DirectedEdge> G) {
+        checkArgument(G.isDirected());
+
         all  = new DijkstraSP[G.V()];
         for (int v = 0; v < G.V(); v++)
             all[v] = new DijkstraSP(G, v);
@@ -114,7 +117,7 @@ public class DijkstraAllPairsSP {
 
         // read edge-weighted digraph
         In in = new In(args[0]);
-        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
 
         // compute shortest paths between all pairs of vertices
         DijkstraAllPairsSP spt = new DijkstraAllPairsSP(G);

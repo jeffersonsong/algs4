@@ -51,7 +51,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Cycle {
+public class Cycle<T extends EdgeNode> {
     private boolean[] marked;
     private int[] edgeTo;
     private Stack<Integer> cycle;
@@ -62,7 +62,7 @@ public class Cycle {
      *
      * @param G the undirected graph
      */
-    public Cycle(Graph G) {
+    public Cycle(Graph<T> G) {
         if (hasSelfLoop(G)) return;
         if (hasParallelEdges(G)) return;
         marked = new boolean[G.V()];
@@ -74,9 +74,10 @@ public class Cycle {
 
     // does this graph have a self loop?
     // side effect: initialize cycle to be self loop
-    private boolean hasSelfLoop(Graph G) {
+    private boolean hasSelfLoop(Graph<T> G) {
         for (int v = 0; v < G.V(); v++) {
-            for (int w : G.adj(v)) {
+            for (T e: G.adj(v)) {
+                int w = e.to();
                 if (v == w) {
                     cycle = new LinkedStack<>();
                     cycle.push(v);
@@ -90,13 +91,14 @@ public class Cycle {
 
     // does this graph have two parallel edges?
     // side effect: initialize cycle to be two parallel edges
-    private boolean hasParallelEdges(Graph G) {
+    private boolean hasParallelEdges(Graph<T> G) {
         marked = new boolean[G.V()];
 
         for (int v = 0; v < G.V(); v++) {
 
             // check for parallel edges incident to v
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (marked[w]) {
                     cycle = new LinkedStack<>();
                     cycle.push(v);
@@ -108,7 +110,8 @@ public class Cycle {
             }
 
             // reset so marked[v] = false for all v
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 marked[w] = false;
             }
         }
@@ -133,9 +136,10 @@ public class Cycle {
         return cycle;
     }
 
-    private void dfs(Graph G, int u, int v) {
+    private void dfs(Graph<T> G, int u, int v) {
         marked[v] = true;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
 
             // short circuit if cycle already found
             if (cycle != null) return;
@@ -164,8 +168,8 @@ public class Cycle {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
-        Cycle finder = new Cycle(G);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Cycle<UnweightedEdgeNode>  finder = new Cycle<>(G);
         if (finder.hasCycle()) {
             for (int v : finder.cycle()) {
                 StdOut.print(v + " ");

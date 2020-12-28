@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
@@ -19,11 +20,11 @@ public abstract class SPBaseTest {
     @Before
     public void setUp()  {
         In in = new In("src/test/resources/44sp/tinyEWD.txt");
-        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
         sp = createSP(G, 0);
     }
 
-    protected abstract SP createSP(EdgeWeightedDigraph G, int s);
+    protected abstract SP createSP(Graph<DirectedEdge> G, int s);
 
     @Test
     public void test() {

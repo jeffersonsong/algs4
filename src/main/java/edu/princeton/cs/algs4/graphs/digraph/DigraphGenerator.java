@@ -11,6 +11,9 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.set.SET;
 import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -58,10 +61,10 @@ public class DigraphGenerator {
      *     of {@code E} edges
      * @throws IllegalArgumentException if no such simple digraph exists
      */
-    public static Digraph simple(int V, int E) {
+    public static Graph<UnweightedEdgeNode> simple(int V, int E) {
         checkArgument(E <= (long) V*(V-1), "Too many edges");
         checkArgument(E >= 0, "Too few edges");
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
@@ -69,7 +72,7 @@ public class DigraphGenerator {
             Edge e = new Edge(v, w);
             if ((v != w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(v, w);
+                G.addEdge(v, new UnweightedEdgeNode(w));
             }
         }
         return G;
@@ -86,14 +89,14 @@ public class DigraphGenerator {
      *     any two vertices with probability {@code p}
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static Digraph simple(int V, double p) {
+    public static Graph<UnweightedEdgeNode> simple(int V, double p) {
         checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         for (int v = 0; v < V; v++)
             for (int w = 0; w < V; w++)
                 if (v != w)
                     if (StdRandom.bernoulli(p))
-                        G.addEdge(v, w);
+                        G.addEdge(v, new UnweightedEdgeNode(w));
         return G;
     }
 
@@ -104,11 +107,11 @@ public class DigraphGenerator {
      * @param V the number of vertices
      * @return the complete digraph on {@code V} vertices
      */
-    public static Digraph complete(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode>  complete(int V) {
+        Graph<UnweightedEdgeNode>  G = new GraphImpl<>(V, true);
         for (int v = 0; v < V; v++)
             for (int w = 0; w < V; w++)
-                    if (v != w) G.addEdge(v, w);
+                    if (v != w) G.addEdge(v, new UnweightedEdgeNode(w));
         return G;
     }
 
@@ -121,10 +124,10 @@ public class DigraphGenerator {
      *     of {@code E} edges
      * @throws IllegalArgumentException if no such simple DAG exists
      */
-    public static Digraph dag(int V, int E) {
+    public static Graph<UnweightedEdgeNode> dag(int V, int E) {
         checkArgument(E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode>  G = new GraphImpl<>(V, true);
         SET<Edge> set = new SETImpl<>();
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
@@ -134,7 +137,7 @@ public class DigraphGenerator {
             Edge e = new Edge(v, w);
             if ((v < w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[v], vertices[w]);
+                G.addEdge(vertices[v], new UnweightedEdgeNode(vertices[w]));
             }
         }
         return G;
@@ -147,12 +150,12 @@ public class DigraphGenerator {
      * @param V the number of vertices
      * @return a random tournament digraph on {@code V} vertices
      */
-    public static Digraph tournament(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode> tournament(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         for (int v = 0; v < G.V(); v++) {
             for (int w = v+1; w < G.V(); w++) {
-                if (StdRandom.bernoulli(0.5)) G.addEdge(v, w);
-                else                          G.addEdge(w, v);
+                if (StdRandom.bernoulli(0.5)) G.addEdge(v, new UnweightedEdgeNode(w));
+                else                          G.addEdge(w, new UnweightedEdgeNode(v));
             }
         }
         return G;
@@ -166,13 +169,13 @@ public class DigraphGenerator {
      * @param V the number of vertices
      * @return a complete rooted-in DAG on {@code V} vertices
      */
-    public static Digraph completeRootedInDAG(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode> completeRootedInDAG(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V; i++)
             for (int j = i+1; j < V; j++)
-                 G.addEdge(vertices[i], vertices[j]);
+                 G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[j]));
 
         return G;
     }
@@ -186,10 +189,10 @@ public class DigraphGenerator {
      * @param E the number of edges
      * @return a random rooted-in DAG on {@code V} vertices and {@code E} edges
      */
-    public static Digraph rootedInDAG(int V, int E) {
+    public static Graph<UnweightedEdgeNode> rootedInDAG(int V, int E) {
         checkArgument (E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument (E >= V-1, "Too few edges");
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         SET<Edge> set = new SETImpl<>();
 
         // fix a topological order
@@ -201,7 +204,7 @@ public class DigraphGenerator {
             int w = StdRandom.uniform(v+1, V);
             Edge e = new Edge(v, w);
             set.add(e);
-            G.addEdge(vertices[v], vertices[w]);
+            G.addEdge(vertices[v], new UnweightedEdgeNode(vertices[w]));
         }
 
         while (G.E() < E) {
@@ -210,7 +213,7 @@ public class DigraphGenerator {
             Edge e = new Edge(v, w);
             if ((v < w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[v], vertices[w]);
+                G.addEdge(vertices[v], new UnweightedEdgeNode(vertices[w]));
             }
         }
         return G;
@@ -223,13 +226,13 @@ public class DigraphGenerator {
      * @param V the number of vertices
      * @return a complete rooted-out DAG on {@code V} vertices
      */
-    public static Digraph completeRootedOutDAG(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode> completeRootedOutDAG(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V; i++)
             for (int j = i+1; j < V; j++)
-                 G.addEdge(vertices[j], vertices[i]);
+                 G.addEdge(vertices[j], new UnweightedEdgeNode(vertices[i]));
 
         return G;
     }
@@ -243,11 +246,11 @@ public class DigraphGenerator {
      * @param E the number of edges
      * @return a random rooted-out DAG on {@code V} vertices and {@code E} edges
      */
-    public static Digraph rootedOutDAG(int V, int E) {
+    public static Graph<UnweightedEdgeNode> rootedOutDAG(int V, int E) {
         checkArgument (E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument (E >= V-1, "Too few edges");
 
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         SET<Edge> set = new SETImpl<>();
 
         // fix a topological order
@@ -259,7 +262,7 @@ public class DigraphGenerator {
             int w = StdRandom.uniform(v+1, V);
             Edge e = new Edge(w, v);
             set.add(e);
-            G.addEdge(vertices[w], vertices[v]);
+            G.addEdge(vertices[w], new UnweightedEdgeNode(vertices[v]));
         }
 
         while (G.E() < E) {
@@ -268,7 +271,7 @@ public class DigraphGenerator {
             Edge e = new Edge(w, v);
             if ((v < w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[w], vertices[v]);
+                G.addEdge(vertices[w], new UnweightedEdgeNode(vertices[v]));
             }
         }
         return G;
@@ -282,7 +285,7 @@ public class DigraphGenerator {
      * @param V the number of vertices
      * @return a random rooted-in tree on {@code V} vertices
      */
-    public static Digraph rootedInTree(int V) {
+    public static Graph<UnweightedEdgeNode> rootedInTree(int V) {
         return rootedInDAG(V, V-1);
     }
 
@@ -294,7 +297,7 @@ public class DigraphGenerator {
      * @param V the number of vertices
      * @return a random rooted-out tree on {@code V} vertices
      */
-    public static Digraph rootedOutTree(int V) {
+    public static Graph<UnweightedEdgeNode> rootedOutTree(int V) {
         return rootedOutDAG(V, V-1);
     }
 
@@ -303,12 +306,12 @@ public class DigraphGenerator {
      * @param V the number of vertices in the path
      * @return a digraph that is a directed path on {@code V} vertices
      */
-    public static Digraph path(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode> path(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
         return G;
     }
@@ -318,12 +321,12 @@ public class DigraphGenerator {
      * @param V the number of vertices in the binary tree
      * @return a digraph that is a complete binary tree on {@code V} vertices
      */
-    public static Digraph binaryTree(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode> binaryTree(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[i], vertices[(i-1)/2]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[(i-1)/2]));
         }
         return G;
     }
@@ -333,14 +336,14 @@ public class DigraphGenerator {
      * @param V the number of vertices in the cycle
      * @return a digraph that is a directed cycle on {@code V} vertices
      */
-    public static Digraph cycle(int V) {
-        Digraph G = new DigraphImpl(V);
+    public static Graph<UnweightedEdgeNode> cycle(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
-        G.addEdge(vertices[V-1], vertices[0]);
+        G.addEdge(vertices[V-1], new UnweightedEdgeNode(vertices[0]));
         return G;
     }
 
@@ -353,15 +356,15 @@ public class DigraphGenerator {
      *         and {@code E} edges
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E <= 0}
      */
-    public static Digraph eulerianCycle(int V, int E) {
+    public static Graph<UnweightedEdgeNode> eulerianCycle(int V, int E) {
         checkArgument(E > 0, "An Eulerian cycle must have at least one edge");
         checkArgument(V > 0, "An Eulerian cycle must have at least one vertex");
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIntArray(E, v->StdRandom.uniform(V));
         for (int i = 0; i < E-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
-        G.addEdge(vertices[E-1], vertices[0]);
+        G.addEdge(vertices[E-1], new UnweightedEdgeNode(vertices[0]));
         return G;
     }
 
@@ -374,13 +377,13 @@ public class DigraphGenerator {
      *         and {@code E} edges
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E < 0}
      */
-    public static Digraph eulerianPath(int V, int E) {
+    public static Graph<UnweightedEdgeNode> eulerianPath(int V, int E) {
         checkArgument(E >= 0, "negative number of edges");
         checkArgument(V > 0, "An Eulerian path must have at least one vertex");
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
         int[] vertices = newIntArray(E+1, i->StdRandom.uniform(V));
         for (int i = 0; i < E; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
         return G;
     }
@@ -402,13 +405,13 @@ public class DigraphGenerator {
                {@code E} edges, with (at most) {@code c} strong components
      * @throws IllegalArgumentException if {@code c} is larger than {@code V}
      */
-    public static Digraph strong(int V, int E, int c) {
+    public static Graph<UnweightedEdgeNode> strong(int V, int E, int c) {
         checkArgument(c < V && c > 0, "Number of components must be between 1 and V");
         checkArgument(E > 2*(V-c), "Number of edges must be at least 2(V-c)");
         checkArgument(E <= (long) V*(V-1) / 2, "Too many edges");
 
         // the digraph
-        Digraph G = new DigraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, true);
 
         // edges added to G (to avoid duplicate edges)
         SET<Edge> set = new SETImpl<>();
@@ -438,7 +441,7 @@ public class DigraphGenerator {
                 int w = StdRandom.uniform(v+1, count);
                 Edge e = new Edge(w, v);
                 set.add(e);
-                G.addEdge(vertices[w], vertices[v]);
+                G.addEdge(vertices[w], new UnweightedEdgeNode(vertices[v]));
             }
 
             // rooted-out tree with root = vertices[count-1]
@@ -446,7 +449,7 @@ public class DigraphGenerator {
                 int w = StdRandom.uniform(v+1, count);
                 Edge e = new Edge(v, w);
                 set.add(e);
-                G.addEdge(vertices[v], vertices[w]);
+                G.addEdge(vertices[v], new UnweightedEdgeNode(vertices[w]));
             }
         }
 
@@ -456,7 +459,7 @@ public class DigraphGenerator {
             Edge e = new Edge(v, w);
             if (!set.contains(e) && v != w && label[v] <= label[w]) {
                 set.add(e);
-                G.addEdge(v, w);
+                G.addEdge(v, new UnweightedEdgeNode(w));
             }
         }
 

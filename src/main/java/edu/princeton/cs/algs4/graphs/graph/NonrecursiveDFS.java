@@ -67,7 +67,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class NonrecursiveDFS {
+public class NonrecursiveDFS<T extends EdgeNode> {
     private final boolean[] marked;  // marked[v] = is there an s-v path?
     /**
      * Computes the vertices connected to the source vertex {@code s} in the graph {@code G}.
@@ -75,14 +75,14 @@ public class NonrecursiveDFS {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public NonrecursiveDFS(Graph G, int s) {
+    public NonrecursiveDFS(Graph<T> G, int s) {
         marked = new boolean[G.V()];
 
         validateVertex(s);
 
         // to be able to iterate over each adjacency list, keeping track of which
         // vertex in each adjacency list needs to be explored next
-        Iterator<Integer>[] adj = (Iterator<Integer>[]) new Iterator[G.V()];
+        Iterator<T>[] adj = (Iterator<T>[]) new Iterator[G.V()];
         for (int v = 0; v < G.V(); v++)
             adj[v] = G.adj(v).iterator();
 
@@ -93,7 +93,8 @@ public class NonrecursiveDFS {
         while (!stack.isEmpty()) {
             int v = stack.peek();
             if (adj[v].hasNext()) {
-                int w = adj[v].next();
+                T e = adj[v].next();
+                int w = e.to();
                 // StdOut.printf("check %d\n", w);
                 if (!marked[w]) {
                     // discovered vertex w for the first time
@@ -135,9 +136,9 @@ public class NonrecursiveDFS {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
         int s = Integer.parseInt(args[1]);
-        NonrecursiveDFS dfs = new NonrecursiveDFS(G, s);
+        NonrecursiveDFS<UnweightedEdgeNode> dfs = new NonrecursiveDFS<>(G, s);
         for (int v = 0; v < G.V(); v++)
             if (dfs.marked(v))
                 StdOut.print(v + " ");

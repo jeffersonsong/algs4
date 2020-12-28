@@ -19,6 +19,8 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -57,7 +59,9 @@ public class FloydWarshall {
      * some pair of vertices, it computes a negative cycle.
      * @param G the edge-weighted digraph
      */
-    public FloydWarshall(EdgeWeightedDigraph G) {
+    public FloydWarshall(Graph<DirectedEdge> G) {
+        checkArgument(G.isDirected());
+
         int V = G.V();
         distTo = new double[V][V];
         edgeTo = new DirectedEdge[V][V];
@@ -121,10 +125,10 @@ public class FloydWarshall {
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
                 int V = edgeTo.length;
-                EdgeWeightedDigraph spt = new EdgeWeightedDigraphImpl(V);
+                Graph<DirectedEdge> spt = new GraphImpl<>(V, true);
                 for (int w = 0; w < V; w++)
                     if (edgeTo[v][w] != null)
-                        spt.addEdge(edgeTo[v][w]);
+                        spt.addEdge(v, edgeTo[v][w]);
                 EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
                 assert finder.hasCycle();
                 return finder.cycle();
@@ -188,7 +192,7 @@ public class FloydWarshall {
     }
 
     // check optimality conditions
-    private boolean check(EdgeWeightedDigraph G) {
+    private boolean check(Graph<DirectedEdge> G) {
 
         // no negative cycle
         if (!hasNegativeCycle()) {
@@ -223,13 +227,13 @@ public class FloydWarshall {
         // random graph with V vertices and E edges, parallel edges allowed
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        EdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V);
+        Graph<DirectedEdge> G = new AdjMatrixEdgeWeightedDigraph(V);
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
             double weight = Math.round(100 * (StdRandom.uniform() - 0.15)) / 100.0;
-            if (v == w) G.addEdge(new DirectedEdge(v, w, Math.abs(weight)));
-            else G.addEdge(new DirectedEdge(v, w, weight));
+            if (v == w) G.addEdge(v, new DirectedEdge(v, w, Math.abs(weight)));
+            else G.addEdge(v, new DirectedEdge(v, w, weight));
         }
 
         StdOut.println(G);

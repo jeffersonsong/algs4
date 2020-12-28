@@ -1,19 +1,23 @@
 package edu.princeton.cs.algs4.graphs.digraph.eulerian;
 
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.scc.KosarajuSC;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  * @author Princi Singh
  */
-public class DirectedEulerianCycleX {
+public class DirectedEulerianCycleX<T extends EdgeNode> {
 
     /**
      * @param G directed graph.
      * @return This function returns true if the directed graph has a eulerian
      * cycle, otherwise returns false
      */
-    public boolean isEulerianCycle(Digraph G) {
+    public boolean isEulerianCycle(Graph<T> G) {
+        checkArgument(G.isDirected());
         // Check if all non-zero degree vertices are connected
         if (!KosarajuSC.isSC(G)) return false;
 

@@ -19,10 +19,7 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
-import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.GraphGenerator;
-import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.eulerian.DirectedEulerianCycle;
@@ -59,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
  *  @author Kevin Wayne
  *  @author Nate Liu
  */
-public class EulerianCycle {
+public class EulerianCycle<T extends EdgeNode> {
     private Stack<Integer> cycle = new LinkedStack<>();  // Eulerian cycle; null if no such cycle
 
     // an undirected edge, with a field to indicate whether the edge has already been used
@@ -87,7 +84,7 @@ public class EulerianCycle {
      * 
      * @param G the graph
      */
-    public EulerianCycle(Graph G) {
+    public EulerianCycle(Graph<T> G) {
 
         // must have at least one edge
         if (G.E() == 0) return;
@@ -104,7 +101,8 @@ public class EulerianCycle {
 
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
-            for (int w : G.adj(v)) {
+            for (T l : G.adj(v)) {
+                int w = l.to();
                 // careful with self loops
                 if (v == w) {
                     if (selfLoops % 2 == 0) {
@@ -188,7 +186,7 @@ public class EulerianCycle {
     //    - at least one edge
     //    - degree(v) is even for every vertex v
     //    - the graph is connected (ignoring isolated vertices)
-    private static boolean satisfiesNecessaryAndSufficientConditions(Graph G) {
+    private static <T extends EdgeNode> boolean satisfiesNecessaryAndSufficientConditions(Graph<T> G) {
 
         // Condition 0: at least 1 edge
         if (G.E() == 0) return false;
@@ -200,7 +198,7 @@ public class EulerianCycle {
 
         // Condition 2: graph is connected, ignoring isolated vertices
         int s = nonIsolatedVertex(G);
-        BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
+        BreadthFirstPaths<T> bfs = new BreadthFirstPaths<>(G, s);
         for (int v = 0; v < G.V(); v++)
             if (G.degree(v) > 0 && !bfs.hasPathTo(v))
                 return false;
@@ -209,7 +207,7 @@ public class EulerianCycle {
     }
 
     // check that solution is correct
-    private boolean certifySolution(Graph G) {
+    private boolean certifySolution(Graph<T> G) {
 
         // internal consistency check
         if (hasEulerianCycle() == (cycle() == null)) return false;
@@ -237,12 +235,12 @@ public class EulerianCycle {
         return true;
     }
 
-    private static void unitTest(Graph G, String description) {
+    private static <T extends EdgeNode> void unitTest(Graph<T> G, String description) {
         StdOut.println(description);
         StdOut.println("-------------------------------------");
         StdOut.print(G);
 
-        EulerianCycle euler = new EulerianCycle(G);
+        EulerianCycle<T> euler = new EulerianCycle<>(G);
 
         StdOut.print("Eulerian cycle: ");
         if (euler.hasEulerianCycle()) {
@@ -268,39 +266,43 @@ public class EulerianCycle {
         int E = Integer.parseInt(args[1]);
 
         // Eulerian cycle
-        Graph G1 = GraphGenerator.eulerianCycle(V, E);
+        Graph<UnweightedEdgeNode> G1 = GraphGenerator.eulerianCycle(V, E);
         unitTest(G1, "Eulerian cycle");
 
         // Eulerian path
-        Graph G2 = GraphGenerator.eulerianPath(V, E);
+        Graph<UnweightedEdgeNode> G2 = GraphGenerator.eulerianPath(V, E);
         unitTest(G2, "Eulerian path");
 
         // empty graph
-        Graph G3 = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G3 = new GraphImpl<>(V,false);
         unitTest(G3, "empty graph");
 
         // self loop
-        Graph G4 = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G4 = new GraphImpl(V, false);
         int v4 = StdRandom.uniform(V);
-        G4.addEdge(v4, v4);
+        G4.addEdge(v4, new UnweightedEdgeNode(v4));
         unitTest(G4, "single self loop");
 
         // union of two disjoint cycles
-        Graph H1 = GraphGenerator.eulerianCycle(V/2, E/2);
-        Graph H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
+        Graph<UnweightedEdgeNode> H1 = GraphGenerator.eulerianCycle(V/2, E/2);
+        Graph<UnweightedEdgeNode> H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
         int[] perm = newIndexArray(V);
         StdRandom.shuffle(perm);
-        Graph G5 = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G5 = new GraphImpl<>(V, false);
         for (int v = 0; v < H1.V(); v++)
-            for (int w : H1.adj(v))
-                G5.addEdge(perm[v], perm[w]);
+            for (UnweightedEdgeNode e : H1.adj(v)) {
+                int w = e.to();
+                G5.addEdge(perm[v], new UnweightedEdgeNode(perm[w]));
+            }
         for (int v = 0; v < H2.V(); v++)
-            for (int w : H2.adj(v))
-                G5.addEdge(perm[V/2 + v], perm[V/2 + w]);
+            for (UnweightedEdgeNode e  : H2.adj(v)) {
+                int w = e.to();
+                G5.addEdge(perm[V / 2 + v], new UnweightedEdgeNode(perm[V / 2 + w]));
+            }
         unitTest(G5, "Union of two disjoint cycles");
 
         // random digraph
-        Graph G6 = GraphGenerator.simple(V, E);
+        Graph<UnweightedEdgeNode> G6 = GraphGenerator.simple(V, E);
         unitTest(G6, "simple graph");
     }
 }

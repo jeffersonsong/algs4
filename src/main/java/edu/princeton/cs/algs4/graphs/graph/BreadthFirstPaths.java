@@ -73,7 +73,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BreadthFirstPaths {
+public class BreadthFirstPaths<T extends EdgeNode> {
     private static final int INFINITY = Integer.MAX_VALUE;
     private final boolean[] marked;  // marked[v] = is there an s-v path
     private final int[] edgeTo;      // edgeTo[v] = previous edge on shortest s-v path
@@ -86,7 +86,7 @@ public class BreadthFirstPaths {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public BreadthFirstPaths(Graph G, int s) {
+    public BreadthFirstPaths(Graph<T> G, int s) {
         this(G, singleton(s));
     }
 
@@ -105,7 +105,7 @@ public class BreadthFirstPaths {
      * @throws IllegalArgumentException unless {@code 0 <= s < V} for each vertex
      *         {@code s} in {@code sources}
      */
-    public BreadthFirstPaths(Graph G, Iterable<Integer> sources) {
+    public BreadthFirstPaths(Graph<T> G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
         distTo = newIntArray(G.V(), INFINITY);
         edgeTo = newIntArray(G.V(), -1);
@@ -114,7 +114,7 @@ public class BreadthFirstPaths {
     }
 
     // breadth-first search from multiple sources
-    private void bfs(Graph G, Iterable<Integer> sources) {
+    private void bfs(Graph<T> G, Iterable<Integer> sources) {
         Queue<Integer> q = new LinkedQueue<>();
         for (int s : sources) {
             marked[s] = true;
@@ -123,7 +123,8 @@ public class BreadthFirstPaths {
         }
         while (!q.isEmpty()) {
             int v = q.dequeue();
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (!marked[w]) {
                     edgeTo[w] = v;
                     distTo[w] = distTo[v] + 1;
@@ -197,11 +198,11 @@ public class BreadthFirstPaths {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);
-        BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
+        BreadthFirstPaths<UnweightedEdgeNode>  bfs = new BreadthFirstPaths<>(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (bfs.hasPathTo(v)) {

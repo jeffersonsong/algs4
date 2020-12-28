@@ -46,7 +46,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Bipartite {
+public class Bipartite<T extends EdgeNode> {
     private boolean isBipartite;   // is the graph bipartite?
     private final boolean[] color;       // color[v] gives vertices on one side of bipartition
     private final boolean[] marked;      // marked[v] = true iff v has been visited in DFS
@@ -59,7 +59,7 @@ public class Bipartite {
      *
      * @param  G the graph
      */
-    public Bipartite(Graph G) {
+    public Bipartite(Graph<T> G) {
         isBipartite = true;
         color  = new boolean[G.V()];
         marked = new boolean[G.V()];
@@ -73,9 +73,10 @@ public class Bipartite {
         assert check(G);
     }
 
-    private void dfs(Graph G, int v) { 
+    private void dfs(Graph<T> G, int v) {
         marked[v] = true;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
 
             // short circuit if odd-length cycle found
             if (cycle != null) return;
@@ -139,11 +140,12 @@ public class Bipartite {
         return cycle; 
     }
 
-    private boolean check(Graph G) {
+    private boolean check(Graph<T> G) {
         // graph is bipartite
         if (isBipartite) {
             for (int v = 0; v < G.V(); v++) {
-                for (int w : G.adj(v)) {
+                for (T e : G.adj(v)) {
+                    int w = e.to();
                     if (color[v] == color[w]) {
                         System.err.printf("edge %d-%d with %d and %d in same side of bipartition\n", v, w, v, w);
                         return false;
@@ -188,17 +190,16 @@ public class Bipartite {
 
         // create random bipartite graph with V1 vertices on left side,
         // V2 vertices on right side, and E edges; then add F random edges
-        Graph G = GraphGenerator.bipartite(V1, V2, E);
+        Graph<UnweightedEdgeNode> G = GraphGenerator.bipartite(V1, V2, E);
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V1 + V2);
             int w = StdRandom.uniform(V1 + V2);
-            G.addEdge(v, w);
+            G.addEdge(v, new UnweightedEdgeNode(w));
         }
 
         StdOut.println(G);
 
-
-        Bipartite b = new Bipartite(G);
+        Bipartite<UnweightedEdgeNode> b = new Bipartite<>(G);
         if (b.isBipartite()) {
             StdOut.println("Graph is bipartite");
             for (int v = 0; v < G.V(); v++) {

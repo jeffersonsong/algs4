@@ -69,7 +69,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class CC {
+public class CC<T extends EdgeNode> {
     private final boolean[] marked;   // marked[v] = has vertex v been marked?
     private final int[] id;           // id[v] = id of connected component containing v
     private final int[] size;         // size[id] = number of vertices in given component
@@ -80,7 +80,7 @@ public class CC {
      *
      * @param G the undirected graph
      */
-    public CC(Graph G) {
+    public CC(Graph<T> G) {
         marked = new boolean[G.V()];
         id = new int[G.V()];
         size = new int[G.V()];
@@ -110,11 +110,12 @@ public class CC {
     }
 
     // depth-first search for a Graph
-    private void dfs(Graph G, int v) {
+    private void dfs(Graph<T> G, int v) {
         marked[v] = true;
         id[v] = count;
         size[count]++;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
             if (!marked[w]) {
                 dfs(G, w);
             }
@@ -216,8 +217,8 @@ public class CC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
-        CC cc = new CC(G);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        CC<UnweightedEdgeNode> cc = new CC<>(G);
 
         // number of connected components
         int m = cc.count();

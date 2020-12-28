@@ -31,10 +31,10 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -81,7 +81,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 public class NFA {
 
     private static final String NEWLINE = "\n";
-    private final Digraph graph;     // digraph of epsilon transitions
+    private final GraphImpl<UnweightedEdgeNode> graph;     // digraph of epsilon transitions
     private final String regexp;     // regular expression
     private final int m;       // number of characters in regular expression
 
@@ -94,7 +94,7 @@ public class NFA {
         this.regexp = regexp;
         m = regexp.length();
         Stack<Integer> ops = new LinkedStack<>();
-        graph = new DigraphImpl(m+1);
+        graph = new GraphImpl<UnweightedEdgeNode>(m+1, true);
         for (int i = 0; i < m; i++) { 
             int lp = i; 
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '|') 
@@ -105,8 +105,8 @@ public class NFA {
                 // 2-way or operator
                 if (regexp.charAt(or) == '|') { 
                     lp = ops.pop();
-                    graph.addEdge(lp, or+1);
-                    graph.addEdge(or, i);
+                    graph.addEdge(lp, new UnweightedEdgeNode(or+1));
+                    graph.addEdge(or, new UnweightedEdgeNode(i));
                 }
                 else if (regexp.charAt(or) == '(')
                     lp = or;
@@ -115,11 +115,11 @@ public class NFA {
 
             // closure operator (uses 1-character lookahead)
             if (i < m-1 && regexp.charAt(i+1) == '*') { 
-                graph.addEdge(lp, i+1); 
-                graph.addEdge(i+1, lp); 
+                graph.addEdge(lp, new UnweightedEdgeNode(i+1));
+                graph.addEdge(i+1, new UnweightedEdgeNode(lp));
             } 
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == ')') 
-                graph.addEdge(i, i+1);
+                graph.addEdge(i, new UnweightedEdgeNode(i+1));
         }
         checkArgument(ops.size() == 0, "Invalid regular expression");
     } 
@@ -132,7 +132,7 @@ public class NFA {
      *         {@code false} otherwise
      */
     public boolean recognizes(String txt) {
-        DepthFirstSearch dfs = new DepthFirstSearch(graph, 0);
+        DepthFirstSearch<UnweightedEdgeNode> dfs = new DepthFirstSearch<>(graph, 0);
         Bag<Integer> pc = new LinkedBag<>();
         for (int v = 0; v < graph.V(); v++)
             if (dfs.marked(v)) pc.add(v);
@@ -148,7 +148,7 @@ public class NFA {
                 if ((regexp.charAt(v) == txt.charAt(i)) || regexp.charAt(v) == '.')
                     match.add(v+1); 
             }
-            dfs = new DepthFirstSearch(graph, match);
+            dfs = new DepthFirstSearch<>(graph, match);
             pc = new LinkedBag<>();
             for (int v = 0; v < graph.V(); v++)
                 if (dfs.marked(v)) pc.add(v);
@@ -173,7 +173,8 @@ public class NFA {
                 s.append(String.format("%2d: (%s)", v, "accept state"));
             }
 
-            for (int w : graph.adj(v)) {
+            for (UnweightedEdgeNode e : graph.adj(v)) {
+                int w = e.to();
                 s.append(String.format("%d ", w));
             }
             s.append(NEWLINE);

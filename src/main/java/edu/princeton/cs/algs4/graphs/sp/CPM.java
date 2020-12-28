@@ -25,6 +25,8 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -67,7 +69,7 @@ public class CPM {
         int source = 2 * jobs.length;
         int sink = 2 * jobs.length + 1;
 
-        EdgeWeightedDigraphImpl G = buildNetwork(jobs, source, sink);
+        Graph<DirectedEdge> G = buildNetwork(jobs, source, sink);
 
         // compute longest path
         AcyclicLP lp = new AcyclicLP(G, source);
@@ -94,19 +96,19 @@ public class CPM {
      * @param sink sink.
      * @return job network.
      */
-    private static EdgeWeightedDigraphImpl buildNetwork(Job[] jobs, int source, int sink) {
+    private static Graph<DirectedEdge> buildNetwork(Job[] jobs, int source, int sink) {
         int n = jobs.length;
 
-        EdgeWeightedDigraphImpl G = new EdgeWeightedDigraphImpl(2 * n + 2);
+        Graph<DirectedEdge> G = new GraphImpl<>(2 * n + 2, true);
         for (int i = 0; i < n; i++) {
             Job job = jobs[i];
-            G.addEdge(new DirectedEdge(source, i, 0.0));
-            G.addEdge(new DirectedEdge(i + n, sink, 0.0));
-            G.addEdge(new DirectedEdge(i, i + n, job.duration));
+            G.addEdge(source,new DirectedEdge(source, i, 0.0));
+            G.addEdge(i + n, new DirectedEdge(i + n, sink, 0.0));
+            G.addEdge(i,new DirectedEdge(i, i + n, job.duration));
 
             // precedence constraints
             for (int precedent : job.precedentTo) {
-                G.addEdge(new DirectedEdge(n + i, precedent, 0.0));
+                G.addEdge(n + i, new DirectedEdge(n + i, precedent, 0.0));
             }
         }
         return G;

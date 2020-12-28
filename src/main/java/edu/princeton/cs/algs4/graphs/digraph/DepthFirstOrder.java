@@ -37,10 +37,11 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -64,7 +65,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DepthFirstOrder {
+public class DepthFirstOrder<T extends EdgeNode> {
     private final boolean[] marked;          // marked[v] = has v been marked in dfs?
     private final int[] pre;                 // pre[v]    = preorder  number of v
     private final int[] post;                // post[v]   = postorder number of v
@@ -77,7 +78,8 @@ public class DepthFirstOrder {
      * Determines a depth-first order for the digraph {@code G}.
      * @param G the digraph
      */
-    public DepthFirstOrder(Digraph G) {
+    public DepthFirstOrder(Graph<T> G) {
+        checkArgument(G.isDirected());
         pre    = new int[G.V()];
         post   = new int[G.V()];
         postorder = new LinkedQueue<>();
@@ -89,40 +91,12 @@ public class DepthFirstOrder {
         assert check();
     }
 
-    /**
-     * Determines a depth-first order for the edge-weighted digraph {@code G}.
-     * @param G the edge-weighted digraph
-     */
-    public DepthFirstOrder(EdgeWeightedDigraph G) {
-        pre    = new int[G.V()];
-        post   = new int[G.V()];
-        postorder = new LinkedQueue<>();
-        preorder  = new LinkedQueue<>();
-        marked    = new boolean[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            if (!marked[v]) dfs(G, v);
-    }
-
     // run DFS in digraph G from vertex v and compute preorder/postorder
-    private void dfs(Digraph G, int v) {
+    private void dfs(Graph<T> G, int v) {
         marked[v] = true;
         pre[v] = preCounter++;
         preorder.enqueue(v);
-        for (int w : G.adj(v)) {
-            if (!marked[w]) {
-                dfs(G, w);
-            }
-        }
-        postorder.enqueue(v);
-        post[v] = postCounter++;
-    }
-
-    // run DFS in edge-weighted digraph G from vertex v and compute preorder/postorder
-    private void dfs(EdgeWeightedDigraph G, int v) {
-        marked[v] = true;
-        pre[v] = preCounter++;
-        preorder.enqueue(v);
-        for (DirectedEdge e : G.adj(v)) {
+        for (T e : G.adj(v)) {
             int w = e.to();
             if (!marked[w]) {
                 dfs(G, w);
@@ -219,9 +193,9 @@ public class DepthFirstOrder {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = GraphReader.readDigraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
 
-        DepthFirstOrder dfs = new DepthFirstOrder(G);
+        DepthFirstOrder<UnweightedEdgeNode> dfs = new DepthFirstOrder<>(G);
         StdOut.println("   v  pre post");
         StdOut.println("--------------");
         for (int v = 0; v < G.V(); v++) {

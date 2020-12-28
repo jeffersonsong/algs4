@@ -67,7 +67,10 @@ package edu.princeton.cs.algs4.graphs.digraph.scc;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.graphs.digraph.*;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -102,7 +105,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class KosarajuSharirSCC implements SCC {
+public class KosarajuSharirSCC<T extends EdgeNode> implements SCC {
     private final boolean[] marked;     // marked[v] = has vertex v been visited?
     private final int[] id;             // id[v] = id of strong component containing v
     private int count;            // number of strongly-connected components
@@ -111,10 +114,10 @@ public class KosarajuSharirSCC implements SCC {
      * Computes the strong components of the digraph {@code G}.
      * @param G the digraph
      */
-    public KosarajuSharirSCC(Digraph G) {
-
+    public KosarajuSharirSCC(Graph<T> G) {
+        checkArgument(G.isDirected());
         // compute reverse postorder of reverse graph
-        DepthFirstOrder dfs = new DepthFirstOrder(G.reverse());
+        DepthFirstOrder<T> dfs = new DepthFirstOrder<>(G.reverse());
 
         // run DFS on G, using reverse postorder to guide calculation
         marked = new boolean[G.V()];
@@ -131,10 +134,11 @@ public class KosarajuSharirSCC implements SCC {
     }
 
     // DFS on graph G
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Graph<T> G, int v) {
         marked[v] = true;
         id[v] = count;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
             if (!marked[w]) dfs(G, w);
         }
     }
@@ -174,8 +178,8 @@ public class KosarajuSharirSCC implements SCC {
     }
 
     // does the id[] array contain the strongly connected components?
-    private boolean check(Digraph G) {
-        TransitiveClosure tc = new TransitiveClosure(G);
+    private boolean check(Graph<T> G) {
+        TransitiveClosure<T> tc = new TransitiveClosure<>(G);
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
                 if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v)))
@@ -198,8 +202,8 @@ public class KosarajuSharirSCC implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = GraphReader.readDigraph(in);
-        KosarajuSharirSCC scc = new KosarajuSharirSCC(G);
+        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
+        KosarajuSharirSCC<UnweightedEdgeNode>  scc = new KosarajuSharirSCC<>(G);
 
         // number of connected components
         int m = scc.count();

@@ -8,17 +8,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DepthFirstSearchTest {
-    private Graph G;
+    private Graph<UnweightedEdgeNode> G;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        G = GraphReader.readGraph(in);
+        G = GraphReader.readGraph(in, false);
     }
 
     @Test
     public void test() {
-        DepthFirstSearch dfs = new DepthFirstSearch(G, 0);
+        DepthFirstSearch<UnweightedEdgeNode> dfs = new DepthFirstSearch<>(G, 0);
         assertTrue(dfs.marked(1));
         assertFalse(dfs.marked(7));
     }

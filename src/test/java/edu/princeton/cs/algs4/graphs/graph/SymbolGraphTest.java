@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SymbolGraphTest {
-    private SymbolGraph<Graph> sg;
+    private SymbolGraph sg;
 
     @Before
     public void setUp() {
@@ -16,14 +16,14 @@ public class SymbolGraphTest {
 
     @Test
     public void test() {
-        Graph G = sg.graph();
+        Graph<UnweightedEdgeNode> G = sg.graph();
 
         assertTrue(sg.contains("LAS"));
         assertFalse(sg.contains("EWR"));
 
         int s = sg.indexOf("JFK");
 
-        BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
+        BreadthFirstPaths<UnweightedEdgeNode>  bfs = new BreadthFirstPaths<>(G, s);
         int t = sg.indexOf("ORD");
 
         assertTrue(bfs.hasPathTo(t));

@@ -13,11 +13,14 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code EdgeWeightedDirectedCycle} class represents a data type for 
@@ -55,7 +58,8 @@ public class EdgeWeightedDirectedCycle {
      * if so, finds such a cycle.
      * @param G the edge-weighted digraph
      */
-    public EdgeWeightedDirectedCycle(EdgeWeightedDigraph G) {
+    public EdgeWeightedDirectedCycle(Graph<DirectedEdge> G) {
+        checkArgument(G.isDirected());
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
         edgeTo  = new DirectedEdge[G.V()];
@@ -67,7 +71,7 @@ public class EdgeWeightedDirectedCycle {
     }
 
     // check that algorithm computes either the topological order or finds a directed cycle
-    private void dfs(EdgeWeightedDigraph G, int v) {
+    private void dfs(Graph<DirectedEdge> G, int v) {
         onStack[v] = true;
         marked[v] = true;
         for (DirectedEdge e : G.adj(v)) {
@@ -159,7 +163,7 @@ public class EdgeWeightedDirectedCycle {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
-        EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(V);
+        Graph<DirectedEdge> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {
@@ -169,7 +173,7 @@ public class EdgeWeightedDirectedCycle {
                 w = StdRandom.uniform(V);
             } while (v >= w);
             double weight = StdRandom.uniform();
-            G.addEdge(new DirectedEdge(v, w, weight));
+            G.addEdge(v, new DirectedEdge(v, w, weight));
         }
 
         // add F extra edges
@@ -177,7 +181,7 @@ public class EdgeWeightedDirectedCycle {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
             double weight = StdRandom.uniform(0.0, 1.0);
-            G.addEdge(new DirectedEdge(v, w, weight));
+            G.addEdge(v, new DirectedEdge(v, w, weight));
         }
 
         StdOut.println(G);

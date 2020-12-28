@@ -25,9 +25,11 @@ package edu.princeton.cs.algs4.graphs.digraph.scc;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.graphs.digraph.TransitiveClosure;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
@@ -66,7 +68,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class GabowSCC implements SCC {
+public class GabowSCC<T extends EdgeNode> implements SCC {
 
     private final boolean[] marked;        // marked[v] = has v been visited?
     private final int[] id;                // id[v] = id of strong component containing v
@@ -81,7 +83,8 @@ public class GabowSCC implements SCC {
      * Computes the strong components of the digraph {@code G}.
      * @param G the digraph
      */
-    public GabowSCC(Digraph G) {
+    public GabowSCC(Graph<T> G) {
+        checkArgument(G.isDirected());
         marked = new boolean[G.V()];
         stack1 = new LinkedStack<>();
         stack2 = new LinkedStack<>();
@@ -96,12 +99,13 @@ public class GabowSCC implements SCC {
         assert check(G);
     }
 
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Graph<T> G, int v) {
         marked[v] = true;
         preorder[v] = pre++;
         stack1.push(v);
         stack2.push(v);
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
             if (!marked[w]) dfs(G, w);
             else if (id[w] == -1) {
                 while (preorder[stack2.peek()] > preorder[w])
@@ -156,8 +160,8 @@ public class GabowSCC implements SCC {
     }
 
     // does the id[] array contain the strongly connected components?
-    private boolean check(Digraph G) {
-        TransitiveClosure tc = new TransitiveClosure(G);
+    private boolean check(Graph<T> G) {
+        TransitiveClosure<T> tc = new TransitiveClosure<>(G);
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
                 if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v)))
@@ -180,8 +184,8 @@ public class GabowSCC implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = GraphReader.readDigraph(in);
-        GabowSCC scc = new GabowSCC(G);
+        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
+        GabowSCC<UnweightedEdgeNode> scc = new GabowSCC<>(G);
 
         // number of connected components
         int m = scc.count();

@@ -61,11 +61,11 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BipartiteMatching {
+public class BipartiteMatching<T extends EdgeNode> {
     private static final int UNMATCHED = -1;
 
     private final int V;                 // number of vertices in the graph
-    private final BipartiteX bipartition;      // the bipartition
+    private final BipartiteX<T> bipartition;      // the bipartition
     private int cardinality;             // cardinality of current matching
     private final int[] mate;                  // mate[v] =  w if v-w is an edge in current matching
                                          //         = -1 if v is not in current matching
@@ -80,8 +80,8 @@ public class BipartiteMatching {
      * @param  G the bipartite graph
      * @throws IllegalArgumentException if {@code G} is not bipartite
      */
-    public BipartiteMatching(Graph G) {
-        bipartition = new BipartiteX(G);
+    public BipartiteMatching(Graph<T> G) {
+        bipartition = new BipartiteX<>(G);
         checkArgument(bipartition.isBipartite(), "graph is not bipartite");
 
         this.V = G.V();
@@ -135,7 +135,7 @@ public class BipartiteMatching {
      * this implementation finds a shortest augmenting path (fewest number of edges), though there
      * is no particular advantage to do so here
      */
-    private boolean hasAugmentingPath(Graph G) {
+    private boolean hasAugmentingPath(Graph<T> G) {
         marked = new boolean[V];
 
         edgeTo = newIntArray(V, -1);
@@ -152,7 +152,8 @@ public class BipartiteMatching {
         // run BFS, stopping as soon as an alternating path is found
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
 
                 // either (1) forward edge not in matching or (2) backward edge in matching
                 if (isResidualGraphEdge(v, w) && !marked[w]) {
@@ -250,7 +251,7 @@ public class BipartiteMatching {
      **************************************************************************/
 
     // check that mate[] and inVertexCover[] define a max matching and min vertex cover, respectively
-    private boolean certifySolution(Graph G) {
+    private boolean certifySolution(Graph<T> G) {
 
         // check that mate(v) = w iff mate(w) = v
         for (int v = 0; v < V; v++) {
@@ -287,7 +288,8 @@ public class BipartiteMatching {
         for (int v = 0; v < V; v++) {
             if (mate(v) == -1) continue;
             boolean isEdge = false;
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (mate(v) == w) isEdge = true;
             }
             if (!isEdge) return false;
@@ -295,8 +297,10 @@ public class BipartiteMatching {
 
         // check that inMinVertexCover() is a vertex cover
         for (int v = 0; v < V; v++)
-            for (int w : G.adj(v))
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (!inMinVertexCover(v) && !inMinVertexCover(w)) return false;
+            }
 
         return true;
     }
@@ -314,11 +318,11 @@ public class BipartiteMatching {
         int V1 = Integer.parseInt(args[0]);
         int V2 = Integer.parseInt(args[1]);
         int E  = Integer.parseInt(args[2]);
-        Graph G = GraphGenerator.bipartite(V1, V2, E);
+        Graph<UnweightedEdgeNode> G = GraphGenerator.bipartite(V1, V2, E);
 
         if (G.V() < 1000) StdOut.println(G);
 
-        BipartiteMatching matching = new BipartiteMatching(G);
+        BipartiteMatching<UnweightedEdgeNode>  matching = new BipartiteMatching<>(G);
         
         // print maximum matching
         StdOut.printf("Number of edges in max matching        = %d\n", matching.size());

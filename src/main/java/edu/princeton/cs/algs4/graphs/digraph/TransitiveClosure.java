@@ -32,8 +32,7 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
-import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -62,17 +61,18 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class TransitiveClosure {
-    private final DepthFirstSearch[] tc;  // tc[v] = reachable from v
+public class TransitiveClosure<T extends EdgeNode> {
+    private final DepthFirstSearch<T>[] tc;  // tc[v] = reachable from v
 
     /**
      * Computes the transitive closure of the digraph {@code G}.
      * @param G the digraph
      */
-    public TransitiveClosure(Digraph G) {
-        tc = new DepthFirstSearch[G.V()];
+    public TransitiveClosure(Graph<T> G) {
+        checkArgument(G.isDirected());
+        tc = (DepthFirstSearch<T>[])new DepthFirstSearch[G.V()];
         for (int v = 0; v < G.V(); v++)
-            tc[v] = new DepthFirstSearch(G, v);
+            tc[v] = new DepthFirstSearch<>(G, v);
     }
 
     /**
@@ -103,9 +103,9 @@ public class TransitiveClosure {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Digraph G = GraphReader.readDigraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
 
-        TransitiveClosure tc = new TransitiveClosure(G);
+        TransitiveClosure<UnweightedEdgeNode> tc = new TransitiveClosure<>(G);
 
         // print header
         StdOut.print("     ");

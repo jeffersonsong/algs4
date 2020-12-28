@@ -12,10 +12,12 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -49,7 +51,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class TopologicalX {
+public class TopologicalX<T extends EdgeNode> {
     private Queue<Integer> order;     // vertices in topological order
     private final int[] ranks;        // ranks[v] = order where vertex v appears in order
 
@@ -58,7 +60,8 @@ public class TopologicalX {
      * finds such a topological order.
      * @param G the digraph
      */
-    public TopologicalX(Digraph G) {
+    public TopologicalX(Graph<T> G) {
+        checkArgument(G.isDirected());
         // indegrees of remaining vertices
         int[] indegree = newIntArray(G.V(), G::indegree);
 
@@ -77,45 +80,7 @@ public class TopologicalX {
             int v = queue.dequeue();
             order.enqueue(v);
             ranks[v] = count++;
-            for (int w : G.adj(v)) {
-                indegree[w]--;
-                if (indegree[w] == 0) queue.enqueue(w);
-            }
-        }
-
-        // there is a directed cycle in subgraph of vertices with indegree >= 1.
-        if (count != G.V()) {
-            order = null;
-        }
-
-        assert check(G);
-    }
-
-    /**
-     * Determines whether the edge-weighted digraph {@code G} has a
-     * topological order and, if so, finds such a topological order.
-     * @param G the digraph
-     */
-    public TopologicalX(EdgeWeightedDigraph G) {
-        // indegrees of remaining vertices
-        int[] indegree = newIntArray(G.V(), G::indegree);
-
-        // initialize 
-        ranks = new int[G.V()]; 
-        order = new LinkedQueue<>();
-        int count = 0;
-
-        // initialize queue to contain all vertices with indegree = 0
-        Queue<Integer> queue = new LinkedQueue<>();
-        for (int v = 0; v < G.V(); v++) {
-            if (indegree[v] == 0) queue.enqueue(v);
-        }
-
-        while (!queue.isEmpty()) {
-            int v = queue.dequeue();
-            order.enqueue(v);
-            ranks[v] = count++;
-            for (DirectedEdge e : G.adj(v)) {
+            for (T e : G.adj(v)) {
                 int w = e.to();
                 indegree[w]--;
                 if (indegree[w] == 0) queue.enqueue(w);
@@ -166,7 +131,7 @@ public class TopologicalX {
     }
 
     // certify that digraph is acyclic
-    private boolean check(Digraph G) {
+    private boolean check(Graph<T> G) {
 
         // digraph is acyclic
         if (hasOrder()) {
@@ -184,50 +149,7 @@ public class TopologicalX {
 
             // check that ranks provide a valid topological order
             for (int v = 0; v < G.V(); v++) {
-                for (int w : G.adj(v)) {
-                    if (rank(v) > rank(w)) {
-                        System.err.printf("%d-%d: rank(%d) = %d, rank(%d) = %d\n",
-                                          v, w, v, rank(v), w, rank(w));
-                        return false;
-                    }
-                }
-            }
-
-            // check that order() is consistent with rank()
-            int r = 0;
-            for (int v : order()) {
-                if (rank(v) != r) {
-                    System.err.println("order() and rank() inconsistent");
-                    return false;
-                }
-                r++;
-            }
-        }
-
-
-        return true;
-    }
-
-    // certify that digraph is acyclic
-    private boolean check(EdgeWeightedDigraph G) {
-
-        // digraph is acyclic
-        if (hasOrder()) {
-            // check that ranks are a permutation of 0 to V-1
-            boolean[] found = new boolean[G.V()];
-            for (int i = 0; i < G.V(); i++) {
-                found[rank(i)] = true;
-            }
-            for (int i = 0; i < G.V(); i++) {
-                if (!found[i]) {
-                    System.err.println("No vertex with rank " + i);
-                    return false;
-                }
-            }
-
-            // check that ranks provide a valid topological order
-            for (int v = 0; v < G.V(); v++) {
-                for (DirectedEdge e : G.adj(v)) {
+                for (T e : G.adj(v)) {
                     int w = e.to();
                     if (rank(v) > rank(w)) {
                         System.err.printf("%d-%d: rank(%d) = %d, rank(%d) = %d\n",
@@ -247,7 +169,6 @@ public class TopologicalX {
                 r++;
             }
         }
-
 
         return true;
     }
@@ -270,20 +191,22 @@ public class TopologicalX {
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
 
-        Digraph G1 = DigraphGenerator.dag(V, E);
+        Graph<UnweightedEdgeNode> G1 = DigraphGenerator.dag(V, E);
 
         // corresponding edge-weighted digraph
-        EdgeWeightedDigraph G2 = new EdgeWeightedDigraphImpl(V);
+        Graph<DirectedEdge> G2 = new GraphImpl<>(V, true);
         for (int v = 0; v < G1.V(); v++)
-            for (int w : G1.adj(v))
-                G2.addEdge(new DirectedEdge(v, w, 0.0));
+            for (UnweightedEdgeNode e : G1.adj(v)) {
+                int w = e.to();
+                G2.addEdge(v, new DirectedEdge(v, w, 0.0));
+            }
 
         // add F extra edges
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            G1.addEdge(v, w);
-            G2.addEdge(new DirectedEdge(v, w, 0.0));
+            G1.addEdge(v, new UnweightedEdgeNode(w));
+            G2.addEdge(v, new DirectedEdge(v, w, 0.0));
         }
 
         StdOut.println(G1);
@@ -291,7 +214,7 @@ public class TopologicalX {
         StdOut.println(G2);
 
         // find a directed cycle
-        TopologicalX topological1 = new TopologicalX(G1);
+        TopologicalX<UnweightedEdgeNode> topological1 = new TopologicalX<>(G1);
         if (!topological1.hasOrder()) {
             StdOut.println("Not a DAG");
         }
@@ -306,7 +229,7 @@ public class TopologicalX {
         }
 
         // find a directed cycle
-        TopologicalX topological2 = new TopologicalX(G2);
+        TopologicalX<DirectedEdge> topological2 = new TopologicalX<>(G2);
         if (!topological2.hasOrder()) {
             StdOut.println("Not a DAG");
         }

@@ -14,10 +14,14 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code DirectedCycleX} class represents a data type for 
@@ -46,10 +50,11 @@ import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
  *  @author Kevin Wayne
  */
 
-public class DirectedCycleX {
+public class DirectedCycleX<T extends EdgeNode> {
     private Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
 
-    public DirectedCycleX(Digraph G) {
+    public DirectedCycleX(Graph<T> G) {
+        checkArgument(G.isDirected());
         // indegrees of remaining vertices
         int[] indegree = newIntArray(G.V(), G::indegree);
 
@@ -61,7 +66,8 @@ public class DirectedCycleX {
 
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 indegree[w]--;
                 if (indegree[w] == 0) queue.enqueue(w);
             }
@@ -73,7 +79,8 @@ public class DirectedCycleX {
         for (int v = 0; v < G.V(); v++) {
             if (indegree[v] == 0) continue;
             else root = v;
-            for (int w : G.adj(v)) {
+            for (T e : G.adj(v)) {
+                int w = e.to();
                 if (indegree[w] > 0) {
                     edgeTo[w] = v;
                 }
@@ -141,19 +148,18 @@ public class DirectedCycleX {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
-        Digraph G = DigraphGenerator.dag(V, E);
+        Graph<UnweightedEdgeNode> G = DigraphGenerator.dag(V, E);
 
         // add F extra edges
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            G.addEdge(v, w);
+            G.addEdge(v, new UnweightedEdgeNode(w));
         }
 
         StdOut.println(G);
 
-
-        DirectedCycleX finder = new DirectedCycleX(G);
+        DirectedCycleX<UnweightedEdgeNode> finder = new DirectedCycleX<>(G);
         if (finder.hasCycle()) {
             StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {

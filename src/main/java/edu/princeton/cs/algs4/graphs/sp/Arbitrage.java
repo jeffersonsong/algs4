@@ -24,6 +24,8 @@
 
 package edu.princeton.cs.algs4.graphs.sp;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -56,13 +58,13 @@ public class Arbitrage {
         name = new String[V];
 
         // create complete network
-        EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(V);
+        Graph<DirectedEdge> G = new GraphImpl<>(V, true);
         for (int v = 0; v < V; v++) {
             name[v] = in.readString();
             for (int w = 0; w < V; w++) {
                 double rate = in.readDouble();
                 DirectedEdge e = new DirectedEdge(v, w, -Math.log(rate));
-                G.addEdge(e);
+                G.addEdge(v, e);
             }
         }
         spt = new BellmanFordSP(G, 0);

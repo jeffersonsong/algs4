@@ -43,8 +43,6 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
-import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.searching.st.STImpl;
@@ -77,17 +75,17 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class SymbolGraph<G extends Graph> {
+public class SymbolGraph {
     private final ST<String, Integer> st;  // string -> index
     private final String[] keys;           // index  -> string
-    private final G graph;             // the underlying graph
+    private final Graph<UnweightedEdgeNode> graph;             // the underlying graph
 
-    public static SymbolGraph<Graph> symbolGraph(String filename, String delimiter) {
-        return new SymbolGraph<Graph>(filename, delimiter, GraphImpl::new);
+    public static SymbolGraph symbolGraph(String filename, String delimiter) {
+        return new SymbolGraph(filename, delimiter, V -> new GraphImpl<>(V, false));
     }
 
-    public static SymbolGraph<Digraph> symbolDigraph(String filename, String delimiter) {
-        return new SymbolGraph<Digraph>(filename, delimiter, DigraphImpl::new);
+    public static SymbolGraph symbolDigraph(String filename, String delimiter) {
+        return new SymbolGraph(filename, delimiter, V -> new GraphImpl<>(V, true));
     }
 
     /**  
@@ -98,7 +96,7 @@ public class SymbolGraph<G extends Graph> {
      * @param filename the name of the file
      * @param delimiter the delimiter between fields
      */
-    private SymbolGraph(String filename, String delimiter, IntFunction<G> graphFactoryMethod) {
+    private SymbolGraph(String filename, String delimiter, IntFunction<Graph<UnweightedEdgeNode>> graphFactoryMethod) {
         st = new STImpl<>();
 
         // First pass builds the index by reading strings to associate
@@ -128,7 +126,7 @@ public class SymbolGraph<G extends Graph> {
             int v = st.get(a[0]);
             for (int i = 1; i < a.length; i++) {
                 int w = st.get(a[i]);
-                graph.addEdge(v, w);
+                graph.addEdge(v, new UnweightedEdgeNode(w));
             }
         }
     }
@@ -194,7 +192,7 @@ public class SymbolGraph<G extends Graph> {
      * @deprecated Replaced by {@link #graph()}.
      */
     @Deprecated
-    public G G() {
+    public Graph<UnweightedEdgeNode> G() {
         return graph;
     }
 
@@ -203,7 +201,7 @@ public class SymbolGraph<G extends Graph> {
      * not to mutate the graph.
      * @return the graph associated with the symbol graph
      */
-    public G graph() {
+    public Graph<UnweightedEdgeNode> graph() {
         return graph;
     }
 
@@ -222,13 +220,13 @@ public class SymbolGraph<G extends Graph> {
         String filename  = args[0];
         String delimiter = args[1];
         SymbolGraph sg = SymbolGraph.symbolGraph(filename, delimiter);
-        Graph graph = sg.graph();
+        Graph<UnweightedEdgeNode> graph = sg.graph();
         while (StdIn.hasNextLine()) {
             String source = StdIn.readLine();
             if (sg.contains(source)) {
                 int s = sg.index(source);
-                for (int v : graph.adj(s)) {
-                    StdOut.println("   " + sg.name(v));
+                for (UnweightedEdgeNode e : graph.adj(s)) {
+                    StdOut.println("   " + sg.name(e.to()));
                 }
             }
             else {

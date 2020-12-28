@@ -1,13 +1,9 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
-import edu.princeton.cs.algs4.graphs.digraph.DigraphImpl;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraphImpl;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraphImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.NoSuchElementException;
@@ -29,8 +25,8 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public static Graph readGraph(In in) {
-        return readGraph(in, GraphImpl::new);
+    public static Graph<UnweightedEdgeNode> readGraph(In in, boolean directed) {
+        return readGraph(in, V -> new GraphImpl<>(V, directed));
     }
 
     /**
@@ -45,11 +41,11 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public static Digraph readDigraph(In in) {
-        return readGraph(in, DigraphImpl::new);
+    public static Graph<UnweightedEdgeNode> readDigraph(In in) {
+        return readGraph(in, V -> new GraphImpl<>(V, true));
     }
 
-    private static <T extends Graph> T readGraph(In in, IntFunction<T> factoryMethod) {
+    private static <T extends Graph<UnweightedEdgeNode>> T readGraph(In in, IntFunction<T> factoryMethod) {
         requiresNotNull(in, "argument is null");
         requiresNotNull(factoryMethod, "Factory method not set.");
         try {
@@ -61,7 +57,7 @@ public class GraphReader {
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
-                G.addEdge(v, w);
+                G.addEdge(v, new UnweightedEdgeNode(w));
             }
             return G;
         }
@@ -119,11 +115,11 @@ public class GraphReader {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public static EdgeWeightedDigraph readEdgeWeightedDigraph(In in) {
+    public static Graph<DirectedEdge> readEdgeWeightedDigraph(In in) {
         requiresNotNull(in,"argument is null");
         try {
             int V = in.readInt();
-            EdgeWeightedDigraph G = new EdgeWeightedDigraphImpl(V);
+            Graph<DirectedEdge> G = new GraphImpl<>(V, true);
             checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
 
             int E = in.readInt();
@@ -132,7 +128,7 @@ public class GraphReader {
                 int v = in.readInt();
                 int w = in.readInt();
                 double weight = in.readDouble();
-                G.addEdge(new DirectedEdge(v, w, weight));
+                G.addEdge(v, new DirectedEdge(v, w, weight));
             }
 
             return G;

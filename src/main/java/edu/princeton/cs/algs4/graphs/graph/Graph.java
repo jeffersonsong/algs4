@@ -68,7 +68,8 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
  * @author Robert Sedgewick
  * @author Kevin Wayne
  */
-public interface Graph {
+public interface Graph<T extends EdgeNode> {
+    boolean isDirected();
     /**
      * Returns the number of vertices in this graph.
      *
@@ -83,7 +84,7 @@ public interface Graph {
      */
     int E();
 
-    void addEdge(int v, int w);
+    void addEdge(int v, T edge);
 
     /**
      * Returns the vertices adjacent to vertex {@code v}.
@@ -92,7 +93,7 @@ public interface Graph {
      * @return the vertices adjacent to vertex {@code v}, as an iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    Iterable<Integer> adj(int v);
+    Iterable<T> adj(int v);
 
     /**
      * Returns the degree of vertex {@code v}.
@@ -101,7 +102,36 @@ public interface Graph {
      * @return the degree of vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    int degree(int v);
+    default int degree(int v) {
+        return outdegree(v);
+    }
+
+    /**
+     * Returns the number of directed edges incident from vertex {@code v}.
+     * This is known as the <em>outdegree</em> of vertex {@code v}.
+     *
+     * @param  v the vertex
+     * @return the outdegree of vertex {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     */
+    int outdegree(int v);
+
+    /**
+     * Returns the number of directed edges incident to vertex {@code v}.
+     * This is known as the <em>indegree</em> of vertex {@code v}.
+     *
+     * @param  v the vertex
+     * @return the indegree of vertex {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     */
+    int indegree(int v);
+
+    /**
+     * Returns the reverse of the digraph.
+     *
+     * @return the reverse of the digraph
+     */
+    Graph<T> reverse();
 }
 
 /******************************************************************************

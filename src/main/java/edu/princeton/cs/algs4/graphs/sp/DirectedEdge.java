@@ -15,7 +15,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code DirectedEdge} class represents a weighted edge in an 
- *  {@link EdgeWeightedDigraph}. Each edge consists of two integers
+ *  Edge Weighted Digraph. Each edge consists of two integers
  *  (naming the two vertices) and a real-value weight. The data type
  *  provides methods for accessing the two endpoints of the directed edge and
  *  the weight.
@@ -27,10 +27,8 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Kevin Wayne
  */
 
-public class DirectedEdge { 
+public class DirectedEdge extends WeightedEdgeNode {
     private final int v;
-    private final int w;
-    private final double weight;
 
     /**
      * Initializes a directed edge from vertex {@code v} to vertex {@code w} with
@@ -43,36 +41,15 @@ public class DirectedEdge {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public DirectedEdge(int v, int w, double weight) {
+        super(w, weight);
         checkArgument(v >= 0, "Vertex names must be nonnegative integers");
         checkArgument(w >= 0, "Vertex names must be nonnegative integers");
         checkArgument(!Double.isNaN(weight), "Weight is NaN");
         this.v = v;
-        this.w = w;
-        this.weight = weight;
     }
 
-    /**
-     * Returns the tail vertex of the directed edge.
-     * @return the tail vertex of the directed edge
-     */
     public int from() {
         return v;
-    }
-
-    /**
-     * Returns the head vertex of the directed edge.
-     * @return the head vertex of the directed edge
-     */
-    public int to() {
-        return w;
-    }
-
-    /**
-     * Returns the weight of the directed edge.
-     * @return the weight of the directed edge
-     */
-    public double weight() {
-        return weight;
     }
 
     /**
@@ -80,7 +57,7 @@ public class DirectedEdge {
      * @return a string representation of the directed edge
      */
     public String toString() {
-        return v + "->" + w + " " + String.format("%5.2f", weight);
+        return from() + "->" + to() + " " + String.format("%5.2f", weight());
     }
 
     /**

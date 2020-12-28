@@ -1,7 +1,8 @@
 package edu.princeton.cs.algs4.graphs.digraph.scc;
 
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +17,11 @@ public abstract class SCCBaseTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/42digraph/tinyDG.txt");
-        Digraph G = GraphReader.readDigraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
         scc = createSCC(G);
     }
 
-    protected abstract SCC createSCC(Digraph G);
+    protected abstract SCC createSCC(Graph<UnweightedEdgeNode> G);
 
     @Test
     public void test() {

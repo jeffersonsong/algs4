@@ -1,10 +1,11 @@
 package edu.princeton.cs.algs4.graphs.digraph.scc;
 
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 
 public class KosarajuSharirSCCTest extends SCCBaseTest {
     @Override
-    protected SCC createSCC(Digraph G) {
-        return new KosarajuSharirSCC(G);
+    protected SCC createSCC(Graph<UnweightedEdgeNode> G) {
+        return new KosarajuSharirSCC<>(G);
     }
 }

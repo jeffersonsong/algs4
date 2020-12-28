@@ -13,17 +13,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class BreadthFirstPathsTest {
-    private Graph G;
+    private Graph<UnweightedEdgeNode> G;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyCG.txt");
-        G = GraphReader.readGraph(in);
+        G = GraphReader.readGraph(in, false);
     }
 
     @Test
     public void test() {
-        BreadthFirstPaths paths = new BreadthFirstPaths(G, 0);
+        BreadthFirstPaths<UnweightedEdgeNode> paths = new BreadthFirstPaths<>(G, 0);
         assertTrue(paths.hasPathTo(1));
         assertTrue(paths.hasPathTo(2));
         assertTrue(paths.hasPathTo(3));

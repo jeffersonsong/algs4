@@ -22,6 +22,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
@@ -62,7 +63,9 @@ public class AcyclicSP implements SP {
      * @throws IllegalArgumentException if the digraph is not acyclic
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public AcyclicSP(EdgeWeightedDigraph G, int s) {
+    public AcyclicSP(Graph<DirectedEdge> G, int s) {
+        checkArgument(G.isDirected());
+
         distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
         edgeTo = new DirectedEdge[G.V()];
 
@@ -71,7 +74,7 @@ public class AcyclicSP implements SP {
         distTo[s] = 0.0;
 
         // visit vertices in topological order
-        Topological topological = new Topological(G);
+        Topological<DirectedEdge> topological = new Topological<>(G);
         checkArgument(topological.hasOrder(), "Digraph is not acyclic.");
         for (int v : topological.order()) {
             for (DirectedEdge e : G.adj(v))
@@ -143,7 +146,7 @@ public class AcyclicSP implements SP {
     public static void main(String[] args) {
         In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        EdgeWeightedDigraph G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
 
         // find shortest path from s to each other vertex in DAG
         AcyclicSP sp = new AcyclicSP(G, s);

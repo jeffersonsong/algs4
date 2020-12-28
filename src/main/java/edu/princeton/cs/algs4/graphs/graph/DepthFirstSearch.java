@@ -20,7 +20,6 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.graphs.digraph.Digraph;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -47,7 +46,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DepthFirstSearch {
+public class DepthFirstSearch<T extends EdgeNode> {
     private final boolean[] marked;    // marked[v] = is there an s-v path?
     private int count;           // number of vertices connected to s
 
@@ -58,13 +57,13 @@ public class DepthFirstSearch {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DepthFirstSearch(Graph G, int s) {
+    public DepthFirstSearch(Graph<T> G, int s) {
         marked = new boolean[G.V()];
         validateVertex(s);
         dfs(G, s);
     }
 
-    public DepthFirstSearch(Digraph G, Iterable<Integer> sources) {
+    public DepthFirstSearch(Graph<T> G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
         for (int s: sources) {
             validateVertex(s);
@@ -75,10 +74,11 @@ public class DepthFirstSearch {
     }
 
     // depth first search from v
-    private void dfs(Graph G, int v) {
+    private void dfs(Graph<T> G, int v) {
         count++;
         marked[v] = true;
-        for (int w : G.adj(v)) {
+        for (T e : G.adj(v)) {
+            int w = e.to();
             if (!marked[w]) {
                 dfs(G, w);
             }
@@ -117,9 +117,9 @@ public class DepthFirstSearch {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
         int s = Integer.parseInt(args[1]);
-        DepthFirstSearch search = new DepthFirstSearch(G, s);
+        DepthFirstSearch<UnweightedEdgeNode> search = new DepthFirstSearch<>(G, s);
         for (int v = 0; v < G.V(); v++) {
             if (search.marked(v))
                 StdOut.print(v + " ");

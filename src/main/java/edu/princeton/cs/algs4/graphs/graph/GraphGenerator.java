@@ -67,10 +67,10 @@ public class GraphGenerator {
      *     of {@code E} edges
      * @throws IllegalArgumentException if no such simple graph exists
      */
-    public static Graph simple(int V, int E) {
+    public static Graph<UnweightedEdgeNode> simple(int V, int E) {
         checkArgument(E <= (long) V*(V-1)/2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         SET<Edge> set = new SETImpl<>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
@@ -78,7 +78,7 @@ public class GraphGenerator {
             Edge e = new Edge(v, w);
             if ((v != w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(v, w);
+                G.addEdge(v, new UnweightedEdgeNode(w));
             }
         }
         return G;
@@ -94,13 +94,13 @@ public class GraphGenerator {
      *     any two vertices with probability {@code p}
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static Graph simple(int V, double p) {
+    public static Graph<UnweightedEdgeNode> simple(int V, double p) {
         checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         for (int v = 0; v < V; v++)
             for (int w = v+1; w < V; w++)
                 if (StdRandom.bernoulli(p))
-                    G.addEdge(v, w);
+                    G.addEdge(v, new UnweightedEdgeNode(w));
         return G;
     }
 
@@ -109,7 +109,7 @@ public class GraphGenerator {
      * @param V the number of vertices
      * @return the complete graph on {@code V} vertices
      */
-    public static Graph complete(int V) {
+    public static Graph<UnweightedEdgeNode> complete(int V) {
         return simple(V, 1.0);
     }
 
@@ -120,7 +120,7 @@ public class GraphGenerator {
      * @return a complete bipartite graph on {@code V1} and {@code V2} vertices
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static Graph completeBipartite(int V1, int V2) {
+    public static Graph<UnweightedEdgeNode> completeBipartite(int V1, int V2) {
         return bipartite(V1, V2, V1*V2);
     }
 
@@ -134,10 +134,10 @@ public class GraphGenerator {
      *    containing a total of {@code E} edges
      * @throws IllegalArgumentException if no such simple bipartite graph exists
      */
-    public static Graph bipartite(int V1, int V2, int E) {
+    public static Graph<UnweightedEdgeNode> bipartite(int V1, int V2, int E) {
         checkArgument(E <= (long) V1*V2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
-        Graph G = new GraphImpl(V1 + V2);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V1 + V2, false);
 
         int[] vertices = newIndexArray(V1 + V2);
         StdRandom.shuffle(vertices);
@@ -149,7 +149,7 @@ public class GraphGenerator {
             Edge e = new Edge(vertices[i], vertices[j]);
             if (!set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[i], vertices[j]);
+                G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[j]));
             }
         }
         return G;
@@ -165,15 +165,15 @@ public class GraphGenerator {
      *    containing each possible edge with probability {@code p}
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static Graph bipartite(int V1, int V2, double p) {
+    public static Graph<UnweightedEdgeNode> bipartite(int V1, int V2, double p) {
         checkArgument(p >= 0.0 && p <= 1.0, "Probability must be between 0 and 1");
         int[] vertices = newIndexArray(V1 + V2);
         StdRandom.shuffle(vertices);
-        Graph G = new GraphImpl(V1 + V2);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V1 + V2, false);
         for (int i = 0; i < V1; i++)
             for (int j = 0; j < V2; j++)
                 if (StdRandom.bernoulli(p))
-                    G.addEdge(vertices[i], vertices[V1+j]);
+                    G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[V1+j]));
         return G;
     }
 
@@ -182,12 +182,12 @@ public class GraphGenerator {
      * @param V the number of vertices in the path
      * @return a path graph on {@code V} vertices
      */
-    public static Graph path(int V) {
-        Graph G = new GraphImpl(V);
+    public static Graph<UnweightedEdgeNode> path(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
         return G;
     }
@@ -197,12 +197,12 @@ public class GraphGenerator {
      * @param V the number of vertices in the binary tree
      * @return a complete binary tree graph on {@code V} vertices
      */
-    public static Graph binaryTree(int V) {
-        Graph G = new GraphImpl(V);
+    public static Graph<UnweightedEdgeNode> binaryTree(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[i], vertices[(i-1)/2]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[(i-1)/2]));
         }
         return G;
     }
@@ -212,14 +212,14 @@ public class GraphGenerator {
      * @param V the number of vertices in the cycle
      * @return a cycle graph on {@code V} vertices
      */
-    public static Graph cycle(int V) {
-        Graph G = new GraphImpl(V);
+    public static Graph<UnweightedEdgeNode> cycle(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
-        G.addEdge(vertices[V-1], vertices[0]);
+        G.addEdge(vertices[V-1], new UnweightedEdgeNode(vertices[0]));
         return G;
     }
 
@@ -232,15 +232,15 @@ public class GraphGenerator {
      *         and {@code E} edges
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E <= 0}
      */
-    public static Graph eulerianCycle(int V, int E) {
+    public static Graph<UnweightedEdgeNode> eulerianCycle(int V, int E) {
         checkArgument(E > 0, "An Eulerian cycle must have at least one edge");
         checkArgument(V > 0, "An Eulerian cycle must have at least one vertex");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIntArray(E, i->StdRandom.uniform(V));
         for (int i = 0; i < E-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
-        G.addEdge(vertices[E-1], vertices[0]);
+        G.addEdge(vertices[E-1], new UnweightedEdgeNode(vertices[0]));
         return G;
     }
 
@@ -253,13 +253,13 @@ public class GraphGenerator {
      *         and {@code E} edges
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E < 0}
      */
-    public static Graph eulerianPath(int V, int E) {
+    public static Graph<UnweightedEdgeNode> eulerianPath(int V, int E) {
         checkArgument(E >= 0, "negative number of edges");
         checkArgument(V > 0, "An Eulerian path must have at least one vertex");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIntArray(E+1, i->StdRandom.uniform(V));
         for (int i = 0; i < E; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
         return G;
     }
@@ -270,21 +270,21 @@ public class GraphGenerator {
      * @return a wheel graph on {@code V} vertices: a single vertex connected to
      *     every vertex in a cycle on {@code V-1} vertices
      */
-    public static Graph wheel(int V) {
+    public static Graph<UnweightedEdgeNode> wheel(int V) {
         checkArgument(V > 1, "Number of vertices must be at least 2");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
 
         // simple cycle on V-1 vertices
         for (int i = 1; i < V-1; i++) {
-            G.addEdge(vertices[i], vertices[i+1]);
+            G.addEdge(vertices[i], new UnweightedEdgeNode(vertices[i+1]));
         }
-        G.addEdge(vertices[V-1], vertices[1]);
+        G.addEdge(vertices[V-1], new UnweightedEdgeNode(vertices[1]));
 
         // connect vertices[0] to every vertex on cycle
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[0], vertices[i]);
+            G.addEdge(vertices[0], new UnweightedEdgeNode(vertices[i]));
         }
 
         return G;
@@ -296,15 +296,15 @@ public class GraphGenerator {
      * @return a star graph on {@code V} vertices: a single vertex connected to
      *     every other vertex
      */
-    public static Graph star(int V) {
+    public static Graph<UnweightedEdgeNode> star(int V) {
         checkArgument(V > 0, "Number of vertices must be at least 1");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
 
         // connect vertices[0] to every other vertex
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[0], vertices[i]);
+            G.addEdge(vertices[0], new UnweightedEdgeNode(vertices[i]));
         }
 
         return G;
@@ -319,9 +319,9 @@ public class GraphGenerator {
      * @param k degree of each vertex
      * @return a uniformly random {@code k}-regular graph on {@code V} vertices.
      */
-    public static Graph regular(int V, int k) {
+    public static Graph<UnweightedEdgeNode> regular(int V, int k) {
         checkArgument(V*k % 2 == 0, "Number of vertices * k must be even");
-        Graph G = new GraphImpl(V);
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
 
         // create k copies of each vertex
         int[] vertices = new int[V*k];
@@ -334,7 +334,7 @@ public class GraphGenerator {
         // pick a random perfect matching
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V*k/2; i++) {
-            G.addEdge(vertices[2*i], vertices[2*i + 1]);
+            G.addEdge(vertices[2*i], new UnweightedEdgeNode(vertices[2*i + 1]));
         }
         return G;
     }
@@ -347,8 +347,8 @@ public class GraphGenerator {
      * @param V the number of vertices in the tree
      * @return a uniformly random tree on {@code V} vertices
      */
-    public static Graph tree(int V) {
-        Graph G = new GraphImpl(V);
+    public static Graph<UnweightedEdgeNode> tree(int V) {
+        Graph<UnweightedEdgeNode> G = new GraphImpl<>(V, false);
 
         // special case
         if (V == 1) return G;
@@ -372,12 +372,12 @@ public class GraphGenerator {
         // repeatedly delMin() degree 1 vertex that has the minimum index
         for (int i = 0; i < V-2; i++) {
             int v = pq.poll();
-            G.addEdge(v, prufer[i]);
+            G.addEdge(v, new UnweightedEdgeNode(prufer[i]));
             degree[v]--;
             degree[prufer[i]]--;
             if (degree[prufer[i]] == 1) pq.insert(prufer[i]);
         }
-        G.addEdge(pq.poll(), pq.poll());
+        G.addEdge(pq.poll(), new UnweightedEdgeNode(pq.poll()));
         return G;
     }
 

@@ -28,8 +28,10 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDigraph;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -63,7 +65,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Topological {
+public class Topological<T extends EdgeNode> {
     private Iterable<Integer> order;  // topological order
     private int[] rank;               // rank[v] = rank of vertex v in order
 
@@ -72,28 +74,16 @@ public class Topological {
      * finds such a topological order.
      * @param G the digraph
      */
-    public Topological(Digraph G) {
-        DirectedCycle finder = new DirectedCycle(G);
+    public Topological(Graph<T> G) {
+        checkArgument(G.isDirected());
+        DirectedCycle<T>  finder = new DirectedCycle<>(G);
         if (!finder.hasCycle()) {
-            DepthFirstOrder dfs = new DepthFirstOrder(G);
+            DepthFirstOrder<T>  dfs = new DepthFirstOrder<>(G);
             order = dfs.reversePost();
             rank = new int[G.V()];
             int i = 0;
             for (int v : order)
                 rank[v] = i++;
-        }
-    }
-
-    /**
-     * Determines whether the edge-weighted digraph {@code G} has a topological
-     * order and, if so, finds such an order.
-     * @param G the edge-weighted digraph
-     */
-    public Topological(EdgeWeightedDigraph G) {
-        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(G);
-        if (!finder.hasCycle()) {
-            DepthFirstOrder dfs = new DepthFirstOrder(G);
-            order = dfs.reversePost();
         }
     }
 
@@ -157,8 +147,8 @@ public class Topological {
     public static void main(String[] args) {
         String filename  = args[0];
         String delimiter = args[1];
-        SymbolGraph<Digraph> sg = SymbolGraph.symbolDigraph(filename, delimiter);
-        Topological topological = new Topological(sg.graph());
+        SymbolGraph sg = SymbolGraph.symbolDigraph(filename, delimiter);
+        Topological<UnweightedEdgeNode> topological = new Topological<>(sg.graph());
         for (int v : topological.order()) {
             StdOut.println(sg.nameOf(v));
         }

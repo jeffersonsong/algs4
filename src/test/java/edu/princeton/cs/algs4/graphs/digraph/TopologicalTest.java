@@ -1,7 +1,9 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
@@ -17,8 +19,8 @@ public class TopologicalTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/42digraph/topological.txt");
-        Digraph g = GraphReader.readDigraph(in);
-        Iterable<Integer> order = new Topological(g).order();
+        Graph<UnweightedEdgeNode> g = GraphReader.readDigraph(in);
+        Iterable<Integer> order = new Topological<>(g).order();
         List<Integer> list = toList(order);
         System.out.println(list);
         assertThat(list, is(asList(8, 7, 2, 3, 0, 1, 5, 6, 4, 9, 10, 11, 12)));
@@ -30,9 +32,9 @@ public class TopologicalTest {
                 "Algorithms", "Theoretical CS", "Artificial Intelligence", "Robotics", "Machine Learning",
                 "Neural Networks", "Databases", "Scientific Computing", "Computational Biology"};
 
-        SymbolGraph<Digraph> sg = SymbolGraph.symbolDigraph("src/test/resources/42digraph/jobs.txt", "/");
-        Digraph G = sg.graph();
-        Topological topological = new Topological(G);
+        SymbolGraph sg = SymbolGraph.symbolDigraph("src/test/resources/42digraph/jobs.txt", "/");
+        Graph<UnweightedEdgeNode> G = sg.graph();
+        Topological<UnweightedEdgeNode> topological = new Topological<>(G);
 
         List<String> result = new ArrayList<>();
         for (int v : topological.order()) {

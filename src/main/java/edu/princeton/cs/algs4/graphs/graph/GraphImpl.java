@@ -45,6 +45,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
  *  The {@code Graph} class represents an undirected graph of vertices
@@ -76,12 +77,14 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class GraphImpl implements Graph {
+public class GraphImpl<T extends EdgeNode> implements Graph<T> {
     private static final String NEWLINE = System.getProperty("line.separator");
 
-    private final int V;
-    private int E;
-    private final Bag<Integer>[] adj;
+    private final boolean directed;   /* is the graph directed? */
+    private final int V;              /* number of vertices in the graph */
+    private int E;                    /* number of edges in the graph */
+    private final Bag<T>[] adj;       /* adjacency info */
+    private final int[] indegree;        // indegree[v] = indegree of vertex v
     
     /**
      * Initializes an empty graph with {@code V} vertices and 0 edges.
@@ -90,11 +93,13 @@ public class GraphImpl implements Graph {
      * @param  V number of vertices
      * @throws IllegalArgumentException if {@code V < 0}
      */
-    public GraphImpl(int V) {
+    public GraphImpl(int V, boolean directed) {
         checkArgument(V >= 0, "Number of vertices must be nonnegative");
+        this.directed = directed;
         this.V = V;
         this.E = 0;
-        adj = newArray(V, i->new LinkedBag<>());
+        this.adj = newArray(V, i->new LinkedBag<>());
+        this.indegree = new int[V];
     }
 
     /**
@@ -103,20 +108,37 @@ public class GraphImpl implements Graph {
      * @param  G the graph to copy
      * @throws IllegalArgumentException if {@code G} is {@code null}
      */
-    public GraphImpl(Graph G) {
-        this(G.V());
+    public GraphImpl(Graph<T> G) {
+        requiresNotNull(G, "argument is null");
+        checkArgument(G.V() >= 0, "Number of vertices in a Digraph must be nonnegative");
+
+        this.directed = G.isDirected();
+        this.V = G.V();
+        this.E = G.E();
+
+        // update indegrees
+        this.indegree = new int[V];
+        for (int v = 0; v < V; v++) {
+            this.indegree[v] = G.indegree(v);
+        }
+
+        this.adj = newArray(V, i->new LinkedBag<>());
 
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            Stack<Integer> reverse = new LinkedStack<>();
-            for (int w : G.adj(v)) {
-                reverse.push(w);
+            Stack<T> reverse = new LinkedStack<>();
+            for (T edge : G.adj(v)) {
+                reverse.push(edge);
             }
-            for (int w : reverse) {
-                adj[v].add(w);
+            for (T edge : reverse) {
+                adj[v].add(edge);
             }
         }
-        this.E = G.E();
+    }
+
+    @Override
+    public boolean isDirected() {
+        return this.directed;
     }
 
     /**
@@ -139,22 +161,30 @@ public class GraphImpl implements Graph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
+        checkArgument(v >= 0 && v < V, "vertex " + v + " is not in range [0, " + (V-1) + "]");
     }
 
     /**
-     * Adds the undirected edge v-w to this graph.
+     * Adds the edge v-w to this graph.
      *
      * @param  v one vertex in the edge
-     * @param  w the other vertex in the edge
+     * @param  edge the other vertex in the edge
      * @throws IllegalArgumentException unless both {@code 0 <= v < V} and {@code 0 <= w < V}
      */
-    public void addEdge(int v, int w) {
+    public void addEdge(int v, T edge) {
         validateVertex(v);
-        validateVertex(w);
-        E++;
-        adj[v].add(w);
-        adj[w].add(v);
+        validateVertex(edge.to());
+        addEdge(v, edge, this.directed);
+    }
+
+    private void addEdge(int v, T edge, boolean directed) {
+        adj[v].add(edge);
+        indegree[edge.to()]++;
+
+        if (!directed)
+            addEdge(edge.to(), (T) edge.copy(v), true);
+        else
+            E++;
     }
 
     /**
@@ -164,7 +194,7 @@ public class GraphImpl implements Graph {
      * @return the vertices adjacent to vertex {@code v}, as an iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<Integer> adj(int v) {
+    public Iterable<T> adj(int v) {
         validateVertex(v);
         return adj[v];
     }
@@ -176,9 +206,34 @@ public class GraphImpl implements Graph {
      * @return the degree of vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
+    @Deprecated
     public int degree(int v) {
+        return outdegree(v);
+    }
+
+    @Override
+    public int outdegree(int v) {
         validateVertex(v);
         return adj[v].size();
+    }
+
+    @Override
+    public int indegree(int v) {
+        validateVertex(v);
+        return indegree[v];
+    }
+
+    @Override
+    public Graph<T> reverse() {
+        GraphImpl<T> reverse = new GraphImpl<>(V, directed);
+        for (int v = 0; v < V; v++) {
+            for (T e : adj(v)) {
+                int w = e.to();
+                T re = (T) e.copy(v);
+                reverse.addEdge(w, re);
+            }
+        }
+        return reverse;
     }
 
     /**
@@ -192,8 +247,8 @@ public class GraphImpl implements Graph {
         s.append(V).append(" vertices, ").append(E).append(" edges ").append(NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v).append(": ");
-            for (int w : adj[v]) {
-                s.append(w).append(" ");
+            for (T edge : adj(v)) {
+                s.append(edge).append(" ");
             }
             s.append(NEWLINE);
         }
@@ -207,7 +262,7 @@ public class GraphImpl implements Graph {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph G = GraphReader.readGraph(in);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
         StdOut.println(G);
     }
 }
