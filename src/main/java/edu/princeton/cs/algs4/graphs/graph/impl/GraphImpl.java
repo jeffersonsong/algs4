@@ -221,9 +221,8 @@ public class GraphImpl<T extends Edge> implements Graph<T> {
         GraphImpl<T> reverse = new GraphImpl<>(V, directed);
         for (int v = 0; v < V; v++) {
             for (T e : adj(v)) {
-                int w = e.w();
-                T re = (T)e.reverse();
-                reverse.addEdge(w, re);
+                int w = e.other(v);
+                reverse.addEdge(w, (T)e.reverse());
             }
         }
         return reverse;
