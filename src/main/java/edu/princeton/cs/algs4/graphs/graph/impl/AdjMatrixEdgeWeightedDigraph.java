@@ -8,7 +8,7 @@
  *  
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.sp;
+package edu.princeton.cs.algs4.graphs.graph.impl;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;

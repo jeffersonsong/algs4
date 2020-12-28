@@ -50,8 +50,9 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
- *  The {@code Graph} class represents an undirected graph of vertices
- *  named 0 through <em>V</em> – 1.
+ *  The {@code Graph} class represents an graph of vertices  named 0 through <em>V</em> – 1.
+ *  It can be undirected or directed graph.
+ *
  *  It supports the following two primary operations: add an edge to the graph,
  *  iterate over all of the vertices adjacent to a vertex. It also provides
  *  methods for returning the degree of a vertex, the number of vertices

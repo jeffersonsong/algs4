@@ -20,6 +20,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.impl.AdjMatrixEdgeWeightedDigraph;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
