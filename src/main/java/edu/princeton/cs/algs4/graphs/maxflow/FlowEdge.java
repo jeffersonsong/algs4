@@ -9,8 +9,8 @@
 
 package edu.princeton.cs.algs4.graphs.maxflow;
 
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -29,12 +29,10 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class FlowEdge implements EdgeNode {
+public class FlowEdge extends Edge {
     // to deal with floating-point roundoff errors
     private static final double FLOATING_POINT_EPSILON = 1E-10;
 
-    private final int v;             // from
-    private final int w;             // to 
     private final double capacity;   // capacity
     private double flow;             // flow
 
@@ -49,11 +47,8 @@ public class FlowEdge implements EdgeNode {
      * @throws IllegalArgumentException if {@code capacity < 0.0}
      */
     public FlowEdge(int v, int w, double capacity) {
-        checkArgument(v >= 0, "vertex index must be a non-negative integer");
-        checkArgument(w >= 0, "vertex index must be a non-negative integer");
+        super(v, w);
         checkArgument(capacity >= 0.0, "Edge capacity must be non-negative");
-        this.v         = v;
-        this.w         = w;  
         this.capacity  = capacity;
         this.flow      = 0.0;
     }
@@ -72,14 +67,11 @@ public class FlowEdge implements EdgeNode {
      *    {@code 0.0} and {@code capacity}.
      */
     public FlowEdge(int v, int w, double capacity, double flow) {
-        checkArgument(v >= 0, "vertex index must be a non-negative integer");
-        checkArgument(w >= 0, "vertex index must be a non-negative integer");
+        super(v, w);
         checkArgument(capacity >= 0.0, "Edge capacity must be non-negative");
 
         checkArgument(flow <= capacity, "flow exceeds capacity");
         checkArgument(flow >= 0.0, "flow must be non-negative");
-        this.v         = v;
-        this.w         = w;  
         this.capacity  = capacity;
         this.flow      = flow;
     }
@@ -89,27 +81,10 @@ public class FlowEdge implements EdgeNode {
      * @param e the edge to copy
      */
     public FlowEdge(FlowEdge e) {
-        this.v         = e.v;
-        this.w         = e.w;
+        super(e.v(), e.w());
         this.capacity  = e.capacity;
         this.flow      = e.flow;
     }
-
-    /**
-     * Returns the tail vertex of the edge.
-     * @return the tail vertex of the edge
-     */
-    public int v() {
-        return v;
-    }  
-
-    /**
-     * Returns the head vertex of the edge.
-     * @return the head vertex of the edge
-     */
-    public int w() {
-        return w;
-    }  
 
     /**
      * Returns the capacity of the edge.
@@ -128,21 +103,6 @@ public class FlowEdge implements EdgeNode {
     }
 
     /**
-     * Returns the endpoint of the edge that is different from the given vertex
-     * (unless the edge represents a self-loop in which case it returns the same vertex).
-     * @param vertex one endpoint of the edge
-     * @return the endpoint of the edge that is different from the given vertex
-     *   (unless the edge represents a self-loop in which case it returns the same vertex)
-     * @throws IllegalArgumentException if {@code vertex} is not one of the endpoints
-     *   of the edge
-     */
-    public int other(int vertex) {
-        if      (vertex == v) return w;
-        else if (vertex == w) return v;
-        else throw new IllegalArgumentException("invalid endpoint");
-    }
-
-    /**
      * Returns the residual capacity of the edge in the direction
      *  to the given {@code vertex}.
      * @param vertex one endpoint of the edge
@@ -153,8 +113,8 @@ public class FlowEdge implements EdgeNode {
      * @throws IllegalArgumentException if {@code vertex} is not one of the endpoints of the edge
      */
     public double residualCapacityTo(int vertex) {
-        if      (vertex == v) return flow;              // backward edge
-        else if (vertex == w) return capacity - flow;   // forward edge
+        if      (vertex == v()) return flow;              // backward edge
+        else if (vertex == w()) return capacity - flow;   // forward edge
         else throw new IllegalArgumentException("invalid endpoint");
     }
 
@@ -173,8 +133,8 @@ public class FlowEdge implements EdgeNode {
     public void addResidualFlowTo(int vertex, double delta) {
         checkArgument(delta >= 0.0, "Delta must be nonnegative");
 
-        if      (vertex == v) flow -= delta;           // backward edge
-        else if (vertex == w) flow += delta;           // forward edge
+        if      (vertex == v()) flow -= delta;           // backward edge
+        else if (vertex == w()) flow += delta;           // forward edge
         else throw new IllegalArgumentException("invalid endpoint");
 
         // round flow to 0 or capacity if within floating-point precision
@@ -192,24 +152,13 @@ public class FlowEdge implements EdgeNode {
      * @return a string representation of the edge
      */
     public String toString() {
-        return v + "->" + w + " " + flow + "/" + capacity;
+        return v() + "->" + w() + " " + flow + "/" + capacity;
     }
 
     @Override
     public EdgeNode copy(int v) {
         return this;
     }
-
-    /**
-     * Unit tests the {@code FlowEdge} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        FlowEdge e = new FlowEdge(12, 23, 4.56);
-        StdOut.println(e);
-    }
-
 }
 
 /******************************************************************************

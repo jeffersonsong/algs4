@@ -9,13 +9,14 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
- *  The {@code DirectedEdge} class represents a weighted edge in an 
+ *  The {@code DirectedEdge} class represents a weighted edge in an
  *  Edge Weighted Digraph. Each edge consists of two integers
  *  (naming the two vertices) and a real-value weight. The data type
  *  provides methods for accessing the two endpoints of the directed edge and
@@ -27,10 +28,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-
-public class WeightedEdge implements EdgeNode {
-    private final int x;
-    private final int y;
+public class WeightedEdge extends Edge {
     private final double weight;            /* edge weight */
 
     /**
@@ -44,21 +42,9 @@ public class WeightedEdge implements EdgeNode {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public WeightedEdge(int x, int y, double weight) {
-        checkArgument(x >= 0, "Vertex names must be nonnegative integers");
-        checkArgument(y >= 0, "Vertex names must be nonnegative integers");
+        super(x, y);
         checkArgument(!Double.isNaN(weight), "Weight is NaN");
-        this.x = x;
-        this.y = y;
         this.weight = weight;
-    }
-
-    public int v() {
-        return x;
-    }
-
-    @Override
-    public int w() {
-        return y;
     }
 
     public double weight() {
@@ -76,16 +62,6 @@ public class WeightedEdge implements EdgeNode {
      */
     public String toString() {
         return v() + "->" + w() + " " + String.format("%5.2f", weight());
-    }
-
-    /**
-     * Unit tests the {@code DirectedEdge} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        WeightedEdge e = new WeightedEdge(12, 34, 5.67);
-        StdOut.println(e);
     }
 }
 
