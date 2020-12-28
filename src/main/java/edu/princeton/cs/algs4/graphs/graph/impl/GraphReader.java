@@ -32,7 +32,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readGraph(In in) {
-        return readGraph(in, GraphImpl::graph, GraphReader::readUnWeightedEdge);
+        return readGraph(in, false, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -48,7 +48,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readDigraph(In in) {
-        return readGraph(in, GraphImpl::digraph, GraphReader::readUnWeightedEdge);
+        return readGraph(in, true, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -64,7 +64,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedGraph(In in) {
-        return readGraph(in, GraphImpl::graph, GraphReader::readWeightedEdge);
+        return readGraph(in, false, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -80,7 +80,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedDigraph(In in) {
-        return readGraph(in, GraphImpl::digraph, GraphReader::readWeightedEdge);
+        return readGraph(in, true, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -94,18 +94,25 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<FlowEdge> readFlowNetwork(In in) {
-        return readGraph(in, GraphImpl::graph, GraphReader::readFlowEdge);
+        return readGraph(in, false, GraphReader::readFlowEdge);
     }
 
-    private static <T extends Edge> Graph<T> readGraph(In in, IntFunction<Graph<T>> graphFactory, Function<In, T> edgeReader) {
+    /**
+     * Read graph from input.
+     * @param in input,
+     * @param directed directed / undirected graph.
+     * @param edgeReader edge reader.
+     * @param <T> edge type.
+     * @return graph.
+     */
+    private static <T extends Edge> Graph<T> readGraph(In in, boolean directed, Function<In, T> edgeReader) {
         requiresNotNull(in, "Input is null");
-        requiresNotNull(graphFactory, "Graph factory not set.");
-        requiresNotNull(graphFactory, "Edge reader not set.");
+        requiresNotNull(edgeReader, "Edge reader not set.");
 
         try {
             int V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            Graph<T> G = graphFactory.apply(V);
+            Graph<T> G = directed ? GraphImpl.digraph(V) : GraphImpl.graph(V);
 
             int E = in.readInt();
             checkArgument(E >= 0, "Number of edges must be nonnegative");
@@ -121,12 +128,22 @@ public class GraphReader {
         }
     }
 
+    /**
+     * Read unweighted edge from input.
+     * @param in input.
+     * @return edge.
+     */
     private static UnWeightedEdge readUnWeightedEdge(In in) {
         int v = in.readInt();
         int w = in.readInt();
         return new UnWeightedEdge(v, w);
     }
 
+    /**
+     * Read weighted edge from input.
+     * @param in input.
+     * @return edge.
+     */
     private static WeightedEdge readWeightedEdge(In in) {
         int v = in.readInt();
         int w = in.readInt();
@@ -134,6 +151,11 @@ public class GraphReader {
         return new WeightedEdge(v, w, weight);
     }
 
+    /**
+     * Read flow edge from input.
+     * @param in input.
+     * @return edge.
+     */
     private static FlowEdge readFlowEdge(In in) {
         int v = in.readInt();
         int w = in.readInt();
