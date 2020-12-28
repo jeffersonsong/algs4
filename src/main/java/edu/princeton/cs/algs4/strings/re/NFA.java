@@ -93,7 +93,7 @@ public class NFA {
         this.regexp = regexp;
         m = regexp.length();
         Stack<Integer> ops = new LinkedStack<>();
-        graph = new GraphImpl<>(m+1, true);
+        graph = GraphImpl.digraph(m+1);
         for (int i = 0; i < m; i++) { 
             int lp = i; 
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '|') 

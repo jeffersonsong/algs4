@@ -240,7 +240,7 @@ public class GlobalMincut {
      *         vertices {@code s} and {@code t} were contracted
      */
     private Graph<WeightedEdge>  contractEdge(Graph<WeightedEdge> G, int s, int t) {
-        Graph<WeightedEdge> H = new GraphImpl<WeightedEdge>(G.V(), false);
+        Graph<WeightedEdge> H = GraphImpl.graph(G.V());
         for (int v = 0; v < G.V(); v++) {
             for (WeightedEdge e : G.adj(v)) {
                 int w = e.other(v);
@@ -268,7 +268,7 @@ public class GlobalMincut {
         // so it suffices to try all pairs s-v for some fixed s
         double value = Double.POSITIVE_INFINITY;
         for (int s = 0, t = 1; t < G.V(); t++) {
-            Graph<FlowEdge> F = new GraphImpl<>(G.V(), false);
+            Graph<FlowEdge> F = GraphImpl.graph(G.V());
             for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
                 int v = e.v(), w = e.other(v);
                 F.addEdge(v, new FlowEdge(v, w, e.weight()));

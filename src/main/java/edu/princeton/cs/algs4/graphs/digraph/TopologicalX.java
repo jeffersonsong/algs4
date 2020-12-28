@@ -192,7 +192,7 @@ public class TopologicalX<T extends Edge> {
         Graph<Edge> G1 = DigraphGenerator.dag(V, E);
 
         // corresponding edge-weighted digraph
-        Graph<WeightedEdge> G2 = new GraphImpl<>(V, true);
+        Graph<WeightedEdge> G2 = GraphImpl.digraph(V);
         for (int v = 0; v < G1.V(); v++)
             for (Edge e : G1.adj(v)) {
                 int w = e.other(v);

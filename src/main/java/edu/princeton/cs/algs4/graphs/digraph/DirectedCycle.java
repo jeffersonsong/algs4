@@ -161,7 +161,7 @@ public class DirectedCycle<T extends Edge> {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
-        Graph<WeightedEdge> G = new GraphImpl<>(V, true);
+        Graph<WeightedEdge> G = GraphImpl.digraph(V);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {

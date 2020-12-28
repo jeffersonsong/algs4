@@ -59,7 +59,7 @@ public class Arbitrage {
         name = new String[V];
 
         // create complete network
-        Graph<WeightedEdge> G = new GraphImpl<>(V, true);
+        Graph<WeightedEdge> G = GraphImpl.digraph(V);
         for (int v = 0; v < V; v++) {
             name[v] = in.readString();
             for (int w = 0; w < V; w++) {

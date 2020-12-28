@@ -100,7 +100,7 @@ public class CPM {
     private static Graph<WeightedEdge> buildNetwork(Job[] jobs, int source, int sink) {
         int n = jobs.length;
 
-        Graph<WeightedEdge> G = new GraphImpl<>(2 * n + 2, true);
+        Graph<WeightedEdge> G = GraphImpl.digraph(2 * n + 2);
         for (int i = 0; i < n; i++) {
             Job job = jobs[i];
             G.addEdge(source,new WeightedEdge(source, i, 0.0));

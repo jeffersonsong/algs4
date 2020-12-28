@@ -89,7 +89,15 @@ public class GraphImpl<T extends Edge> implements Graph<T> {
     private int E;                    /* number of edges in the graph */
     private final Bag<T>[] adj;       /* adjacency info */
     private final int[] indegree;        // indegree[v] = indegree of vertex v
-    
+
+    public static <T extends Edge> Graph<T> digraph(int V) {
+        return new GraphImpl<>(V, true);
+    }
+
+    public static <T extends Edge> Graph<T> graph(int V) {
+        return new GraphImpl<>(V, false);
+    }
+
     /**
      * Initializes an empty graph with {@code V} vertices and 0 edges.
      * param V the number of vertices
@@ -97,7 +105,7 @@ public class GraphImpl<T extends Edge> implements Graph<T> {
      * @param  V number of vertices
      * @throws IllegalArgumentException if {@code V < 0}
      */
-    public GraphImpl(int V, boolean directed) {
+    private GraphImpl(int V, boolean directed) {
         checkArgument(V >= 0, "Number of vertices must be nonnegative");
         this.directed = directed;
         this.V = V;

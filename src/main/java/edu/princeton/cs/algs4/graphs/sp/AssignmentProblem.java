@@ -94,7 +94,7 @@ public class AssignmentProblem {
     private void augment() {
 
         // build residual graph
-        Graph<WeightedEdge> G = new GraphImpl<>(2*n+2, true);
+        Graph<WeightedEdge> G = GraphImpl.digraph(2*n+2);
         int s = 2*n, t = 2*n+1;
         for (int i = 0; i < n; i++) {
             if (xy[i] == UNMATCHED)

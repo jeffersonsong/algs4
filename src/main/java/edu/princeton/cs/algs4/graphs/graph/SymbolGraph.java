@@ -82,11 +82,11 @@ public class SymbolGraph {
     private final Graph<Edge> graph;             // the underlying graph
 
     public static SymbolGraph symbolGraph(String filename, String delimiter) {
-        return new SymbolGraph(filename, delimiter, V -> new GraphImpl<>(V, false));
+        return new SymbolGraph(filename, delimiter, GraphImpl::graph);
     }
 
     public static SymbolGraph symbolDigraph(String filename, String delimiter) {
-        return new SymbolGraph(filename, delimiter, V -> new GraphImpl<>(V, true));
+        return new SymbolGraph(filename, delimiter, GraphImpl::digraph);
     }
 
     /**  

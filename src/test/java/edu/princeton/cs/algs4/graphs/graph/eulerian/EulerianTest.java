@@ -14,7 +14,7 @@ public class EulerianTest {
 
     @Test
     public void testEulerianPath() {
-        Graph<Edge> g1 = new GraphImpl<>(5, false);
+        Graph<Edge> g1 = GraphImpl.graph(5);
         g1.addEdge(1, new UnWeightedEdge(1,0));
         g1.addEdge(0, new UnWeightedEdge(0, 2));
         g1.addEdge(2, new UnWeightedEdge(2, 1));
@@ -26,7 +26,7 @@ public class EulerianTest {
 
     @Test
     public void testEulerianCycle() {
-        Graph<Edge> g2 = new GraphImpl<>(5, false);
+        Graph<Edge> g2 = GraphImpl.graph(5);
         g2.addEdge(1, new UnWeightedEdge(1, 0));
         g2.addEdge(0, new UnWeightedEdge(0, 2));
         g2.addEdge(2, new UnWeightedEdge(2, 1));
@@ -38,7 +38,7 @@ public class EulerianTest {
 
     @Test
     public void testEulerianCycle2() {
-        Graph<Edge> g4 = new GraphImpl<>(3, false);
+        Graph<Edge> g4 = GraphImpl.graph(5);
         g4.addEdge(0, new UnWeightedEdge(0,1));
         g4.addEdge(1, new UnWeightedEdge(1,2));
         g4.addEdge(2, new UnWeightedEdge(2,0));
@@ -47,13 +47,13 @@ public class EulerianTest {
 
     @Test
     public void testEulerianCycle3() {
-        Graph<Edge> g5 = new GraphImpl<>(3, false);
+        Graph<Edge> g5 = GraphImpl.graph(5);
         assertThat(euler.isEulerian(g5), is(Eulerian.EulerianType.EULER_CYCLE));
     }
 
     @Test
     public void testNonEulerian() {
-        Graph<Edge> g3 = new GraphImpl<>(5, false);
+        Graph<Edge> g3 = GraphImpl.graph(5);
         g3.addEdge(1, new UnWeightedEdge(1, 0));
         g3.addEdge(0, new UnWeightedEdge(0,2));
         g3.addEdge(2, new UnWeightedEdge(2,1));

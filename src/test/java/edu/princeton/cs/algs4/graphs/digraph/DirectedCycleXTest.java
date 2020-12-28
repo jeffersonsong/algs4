@@ -22,7 +22,7 @@ public class DirectedCycleXTest {
 
     @Test
     public void testWithSmallCycle() {
-        Graph<Edge> G = new GraphImpl<>(3, true);
+        Graph<Edge> G = GraphImpl.digraph(3);
         G.addEdge(0, new UnWeightedEdge(0, 1));
         G.addEdge(1, new UnWeightedEdge(1, 2));
         G.addEdge(2, new UnWeightedEdge(2, 0));

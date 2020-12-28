@@ -28,7 +28,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readGraph(In in) {
-        return readGraph(in, V -> new GraphImpl<>(V, false));
+        return readGraph(in, GraphImpl::graph);
     }
 
     /**
@@ -44,7 +44,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readDigraph(In in) {
-        return readGraph(in, V -> new GraphImpl<>(V, true));
+        return readGraph(in, GraphImpl::digraph);
     }
 
     private static <T extends Graph<Edge>> T readGraph(In in, IntFunction<T> factoryMethod) {
@@ -86,7 +86,7 @@ public class GraphReader {
         try {
             int V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            Graph<WeightedEdge> G = new GraphImpl<>(V, false);
+            Graph<WeightedEdge> G = GraphImpl.graph(V);
 
             int E = in.readInt();
             checkArgument(E >= 0, "Number of edges must be nonnegative");
@@ -121,7 +121,7 @@ public class GraphReader {
         requiresNotNull(in,"argument is null");
         try {
             int V = in.readInt();
-            Graph<WeightedEdge> G = new GraphImpl<>(V, true);
+            Graph<WeightedEdge> G = GraphImpl.digraph(V);
             checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
 
             int E = in.readInt();
@@ -157,7 +157,7 @@ public class GraphReader {
         int E = in.readInt();
         checkArgument(E >= 0, "number of edges must be nonnegative");
 
-        Graph<FlowEdge> fn = new GraphImpl<>(V, false);
+        Graph<FlowEdge> fn = GraphImpl.graph(V);
         for (int i = 0; i < E; i++) {
             int v = in.readInt();
             int w = in.readInt();

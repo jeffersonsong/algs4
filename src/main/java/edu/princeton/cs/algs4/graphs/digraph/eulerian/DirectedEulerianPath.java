@@ -162,7 +162,7 @@ public class DirectedEulerianPath<T extends Edge> {
         if (deficit > 1) return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
-        Graph<T> H = new GraphImpl<>(G.V(), false);
+        Graph<T> H = GraphImpl.graph(G.V());
         for (int v = 0; v < G.V(); v++)
             for (T e : G.adj(v)) {
                 H.addEdge(v, e);
@@ -245,19 +245,19 @@ public class DirectedEulerianPath<T extends Edge> {
         unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
-        Graph<Edge> G4 = new GraphImpl<>(V, true);
+        Graph<Edge> G4 = GraphImpl.digraph(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, new UnWeightedEdge(v4, v4));
         unitTest(G4, "single self loop");
 
         // single edge
-        Graph<Edge> G5 = new GraphImpl<>(V, true);
+        Graph<Edge> G5 = GraphImpl.digraph(V);
         int v5;
         G5.addEdge(v5=StdRandom.uniform(V), new UnWeightedEdge(v5, StdRandom.uniform(V)));
         unitTest(G5, "single edge");
 
         // empty digraph
-        Graph<Edge> G6 = new GraphImpl<>(V, true);
+        Graph<Edge> G6 = GraphImpl.digraph(V);
         unitTest(G6, "empty digraph");
 
         // random digraph

@@ -268,11 +268,11 @@ public class EulerianCycle<T extends Edge> {
         unitTest(G2, "Eulerian path");
 
         // empty graph
-        Graph<Edge> G3 = new GraphImpl<>(V,false);
+        Graph<Edge> G3 = GraphImpl.graph(V);
         unitTest(G3, "empty graph");
 
         // self loop
-        Graph<Edge> G4 = new GraphImpl<>(V, false);
+        Graph<Edge> G4 = GraphImpl.graph(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, new UnWeightedEdge(v4, v4));
         unitTest(G4, "single self loop");
@@ -282,7 +282,7 @@ public class EulerianCycle<T extends Edge> {
         Graph<Edge> H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
         int[] perm = newIndexArray(V);
         StdRandom.shuffle(perm);
-        Graph<Edge> G5 = new GraphImpl<>(V, false);
+        Graph<Edge> G5 = GraphImpl.graph(V);
         for (int v = 0; v < H1.V(); v++)
             for (Edge e : H1.adj(v)) {
                 int w = e.other(v);

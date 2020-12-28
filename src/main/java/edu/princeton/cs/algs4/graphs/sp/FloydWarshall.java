@@ -129,7 +129,7 @@ public class FloydWarshall<T extends WeightedEdge> {
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
                 int V = edgeTo.length;
-                Graph<T> spt = new GraphImpl<>(V, true);
+                Graph<T> spt = GraphImpl.digraph(V);
                 for (int w = 0; w < V; w++)
                     if (edgeTo[v][w] != null)
                         spt.addEdge(v, edgeTo[v][w]);

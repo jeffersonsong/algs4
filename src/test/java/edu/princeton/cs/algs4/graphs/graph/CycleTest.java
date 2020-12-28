@@ -19,7 +19,7 @@ public class CycleTest {
 
     @Test
     public void testNoCycle() {
-        Graph<Edge> G = new GraphImpl<>(3, false);
+        Graph<Edge> G = GraphImpl.graph(3);
         G.addEdge(0, new UnWeightedEdge(0, 1));
         G.addEdge(1, new UnWeightedEdge(1, 2));
         Cycle<Edge> finder = new Cycle<>(G);

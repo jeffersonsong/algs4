@@ -19,7 +19,7 @@ public class FlowNetworkGenerator {
      * @throws IllegalArgumentException if {@code E < 0}
      */
     public static Graph<FlowEdge> simple(int V, int E) {
-        Graph<FlowEdge> fn = new GraphImpl<>(V, false);
+        Graph<FlowEdge> fn = GraphImpl.graph(V);
         checkArgument(E >= 0,"Number of edges must be nonnegative");
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);

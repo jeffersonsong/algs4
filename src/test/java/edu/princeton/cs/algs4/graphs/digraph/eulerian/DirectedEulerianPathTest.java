@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class DirectedEulerianPathTest {
     @Test
     public void testEulerianCycle() {
-        Graph<Edge> g = new GraphImpl<>(5, true);
+        Graph<Edge> g = GraphImpl.digraph(5);
         g.addEdge(1, new UnWeightedEdge(1,0));
         g.addEdge(0, new UnWeightedEdge(0,2));
         g.addEdge(2, new UnWeightedEdge(2,1));

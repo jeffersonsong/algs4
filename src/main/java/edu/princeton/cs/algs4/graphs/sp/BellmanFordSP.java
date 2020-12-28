@@ -149,7 +149,7 @@ public class BellmanFordSP<T extends WeightedEdge> implements SP {
     // by finding a cycle in predecessor graph
     private void findNegativeCycle() {
         int V = edgeTo.length;
-        Graph<T> spt = new GraphImpl<>(V, true);
+        Graph<T> spt = GraphImpl.digraph(V);
         for (T edge : edgeTo)
             if (edge != null)
                 spt.addEdge(edge.v(), edge);
