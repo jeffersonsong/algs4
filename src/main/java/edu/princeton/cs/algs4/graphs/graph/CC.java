@@ -185,7 +185,7 @@ public class CC<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
         CC<UnweightedEdgeNode> cc = new CC<>(G);
 
         // number of connected components

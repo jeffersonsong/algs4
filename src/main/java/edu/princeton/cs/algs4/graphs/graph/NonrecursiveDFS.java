@@ -136,7 +136,7 @@ public class NonrecursiveDFS<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
         int s = Integer.parseInt(args[1]);
         NonrecursiveDFS<UnweightedEdgeNode> dfs = new NonrecursiveDFS<>(G, s);
         for (int v = 0; v < G.V(); v++)

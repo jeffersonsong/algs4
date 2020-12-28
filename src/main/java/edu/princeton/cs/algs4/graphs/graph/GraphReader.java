@@ -22,8 +22,8 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public static Graph<UnweightedEdgeNode> readGraph(In in, boolean directed) {
-        return readGraph(in, V -> new GraphImpl<>(V, directed));
+    public static Graph<UnweightedEdgeNode> readGraph(In in) {
+        return readGraph(in, V -> new GraphImpl<>(V, false));
     }
 
     /**

@@ -168,7 +168,7 @@ public class Cycle<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
         Cycle<UnweightedEdgeNode>  finder = new Cycle<>(G);
         if (finder.hasCycle()) {
             for (int v : finder.cycle()) {

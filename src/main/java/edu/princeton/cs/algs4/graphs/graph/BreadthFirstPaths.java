@@ -198,7 +198,7 @@ public class BreadthFirstPaths<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);

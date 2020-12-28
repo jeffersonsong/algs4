@@ -262,7 +262,7 @@ public class GraphImpl<T extends EdgeNode> implements Graph<T> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in, false);
+        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
         StdOut.println(G);
     }
 }

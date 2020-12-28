@@ -14,7 +14,7 @@ public class CCTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph<UnweightedEdgeNode> g = GraphReader.readGraph(in, false);
+        Graph<UnweightedEdgeNode> g = GraphReader.readGraph(in);
         cc = new CC<>(g);
     }
 
