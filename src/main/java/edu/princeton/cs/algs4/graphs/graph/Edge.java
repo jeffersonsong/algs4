@@ -14,12 +14,12 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public interface Edge<T extends Edge> {
+public interface Edge {
     int v();
 
     int w();
 
     int other(int vertex);
 
-    T reverse();
+    Edge reverse();
 }
