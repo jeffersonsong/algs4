@@ -1,5 +1,7 @@
 package edu.princeton.cs.algs4.fundamentals.list;
 
+import edu.princeton.cs.algs4.fundamentals.basic.Node;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -11,20 +13,6 @@ public class LinkedList2<Item> implements List<Item> {
     private final Node<Item> dummyHead;
     private Node<Item> last;
     private int n;
-
-    private static class Node<Item> {
-        final Item item;
-        Node<Item> next;
-
-        public Node(Item item) {
-            this.item = item;
-        }
-
-        public Node(Item item, Node<Item> next) {
-            this.item = item;
-            this.next = next;
-        }
-    }
 
     public LinkedList2() {
         dummyHead = new Node<>(null);
