@@ -9,6 +9,7 @@
 
 package edu.princeton.cs.algs4.graphs.maxflow;
 
+import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -28,7 +29,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class FlowEdge {
+public class FlowEdge implements EdgeNode {
     // to deal with floating-point roundoff errors
     private static final double FLOATING_POINT_EPSILON = 1E-10;
 
@@ -98,7 +99,7 @@ public class FlowEdge {
      * Returns the tail vertex of the edge.
      * @return the tail vertex of the edge
      */
-    public int from() {
+    public int v() {
         return v;
     }  
 
@@ -106,7 +107,7 @@ public class FlowEdge {
      * Returns the head vertex of the edge.
      * @return the head vertex of the edge
      */
-    public int to() {
+    public int w() {
         return w;
     }  
 
@@ -186,7 +187,6 @@ public class FlowEdge {
         checkArgument(flow <= capacity, "Flow exceeds capacity");
     }
 
-
     /**
      * Returns a string representation of the edge.
      * @return a string representation of the edge
@@ -195,8 +195,12 @@ public class FlowEdge {
         return v + "->" + w + " " + flow + "/" + capacity;
     }
 
+    @Override
+    public EdgeNode copy(int v) {
+        return this;
+    }
 
-   /**
+    /**
      * Unit tests the {@code FlowEdge} data type.
      *
      * @param args the command-line arguments

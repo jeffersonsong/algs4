@@ -29,7 +29,7 @@ public class FordFulkersonTest {
         StdOut.println("Max flow from " + s + " to " + t);
         for (int v = 0; v < G.V(); v++)
             for (FlowEdge e : G.adj(v))
-                if ((v == e.from()) && e.flow() > 0)
+                if ((v == e.v()) && e.flow() > 0)
                     StdOut.println(" " + e);
         StdOut.println("Max flow value = " + maxflow.value());
         assertThat(maxflow.value(), is(closeTo(4.0, 1e-2)));

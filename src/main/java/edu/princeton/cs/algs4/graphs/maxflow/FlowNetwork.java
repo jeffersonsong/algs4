@@ -14,7 +14,6 @@ import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
@@ -90,8 +89,8 @@ public class FlowNetwork {
      *         {@code 0} and {@code V-1}
      */
     public void addEdge(FlowEdge e) {
-        int v = e.from();
-        int w = e.to();
+        int v = e.v();
+        int w = e.w();
         validateVertex(v);
         validateVertex(w);
         adj[v].add(e);
@@ -116,7 +115,7 @@ public class FlowNetwork {
         Bag<FlowEdge> list = new LinkedBag<>();
         for (int v = 0; v < V; v++)
             for (FlowEdge e : adj(v)) {
-                if (e.to() != v)
+                if (e.w() != v)
                     list.add(e);
             }
         return list;
@@ -135,7 +134,7 @@ public class FlowNetwork {
         for (int v = 0; v < V; v++) {
             s.append(v).append(":  ");
             for (FlowEdge e : adj[v]) {
-                if (e.to() != v) s.append(e).append("  ");
+                if (e.w() != v) s.append(e).append("  ");
             }
             s.append(NEWLINE);
         }

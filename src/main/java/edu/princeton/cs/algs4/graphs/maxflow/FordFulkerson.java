@@ -158,7 +158,7 @@ public class FordFulkerson {
     private double excess(FlowNetwork G, int v) {
         double excess = 0.0;
         for (FlowEdge e : G.adj(v)) {
-            if (v == e.from()) excess -= e.flow();
+            if (v == e.v()) excess -= e.flow();
             else               excess += e.flow();
         }
         return excess;
@@ -223,7 +223,7 @@ public class FordFulkerson {
         double mincutValue = 0.0;
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
-                if ((v == e.from()) && inCut(e.from()) && !inCut(e.to()))
+                if ((v == e.v()) && inCut(e.v()) && !inCut(e.w()))
                     mincutValue += e.capacity();
             }
         }
@@ -256,7 +256,7 @@ public class FordFulkerson {
         StdOut.println("Max flow from " + s + " to " + t);
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
-                if ((v == e.from()) && e.flow() > 0)
+                if ((v == e.v()) && e.flow() > 0)
                     StdOut.println("   " + e);
             }
         }
