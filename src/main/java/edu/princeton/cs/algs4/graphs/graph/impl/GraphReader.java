@@ -15,6 +15,9 @@ import java.util.function.IntFunction;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
+/**
+ * Read graph from Input.
+ */
 public class GraphReader {
     /**
      * Initializes a graph from the specified input stream.
