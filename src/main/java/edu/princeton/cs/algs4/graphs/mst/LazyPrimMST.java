@@ -126,7 +126,7 @@ public class LazyPrimMST implements MST {
         assert !marked[v];
         marked[v] = true;
         for (WeightedEdge e : G.adj(v)) {
-            int other = e.v() == v ? e.w() : e.v();
+            int other = e.other(v);
             if (!marked[other]) pq.insert(e);
         }
     }
