@@ -5,6 +5,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.function.IntFunction;
+import java.util.function.IntUnaryOperator;
+import java.util.stream.IntStream;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
@@ -21,17 +23,14 @@ public class ArrayUtils {
     }
 
     public static int[] newIndexArray(int length) {
-        return newIntArray(length, i->i);
+        checkArgument(length >= 0, "Array dimension is non-negative");
+        return IntStream.range(0, length).toArray();
     }
 
-    public static int[] newIntArray(int length, IntToIntFunction function) {
+    public static int[] newIntArray(int length, IntUnaryOperator function) {
         checkArgument(length >= 0, "Array dimension is non-negative");
         requiresNotNull(function, "Function not set.");
-        int[] array = new int[length];
-        for (int i=0; i < length; i++) {
-            array[i] = function.applyAsInt(i);
-        }
-        return array;
+        return IntStream.range(0, length).map(function).toArray();
     }
 
     public static double[] newDoubleArray(int length, double defaultValue) {
