@@ -21,10 +21,14 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
+import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
+import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -53,9 +57,9 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class DirectedCycle<T extends Edge> {
     private final boolean[] marked;        // marked[v] = has vertex v been marked?
-    private final int[] edgeTo;            // edgeTo[v] = previous vertex on path to v
+    private final Edge[] edgeTo;           // edgeTo[v] = previous vertex on path to v
     private final boolean[] onStack;       // onStack[v] = is vertex on the stack?
-    private Stack<Integer> cycle;    // directed cycle (or null if no such cycle)
+    private Stack<T> cycle;                // directed cycle (or null if no such cycle)
 
     /**
      * Determines whether the digraph {@code G} has a directed cycle and, if so,
@@ -66,12 +70,12 @@ public class DirectedCycle<T extends Edge> {
         checkArgument(G.isDirected());
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
-        edgeTo  = new int[G.V()];
+        edgeTo  = new Edge[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v] && cycle == null) dfs(G, v);
     }
 
-    // run DFS and find a directed cycle (if one exists)
+    // check that algorithm computes either the topological order or finds a directed cycle
     private void dfs(Graph<T> G, int v) {
         onStack[v] = true;
         marked[v] = true;
@@ -83,18 +87,20 @@ public class DirectedCycle<T extends Edge> {
 
             // found new vertex, so recur
             else if (!marked[w]) {
-                edgeTo[w] = v;
+                edgeTo[w] = e;
                 dfs(G, w);
             }
 
             // trace back directed cycle
             else if (onStack[w]) {
                 cycle = new LinkedStack<>();
-                for (int x = v; x != w; x = edgeTo[x]) {
-                    cycle.push(x);
+
+                T f = e;
+                while (f.v() != w) {
+                    cycle.push(f);
+                    f = (T)edgeTo[f.v()];
                 }
-                cycle.push(w);
-                cycle.push(v);
+                cycle.push(f);
                 assert check();
             }
         }
@@ -114,21 +120,31 @@ public class DirectedCycle<T extends Edge> {
      * @return a directed cycle (as an iterable) if the digraph has a directed cycle,
      *    and {@code null} otherwise
      */
-    public Iterable<Integer> cycle() {
+    public Iterable<T> cycle() {
         return cycle;
     }
 
-    // certify that digraph has a directed cycle if it reports one
+
+    // certify that digraph is either acyclic or has a directed cycle
     private boolean check() {
+
+        // edge-weighted digraph is cyclic
         if (hasCycle()) {
             // verify cycle
-            int first = -1, last = -1;
-            for (int v : cycle()) {
-                if (first == -1) first = v;
-                last = v;
+            T first = null, last = null;
+            for (T e : cycle()) {
+                if (first == null) first = e;
+                if (last != null) {
+                    if (last.w() != e.v()) {
+                        System.err.printf("cycle edges %s and %s not incident\n", last, e);
+                        return false;
+                    }
+                }
+                last = e;
             }
-            if (first != last) {
-                System.err.printf("cycle begins with %d and ends with %d\n", first, last);
+
+            if (last.w() != first.v()) {
+                System.err.printf("cycle edges %s and %s not incident\n", last, first);
                 return false;
             }
         }
@@ -143,18 +159,45 @@ public class DirectedCycle<T extends Edge> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        In in = new In(args[0]);
-        Graph<Edge> G = GraphReader.readDigraph(in);
 
-        DirectedCycle<Edge> finder = new DirectedCycle<>(G);
+        // create random DAG with V vertices and E edges; then add F random edges
+        int V = Integer.parseInt(args[0]);
+        int E = Integer.parseInt(args[1]);
+        int F = Integer.parseInt(args[2]);
+        Graph<WeightedEdge> G = new GraphImpl<>(V, true);
+        int[] vertices = newIndexArray(V);
+        StdRandom.shuffle(vertices);
+        for (int i = 0; i < E; i++) {
+            int v, w;
+            do {
+                v = StdRandom.uniform(V);
+                w = StdRandom.uniform(V);
+            } while (v >= w);
+            double weight = StdRandom.uniform();
+            G.addEdge(v, new WeightedEdge(v, w, weight));
+        }
+
+        // add F extra edges
+        for (int i = 0; i < F; i++) {
+            int v = StdRandom.uniform(V);
+            int w = StdRandom.uniform(V);
+            double weight = StdRandom.uniform(0.0, 1.0);
+            G.addEdge(v, new WeightedEdge(v, w, weight));
+        }
+
+        StdOut.println(G);
+
+        // find a directed cycle
+        DirectedCycle<WeightedEdge> finder = new DirectedCycle<>(G);
         if (finder.hasCycle()) {
-            StdOut.print("Directed cycle: ");
-            for (int v : finder.cycle()) {
-                StdOut.print(v + " ");
+            StdOut.print("Cycle: ");
+            for (WeightedEdge e : finder.cycle()) {
+                StdOut.print(e + " ");
             }
             StdOut.println();
         }
 
+        // or give topologial sort
         else {
             StdOut.println("No directed cycle");
         }

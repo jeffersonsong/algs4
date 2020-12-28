@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static edu.princeton.cs.algs4.graphs.graph.GraphTestUtils.toIdList;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static java.util.Arrays.asList;
@@ -24,8 +26,13 @@ public class DirectedCycleTest {
         DirectedCycle<Edge> finder = new DirectedCycle<>(G);
         assertTrue(finder.hasCycle());
 
-        List<Integer> cycle = toList(finder.cycle());
-        assertThat(cycle, is(asList(3, 5, 4, 3)));
+        List<Edge> cycle = toList(finder.cycle());
+        List<Integer> idList = toIdList(cycle);
+        assertThat(idList, hasItems(5, 4, 3));
+        for (int i=0; i < cycle.size() - 1; i++) {
+            assertThat(cycle.get(i).w(), is(cycle.get(i + 1).v()));
+        }
+        assertThat(cycle.get(0).v(), is(cycle.get(cycle.size() - 1).w()));
     }
 
     @Test
