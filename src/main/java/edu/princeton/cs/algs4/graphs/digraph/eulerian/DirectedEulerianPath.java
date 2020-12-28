@@ -159,7 +159,7 @@ public class DirectedEulerianPath<T extends Edge> {
         if (deficit > 1) return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
-        Graph<T> H = new GraphImpl<>(G.V(), G.isDirected());
+        Graph<T> H = new GraphImpl<>(G.V(), false);
         for (int v = 0; v < G.V(); v++)
             for (T e : G.adj(v)) {
                 H.addEdge(v, e);
