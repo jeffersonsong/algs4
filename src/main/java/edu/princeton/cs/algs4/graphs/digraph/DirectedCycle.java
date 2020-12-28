@@ -67,7 +67,8 @@ public class DirectedCycle<T extends Edge> {
      * @param G the digraph
      */
     public DirectedCycle(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
         edgeTo  = new Edge[G.V()];

@@ -88,7 +88,8 @@ public class DijkstraUndirectedSP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DijkstraUndirectedSP(Graph<WeightedEdge> G, int s) {
-        checkArgument(!G.isDirected());
+        checkArgument(!G.isDirected(), "Only applicable to undirected edge weighted graph.");
+
         for (int i=0; i < G.V(); i++) {
             for (WeightedEdge e : G.adj(i)) {
                 checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");

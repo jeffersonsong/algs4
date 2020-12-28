@@ -101,6 +101,8 @@ public class GlobalMincut {
      * @throws IllegalArgumentException if any edge weight is negative
      */
     public GlobalMincut(Graph<WeightedEdge> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
+
         V = G.V();
         validate(G);
         minCut(G, 0);

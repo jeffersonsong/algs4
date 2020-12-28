@@ -72,7 +72,8 @@ public class TransitiveClosure<T extends Edge> {
      * @param G the digraph
      */
     public TransitiveClosure(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         tc = (DepthFirstSearch<T>[])new DepthFirstSearch[G.V()];
         for (int v = 0; v < G.V(); v++)
             tc[v] = new DepthFirstSearch<>(G, v);

@@ -62,7 +62,8 @@ public class DirectedEulerianCycle<T extends Edge> {
      * @param G the digraph
      */
     public DirectedEulerianCycle(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         // must have at least one edge
         if (G.E() == 0) return;
 

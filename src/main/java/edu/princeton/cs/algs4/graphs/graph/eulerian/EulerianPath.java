@@ -22,6 +22,7 @@ import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code EulerianPath} class represents a data type
@@ -70,6 +71,7 @@ public class EulerianPath<T extends Edge> {
      * @param G the graph
      */
     public EulerianPath(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
 
         // find vertex from which to start potential Eulerian path:
         // a vertex v with odd degree(v) if it exits;

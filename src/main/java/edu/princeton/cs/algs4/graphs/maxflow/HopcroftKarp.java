@@ -84,6 +84,8 @@ public class HopcroftKarp<T extends Edge> {
      * @throws IllegalArgumentException if {@code G} is not bipartite
      */
     public HopcroftKarp(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
+
         bipartition = new BipartiteX<>(G);
         checkArgument(bipartition.isBipartite(), "graph is not bipartite");
 

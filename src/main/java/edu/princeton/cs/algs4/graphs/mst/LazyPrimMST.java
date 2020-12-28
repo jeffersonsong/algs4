@@ -54,6 +54,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 import java.util.Comparator;
 
 import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code LazyPrimMST} class represents a data type for computing a
@@ -96,6 +97,8 @@ public class LazyPrimMST implements MST {
      * @param G the edge-weighted graph
      */
     public LazyPrimMST(Graph<WeightedEdge> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected edge weighted graph.");
+
         weight = 0;
         mst = new LinkedQueue<>();
         pq = BinaryHeapImpl.newPQ(Comparator.comparing(WeightedEdge::weight));

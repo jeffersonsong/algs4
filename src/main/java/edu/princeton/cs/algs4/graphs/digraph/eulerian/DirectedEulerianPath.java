@@ -60,7 +60,8 @@ public class DirectedEulerianPath<T extends Edge> {
      * @param G the digraph
      */
     public DirectedEulerianPath(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         // find vertex from which to start potential Eulerian path:
         // a vertex v with outdegree(v) > indegree(v) if it exits;
         // otherwise a vertex with outdegree(v) > 0

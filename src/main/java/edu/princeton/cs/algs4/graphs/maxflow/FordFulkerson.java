@@ -64,6 +64,8 @@ public class FordFulkerson {
      * @throws IllegalArgumentException if initial flow is infeasible
      */
     public FordFulkerson(Graph<FlowEdge> G, int s, int t) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected flow network.");
+
         V = G.V();
         validate(s);
         validate(t);

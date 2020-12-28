@@ -17,7 +17,8 @@ public class DirectedEulerianCycleX<T extends Edge> {
      * cycle, otherwise returns false
      */
     public boolean isEulerianCycle(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         // Check if all non-zero degree vertices are connected
         if (!KosarajuSC.isSC(G)) return false;
 

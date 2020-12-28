@@ -65,7 +65,7 @@ public class AcyclicSP implements SP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public AcyclicSP(Graph<WeightedEdge> G, int s) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed edge weighted graph.");
 
         distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
         edgeTo = new WeightedEdge[G.V()];

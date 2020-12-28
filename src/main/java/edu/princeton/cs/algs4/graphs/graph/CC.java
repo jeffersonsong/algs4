@@ -81,6 +81,8 @@ public class CC<T extends Edge> {
      * @param G the undirected graph
      */
     public CC(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
+
         marked = new boolean[G.V()];
         id = newIntArray(G.V(), -1);
         size = newIntArray(G.V(), 0);

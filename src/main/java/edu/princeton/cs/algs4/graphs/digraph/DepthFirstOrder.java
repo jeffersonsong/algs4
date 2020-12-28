@@ -78,7 +78,8 @@ public class DepthFirstOrder<T extends Edge> {
      * @param G the digraph
      */
     public DepthFirstOrder(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         pre    = new int[G.V()];
         post   = new int[G.V()];
         postorder = new LinkedQueue<>();

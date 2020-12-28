@@ -61,6 +61,8 @@ public class Bipartite<T extends Edge> {
      * @param  G the graph
      */
     public Bipartite(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
+
         isBipartite = true;
         color  = new boolean[G.V()];
         marked = new boolean[G.V()];

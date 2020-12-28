@@ -49,6 +49,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code PrimMST} class represents a data type for computing a
@@ -91,6 +92,8 @@ public class PrimMST implements MST {
      * @param G the edge-weighted graph
      */
     public PrimMST(Graph<WeightedEdge> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected edge weighted graph.");
+
         edgeTo = new WeightedEdge[G.V()];
         distTo = new double[G.V()];
         marked = new boolean[G.V()];

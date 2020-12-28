@@ -63,7 +63,7 @@ public class FloydWarshall<T extends WeightedEdge> {
      * @param G the edge-weighted digraph
      */
     public FloydWarshall(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed edge weighted graph.");
 
         int V = G.V();
         distTo = new double[V][V];

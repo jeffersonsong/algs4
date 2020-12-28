@@ -51,7 +51,7 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DijkstraAllPairsSP(Graph<WeightedEdge> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed edge weighted graph.");
 
         all  = new DijkstraSP[G.V()];
         for (int v = 0; v < G.V(); v++)

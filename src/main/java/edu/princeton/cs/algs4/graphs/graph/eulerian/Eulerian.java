@@ -4,6 +4,8 @@ import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  * https://www.geeksforgeeks.org/eulerian-path-and-circuit/
  *
@@ -26,6 +28,8 @@ public class Eulerian<T extends Edge> {
      *  EULER_CIRCLE If graph has an Euler Circle (Eulerian)
      */
     public EulerianType isEulerian(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
+
         // Check if all non-zero degree vertices are connected
         if (!isConnected(G)) {
             return EulerianType.NOT_EULERIAN;

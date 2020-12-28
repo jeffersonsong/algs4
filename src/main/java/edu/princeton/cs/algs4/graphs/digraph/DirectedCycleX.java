@@ -55,7 +55,8 @@ public class DirectedCycleX<T extends Edge> {
     private Stack<T> cycle;     // the directed cycle; null if digraph is acyclic
 
     public DirectedCycleX(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         // indegrees of remaining vertices
         int[] indegree = newIntArray(G.V(), G::indegree);
 

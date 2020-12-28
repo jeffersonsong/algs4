@@ -72,7 +72,8 @@ public class Topological<T extends Edge> {
      * @param G the digraph
      */
     public Topological(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         DirectedCycle<T>  finder = new DirectedCycle<>(G);
         if (!finder.hasCycle()) {
             DepthFirstOrder<T>  dfs = new DepthFirstOrder<>(G);

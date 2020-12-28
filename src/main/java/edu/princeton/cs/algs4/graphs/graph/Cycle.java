@@ -28,6 +28,8 @@ import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
+
 /**
  *  The {@code Cycle} class represents a data type for 
  *  determining whether an undirected graph has a simple cycle.
@@ -64,6 +66,8 @@ public class Cycle<T extends Edge> {
      * @param G the undirected graph
      */
     public Cycle(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
+
         if (hasSelfLoop(G)) return;
         if (hasParallelEdges(G)) return;
         marked = new boolean[G.V()];
@@ -119,24 +123,6 @@ public class Cycle<T extends Edge> {
         return false;
     }
 
-    /**
-     * Returns true if the graph {@code G} has a cycle.
-     *
-     * @return {@code true} if the graph has a cycle; {@code false} otherwise
-     */
-    public boolean hasCycle() {
-        return cycle != null;
-    }
-
-     /**
-     * Returns a cycle in the graph {@code G}.
-     * @return a cycle if the graph {@code G} has a cycle,
-     *         and {@code null} otherwise
-     */
-    public Iterable<Integer> cycle() {
-        return cycle;
-    }
-
     private void dfs(Graph<T> G, int u, int v) {
         marked[v] = true;
         for (T e : G.adj(v)) {
@@ -163,6 +149,24 @@ public class Cycle<T extends Edge> {
     }
 
     /**
+     * Returns true if the graph {@code G} has a cycle.
+     *
+     * @return {@code true} if the graph has a cycle; {@code false} otherwise
+     */
+    public boolean hasCycle() {
+        return cycle != null;
+    }
+
+     /**
+     * Returns a cycle in the graph {@code G}.
+     * @return a cycle if the graph {@code G} has a cycle,
+     *         and {@code null} otherwise
+     */
+    public Iterable<Integer> cycle() {
+        return cycle;
+    }
+
+    /**
      * Unit tests the {@code Cycle} data type.
      *
      * @param args the command-line arguments
@@ -181,8 +185,6 @@ public class Cycle<T extends Edge> {
             StdOut.println("Graph is acyclic");
         }
     }
-
-
 }
 
 

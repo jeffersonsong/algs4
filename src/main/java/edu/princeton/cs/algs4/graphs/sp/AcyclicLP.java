@@ -67,7 +67,8 @@ public class AcyclicLP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public AcyclicLP(Graph<WeightedEdge> G, int s) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed edge weighted graph.");
+
         distTo = newDoubleArray(G.V(), Double.NEGATIVE_INFINITY);
         edgeTo = new WeightedEdge[G.V()];
 

@@ -36,6 +36,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 import java.util.Comparator;
 
 import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code BoruvkaMST} class represents a data type for computing a
@@ -77,6 +78,8 @@ public class BoruvkaMST implements MST {
      * @param G the edge-weighted graph
      */
     public BoruvkaMST(Graph<WeightedEdge> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected edge weighted graph.");
+
         UF uf = new UFImpl(G.V());
 
         // repeat at most log V times or until we have V-1 edges

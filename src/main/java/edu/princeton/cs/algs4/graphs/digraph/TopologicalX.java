@@ -58,7 +58,8 @@ public class TopologicalX<T extends Edge> {
      * @param G the digraph
      */
     public TopologicalX(Graph<T> G) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed graph.");
+
         // indegrees of remaining vertices
         int[] indegree = newIntArray(G.V(), G::indegree);
 

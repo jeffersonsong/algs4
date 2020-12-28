@@ -80,7 +80,7 @@ public class DijkstraSP implements SP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DijkstraSP(Graph<WeightedEdge> G, int s) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed edge weighted graph.");
 
         for (int v = 0; v < G.V(); v++) {
             for (WeightedEdge e : G.adj(v)) {

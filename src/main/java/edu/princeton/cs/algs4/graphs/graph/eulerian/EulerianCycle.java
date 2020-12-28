@@ -29,6 +29,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newArray;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
+import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code EulerianCycle} class represents a data type
@@ -77,6 +78,7 @@ public class EulerianCycle<T extends Edge> {
      * @param G the graph
      */
     public EulerianCycle(Graph<T> G) {
+        checkArgument(!G.isDirected(), "Only applicable to undirected graph.");
 
         // must have at least one edge
         if (G.E() == 0) return;

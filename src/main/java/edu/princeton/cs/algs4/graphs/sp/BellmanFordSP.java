@@ -87,7 +87,7 @@ public class BellmanFordSP<T extends WeightedEdge> implements SP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public BellmanFordSP(Graph<T> G, int s) {
-        checkArgument(G.isDirected());
+        checkArgument(G.isDirected(), "Only applicable to directed edge weighted graph.");
 
         distTo  = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
         edgeTo  = (T[])new WeightedEdge[G.V()];
