@@ -29,6 +29,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.bag;
 
+import edu.princeton.cs.algs4.fundamentals.basic.ListIterator;
 import edu.princeton.cs.algs4.fundamentals.basic.Node;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -94,34 +95,7 @@ public class LinkedBag<Item> implements Bag<Item> {
      * Returns an iterator that iterates over the items in the bag.
      */
     public Iterator<Item> iterator()  {
-        return new LinkedIterator(first);
-    }
-
-    // an iterator over a linked list
-    private class LinkedIterator implements Iterator<Item> {
-        private Node<Item> current;
-
-        public LinkedIterator(Node<Item> first) {
-            current = first;
-        }
-
-        // is there a next item in the iterator?
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        // this method is optional in Iterator interface
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-
-        // returns the next item in the iterator (and advances the iterator)
-        public Item next() {
-            noSuchElement(!hasNext());
-            Item item = current.item;
-            current = current.next; 
-            return item;
-        }
+        return new ListIterator<>(first);
     }
 
     /**
