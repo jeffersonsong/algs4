@@ -9,6 +9,7 @@ import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -28,7 +29,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readGraph(In in) {
-        return readGraph(in, GraphImpl::graph);
+        return readGraph(in, GraphImpl::graph, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -44,27 +45,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readDigraph(In in) {
-        return readGraph(in, GraphImpl::digraph);
-    }
-
-    private static <T extends Graph<Edge>> T readGraph(In in, IntFunction<T> factoryMethod) {
-        requiresNotNull(in, "argument is null");
-        requiresNotNull(factoryMethod, "Factory method not set.");
-        try {
-            int V = in.readInt();
-            checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            T G = factoryMethod.apply(V);
-            int E = in.readInt();
-            checkArgument(E >= 0, "number of edges in a Graph must be nonnegative");
-            for (int i = 0; i < E; i++) {
-                UnWeightedEdge edge = readUnWeightedEdge(in);
-                G.addEdge(edge.v(), edge);
-            }
-            return G;
-        }
-        catch (NoSuchElementException e) {
-            throw new IllegalArgumentException("invalid input format in Graph constructor", e);
-        }
+        return readGraph(in, GraphImpl::digraph, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -80,7 +61,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedGraph(In in) {
-        return readEdgeWeightedGraph(in, GraphImpl::graph);
+        return readGraph(in, GraphImpl::graph, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -96,29 +77,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedDigraph(In in) {
-        return readEdgeWeightedGraph(in, GraphImpl::digraph);
-    }
-
-    public static Graph<WeightedEdge> readEdgeWeightedGraph(In in, IntFunction<Graph<WeightedEdge>> factoryMethod) {
-        requiresNotNull(in, "argument is null");
-
-        try {
-            int V = in.readInt();
-            checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            Graph<WeightedEdge> G = factoryMethod.apply(V);
-
-            int E = in.readInt();
-            checkArgument(E >= 0, "Number of edges must be nonnegative");
-            for (int i = 0; i < E; i++) {
-                WeightedEdge e = readWeightedEdge(in);
-                G.addEdge(e.v(), e);
-            }
-
-            return G;
-        }
-        catch (NoSuchElementException e) {
-            throw new IllegalArgumentException("invalid input format in EdgeWeightedGraph constructor", e);
-        }
+        return readGraph(in, GraphImpl::digraph, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -132,18 +91,31 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<FlowEdge> readFlowNetwork(In in) {
-        int V = in.readInt();
-        checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
+        return readGraph(in, GraphImpl::graph, GraphReader::readFlowEdge);
+    }
 
-        int E = in.readInt();
-        checkArgument(E >= 0, "number of edges must be nonnegative");
+    private static <T extends Edge> Graph<T> readGraph(In in, IntFunction<Graph<T>> graphFactory, Function<In, T> edgeReader) {
+        requiresNotNull(in, "Input is null");
+        requiresNotNull(graphFactory, "Graph factory not set.");
+        requiresNotNull(graphFactory, "Edge reader not set.");
 
-        Graph<FlowEdge> fn = GraphImpl.graph(V);
-        for (int i = 0; i < E; i++) {
-            FlowEdge edge = readFlowEdge(in);
-            fn.addEdge(edge.v(), edge);
+        try {
+            int V = in.readInt();
+            checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
+            Graph<T> G = graphFactory.apply(V);
+
+            int E = in.readInt();
+            checkArgument(E >= 0, "Number of edges must be nonnegative");
+            for (int i = 0; i < E; i++) {
+                T e = edgeReader.apply(in);
+                G.addEdge(e.v(), e);
+            }
+
+            return G;
         }
-        return fn;
+        catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("invalid input format in Graph constructor", e);
+        }
     }
 
     private static UnWeightedEdge readUnWeightedEdge(In in) {
