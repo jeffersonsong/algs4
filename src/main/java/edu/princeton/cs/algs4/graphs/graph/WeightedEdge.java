@@ -7,9 +7,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.mst;
-
-import edu.princeton.cs.algs4.graphs.graph.Edge;
+package edu.princeton.cs.algs4.graphs.graph;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 

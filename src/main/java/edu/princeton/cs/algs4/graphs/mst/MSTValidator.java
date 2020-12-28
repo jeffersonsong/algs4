@@ -3,6 +3,7 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 

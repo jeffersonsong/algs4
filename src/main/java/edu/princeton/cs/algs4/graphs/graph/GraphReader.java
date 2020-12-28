@@ -1,7 +1,6 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
-import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.NoSuchElementException;

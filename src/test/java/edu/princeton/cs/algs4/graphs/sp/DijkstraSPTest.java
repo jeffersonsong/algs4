@@ -1,7 +1,7 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
+import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 
 public class DijkstraSPTest extends SPBaseTest {
 
