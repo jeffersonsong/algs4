@@ -127,7 +127,6 @@ public class DirectedCycle<T extends Edge> {
 
     // certify that digraph is either acyclic or has a directed cycle
     private boolean check() {
-
         // edge-weighted digraph is cyclic
         if (hasCycle()) {
             // verify cycle
@@ -149,7 +148,6 @@ public class DirectedCycle<T extends Edge> {
             }
         }
 
-
         return true;
     }
 
@@ -159,7 +157,6 @@ public class DirectedCycle<T extends Edge> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-
         // create random DAG with V vertices and E edges; then add F random edges
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
@@ -203,7 +200,6 @@ public class DirectedCycle<T extends Edge> {
         }
         StdOut.println();
     }
-
 }
 
 /******************************************************************************
