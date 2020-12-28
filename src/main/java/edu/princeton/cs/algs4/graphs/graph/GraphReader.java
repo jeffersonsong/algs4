@@ -1,5 +1,7 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
+import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
 import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -134,4 +136,32 @@ public class GraphReader {
             throw new IllegalArgumentException("invalid input format in EdgeWeightedDigraph constructor", e);
         }
     }
+
+    /**
+     * Initializes a flow network from an input stream.
+     * The format is the number of vertices <em>V</em>,
+     * followed by the number of edges <em>E</em>,
+     * followed by <em>E</em> pairs of vertices and edge capacities,
+     * with each entry separated by whitespace.
+     * @param in the input stream
+     * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
+     * @throws IllegalArgumentException if the number of vertices or edges is negative
+     */
+    public static FlowNetwork readFlowNetwork(In in) {
+        int V = in.readInt();
+        checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
+
+        int E = in.readInt();
+        checkArgument(E >= 0, "number of edges must be nonnegative");
+
+        FlowNetwork fn = new FlowNetwork(V);
+        for (int i = 0; i < E; i++) {
+            int v = in.readInt();
+            int w = in.readInt();
+            double capacity = in.readDouble();
+            fn.addEdge(new FlowEdge(v, w, capacity));
+        }
+        return fn;
+    }
+
 }

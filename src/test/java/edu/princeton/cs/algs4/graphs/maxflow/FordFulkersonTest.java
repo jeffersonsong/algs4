@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import org.junit.Before;
@@ -18,7 +19,7 @@ public class FordFulkersonTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/65maxflow/tinyFN.txt");
-        G = new FlowNetwork(in);
+        G = GraphReader.readFlowNetwork(in);
     }
 
     @Test

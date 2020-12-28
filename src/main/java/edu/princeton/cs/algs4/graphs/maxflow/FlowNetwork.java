@@ -11,6 +11,7 @@ package edu.princeton.cs.algs4.graphs.maxflow;
 
 
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -60,50 +61,6 @@ public class FlowNetwork {
         this.E = 0;
         adj = newArray(V, i->new LinkedBag<>());
     }
-
-    /**
-     * Initializes a random flow network with {@code V} vertices and <em>E</em> edges.
-     * The capacities are integers between 0 and 99 and the flow values are zero.
-     * @param V the number of vertices
-     * @param E the number of edges
-     * @throws IllegalArgumentException if {@code V < 0}
-     * @throws IllegalArgumentException if {@code E < 0}
-     */
-    public FlowNetwork(int V, int E) {
-        this(V);
-        checkArgument(E >= 0,"Number of edges must be nonnegative");
-        for (int i = 0; i < E; i++) {
-            int v = StdRandom.uniform(V);
-            int w = StdRandom.uniform(V);
-            double capacity = StdRandom.uniform(100);
-            addEdge(new FlowEdge(v, w, capacity));
-        }
-    }
-
-    /**  
-     * Initializes a flow network from an input stream.
-     * The format is the number of vertices <em>V</em>,
-     * followed by the number of edges <em>E</em>,
-     * followed by <em>E</em> pairs of vertices and edge capacities,
-     * with each entry separated by whitespace.
-     * @param in the input stream
-     * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
-     * @throws IllegalArgumentException if the number of vertices or edges is negative
-     */
-    public FlowNetwork(In in) {
-        this(in.readInt());
-        int E = in.readInt();
-        checkArgument(E >= 0, "number of edges must be nonnegative");
-        for (int i = 0; i < E; i++) {
-            int v = in.readInt();
-            int w = in.readInt();
-            validateVertex(v);
-            validateVertex(w);
-            double capacity = in.readDouble();
-            addEdge(new FlowEdge(v, w, capacity));
-        }
-    }
-
 
     /**
      * Returns the number of vertices in the edge-weighted graph.
@@ -192,7 +149,7 @@ public class FlowNetwork {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        FlowNetwork G = new FlowNetwork(in);
+        FlowNetwork G = GraphReader.readFlowNetwork(in);
         StdOut.println(G);
     }
 

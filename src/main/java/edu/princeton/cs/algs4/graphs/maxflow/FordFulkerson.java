@@ -248,7 +248,7 @@ public class FordFulkerson {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int s = 0, t = V-1;
-        FlowNetwork G = new FlowNetwork(V, E);
+        FlowNetwork G = FlowNetworkGenerator.simple(V, E);
         StdOut.println(G);
 
         // compute maximum flow and minimum cut
