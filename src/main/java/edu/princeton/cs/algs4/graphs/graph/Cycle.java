@@ -23,8 +23,8 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
@@ -51,7 +51,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Cycle<T extends EdgeNode> {
+public class Cycle<T extends Edge> {
     private boolean[] marked;
     private int[] edgeTo;
     private Stack<Integer> cycle;
@@ -168,8 +168,8 @@ public class Cycle<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
-        Cycle<UnweightedEdgeNode>  finder = new Cycle<>(G);
+        Graph<Edge> G = GraphReader.readGraph(in);
+        Cycle<Edge>  finder = new Cycle<>(G);
         if (finder.hasCycle()) {
             for (int v : finder.cycle()) {
                 StdOut.print(v + " ");

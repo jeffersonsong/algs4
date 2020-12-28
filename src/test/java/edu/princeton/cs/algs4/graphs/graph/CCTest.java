@@ -9,12 +9,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class CCTest {
-    private CC<UnweightedEdgeNode> cc;
+    private CC<Edge> cc;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph<UnweightedEdgeNode> g = GraphReader.readGraph(in);
+        Graph<Edge> g = GraphReader.readGraph(in);
         cc = new CC<>(g);
     }
 

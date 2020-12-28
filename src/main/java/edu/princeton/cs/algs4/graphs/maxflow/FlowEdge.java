@@ -10,7 +10,6 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.graphs.graph.Edge;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -156,7 +155,7 @@ public class FlowEdge extends Edge {
     }
 
     @Override
-    public EdgeNode copy(int v) {
+    public FlowEdge reverse() {
         return this;
     }
 }

@@ -16,14 +16,14 @@ public class SymbolGraphTest {
 
     @Test
     public void test() {
-        Graph<UnweightedEdgeNode> G = sg.graph();
+        Graph<Edge> G = sg.graph();
 
         assertTrue(sg.contains("LAS"));
         assertFalse(sg.contains("EWR"));
 
         int s = sg.indexOf("JFK");
 
-        BreadthFirstPaths<UnweightedEdgeNode>  bfs = new BreadthFirstPaths<>(G, s);
+        BreadthFirstPaths<Edge>  bfs = new BreadthFirstPaths<>(G, s);
         int t = sg.indexOf("ORD");
 
         assertTrue(bfs.hasPathTo(t));

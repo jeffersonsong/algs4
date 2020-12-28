@@ -68,7 +68,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
  * @author Robert Sedgewick
  * @author Kevin Wayne
  */
-public interface Graph<T extends EdgeNode> {
+public interface Graph<T extends Edge> {
     boolean isDirected();
     /**
      * Returns the number of vertices in this graph.

@@ -26,10 +26,9 @@ package edu.princeton.cs.algs4.graphs.digraph.scc;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.graphs.digraph.TransitiveClosure;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
@@ -68,7 +67,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class GabowSCC<T extends EdgeNode> implements SCC {
+public class GabowSCC<T extends Edge> implements SCC {
 
     private final boolean[] marked;        // marked[v] = has v been visited?
     private final int[] id;                // id[v] = id of strong component containing v
@@ -184,8 +183,8 @@ public class GabowSCC<T extends EdgeNode> implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
-        GabowSCC<UnweightedEdgeNode> scc = new GabowSCC<>(G);
+        Graph<Edge> G = GraphReader.readDigraph(in);
+        GabowSCC<Edge> scc = new GabowSCC<>(G);
 
         // number of connected components
         int m = scc.count();

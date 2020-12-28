@@ -14,11 +14,10 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -50,7 +49,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Kevin Wayne
  */
 
-public class DirectedCycleX<T extends EdgeNode> {
+public class DirectedCycleX<T extends Edge> {
     private Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
 
     public DirectedCycleX(Graph<T> G) {
@@ -148,18 +147,18 @@ public class DirectedCycleX<T extends EdgeNode> {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
-        Graph<UnweightedEdgeNode> G = DigraphGenerator.dag(V, E);
+        Graph<Edge> G = DigraphGenerator.dag(V, E);
 
         // add F extra edges
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            G.addEdge(v, new UnweightedEdgeNode(w));
+            G.addEdge(v, new Edge(v, w));
         }
 
         StdOut.println(G);
 
-        DirectedCycleX<UnweightedEdgeNode> finder = new DirectedCycleX<>(G);
+        DirectedCycleX<Edge> finder = new DirectedCycleX<>(G);
         if (finder.hasCycle()) {
             StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {

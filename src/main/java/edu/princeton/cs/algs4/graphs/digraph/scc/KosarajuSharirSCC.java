@@ -67,10 +67,9 @@ package edu.princeton.cs.algs4.graphs.digraph.scc;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.graphs.digraph.*;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -105,7 +104,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class KosarajuSharirSCC<T extends EdgeNode> implements SCC {
+public class KosarajuSharirSCC<T extends Edge> implements SCC {
     private final boolean[] marked;     // marked[v] = has vertex v been visited?
     private final int[] id;             // id[v] = id of strong component containing v
     private int count;            // number of strongly-connected components
@@ -202,8 +201,8 @@ public class KosarajuSharirSCC<T extends EdgeNode> implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
-        KosarajuSharirSCC<UnweightedEdgeNode>  scc = new KosarajuSharirSCC<>(G);
+        Graph<Edge> G = GraphReader.readDigraph(in);
+        KosarajuSharirSCC<Edge>  scc = new KosarajuSharirSCC<>(G);
 
         // number of connected components
         int m = scc.count();

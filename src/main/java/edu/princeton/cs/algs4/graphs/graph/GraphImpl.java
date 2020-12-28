@@ -77,7 +77,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class GraphImpl<T extends EdgeNode> implements Graph<T> {
+public class GraphImpl<T extends Edge> implements Graph<T> {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final boolean directed;   /* is the graph directed? */
@@ -182,7 +182,7 @@ public class GraphImpl<T extends EdgeNode> implements Graph<T> {
         indegree[edge.w()]++;
 
         if (!directed)
-            addEdge(edge.w(), (T) edge.copy(v), true);
+            addEdge(edge.w(), (T)edge.reverse(), true);
         else
             E++;
     }
@@ -229,7 +229,7 @@ public class GraphImpl<T extends EdgeNode> implements Graph<T> {
         for (int v = 0; v < V; v++) {
             for (T e : adj(v)) {
                 int w = e.w();
-                T re = (T) e.copy(v);
+                T re = (T)e.reverse();
                 reverse.addEdge(w, re);
             }
         }
@@ -262,7 +262,7 @@ public class GraphImpl<T extends EdgeNode> implements Graph<T> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
+        Graph<Edge> G = GraphReader.readGraph(in);
         StdOut.println(G);
     }
 }

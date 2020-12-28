@@ -1,7 +1,7 @@
 package edu.princeton.cs.algs4.graphs.digraph.scc;
 
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -24,13 +24,13 @@ public class KosarajuSC {
     /**
      * @return true if the graph is strongly connected.
      */
-    public static <T extends EdgeNode> boolean isSC(Graph<T> G) {
+    public static <T extends Edge> boolean isSC(Graph<T> G) {
         checkArgument(G.isDirected());
         return allVerticesReachable(G, 0) &&
                 allVerticesReachable(G.reverse(), 0);
     }
 
-    private static <T extends EdgeNode> boolean allVerticesReachable(Graph<T> G, int s) {
+    private static <T extends Edge> boolean allVerticesReachable(Graph<T> G, int s) {
         // If DFS traversal doesn't visit all vertices, then return false.
         DepthFirstSearch<T> dfs = new DepthFirstSearch<>(G, s);
         for (int v = 0; v < G.V(); v++) {

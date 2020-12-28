@@ -44,8 +44,8 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.searching.st.ST;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.searching.st.STImpl;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -78,7 +78,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 public class SymbolGraph {
     private final ST<String, Integer> st;  // string -> index
     private final String[] keys;           // index  -> string
-    private final Graph<UnweightedEdgeNode> graph;             // the underlying graph
+    private final Graph<Edge> graph;             // the underlying graph
 
     public static SymbolGraph symbolGraph(String filename, String delimiter) {
         return new SymbolGraph(filename, delimiter, V -> new GraphImpl<>(V, false));
@@ -96,7 +96,7 @@ public class SymbolGraph {
      * @param filename the name of the file
      * @param delimiter the delimiter between fields
      */
-    private SymbolGraph(String filename, String delimiter, IntFunction<Graph<UnweightedEdgeNode>> graphFactoryMethod) {
+    private SymbolGraph(String filename, String delimiter, IntFunction<Graph<Edge>> graphFactoryMethod) {
         st = new STImpl<>();
 
         // First pass builds the index by reading strings to associate
@@ -126,7 +126,7 @@ public class SymbolGraph {
             int v = st.get(a[0]);
             for (int i = 1; i < a.length; i++) {
                 int w = st.get(a[i]);
-                graph.addEdge(v, new UnweightedEdgeNode(w));
+                graph.addEdge(v, new Edge(v, w));
             }
         }
     }
@@ -192,7 +192,7 @@ public class SymbolGraph {
      * @deprecated Replaced by {@link #graph()}.
      */
     @Deprecated
-    public Graph<UnweightedEdgeNode> G() {
+    public Graph<Edge> G() {
         return graph;
     }
 
@@ -201,7 +201,7 @@ public class SymbolGraph {
      * not to mutate the graph.
      * @return the graph associated with the symbol graph
      */
-    public Graph<UnweightedEdgeNode> graph() {
+    public Graph<Edge> graph() {
         return graph;
     }
 
@@ -220,12 +220,12 @@ public class SymbolGraph {
         String filename  = args[0];
         String delimiter = args[1];
         SymbolGraph sg = SymbolGraph.symbolGraph(filename, delimiter);
-        Graph<UnweightedEdgeNode> graph = sg.graph();
+        Graph<Edge> graph = sg.graph();
         while (StdIn.hasNextLine()) {
             String source = StdIn.readLine();
             if (sg.contains(source)) {
                 int s = sg.index(source);
-                for (UnweightedEdgeNode e : graph.adj(s)) {
+                for (Edge e : graph.adj(s)) {
                     StdOut.println("   " + sg.name(e.w()));
                 }
             }

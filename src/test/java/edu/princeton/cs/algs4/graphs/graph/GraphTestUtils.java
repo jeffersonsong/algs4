@@ -8,7 +8,7 @@ public class GraphTestUtils {
     private GraphTestUtils() {
     }
 
-    public static  <T extends EdgeNode> List<Integer> toIdList(Iterable<T> edgeNodeList) {
-        return StreamSupport.stream(edgeNodeList.spliterator(), false).map(EdgeNode::w).collect(Collectors.toList());
+    public static  <T extends Edge> List<Integer> toIdList(Iterable<T> edgeNodeList) {
+        return StreamSupport.stream(edgeNodeList.spliterator(), false).map(Edge::w).collect(Collectors.toList());
     }
 }

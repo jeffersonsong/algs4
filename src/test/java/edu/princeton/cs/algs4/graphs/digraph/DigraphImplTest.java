@@ -1,9 +1,8 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,19 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static edu.princeton.cs.algs4.graphs.graph.GraphTestUtils.toIdList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DigraphImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(DigraphImplTest.class);
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -42,7 +37,7 @@ public class DigraphImplTest {
 
         LOGGER.info(G.toString());
 
-        Graph<UnweightedEdgeNode> R = G.reverse();
+        Graph<Edge> R = G.reverse();
         assertThat(R.V(), is(13));
         assertThat(R.E(), is(22));
 

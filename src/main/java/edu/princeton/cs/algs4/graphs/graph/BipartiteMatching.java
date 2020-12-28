@@ -61,7 +61,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BipartiteMatching<T extends EdgeNode> {
+public class BipartiteMatching<T extends Edge> {
     private static final int UNMATCHED = -1;
 
     private final int V;                 // number of vertices in the graph
@@ -318,11 +318,11 @@ public class BipartiteMatching<T extends EdgeNode> {
         int V1 = Integer.parseInt(args[0]);
         int V2 = Integer.parseInt(args[1]);
         int E  = Integer.parseInt(args[2]);
-        Graph<UnweightedEdgeNode> G = GraphGenerator.bipartite(V1, V2, E);
+        Graph<Edge> G = GraphGenerator.bipartite(V1, V2, E);
 
         if (G.V() < 1000) StdOut.println(G);
 
-        BipartiteMatching<UnweightedEdgeNode>  matching = new BipartiteMatching<>(G);
+        BipartiteMatching<Edge>  matching = new BipartiteMatching<>(G);
         
         // print maximum matching
         StdOut.printf("Number of edges in max matching        = %d\n", matching.size());

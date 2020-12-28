@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NonrecursiveDFSTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -17,7 +17,7 @@ public class NonrecursiveDFSTest {
 
     @Test
     public void test() {
-        NonrecursiveDFS<UnweightedEdgeNode> dfs = new NonrecursiveDFS<>(G, 0);
+        NonrecursiveDFS<Edge> dfs = new NonrecursiveDFS<>(G, 0);
         assertTrue(dfs.marked(1));
         assertFalse(dfs.marked(7));
     }

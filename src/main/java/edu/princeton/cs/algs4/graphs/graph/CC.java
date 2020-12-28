@@ -32,8 +32,8 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -67,7 +67,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class CC<T extends EdgeNode> {
+public class CC<T extends Edge> {
     private final boolean[] marked;   // marked[v] = has vertex v been marked?
     private final int[] id;           // id[v] = id of connected component containing v
     private final int[] size;         // size[id] = number of vertices in given component
@@ -185,8 +185,8 @@ public class CC<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
-        CC<UnweightedEdgeNode> cc = new CC<>(G);
+        Graph<Edge> G = GraphReader.readGraph(in);
+        CC<Edge> cc = new CC<>(G);
 
         // number of connected components
         int m = cc.count();

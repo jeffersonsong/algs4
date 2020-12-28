@@ -10,8 +10,6 @@
 package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.graphs.graph.Edge;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -52,8 +50,8 @@ public class WeightedEdge extends Edge {
     }
 
     @Override
-    public WeightedEdge copy(int x) {
-        return this;
+    public WeightedEdge reverse() {
+        return new WeightedEdge(w(), v(), weight());
     }
 
     /**

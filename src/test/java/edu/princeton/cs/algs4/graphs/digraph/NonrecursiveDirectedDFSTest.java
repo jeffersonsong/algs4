@@ -3,7 +3,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.graph.NonrecursiveDFS;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NonrecursiveDirectedDFSTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -21,7 +21,7 @@ public class NonrecursiveDirectedDFSTest {
 
     @Test
     public void test() {
-        NonrecursiveDFS<UnweightedEdgeNode> dfs = new NonrecursiveDFS<>(G, 0);
+        NonrecursiveDFS<Edge> dfs = new NonrecursiveDFS<>(G, 0);
         assertTrue(dfs.marked(1));
         assertFalse(dfs.marked(11));
     }

@@ -3,7 +3,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 import edu.princeton.cs.algs4.graphs.graph.BreadthFirstPaths;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class BreadthFirstDirectedPathsTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -27,7 +27,7 @@ public class BreadthFirstDirectedPathsTest {
 
     @Test
     public void test() {
-        BreadthFirstPaths<UnweightedEdgeNode> paths = new BreadthFirstPaths<>(G, 0);
+        BreadthFirstPaths<Edge> paths = new BreadthFirstPaths<>(G, 0);
         assertTrue(paths.hasPathTo(1));
         assertTrue(paths.hasPathTo(2));
         assertTrue(paths.hasPathTo(3));

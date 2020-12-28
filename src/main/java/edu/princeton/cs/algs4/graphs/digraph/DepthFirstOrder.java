@@ -37,12 +37,11 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -65,7 +64,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DepthFirstOrder<T extends EdgeNode> {
+public class DepthFirstOrder<T extends Edge> {
     private final boolean[] marked;          // marked[v] = has v been marked in dfs?
     private final int[] pre;                 // pre[v]    = preorder  number of v
     private final int[] post;                // post[v]   = postorder number of v
@@ -193,9 +192,9 @@ public class DepthFirstOrder<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
+        Graph<Edge> G = GraphReader.readDigraph(in);
 
-        DepthFirstOrder<UnweightedEdgeNode> dfs = new DepthFirstOrder<>(G);
+        DepthFirstOrder<Edge> dfs = new DepthFirstOrder<>(G);
         StdOut.println("   v  pre post");
         StdOut.println("--------------");
         for (int v = 0; v < G.V(); v++) {

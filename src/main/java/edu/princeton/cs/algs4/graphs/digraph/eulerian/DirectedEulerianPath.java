@@ -49,7 +49,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  * @author Kevin Wayne
  * @author Nate Liu
  */
-public class DirectedEulerianPath<T extends EdgeNode> {
+public class DirectedEulerianPath<T extends Edge> {
     private Stack<Integer> path = null;   // Eulerian path; null if no suh path
 
     /**
@@ -126,7 +126,7 @@ public class DirectedEulerianPath<T extends EdgeNode> {
 
 
     // returns any non-isolated vertex; -1 if no such vertex
-    private static <T extends EdgeNode> int nonIsolatedVertex(Graph<T> G) {
+    private static <T extends Edge> int nonIsolatedVertex(Graph<T> G) {
         for (int v = 0; v < G.V(); v++)
             if (G.outdegree(v) > 0)
                 return v;
@@ -147,7 +147,7 @@ public class DirectedEulerianPath<T extends EdgeNode> {
     //      (and one vertex v may have indegree(v) = outdegree(v) + 1)
     //    - the graph is connected, when viewed as an undirected graph
     //      (ignoring isolated vertices)
-    private static <T extends EdgeNode> boolean satisfiesNecessaryAndSufficientConditions(Graph<T>  G) {
+    private static <T extends Edge> boolean satisfiesNecessaryAndSufficientConditions(Graph<T>  G) {
         if (G.E() == 0) return true;
 
         // Condition 1: indegree(v) == outdegree(v) for every vertex,
@@ -197,7 +197,7 @@ public class DirectedEulerianPath<T extends EdgeNode> {
     }
 
 
-    private static <T extends EdgeNode> void unitTest(Graph<T> G, String description) {
+    private static <T extends Edge> void unitTest(Graph<T> G, String description) {
         StdOut.println(description);
         StdOut.println("-------------------------------------");
         StdOut.print(G);
@@ -228,39 +228,41 @@ public class DirectedEulerianPath<T extends EdgeNode> {
 
 
         // Eulerian cycle
-        Graph<UnweightedEdgeNode> G1 = DigraphGenerator.eulerianCycle(V, E);
+        Graph<Edge> G1 = DigraphGenerator.eulerianCycle(V, E);
         unitTest(G1, "Eulerian cycle");
 
         // Eulerian path
-        Graph<UnweightedEdgeNode> G2 = DigraphGenerator.eulerianPath(V, E);
+        Graph<Edge> G2 = DigraphGenerator.eulerianPath(V, E);
         unitTest(G2, "Eulerian path");
 
         // add one random edge
-        Graph<UnweightedEdgeNode> G3 = new GraphImpl<>(G2);
-        G3.addEdge(StdRandom.uniform(V), new UnweightedEdgeNode(StdRandom.uniform(V)));
+        Graph<Edge> G3 = new GraphImpl<>(G2);
+        int v3;
+        G3.addEdge(v3=StdRandom.uniform(V), new Edge(v3, StdRandom.uniform(V)));
         unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
-        Graph<UnweightedEdgeNode> G4 = new GraphImpl<>(V, true);
+        Graph<Edge> G4 = new GraphImpl<>(V, true);
         int v4 = StdRandom.uniform(V);
-        G4.addEdge(v4, new UnweightedEdgeNode(v4));
+        G4.addEdge(v4, new Edge(v4, v4));
         unitTest(G4, "single self loop");
 
         // single edge
-        Graph<UnweightedEdgeNode> G5 = new GraphImpl<>(V, true);
-        G5.addEdge(StdRandom.uniform(V), new UnweightedEdgeNode(StdRandom.uniform(V)));
+        Graph<Edge> G5 = new GraphImpl<>(V, true);
+        int v5;
+        G5.addEdge(v5=StdRandom.uniform(V), new Edge(v5, StdRandom.uniform(V)));
         unitTest(G5, "single edge");
 
         // empty digraph
-        Graph<UnweightedEdgeNode> G6 = new GraphImpl<>(V, true);
+        Graph<Edge> G6 = new GraphImpl<>(V, true);
         unitTest(G6, "empty digraph");
 
         // random digraph
-        Graph<UnweightedEdgeNode> G7 = DigraphGenerator.simple(V, E);
+        Graph<Edge> G7 = DigraphGenerator.simple(V, E);
         unitTest(G7, "simple digraph");
 
         // 4-vertex digraph
-        Graph<UnweightedEdgeNode> G8 = GraphReader.readDigraph(new In("eulerianD.txt"));
+        Graph<Edge> G8 = GraphReader.readDigraph(new In("eulerianD.txt"));
         unitTest(G8, "4-vertex Eulerian digraph");
     }
 

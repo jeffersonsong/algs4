@@ -8,7 +8,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DepthFirstSearchTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -18,7 +18,7 @@ public class DepthFirstSearchTest {
 
     @Test
     public void test() {
-        DepthFirstSearch<UnweightedEdgeNode> dfs = new DepthFirstSearch<>(G, 0);
+        DepthFirstSearch<Edge> dfs = new DepthFirstSearch<>(G, 0);
         assertTrue(dfs.marked(1));
         assertFalse(dfs.marked(7));
     }

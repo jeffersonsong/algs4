@@ -31,8 +31,8 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -56,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DepthFirstPaths<T extends EdgeNode> {
+public class DepthFirstPaths<T extends Edge> {
     private final boolean[] marked;    // marked[v] = is there an s-v path?
     private final int[] edgeTo;        // edgeTo[v] = last edge on s-v path
     private final int s;         // source vertex
@@ -129,9 +129,9 @@ public class DepthFirstPaths<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
+        Graph<Edge> G = GraphReader.readGraph(in);
         int s = Integer.parseInt(args[1]);
-        DepthFirstPaths<UnweightedEdgeNode> dfs = new DepthFirstPaths<>(G, s);
+        DepthFirstPaths<Edge> dfs = new DepthFirstPaths<>(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (dfs.hasPathTo(v)) {

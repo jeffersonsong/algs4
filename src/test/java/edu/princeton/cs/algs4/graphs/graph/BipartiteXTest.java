@@ -10,8 +10,8 @@ public class BipartiteXTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/41graph/tinyG.txt");
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
-        BipartiteX<UnweightedEdgeNode> b = new BipartiteX<>(G);
+        Graph<Edge> G = GraphReader.readGraph(in);
+        BipartiteX<Edge> b = new BipartiteX<>(G);
         assertFalse(b.isBipartite());
     }
 }

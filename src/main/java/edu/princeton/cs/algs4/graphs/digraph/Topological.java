@@ -28,10 +28,9 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -65,7 +64,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Topological<T extends EdgeNode> {
+public class Topological<T extends Edge> {
     private Iterable<Integer> order;  // topological order
     private int[] rank;               // rank[v] = rank of vertex v in order
 
@@ -148,7 +147,7 @@ public class Topological<T extends EdgeNode> {
         String filename  = args[0];
         String delimiter = args[1];
         SymbolGraph sg = SymbolGraph.symbolDigraph(filename, delimiter);
-        Topological<UnweightedEdgeNode> topological = new Topological<>(sg.graph());
+        Topological<Edge> topological = new Topological<>(sg.graph());
         for (int v : topological.order()) {
             StdOut.println(sg.nameOf(v));
         }

@@ -46,7 +46,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BipartiteX<T extends EdgeNode> {
+public class BipartiteX<T extends Edge> {
     private static final boolean WHITE = false;
     private static final boolean BLACK = true;
 
@@ -207,16 +207,16 @@ public class BipartiteX<T extends EdgeNode> {
 
         // create random bipartite graph with V1 vertices on left side,
         // V2 vertices on right side, and E edges; then add F random edges
-        Graph<UnweightedEdgeNode> G = GraphGenerator.bipartite(V1, V2, E);
+        Graph<Edge> G = GraphGenerator.bipartite(V1, V2, E);
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V1 + V2);
             int w = StdRandom.uniform(V1 + V2);
-            G.addEdge(v, new UnweightedEdgeNode(w));
+            G.addEdge(v, new Edge(v, w));
         }
 
         StdOut.println(G);
 
-        BipartiteX<UnweightedEdgeNode> b = new BipartiteX<>(G);
+        BipartiteX<Edge> b = new BipartiteX<>(G);
         if (b.isBipartite()) {
             StdOut.println("Graph is bipartite");
             for (int v = 0; v < G.V(); v++) {

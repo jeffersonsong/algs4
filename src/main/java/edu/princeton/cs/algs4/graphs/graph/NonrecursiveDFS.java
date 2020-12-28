@@ -67,7 +67,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class NonrecursiveDFS<T extends EdgeNode> {
+public class NonrecursiveDFS<T extends Edge> {
     private final boolean[] marked;  // marked[v] = is there an s-v path?
     /**
      * Computes the vertices connected to the source vertex {@code s} in the graph {@code G}.
@@ -136,9 +136,9 @@ public class NonrecursiveDFS<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
+        Graph<Edge> G = GraphReader.readGraph(in);
         int s = Integer.parseInt(args[1]);
-        NonrecursiveDFS<UnweightedEdgeNode> dfs = new NonrecursiveDFS<>(G, s);
+        NonrecursiveDFS<Edge> dfs = new NonrecursiveDFS<>(G, s);
         for (int v = 0; v < G.V(); v++)
             if (dfs.marked(v))
                 StdOut.print(v + " ");

@@ -28,12 +28,11 @@ import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.digraph.TransitiveClosure;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -66,7 +65,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class TarjanSCC<T extends EdgeNode> implements SCC {
+public class TarjanSCC<T extends Edge> implements SCC {
 
     private final boolean[] marked;        // marked[v] = has v been visited?
     private final int[] id;                // id[v] = id of strong component containing v
@@ -178,8 +177,8 @@ public class TarjanSCC<T extends EdgeNode> implements SCC {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
-        TarjanSCC<UnweightedEdgeNode> scc = new TarjanSCC<>(G);
+        Graph<Edge> G = GraphReader.readDigraph(in);
+        TarjanSCC<Edge> scc = new TarjanSCC<>(G);
 
         // number of connected components
         int m = scc.count();

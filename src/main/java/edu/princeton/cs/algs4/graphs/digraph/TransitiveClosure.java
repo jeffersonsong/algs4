@@ -32,7 +32,10 @@
 
 package edu.princeton.cs.algs4.graphs.digraph;
 
-import edu.princeton.cs.algs4.graphs.graph.*;
+import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -61,7 +64,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class TransitiveClosure<T extends EdgeNode> {
+public class TransitiveClosure<T extends Edge> {
     private final DepthFirstSearch<T>[] tc;  // tc[v] = reachable from v
 
     /**
@@ -103,9 +106,9 @@ public class TransitiveClosure<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
+        Graph<Edge> G = GraphReader.readDigraph(in);
 
-        TransitiveClosure<UnweightedEdgeNode> tc = new TransitiveClosure<>(G);
+        TransitiveClosure<Edge> tc = new TransitiveClosure<>(G);
 
         // print header
         StdOut.print("     ");

@@ -12,10 +12,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
-import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
@@ -51,7 +48,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class TopologicalX<T extends EdgeNode> {
+public class TopologicalX<T extends Edge> {
     private Queue<Integer> order;     // vertices in topological order
     private final int[] ranks;        // ranks[v] = order where vertex v appears in order
 
@@ -191,12 +188,12 @@ public class TopologicalX<T extends EdgeNode> {
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
 
-        Graph<UnweightedEdgeNode> G1 = DigraphGenerator.dag(V, E);
+        Graph<Edge> G1 = DigraphGenerator.dag(V, E);
 
         // corresponding edge-weighted digraph
         Graph<WeightedEdge> G2 = new GraphImpl<>(V, true);
         for (int v = 0; v < G1.V(); v++)
-            for (UnweightedEdgeNode e : G1.adj(v)) {
+            for (Edge e : G1.adj(v)) {
                 int w = e.w();
                 G2.addEdge(v, new WeightedEdge(v, w, 0.0));
             }
@@ -205,7 +202,7 @@ public class TopologicalX<T extends EdgeNode> {
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            G1.addEdge(v, new UnweightedEdgeNode(w));
+            G1.addEdge(v, new Edge(v, w));
             G2.addEdge(v, new WeightedEdge(v, w, 0.0));
         }
 
@@ -214,7 +211,7 @@ public class TopologicalX<T extends EdgeNode> {
         StdOut.println(G2);
 
         // find a directed cycle
-        TopologicalX<UnweightedEdgeNode> topological1 = new TopologicalX<>(G1);
+        TopologicalX<Edge> topological1 = new TopologicalX<>(G1);
         if (!topological1.hasOrder()) {
             StdOut.println("Not a DAG");
         }

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DepthFirstPathsTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -24,7 +24,7 @@ public class DepthFirstPathsTest {
 
     @Test
     public void test() {
-        DepthFirstPaths<UnweightedEdgeNode> paths = new DepthFirstPaths<>(G, 0);
+        DepthFirstPaths<Edge> paths = new DepthFirstPaths<>(G, 0);
         assertTrue(paths.hasPathTo(1));
         assertTrue(paths.hasPathTo(2));
         assertTrue(paths.hasPathTo(3));
@@ -38,6 +38,8 @@ public class DepthFirstPathsTest {
         assertFalse(paths.hasPathTo(10));
         assertFalse(paths.hasPathTo(11));
         assertFalse(paths.hasPathTo(12));
+
+        System.out.println(G);
 
         List<Integer> path = toList(paths.pathTo(3));
         assertThat(path.size(), is(5));

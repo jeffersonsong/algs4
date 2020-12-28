@@ -1,7 +1,7 @@
 package edu.princeton.cs.algs4.graphs.digraph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.digraph.scc.KosarajuSC;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -9,7 +9,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 /**
  * @author Princi Singh
  */
-public class DirectedEulerianCycleX<T extends EdgeNode> {
+public class DirectedEulerianCycleX<T extends Edge> {
 
     /**
      * @param G directed graph.

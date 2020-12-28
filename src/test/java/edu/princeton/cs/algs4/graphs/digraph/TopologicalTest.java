@@ -3,7 +3,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class TopologicalTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/42digraph/topological.txt");
-        Graph<UnweightedEdgeNode> g = GraphReader.readDigraph(in);
+        Graph<Edge> g = GraphReader.readDigraph(in);
         Iterable<Integer> order = new Topological<>(g).order();
         List<Integer> list = toList(order);
         System.out.println(list);
@@ -33,8 +33,8 @@ public class TopologicalTest {
                 "Neural Networks", "Databases", "Scientific Computing", "Computational Biology"};
 
         SymbolGraph sg = SymbolGraph.symbolDigraph("src/test/resources/42digraph/jobs.txt", "/");
-        Graph<UnweightedEdgeNode> G = sg.graph();
-        Topological<UnweightedEdgeNode> topological = new Topological<>(G);
+        Graph<Edge> G = sg.graph();
+        Topological<Edge> topological = new Topological<>(G);
 
         List<String> result = new ArrayList<>();
         for (int v : topological.order()) {

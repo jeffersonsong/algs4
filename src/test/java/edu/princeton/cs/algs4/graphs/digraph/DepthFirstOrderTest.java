@@ -2,7 +2,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class DepthFirstOrderTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -25,7 +25,7 @@ public class DepthFirstOrderTest {
 
     @Test
     public void test() {
-        DepthFirstOrder<UnweightedEdgeNode> dfs = new DepthFirstOrder<>(G);
+        DepthFirstOrder<Edge> dfs = new DepthFirstOrder<>(G);
         List<Integer> tasks = toList(dfs.reversePost());
         assertThat(tasks, is(asList(3, 6, 0, 5, 2, 1, 4)));
     }

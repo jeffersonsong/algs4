@@ -43,10 +43,10 @@ package edu.princeton.cs.algs4.graphs.graph;
 import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
-import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
@@ -73,7 +73,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BreadthFirstPaths<T extends EdgeNode> {
+public class BreadthFirstPaths<T extends Edge> {
     private static final int INFINITY = Integer.MAX_VALUE;
     private final boolean[] marked;  // marked[v] = is there an s-v path
     private final int[] edgeTo;      // edgeTo[v] = previous edge on shortest s-v path
@@ -198,11 +198,11 @@ public class BreadthFirstPaths<T extends EdgeNode> {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<UnweightedEdgeNode> G = GraphReader.readGraph(in);
+        Graph<Edge> G = GraphReader.readGraph(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);
-        BreadthFirstPaths<UnweightedEdgeNode>  bfs = new BreadthFirstPaths<>(G, s);
+        BreadthFirstPaths<Edge>  bfs = new BreadthFirstPaths<>(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (bfs.hasPathTo(v)) {

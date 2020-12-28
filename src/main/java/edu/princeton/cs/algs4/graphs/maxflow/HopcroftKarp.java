@@ -63,7 +63,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class HopcroftKarp<T extends EdgeNode> {
+public class HopcroftKarp<T extends Edge> {
     private static final int UNMATCHED = -1;
 
     private final int V;                 // number of vertices in the graph

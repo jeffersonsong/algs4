@@ -16,8 +16,8 @@ package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -46,7 +46,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Bipartite<T extends EdgeNode> {
+public class Bipartite<T extends Edge> {
     private boolean isBipartite;   // is the graph bipartite?
     private final boolean[] color;       // color[v] gives vertices on one side of bipartition
     private final boolean[] marked;      // marked[v] = true iff v has been visited in DFS
@@ -190,16 +190,16 @@ public class Bipartite<T extends EdgeNode> {
 
         // create random bipartite graph with V1 vertices on left side,
         // V2 vertices on right side, and E edges; then add F random edges
-        Graph<UnweightedEdgeNode> G = GraphGenerator.bipartite(V1, V2, E);
+        Graph<Edge> G = GraphGenerator.bipartite(V1, V2, E);
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V1 + V2);
             int w = StdRandom.uniform(V1 + V2);
-            G.addEdge(v, new UnweightedEdgeNode(w));
+            G.addEdge(v, new Edge(v, w));
         }
 
         StdOut.println(G);
 
-        Bipartite<UnweightedEdgeNode> b = new Bipartite<>(G);
+        Bipartite<Edge> b = new Bipartite<>(G);
         if (b.isBipartite()) {
             StdOut.println("Graph is bipartite");
             for (int v = 0; v < G.V(); v++) {

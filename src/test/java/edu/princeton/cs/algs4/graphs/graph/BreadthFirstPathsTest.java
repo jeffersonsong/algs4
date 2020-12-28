@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class BreadthFirstPathsTest {
-    private Graph<UnweightedEdgeNode> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {
@@ -23,7 +23,7 @@ public class BreadthFirstPathsTest {
 
     @Test
     public void test() {
-        BreadthFirstPaths<UnweightedEdgeNode> paths = new BreadthFirstPaths<>(G, 0);
+        BreadthFirstPaths<Edge> paths = new BreadthFirstPaths<>(G, 0);
         assertTrue(paths.hasPathTo(1));
         assertTrue(paths.hasPathTo(2));
         assertTrue(paths.hasPathTo(3));

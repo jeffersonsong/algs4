@@ -2,7 +2,7 @@ package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Test;
 
@@ -20,8 +20,8 @@ public class DirectedCycleTest {
     @Test
     public void testWithCycle() {
         In in = new In("src/test/resources/42digraph/tinyDG.txt");
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
-        DirectedCycle<UnweightedEdgeNode> finder = new DirectedCycle<>(G);
+        Graph<Edge> G = GraphReader.readDigraph(in);
+        DirectedCycle<Edge> finder = new DirectedCycle<>(G);
         assertTrue(finder.hasCycle());
 
         List<Integer> cycle = toList(finder.cycle());
@@ -31,8 +31,8 @@ public class DirectedCycleTest {
     @Test
     public void testWithDAG() {
         In in = new In("src/test/resources/42digraph/tinyDAG.txt");
-        Graph<UnweightedEdgeNode> G = GraphReader.readDigraph(in);
-        DirectedCycle<UnweightedEdgeNode> finder = new DirectedCycle<>(G);
+        Graph<Edge> G = GraphReader.readDigraph(in);
+        DirectedCycle<Edge> finder = new DirectedCycle<>(G);
         assertFalse(finder.hasCycle());
     }
 }

@@ -1,7 +1,7 @@
 package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
-import edu.princeton.cs.algs4.graphs.graph.EdgeNode;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 
 /**
@@ -9,7 +9,7 @@ import edu.princeton.cs.algs4.graphs.graph.Graph;
  *
  * @author Aakash Hasija
  */
-public class Eulerian<T extends EdgeNode> {
+public class Eulerian<T extends Edge> {
 
     public enum EulerianType {
         NOT_EULERIAN,

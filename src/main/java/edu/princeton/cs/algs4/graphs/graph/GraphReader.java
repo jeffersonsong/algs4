@@ -23,7 +23,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public static Graph<UnweightedEdgeNode> readGraph(In in) {
+    public static Graph<Edge> readGraph(In in) {
         return readGraph(in, V -> new GraphImpl<>(V, false));
     }
 
@@ -39,11 +39,11 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public static Graph<UnweightedEdgeNode> readDigraph(In in) {
+    public static Graph<Edge> readDigraph(In in) {
         return readGraph(in, V -> new GraphImpl<>(V, true));
     }
 
-    private static <T extends Graph<UnweightedEdgeNode>> T readGraph(In in, IntFunction<T> factoryMethod) {
+    private static <T extends Graph<Edge>> T readGraph(In in, IntFunction<T> factoryMethod) {
         requiresNotNull(in, "argument is null");
         requiresNotNull(factoryMethod, "Factory method not set.");
         try {
@@ -55,7 +55,7 @@ public class GraphReader {
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
-                G.addEdge(v, new UnweightedEdgeNode(w));
+                G.addEdge(v, new Edge(v, w));
             }
             return G;
         }
