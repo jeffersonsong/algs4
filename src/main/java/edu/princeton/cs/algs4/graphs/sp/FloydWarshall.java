@@ -66,7 +66,7 @@ public class FloydWarshall<T extends WeightedEdge> {
 
         int V = G.V();
         distTo = new double[V][V];
-        edgeTo = (T[][])new Object[V][V];
+        edgeTo = (T[][])new WeightedEdge[V][V];
 
         // initialize distances to infinity
         for (int v = 0; v < V; v++) {
