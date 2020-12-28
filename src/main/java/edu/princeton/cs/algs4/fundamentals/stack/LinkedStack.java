@@ -17,6 +17,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.stack;
 
+import edu.princeton.cs.algs4.fundamentals.basic.Node;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -48,17 +49,6 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 public class LinkedStack<Item> implements Stack<Item> {
     private int n;          // size of the stack
     private Node<Item> first;     // top of stack
-
-    // helper linked list class
-    private static class Node<Item> {
-        private final Item item;
-        private final Node<Item> next;
-
-        public Node(Item item, Node<Item> next) {
-            this.item = item;
-            this.next = next;
-        }
-    }
 
     /**
      * Initializes an empty stack.

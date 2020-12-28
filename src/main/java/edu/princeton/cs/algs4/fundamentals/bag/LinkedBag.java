@@ -29,6 +29,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.bag;
 
+import edu.princeton.cs.algs4.fundamentals.basic.Node;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -55,17 +56,6 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 public class LinkedBag<Item> implements Bag<Item> {
     private Node<Item> first;    // beginning of bag
     private int n;         // number of elements in bag
-
-    // helper linked list class
-    private static class Node<Item> {
-        private final Item item;
-        private final Node<Item> next;
-
-        public Node(Item item, Node<Item> next) {
-            this.item = item;
-            this.next = next;
-        }
-    }
 
     /**
      * Initializes an empty bag.

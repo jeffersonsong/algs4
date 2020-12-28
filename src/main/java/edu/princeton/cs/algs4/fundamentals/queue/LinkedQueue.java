@@ -13,6 +13,7 @@
 
 package edu.princeton.cs.algs4.fundamentals.queue;
 
+import edu.princeton.cs.algs4.fundamentals.basic.Node;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -44,17 +45,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
     private int n;         // number of elements on queue
     private Node<Item> first;    // beginning of queue
     private Node<Item> last;     // end of queue
-
-    // helper linked list class
-    private static class Node<Item> {
-        private final Item item;
-        private Node<Item> next;
-
-        public Node(Item item) {
-            this.item = item;
-            this.next = null;
-        }
-    }
 
     /**
      * Initializes an empty queue.

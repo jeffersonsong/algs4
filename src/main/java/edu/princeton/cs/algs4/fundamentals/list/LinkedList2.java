@@ -13,15 +13,15 @@ public class LinkedList2<Item> implements List<Item> {
     private int n;
 
     private static class Node<Item> {
-        final Item data;
+        final Item item;
         Node<Item> next;
 
-        public Node(Item data) {
-            this.data = data;
+        public Node(Item item) {
+            this.item = item;
         }
 
-        public Node(Item data, Node<Item> next) {
-            this.data = data;
+        public Node(Item item, Node<Item> next) {
+            this.item = item;
             this.next = next;
         }
     }
@@ -66,14 +66,14 @@ public class LinkedList2<Item> implements List<Item> {
         n--;
         if (size() == 0) last = dummyHead;
 
-        return first.data;
+        return first.item;
     }
 
     @Override
     public Item deleteBack() {
         noSuchElement(isEmpty(), "Empty list");
 
-        Item result = last.data;
+        Item result = last.item;
         Node<Item> prev = dummyHead;
         while (prev.next != last) {
             prev = prev.next;
@@ -89,7 +89,7 @@ public class LinkedList2<Item> implements List<Item> {
         noSuchElement(isEmpty(), "Empty list");
 
         Node<Item> prev = dummyHead;
-        while (prev.next != null && !Objects.equals(prev.next.data, item)) {
+        while (prev.next != null && !Objects.equals(prev.next.item, item)) {
             prev = prev.next;
         }
 
@@ -141,14 +141,14 @@ public class LinkedList2<Item> implements List<Item> {
         next.next = null;
         n--;
 
-        return next.data;
+        return next.item;
     }
 
     @Override
     public boolean contains(Item item) {
         Node<Item> node = dummyHead.next;
 
-        while (node != null && !Objects.equals(node.data, item)) {
+        while (node != null && !Objects.equals(node.item, item)) {
             node = node.next;
         }
         return node != null;
@@ -174,7 +174,7 @@ public class LinkedList2<Item> implements List<Item> {
         @Override
         public Item next() {
             noSuchElement(!hasNext());
-            Item result = current.data;
+            Item result = current.item;
             current = current.next;
             return result;
         }

@@ -12,15 +12,15 @@ public class LinkedList<Item> implements List<Item> {
     private int n;
 
     private static class Node<Item> {
-        final Item data;
+        final Item item;
         Node<Item> next;
 
-        public Node(Item data) {
-            this.data = data;
+        public Node(Item item) {
+            this.item = item;
         }
 
-        public Node(Item data, Node<Item> next) {
-            this.data = data;
+        public Node(Item item, Node<Item> next) {
+            this.item = item;
             this.next = next;
         }
     }
@@ -70,13 +70,13 @@ public class LinkedList<Item> implements List<Item> {
         if (isEmpty()) {
             last = null;
         }
-        return oldFirst.data;
+        return oldFirst.item;
     }
 
     @Override
     public Item deleteBack() {
         noSuchElement(isEmpty(), "Empty list");
-        Item result = last.data;
+        Item result = last.item;
 
         if (first == last) {
             first = null;
@@ -98,13 +98,13 @@ public class LinkedList<Item> implements List<Item> {
     public void delete(Item item) {
         noSuchElement(isEmpty(), "Empty list");
 
-        if (Objects.equals(first.data, item)) {
+        if (Objects.equals(first.item, item)) {
             deleteFront();
 
         } else {
             Node<Item> prev = first;
 
-            while (prev.next != null && !Objects.equals(prev.next.data, item)) {
+            while (prev.next != null && !Objects.equals(prev.next.item, item)) {
                 prev = prev.next;
             }
 
@@ -160,7 +160,7 @@ public class LinkedList<Item> implements List<Item> {
             next.next = null;
             n--;
             if (i == size()) last = prev;
-            return next.data;
+            return next.item;
         }
     }
 
@@ -168,7 +168,7 @@ public class LinkedList<Item> implements List<Item> {
     public boolean contains(Item item) {
         Node<Item> node = first;
 
-        while (node != null && !Objects.equals(node.data, item)) {
+        while (node != null && !Objects.equals(node.item, item)) {
             node = node.next;
         }
         return node != null;
@@ -195,7 +195,7 @@ public class LinkedList<Item> implements List<Item> {
         @Override
         public Item next() {
             noSuchElement(!hasNext());
-            Item result = current.data;
+            Item result = current.item;
             current = current.next;
             return result;
         }
