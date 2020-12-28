@@ -109,20 +109,20 @@ public class DirectedCycleX<T extends Edge> {
     }
 
     /**
+     * Does the digraph have a directed cycle?
+     * @return {@code true} if the digraph has a directed cycle, {@code false} otherwise
+     */
+    public boolean hasCycle() {
+        return cycle != null;
+    }
+
+    /**
      * Returns a directed cycle if the digraph has a directed cycle, and {@code null} otherwise.
      * @return a directed cycle (as an iterable) if the digraph has a directed cycle,
      *    and {@code null} otherwise
      */
     public Iterable<T> cycle() {
         return cycle;
-    }
-
-    /**
-     * Does the digraph have a directed cycle?
-     * @return {@code true} if the digraph has a directed cycle, {@code false} otherwise
-     */
-    public boolean hasCycle() {
-        return cycle != null;
     }
 
     // certify that digraph is either acyclic or has a directed cycle

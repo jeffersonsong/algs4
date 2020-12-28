@@ -124,7 +124,6 @@ public class DirectedCycle<T extends Edge> {
         return cycle;
     }
 
-
     // certify that digraph is either acyclic or has a directed cycle
     private boolean check() {
         // edge-weighted digraph is cyclic
