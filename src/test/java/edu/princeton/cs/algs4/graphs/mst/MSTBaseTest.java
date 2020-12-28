@@ -19,15 +19,15 @@ public abstract class MSTBaseTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/43mst/tinyEWG.txt");
-        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<WeightedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         mst = createMST(G);
     }
 
-    protected abstract MST createMST(Graph<Edge> g);
+    protected abstract MST createMST(Graph<WeightedEdge> g);
 
     @Test
     public void test() {
-        for (Edge edge : mst.edges()) {
+        for (WeightedEdge edge : mst.edges()) {
             LOGGER.info(edge.toString());
         }
 

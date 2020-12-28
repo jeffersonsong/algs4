@@ -11,7 +11,7 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.mst.Edge;
+import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -23,7 +23,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 /**
  *  The {@code AdjMatrixEdgeWeightedDigraph} class represents a edge-weighted
  *  digraph of vertices named 0 through <em>V</em> - 1, where each
- *  directed edge is of type {@link Edge} and has a real-valued weight.
+ *  directed edge is of type {@link WeightedEdge} and has a real-valued weight.
  *  It supports the following two primary operations: add a directed edge
  *  to the digraph and iterate over all of edges incident from a given vertex.
  *  It also provides
@@ -42,12 +42,12 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
+public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;
     private int E;
-    private final Edge[][] adj;
+    private final WeightedEdge[][] adj;
     
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
@@ -58,7 +58,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
         checkArgument(V >= 0, "number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
-        this.adj = new Edge[V][V];
+        this.adj = new WeightedEdge[V][V];
     }
 
     /**
@@ -78,7 +78,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
             double weight = Math.round(100 * StdRandom.uniform()) / 100.0;
-            addEdge(v, new Edge(v, w, weight));
+            addEdge(v, new WeightedEdge(v, w, weight));
         }
     }
 
@@ -103,7 +103,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
      * is not already an edge with the same endpoints).
      * @param e the edge
      */
-    public void addEdge(int v, Edge e) {
+    public void addEdge(int v, WeightedEdge e) {
         checkArgument(v == e.v());
         int w = e.w();
         validateVertex(v);
@@ -120,7 +120,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
      * @return the directed edges incident from vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<Edge> adj(int v) {
+    public Iterable<WeightedEdge> adj(int v) {
         validateVertex(v);
         return new AdjIterator(v);
     }
@@ -149,12 +149,12 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
     }
 
     @Override
-    public Graph<Edge> reverse() {
+    public Graph<WeightedEdge> reverse() {
         throw new UnsupportedOperationException();
     }
 
     // support iteration over graph vertices
-    private class AdjIterator implements Iterator<Edge>, Iterable<Edge> {
+    private class AdjIterator implements Iterator<WeightedEdge>, Iterable<WeightedEdge> {
         private final int v;
         private int w = 0;
 
@@ -162,7 +162,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
             this.v = v;
         }
 
-        public Iterator<Edge> iterator() {
+        public Iterator<WeightedEdge> iterator() {
             return this;
         }
 
@@ -174,7 +174,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
             return false;
         }
 
-        public Edge next() {
+        public WeightedEdge next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -197,7 +197,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
         s.append(V).append(" ").append(E).append(NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v).append(": ");
-            for (Edge e : adj(v)) {
+            for (WeightedEdge e : adj(v)) {
                 s.append(e).append("  ");
             }
             s.append(NEWLINE);
@@ -219,7 +219,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<Edge> {
     public static void main(String[] args) {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        Graph<Edge> G = new AdjMatrixEdgeWeightedDigraph(V, E);
+        Graph<WeightedEdge> G = new AdjMatrixEdgeWeightedDigraph(V, E);
         StdOut.println(G);
     }
 

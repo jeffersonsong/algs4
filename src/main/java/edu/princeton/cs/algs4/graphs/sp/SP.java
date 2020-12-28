@@ -1,6 +1,6 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
-import edu.princeton.cs.algs4.graphs.mst.Edge;
+import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 
 /**
  * A shortest path from vertex s to vertex t in an edge-weighted digraph is a directed path from
@@ -11,7 +11,7 @@ public interface SP {
     double distTo(int v);
 
     // shortest path from s to v
-    Iterable<Edge> pathTo(int v);
+    Iterable<WeightedEdge> pathTo(int v);
 
     // is there a path from s to v?
     boolean hasPathTo(int v);

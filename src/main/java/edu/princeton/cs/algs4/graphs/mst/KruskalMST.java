@@ -81,23 +81,23 @@ public class KruskalMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private double weight;                        // weight of MST
-    private final Queue<Edge> mst = new LinkedQueue<>();  // edges in MST
+    private final Queue<WeightedEdge> mst = new LinkedQueue<>();  // edges in MST
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
-    public KruskalMST(Graph<Edge> G) {
+    public KruskalMST(Graph<WeightedEdge> G) {
         // more efficient to build heap by passing array of edges
-        PQ<Edge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(Edge::weight));
-        for (Edge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+        PQ<WeightedEdge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(WeightedEdge::weight));
+        for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
             pq.insert(e);
         }
 
         // run greedy algorithm
         UF uf = new UFImpl(G.V());
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
-            Edge e = pq.poll();
+            WeightedEdge e = pq.poll();
             int v = e.v();
             int w = e.w();
             if (uf.find(v) != uf.find(w)) { // v-w does not create a cycle
@@ -116,7 +116,7 @@ public class KruskalMST implements MST {
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
      */
-    public Iterable<Edge> edges() {
+    public Iterable<WeightedEdge> edges() {
         return mst;
     }
 
@@ -135,9 +135,9 @@ public class KruskalMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<WeightedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         KruskalMST mst = new KruskalMST(G);
-        for (Edge e : mst.edges()) {
+        for (WeightedEdge e : mst.edges()) {
             StdOut.println(e);
         }
         StdOut.printf("%.5f\n", mst.weight());

@@ -67,15 +67,15 @@ import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
 public class BoruvkaMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
-    private final Bag<Edge> mst = new LinkedBag<>();    // edges in MST
-    private Comparator<Edge> comparator = Comparator.comparing(Edge::weight);
+    private final Bag<WeightedEdge> mst = new LinkedBag<>();    // edges in MST
+    private Comparator<WeightedEdge> comparator = Comparator.comparing(WeightedEdge::weight);
     private double weight;                      // weight of MST
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
-    public BoruvkaMST(Graph<Edge> G) {
+    public BoruvkaMST(Graph<WeightedEdge> G) {
         UF uf = new UFImpl(G.V());
 
         // repeat at most log V times or until we have V-1 edges
@@ -83,9 +83,9 @@ public class BoruvkaMST implements MST {
 
             // foreach tree in forest, find closest edge
             // if edge weights are equal, ties are broken in favor of first edge in G.edges()
-            Edge[] closest = new Edge[G.V()];
+            WeightedEdge[] closest = new WeightedEdge[G.V()];
 
-            for (Edge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+            for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
                 int v = e.v(), w = e.w();
                 int i = uf.find(v), j = uf.find(w);
                 if (i == j) continue;   // same tree
@@ -95,7 +95,7 @@ public class BoruvkaMST implements MST {
 
             // add newly discovered edges to MST
             for (int i = 0; i < G.V(); i++) {
-                Edge e = closest[i];
+                WeightedEdge e = closest[i];
                 if (e != null) {
                     int v = e.v(), w = e.w();
                     // don't add the same edge twice
@@ -117,7 +117,7 @@ public class BoruvkaMST implements MST {
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
      */
-    public Iterable<Edge> edges() {
+    public Iterable<WeightedEdge> edges() {
         return mst;
     }
 
@@ -131,7 +131,7 @@ public class BoruvkaMST implements MST {
     }
 
     // is the weight of edge e strictly less than that of edge f?
-    private boolean less(Edge e, Edge f) {
+    private boolean less(WeightedEdge e, WeightedEdge f) {
         return comparator.compare(e, f) < 0;
     }
 
@@ -142,9 +142,9 @@ public class BoruvkaMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<WeightedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         BoruvkaMST mst = new BoruvkaMST(G);
-        for (Edge e : mst.edges()) {
+        for (WeightedEdge e : mst.edges()) {
             StdOut.println(e);
         }
         StdOut.printf("%.5f\n", mst.weight());

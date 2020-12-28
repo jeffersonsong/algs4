@@ -74,7 +74,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class DijkstraUndirectedSP {
     private final double[] distTo;          // distTo[v] = distance  of shortest s->v path
-    private final Edge[] edgeTo;            // edgeTo[v] = last edge on shortest s->v path
+    private final WeightedEdge[] edgeTo;            // edgeTo[v] = last edge on shortest s->v path
     private final IndexPQ<Double> pq;    // priority queue of vertices
 
     /**
@@ -86,16 +86,16 @@ public class DijkstraUndirectedSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraUndirectedSP(Graph<Edge> G, int s) {
+    public DijkstraUndirectedSP(Graph<WeightedEdge> G, int s) {
         checkArgument(!G.isDirected());
         for (int i=0; i < G.V(); i++) {
-            for (Edge e : G.adj(i)) {
+            for (WeightedEdge e : G.adj(i)) {
                 checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
             }
         }
 
         distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
-        edgeTo = new Edge[G.V()];
+        edgeTo = new WeightedEdge[G.V()];
 
         validateVertex(s);
 
@@ -106,7 +106,7 @@ public class DijkstraUndirectedSP {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.poll();
-            for (Edge e : G.adj(v))
+            for (WeightedEdge e : G.adj(v))
                 relax(e, v);
         }
 
@@ -115,7 +115,7 @@ public class DijkstraUndirectedSP {
     }
 
     // relax edge e and update pq if changed
-    private void relax(Edge e, int v) {
+    private void relax(WeightedEdge e, int v) {
         int w = e.v() == v ? e.w() : e.v();
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
@@ -161,12 +161,12 @@ public class DijkstraUndirectedSP {
      *         {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<Edge> pathTo(int v) {
+    public Iterable<WeightedEdge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<Edge> path = new LinkedStack<>();
+        Stack<WeightedEdge> path = new LinkedStack<>();
         int x = v;
-        for (Edge e = edgeTo[v]; e != null; e = edgeTo[x]) {
+        for (WeightedEdge e = edgeTo[v]; e != null; e = edgeTo[x]) {
             path.push(e);
             x = e.v() == x ? e.w() : e.v();
         }
@@ -177,11 +177,11 @@ public class DijkstraUndirectedSP {
     // check optimality conditions:
     // (i) for all edges e = v-w:            distTo[w] <= distTo[v] + e.weight()
     // (ii) for all edge e = v-w on the SPT: distTo[w] == distTo[v] + e.weight()
-    private boolean check(Graph<Edge> G, int s) {
+    private boolean check(Graph<WeightedEdge> G, int s) {
 
         // check that edge weights are nonnegative
         for (int i=0; i < G.V(); i++) {
-            for (Edge e : G.adj(i)) {
+            for (WeightedEdge e : G.adj(i)) {
                 if (e.weight() < 0) {
                     System.err.println("negative edge weight detected");
                     return false;
@@ -204,7 +204,7 @@ public class DijkstraUndirectedSP {
 
         // check that all edges e = v-w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
-            for (Edge e : G.adj(v)) {
+            for (WeightedEdge e : G.adj(v)) {
                 int w = e.v() == v ? e.w() : e.v();
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
@@ -216,7 +216,7 @@ public class DijkstraUndirectedSP {
         // check that all edges e = v-w on SPT satisfy distTo[w] == distTo[v] + e.weight()
         for (int w = 0; w < G.V(); w++) {
             if (edgeTo[w] == null) continue;
-            Edge e = edgeTo[w];
+            WeightedEdge e = edgeTo[w];
             if (w != e.v() && w != e.w()) return false;
             int v = e.v() == w ? e.w() : e.v();
             if (distTo[v] + e.weight() != distTo[w]) {
@@ -240,7 +240,7 @@ public class DijkstraUndirectedSP {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<WeightedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths
@@ -251,7 +251,7 @@ public class DijkstraUndirectedSP {
         for (int t = 0; t < G.V(); t++) {
             if (sp.hasPathTo(t)) {
                 StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
-                for (Edge e : sp.pathTo(t)) {
+                for (WeightedEdge e : sp.pathTo(t)) {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();

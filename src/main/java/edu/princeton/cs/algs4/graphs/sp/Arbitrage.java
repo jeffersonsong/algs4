@@ -26,7 +26,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
-import edu.princeton.cs.algs4.graphs.mst.Edge;
+import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -59,12 +59,12 @@ public class Arbitrage {
         name = new String[V];
 
         // create complete network
-        Graph<Edge> G = new GraphImpl<>(V, true);
+        Graph<WeightedEdge> G = new GraphImpl<>(V, true);
         for (int v = 0; v < V; v++) {
             name[v] = in.readString();
             for (int w = 0; w < V; w++) {
                 double rate = in.readDouble();
-                Edge e = new Edge(v, w, -Math.log(rate));
+                WeightedEdge e = new WeightedEdge(v, w, -Math.log(rate));
                 G.addEdge(v, e);
             }
         }
@@ -78,7 +78,7 @@ public class Arbitrage {
     public void print() {
         if (hasOpportunity()) {
             double stake = 1000.0;
-            for (Edge e : spt.negativeCycle()) {
+            for (WeightedEdge e : spt.negativeCycle()) {
                 StdOut.printf("%10.5f %s ", stake, name[e.v()]);
                 stake *= Math.exp(-e.weight());
                 StdOut.printf("= %10.5f %s\n", stake, name[e.w()]);

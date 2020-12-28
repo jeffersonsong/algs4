@@ -80,7 +80,7 @@ import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
 public class PrimMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
-    private final Edge[] edgeTo;        // edgeTo[v] = shortest edge from tree vertex to non-tree vertex
+    private final WeightedEdge[] edgeTo;        // edgeTo[v] = shortest edge from tree vertex to non-tree vertex
     private final double[] distTo;      // distTo[v] = weight of shortest such edge
     private final boolean[] marked;     // marked[v] = true if v on tree, false otherwise
     private final IndexPQ<Double> pq;
@@ -89,8 +89,8 @@ public class PrimMST implements MST {
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
-    public PrimMST(Graph<Edge> G) {
-        edgeTo = new Edge[G.V()];
+    public PrimMST(Graph<WeightedEdge> G) {
+        edgeTo = new WeightedEdge[G.V()];
         distTo = new double[G.V()];
         marked = new boolean[G.V()];
         pq = IndexBinaryHeapImpl.indexMinPQ(G.V());
@@ -105,7 +105,7 @@ public class PrimMST implements MST {
     }
 
     // run Prim's algorithm in graph G, starting from vertex s
-    private void prim(Graph<Edge> G, int s) {
+    private void prim(Graph<WeightedEdge> G, int s) {
         distTo[s] = 0.0;
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
@@ -115,9 +115,9 @@ public class PrimMST implements MST {
     }
 
     // scan vertex v
-    private void scan(Graph<Edge> G, int v) {
+    private void scan(Graph<WeightedEdge> G, int v) {
         marked[v] = true;
-        for (Edge e : G.adj(v)) {
+        for (WeightedEdge e : G.adj(v)) {
             int w = e.v() == v? e.w() : e.v();
             if (marked[w]) continue;         // v-w is obsolete edge
             if (e.weight() < distTo[w]) {
@@ -134,9 +134,9 @@ public class PrimMST implements MST {
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
      */
-    public Iterable<Edge> edges() {
-        Queue<Edge> mst = new LinkedQueue<>();
-        for (Edge e : edgeTo) {
+    public Iterable<WeightedEdge> edges() {
+        Queue<WeightedEdge> mst = new LinkedQueue<>();
+        for (WeightedEdge e : edgeTo) {
             if (e != null) {
                 mst.enqueue(e);
             }
@@ -150,7 +150,7 @@ public class PrimMST implements MST {
      */
     public double weight() {
         double weight = 0.0;
-        for (Edge e : edges())
+        for (WeightedEdge e : edges())
             weight += e.weight();
         return weight;
     }
@@ -162,9 +162,9 @@ public class PrimMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<WeightedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         PrimMST mst = new PrimMST(G);
-        for (Edge e : mst.edges()) {
+        for (WeightedEdge e : mst.edges()) {
             StdOut.println(e);
         }
         StdOut.printf("%.5f\n", mst.weight());

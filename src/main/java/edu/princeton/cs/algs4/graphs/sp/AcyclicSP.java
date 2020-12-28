@@ -24,7 +24,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.mst.Edge;
+import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -54,7 +54,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class AcyclicSP implements SP {
     private final double[] distTo;         // distTo[v] = distance  of shortest s->v path
-    private final Edge[] edgeTo;   // edgeTo[v] = last edge on shortest s->v path
+    private final WeightedEdge[] edgeTo;   // edgeTo[v] = last edge on shortest s->v path
 
     /**
      * Computes a shortest paths tree from {@code s} to every other vertex in
@@ -64,27 +64,27 @@ public class AcyclicSP implements SP {
      * @throws IllegalArgumentException if the digraph is not acyclic
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public AcyclicSP(Graph<Edge> G, int s) {
+    public AcyclicSP(Graph<WeightedEdge> G, int s) {
         checkArgument(G.isDirected());
 
         distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
-        edgeTo = new Edge[G.V()];
+        edgeTo = new WeightedEdge[G.V()];
 
         validateVertex(s);
 
         distTo[s] = 0.0;
 
         // visit vertices in topological order
-        Topological<Edge> topological = new Topological<>(G);
+        Topological<WeightedEdge> topological = new Topological<>(G);
         checkArgument(topological.hasOrder(), "Digraph is not acyclic.");
         for (int v : topological.order()) {
-            for (Edge e : G.adj(v))
+            for (WeightedEdge e : G.adj(v))
                 relax(e);
         }
     }
 
     // relax edge e
-    private void relax(Edge e) {
+    private void relax(WeightedEdge e) {
         int v = e.v(), w = e.w();
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
@@ -123,11 +123,11 @@ public class AcyclicSP implements SP {
      *         as an iterable of edges, and {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<Edge> pathTo(int v) {
+    public Iterable<WeightedEdge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<Edge> path = new LinkedStack<>();
-        for (Edge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
+        Stack<WeightedEdge> path = new LinkedStack<>();
+        for (WeightedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;
@@ -147,14 +147,14 @@ public class AcyclicSP implements SP {
     public static void main(String[] args) {
         In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        Graph<Edge> G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<WeightedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
 
         // find shortest path from s to each other vertex in DAG
         AcyclicSP sp = new AcyclicSP(G, s);
         for (int v = 0; v < G.V(); v++) {
             if (sp.hasPathTo(v)) {
                 StdOut.printf("%d to %d (%.2f)  ", s, v, sp.distTo(v));
-                for (Edge e : sp.pathTo(v)) {
+                for (WeightedEdge e : sp.pathTo(v)) {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();
