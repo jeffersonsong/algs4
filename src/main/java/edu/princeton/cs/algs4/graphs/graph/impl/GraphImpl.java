@@ -122,17 +122,10 @@ public class GraphImpl<T extends Edge> implements Graph<T> {
 
         // update indegrees
         this.indegree = newIntArray(V, G::indegree);
-        this.adj = newArray(V, i->new LinkedBag<>());
+        this.adj = (Bag<T>[])new Bag[V];
 
         for (int v = 0; v < G.V(); v++) {
-            // reverse so that adjacency list is in same order as original
-            Stack<T> reverse = new LinkedStack<>();
-            for (T edge : G.adj(v)) {
-                reverse.push(edge);
-            }
-            for (T edge : reverse) {
-                adj[v].add(edge);
-            }
+            this.adj[v] = new LinkedBag<T>(G.adj(v), true);
         }
     }
 

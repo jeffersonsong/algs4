@@ -29,7 +29,7 @@ public class LinkedBagTest {
         assertThat(this.bag.size(), is(10));
         assertThat(ListUtils.toList(this.bag), is(asList("9 8 7 6 5 4 3 2 1 0".split(" "))));
 
-        Bag<String> copy = new LinkedBag<>(bag);
+        Bag<String> copy = new LinkedBag<>(bag, true);
         assertThat(copy.size(), is(10));
         assertThat(ListUtils.toList(copy), is(asList("9 8 7 6 5 4 3 2 1 0".split(" "))));
     }

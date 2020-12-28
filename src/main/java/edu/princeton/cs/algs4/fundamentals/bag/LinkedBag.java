@@ -67,14 +67,16 @@ public class LinkedBag<Item> implements Bag<Item> {
         n = 0;
     }
 
-    public LinkedBag(Bag<Item> other) {
+    public LinkedBag(Iterable<Item> other, boolean reverse) {
         this();
 
         for (Item value : other) {
             add(value);
         }
 
-        this.first = SingleyLinkedListUtils.reverse(this.first);
+        if (reverse) {
+            this.first = SingleyLinkedListUtils.reverse(this.first);
+        }
     }
 
     /**
