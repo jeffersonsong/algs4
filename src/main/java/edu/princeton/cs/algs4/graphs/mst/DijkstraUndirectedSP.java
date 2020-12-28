@@ -117,7 +117,7 @@ public class DijkstraUndirectedSP {
 
     // relax edge e and update pq if changed
     private void relax(WeightedEdge e, int v) {
-        int w = e.v() == v ? e.w() : e.v();
+        int w = e.other(v);
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
@@ -169,7 +169,7 @@ public class DijkstraUndirectedSP {
         int x = v;
         for (WeightedEdge e = edgeTo[v]; e != null; e = edgeTo[x]) {
             path.push(e);
-            x = e.v() == x ? e.w() : e.v();
+            x = e.other(x);
         }
         return path;
     }
@@ -206,7 +206,7 @@ public class DijkstraUndirectedSP {
         // check that all edges e = v-w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
             for (WeightedEdge e : G.adj(v)) {
-                int w = e.v() == v ? e.w() : e.v();
+                int w = e.other(v);
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
                     return false;
@@ -219,7 +219,7 @@ public class DijkstraUndirectedSP {
             if (edgeTo[w] == null) continue;
             WeightedEdge e = edgeTo[w];
             if (w != e.v() && w != e.w()) return false;
-            int v = e.v() == w ? e.w() : e.v();
+            int v = e.other(w);
             if (distTo[v] + e.weight() != distTo[w]) {
                 System.err.println("edge " + e + " on shortest path not tight");
                 return false;
