@@ -43,6 +43,7 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.utils.io.In;

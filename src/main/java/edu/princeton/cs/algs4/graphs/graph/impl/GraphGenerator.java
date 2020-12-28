@@ -10,10 +10,14 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.graph;
+package edu.princeton.cs.algs4.graphs.graph.impl;
 
 import edu.princeton.cs.algs4.fundamentals.set.SET;
 import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
+import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
 import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;

@@ -1,7 +1,7 @@
 package edu.princeton.cs.algs4.graphs.graph.eulerian;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 import org.junit.Test;
