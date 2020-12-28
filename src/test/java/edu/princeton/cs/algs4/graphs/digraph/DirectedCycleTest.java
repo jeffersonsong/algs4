@@ -1,6 +1,8 @@
 package edu.princeton.cs.algs4.graphs.digraph;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
+import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -18,6 +20,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DirectedCycleTest {
+
+    @Test
+    public void testWithSmallCycle() {
+        Graph<Edge> G = new GraphImpl<>(3, true);
+        G.addEdge(0, new UnWeightedEdge(0, 1));
+        G.addEdge(1, new UnWeightedEdge(1, 2));
+        G.addEdge(2, new UnWeightedEdge(2, 0));
+
+        DirectedCycle<Edge> finder = new DirectedCycle<>(G);
+        assertTrue(finder.hasCycle());
+    }
 
     @Test
     public void testWithCycle() {

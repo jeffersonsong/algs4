@@ -52,7 +52,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 
 public class DirectedCycleX<T extends Edge> {
-    private Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
+    private Stack<T> cycle;     // the directed cycle; null if digraph is acyclic
 
     public DirectedCycleX(Graph<T> G) {
         checkArgument(G.isDirected());
@@ -75,7 +75,7 @@ public class DirectedCycleX<T extends Edge> {
         }
 
         // there is a directed cycle in subgraph of vertices with indegree >= 1.
-        int[] edgeTo = new int[G.V()];
+        Edge[] edgeTo = new Edge[G.V()];
         int root = -1;  // any vertex with indegree >= -1
         for (int v = 0; v < G.V(); v++) {
             if (indegree[v] == 0) continue;
@@ -83,7 +83,7 @@ public class DirectedCycleX<T extends Edge> {
             for (T e : G.adj(v)) {
                 int w = e.other(v);
                 if (indegree[w] > 0) {
-                    edgeTo[w] = v;
+                    edgeTo[w] = e;
                 }
             }
         }
@@ -93,17 +93,16 @@ public class DirectedCycleX<T extends Edge> {
             boolean[] visited = new boolean[G.V()];
             while (!visited[root]) {
                 visited[root] = true;
-                root = edgeTo[root];
+                root = edgeTo[root].other(root);
             }
 
             // extract cycle
             cycle = new LinkedStack<>();
             int v = root;
             do {
-                cycle.push(v);
-                v = edgeTo[v];
+                cycle.push((T)edgeTo[v]);
+                v = edgeTo[v].other(v);
             } while (v != root);
-            cycle.push(root);
         }
 
         assert check();
@@ -114,7 +113,7 @@ public class DirectedCycleX<T extends Edge> {
      * @return a directed cycle (as an iterable) if the digraph has a directed cycle,
      *    and {@code null} otherwise
      */
-    public Iterable<Integer> cycle() {
+    public Iterable<T> cycle() {
         return cycle;
     }
 
@@ -126,17 +125,25 @@ public class DirectedCycleX<T extends Edge> {
         return cycle != null;
     }
 
-    // certify that digraph has a directed cycle if it reports one
+    // certify that digraph is either acyclic or has a directed cycle
     private boolean check() {
+        // edge-weighted digraph is cyclic
         if (hasCycle()) {
             // verify cycle
-            int first = -1, last = -1;
-            for (int v : cycle()) {
-                if (first == -1) first = v;
-                last = v;
+            T first = null, last = null;
+            for (T e : cycle()) {
+                if (first == null) first = e;
+                if (last != null) {
+                    if (last.w() != e.v()) {
+                        System.err.printf("cycle edges %s and %s not incident\n", last, e);
+                        return false;
+                    }
+                }
+                last = e;
             }
-            if (first != last) {
-                System.err.printf("cycle begins with %d and ends with %d\n", first, last);
+
+            if (last.w() != first.v()) {
+                System.err.printf("cycle edges %s and %s not incident\n", last, first);
                 return false;
             }
         }
@@ -163,7 +170,7 @@ public class DirectedCycleX<T extends Edge> {
         DirectedCycleX<Edge> finder = new DirectedCycleX<>(G);
         if (finder.hasCycle()) {
             StdOut.print("Directed cycle: ");
-            for (int v : finder.cycle()) {
+            for (Edge v : finder.cycle()) {
                 StdOut.print(v + " ");
             }
             StdOut.println();
