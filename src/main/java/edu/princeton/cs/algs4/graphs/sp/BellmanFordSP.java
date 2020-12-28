@@ -67,16 +67,16 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class BellmanFordSP implements SP {
+public class BellmanFordSP<T extends WeightedEdge> implements SP {
     // for floating-point precision issues
     private static final double EPSILON = 1E-14;
 
     private final double[] distTo;               // distTo[v] = distance  of shortest s->v path
-    private final WeightedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
+    private final T[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private final boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
     private final Queue<Integer> queue;          // queue of vertices to relax
     private int cost;                      // number of calls to relax()
-    private Iterable<WeightedEdge> cycle;  // negative cycle (or null if no such cycle)
+    private Iterable<T> cycle;  // negative cycle (or null if no such cycle)
 
     /**
      * Computes a shortest paths tree from {@code s} to every other vertex in
@@ -85,11 +85,11 @@ public class BellmanFordSP implements SP {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public BellmanFordSP(Graph<WeightedEdge> G, int s) {
+    public BellmanFordSP(Graph<T> G, int s) {
         checkArgument(G.isDirected());
 
         distTo  = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
-        edgeTo  = new WeightedEdge[G.V()];
+        edgeTo  = (T[])new WeightedEdge[G.V()];
         onQueue = new boolean[G.V()];
 
         distTo[s] = 0.0;
@@ -108,8 +108,8 @@ public class BellmanFordSP implements SP {
     }
 
     // relax vertex v and put other endpoints on queue if changed
-    private void relax(Graph<WeightedEdge> G, int v) {
-        for (WeightedEdge e : G.adj(v)) {
+    private void relax(Graph<T> G, int v) {
+        for (T e : G.adj(v)) {
             int w = e.w();
             if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
@@ -141,19 +141,19 @@ public class BellmanFordSP implements SP {
      * @return a negative cycle reachable from the soruce vertex {@code s} 
      *    as an iterable of edges, and {@code null} if there is no such cycle
      */
-    public Iterable<WeightedEdge> negativeCycle() {
+    public Iterable<T> negativeCycle() {
         return cycle;
     }
 
     // by finding a cycle in predecessor graph
     private void findNegativeCycle() {
         int V = edgeTo.length;
-        Graph<WeightedEdge> spt = new GraphImpl<>(V, true);
-        for (WeightedEdge edge : edgeTo)
+        Graph<T> spt = new GraphImpl<>(V, true);
+        for (T edge : edgeTo)
             if (edge != null)
                 spt.addEdge(edge.v(), edge);
 
-        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
+        EdgeWeightedDirectedCycle<T> finder = new EdgeWeightedDirectedCycle<>(spt);
         cycle = finder.cycle();
     }
 
@@ -211,7 +211,7 @@ public class BellmanFordSP implements SP {
     //     or 
     // (ii)  for all edges e = v->w:            distTo[w] <= distTo[v] + e.weight()
     // (ii') for all edges e = v->w on the SPT: distTo[w] == distTo[v] + e.weight()
-    private boolean check(Graph<WeightedEdge> G, int s) {
+    private boolean check(Graph<T> G, int s) {
 
         // has a negative cycle
         if (hasNegativeCycle()) {
@@ -227,7 +227,6 @@ public class BellmanFordSP implements SP {
 
         // no negative cycle reachable from source
         else {
-
             // check that distTo[v] and edgeTo[v] are consistent
             if (distTo[s] != 0.0 || edgeTo[s] != null) {
                 System.err.println("distanceTo[s] and edgeTo[s] inconsistent");
@@ -286,7 +285,7 @@ public class BellmanFordSP implements SP {
         int s = Integer.parseInt(args[1]);
         Graph<WeightedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
 
-        BellmanFordSP sp = new BellmanFordSP(G, s);
+        BellmanFordSP<WeightedEdge> sp = new BellmanFordSP<>(G, s);
 
         // print negative cycle
         if (sp.hasNegativeCycle()) {

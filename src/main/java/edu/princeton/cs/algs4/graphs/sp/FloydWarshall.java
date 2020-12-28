@@ -50,10 +50,10 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class FloydWarshall {
+public class FloydWarshall<T extends WeightedEdge> {
     private boolean hasNegativeCycle;  // is there a negative cycle?
     private final double[][] distTo;         // distTo[v][w] = length of shortest v->w path
-    private final WeightedEdge[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
+    private final T[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
 
     /**
      * Computes a shortest paths tree from each vertex to to every other vertex in
@@ -61,12 +61,12 @@ public class FloydWarshall {
      * some pair of vertices, it computes a negative cycle.
      * @param G the edge-weighted digraph
      */
-    public FloydWarshall(Graph<WeightedEdge> G) {
+    public FloydWarshall(Graph<T> G) {
         checkArgument(G.isDirected());
 
         int V = G.V();
         distTo = new double[V][V];
-        edgeTo = new WeightedEdge[V][V];
+        edgeTo = (T[][])new Object[V][V];
 
         // initialize distances to infinity
         for (int v = 0; v < V; v++) {
@@ -77,7 +77,7 @@ public class FloydWarshall {
 
         // initialize distances using edge-weighted digraph's
         for (int v = 0; v < G.V(); v++) {
-            for (WeightedEdge e : G.adj(v)) {
+            for (T e : G.adj(v)) {
                 distTo[e.v()][e.w()] = e.weight();
                 edgeTo[e.v()][e.w()] = e;
             }
@@ -122,16 +122,16 @@ public class FloydWarshall {
      * @return a negative cycle as an iterable of edges,
      * or {@code null} if there is no such cycle
      */
-    public Iterable<WeightedEdge> negativeCycle() {
+    public Iterable<T> negativeCycle() {
         for (int v = 0; v < distTo.length; v++) {
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
                 int V = edgeTo.length;
-                Graph<WeightedEdge> spt = new GraphImpl<>(V, true);
+                Graph<T> spt = new GraphImpl<>(V, true);
                 for (int w = 0; w < V; w++)
                     if (edgeTo[v][w] != null)
                         spt.addEdge(v, edgeTo[v][w]);
-                EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
+                EdgeWeightedDirectedCycle<T> finder = new EdgeWeightedDirectedCycle<>(spt);
                 assert finder.hasCycle();
                 return finder.cycle();
             }
@@ -194,12 +194,12 @@ public class FloydWarshall {
     }
 
     // check optimality conditions
-    private boolean check(Graph<WeightedEdge> G) {
+    private boolean check(Graph<T> G) {
 
         // no negative cycle
         if (!hasNegativeCycle()) {
             for (int v = 0; v < G.V(); v++) {
-                for (WeightedEdge e : G.adj(v)) {
+                for (T e : G.adj(v)) {
                     int w = e.w();
                     for (int i = 0; i < G.V(); i++) {
                         if (distTo[i][w] > distTo[i][v] + e.weight()) {
@@ -241,7 +241,7 @@ public class FloydWarshall {
         StdOut.println(G);
 
         // run Floyd-Warshall algorithm
-        FloydWarshall spt = new FloydWarshall(G);
+        FloydWarshall<WeightedEdge> spt = new FloydWarshall<>(G);
 
         // print all-pairs shortest path distances
         StdOut.printf("  ");

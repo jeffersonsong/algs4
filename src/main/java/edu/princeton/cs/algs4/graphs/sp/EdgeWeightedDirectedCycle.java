@@ -48,22 +48,22 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class EdgeWeightedDirectedCycle {
+public class EdgeWeightedDirectedCycle<T extends WeightedEdge> {
     private final boolean[] marked;             // marked[v] = has vertex v been marked?
-    private final WeightedEdge[] edgeTo;        // edgeTo[v] = previous edge on path to v
+    private final T[] edgeTo;        // edgeTo[v] = previous edge on path to v
     private final boolean[] onStack;            // onStack[v] = is vertex on the stack?
-    private Stack<WeightedEdge> cycle;    // directed cycle (or null if no such cycle)
+    private Stack<T> cycle;    // directed cycle (or null if no such cycle)
 
     /**
      * Determines whether the edge-weighted digraph {@code G} has a directed cycle and,
      * if so, finds such a cycle.
      * @param G the edge-weighted digraph
      */
-    public EdgeWeightedDirectedCycle(Graph<WeightedEdge> G) {
+    public EdgeWeightedDirectedCycle(Graph<T> G) {
         checkArgument(G.isDirected());
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
-        edgeTo  = new WeightedEdge[G.V()];
+        edgeTo  = (T[])new WeightedEdge[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v]) dfs(G, v);
 
@@ -72,10 +72,10 @@ public class EdgeWeightedDirectedCycle {
     }
 
     // check that algorithm computes either the topological order or finds a directed cycle
-    private void dfs(Graph<WeightedEdge> G, int v) {
+    private void dfs(Graph<T> G, int v) {
         onStack[v] = true;
         marked[v] = true;
-        for (WeightedEdge e : G.adj(v)) {
+        for (T e : G.adj(v)) {
             int w = e.w();
 
             // short circuit if directed cycle found
@@ -91,7 +91,7 @@ public class EdgeWeightedDirectedCycle {
             else if (onStack[w]) {
                 cycle = new LinkedStack<>();
 
-                WeightedEdge f = e;
+                T f = e;
                 while (f.v() != w) {
                     cycle.push(f);
                     f = edgeTo[f.v()];
@@ -120,7 +120,7 @@ public class EdgeWeightedDirectedCycle {
      * @return a directed cycle (as an iterable) if the edge-weighted digraph
      *    has a directed cycle, and {@code null} otherwise
      */
-    public Iterable<WeightedEdge> cycle() {
+    public Iterable<T> cycle() {
         return cycle;
     }
 
@@ -131,8 +131,8 @@ public class EdgeWeightedDirectedCycle {
         // edge-weighted digraph is cyclic
         if (hasCycle()) {
             // verify cycle
-            WeightedEdge first = null, last = null;
-            for (WeightedEdge e : cycle()) {
+            T first = null, last = null;
+            for (T e : cycle()) {
                 if (first == null) first = e;
                 if (last != null) {
                     if (last.w() != e.v()) {
@@ -188,7 +188,7 @@ public class EdgeWeightedDirectedCycle {
         StdOut.println(G);
 
         // find a directed cycle
-        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(G);
+        EdgeWeightedDirectedCycle<WeightedEdge> finder = new EdgeWeightedDirectedCycle<>(G);
         if (finder.hasCycle()) {
             StdOut.print("Cycle: ");
             for (WeightedEdge e : finder.cycle()) {

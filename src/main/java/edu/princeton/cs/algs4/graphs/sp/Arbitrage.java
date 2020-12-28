@@ -50,7 +50,7 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
  */
 public class Arbitrage {
     private final String[] name;
-    private final BellmanFordSP spt;
+    private final BellmanFordSP<WeightedEdge> spt;
 
     // this class cannot be instantiated
     public Arbitrage(In in) {
@@ -68,7 +68,7 @@ public class Arbitrage {
                 G.addEdge(v, e);
             }
         }
-        spt = new BellmanFordSP(G, 0);
+        spt = new BellmanFordSP<>(G, 0);
     }
 
     public boolean hasOpportunity() {
