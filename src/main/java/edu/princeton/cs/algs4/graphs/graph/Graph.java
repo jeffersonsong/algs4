@@ -59,7 +59,11 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
  * @author Kevin Wayne
  */
 public interface Graph<T extends Edge> {
+    /**
+     * @return true if it is a directed graph, otherwise false.
+     */
     boolean isDirected();
+
     /**
      * Returns the number of vertices in this graph.
      *
