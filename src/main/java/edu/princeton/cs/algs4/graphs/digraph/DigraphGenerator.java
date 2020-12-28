@@ -14,6 +14,7 @@ import edu.princeton.cs.algs4.fundamentals.set.SETImpl;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -50,14 +51,14 @@ public class DigraphGenerator {
         checkArgument(E <= (long) V*(V-1), "Too many edges");
         checkArgument(E >= 0, "Too few edges");
         Graph<Edge> G = new GraphImpl<>(V, true);
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            Edge e = new Edge(v, w);
+            UnWeightedEdge e = new UnWeightedEdge(v, w);
             if ((v != w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(v, new Edge(v, w));
+                G.addEdge(v, new UnWeightedEdge(v, w));
             }
         }
         return G;
@@ -81,7 +82,7 @@ public class DigraphGenerator {
             for (int w = 0; w < V; w++)
                 if (v != w)
                     if (StdRandom.bernoulli(p))
-                        G.addEdge(v, new Edge(v, w));
+                        G.addEdge(v, new UnWeightedEdge(v, w));
         return G;
     }
 
@@ -96,7 +97,7 @@ public class DigraphGenerator {
         Graph<Edge>  G = new GraphImpl<>(V, true);
         for (int v = 0; v < V; v++)
             for (int w = 0; w < V; w++)
-                    if (v != w) G.addEdge(v, new Edge(v, w));
+                    if (v != w) G.addEdge(v, new UnWeightedEdge(v, w));
         return G;
     }
 
@@ -113,16 +114,16 @@ public class DigraphGenerator {
         checkArgument(E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
         Graph<Edge>  G = new GraphImpl<>(V, true);
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            Edge e = new Edge(v, w);
+            UnWeightedEdge e = new UnWeightedEdge(v, w);
             if ((v < w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[v], new Edge(vertices[v], vertices[w]));
+                G.addEdge(vertices[v], new UnWeightedEdge(vertices[v], vertices[w]));
             }
         }
         return G;
@@ -139,8 +140,8 @@ public class DigraphGenerator {
         Graph<Edge> G = new GraphImpl<>(V, true);
         for (int v = 0; v < G.V(); v++) {
             for (int w = v+1; w < G.V(); w++) {
-                if (StdRandom.bernoulli(0.5)) G.addEdge(v, new Edge(v, w));
-                else                          G.addEdge(w, new Edge(w, v));
+                if (StdRandom.bernoulli(0.5)) G.addEdge(v, new UnWeightedEdge(v, w));
+                else                          G.addEdge(w, new UnWeightedEdge(w, v));
             }
         }
         return G;
@@ -160,7 +161,7 @@ public class DigraphGenerator {
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V; i++)
             for (int j = i+1; j < V; j++)
-                 G.addEdge(vertices[i], new Edge(vertices[i], vertices[j]));
+                 G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[j]));
 
         return G;
     }
@@ -178,7 +179,7 @@ public class DigraphGenerator {
         checkArgument (E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument (E >= V-1, "Too few edges");
         Graph<Edge> G = new GraphImpl<>(V, true);
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
 
         // fix a topological order
         int[] vertices = newIndexArray(V);
@@ -187,18 +188,18 @@ public class DigraphGenerator {
         // one edge pointing from each vertex, other than the root = vertices[V-1]
         for (int v = 0; v < V-1; v++) {
             int w = StdRandom.uniform(v+1, V);
-            Edge e = new Edge(v, w);
+            UnWeightedEdge e = new UnWeightedEdge(v, w);
             set.add(e);
-            G.addEdge(vertices[v], new Edge(vertices[v], vertices[w]));
+            G.addEdge(vertices[v], new UnWeightedEdge(vertices[v], vertices[w]));
         }
 
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            Edge e = new Edge(v, w);
+            UnWeightedEdge e = new UnWeightedEdge(v, w);
             if ((v < w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[v], new Edge(vertices[v], vertices[w]));
+                G.addEdge(vertices[v], new UnWeightedEdge(vertices[v], vertices[w]));
             }
         }
         return G;
@@ -217,7 +218,7 @@ public class DigraphGenerator {
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V; i++)
             for (int j = i+1; j < V; j++)
-                 G.addEdge(vertices[j], new Edge(vertices[j], vertices[i]));
+                 G.addEdge(vertices[j], new UnWeightedEdge(vertices[j], vertices[i]));
 
         return G;
     }
@@ -236,7 +237,7 @@ public class DigraphGenerator {
         checkArgument (E >= V-1, "Too few edges");
 
         Graph<Edge> G = new GraphImpl<>(V, true);
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
 
         // fix a topological order
         int[] vertices = newIndexArray(V);
@@ -245,18 +246,18 @@ public class DigraphGenerator {
         // one edge pointing from each vertex, other than the root = vertices[V-1]
         for (int v = 0; v < V-1; v++) {
             int w = StdRandom.uniform(v+1, V);
-            Edge e = new Edge(w, v);
+            UnWeightedEdge e = new UnWeightedEdge(w, v);
             set.add(e);
-            G.addEdge(vertices[w], new Edge(vertices[w], vertices[v]));
+            G.addEdge(vertices[w], new UnWeightedEdge(vertices[w], vertices[v]));
         }
 
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            Edge e = new Edge(w, v);
+            UnWeightedEdge e = new UnWeightedEdge(w, v);
             if ((v < w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[w], new Edge(vertices[w], vertices[v]));
+                G.addEdge(vertices[w], new UnWeightedEdge(vertices[w], vertices[v]));
             }
         }
         return G;
@@ -296,7 +297,7 @@ public class DigraphGenerator {
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
         return G;
     }
@@ -311,7 +312,7 @@ public class DigraphGenerator {
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[(i-1)/2]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[(i-1)/2]));
         }
         return G;
     }
@@ -326,9 +327,9 @@ public class DigraphGenerator {
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
-        G.addEdge(vertices[V-1], new Edge(vertices[V-1], vertices[0]));
+        G.addEdge(vertices[V-1], new UnWeightedEdge(vertices[V-1], vertices[0]));
         return G;
     }
 
@@ -347,9 +348,9 @@ public class DigraphGenerator {
         Graph<Edge> G = new GraphImpl<>(V, true);
         int[] vertices = newIntArray(E, v->StdRandom.uniform(V));
         for (int i = 0; i < E-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i],vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i],vertices[i+1]));
         }
-        G.addEdge(vertices[E-1], new Edge(vertices[E-1], vertices[0]));
+        G.addEdge(vertices[E-1], new UnWeightedEdge(vertices[E-1], vertices[0]));
         return G;
     }
 
@@ -368,7 +369,7 @@ public class DigraphGenerator {
         Graph<Edge> G = new GraphImpl<>(V, true);
         int[] vertices = newIntArray(E+1, i->StdRandom.uniform(V));
         for (int i = 0; i < E; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
         return G;
     }
@@ -399,7 +400,7 @@ public class DigraphGenerator {
         Graph<Edge> G = new GraphImpl<>(V, true);
 
         // edges added to G (to avoid duplicate edges)
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
 
         int[] label = newIntArray(V, v->StdRandom.uniform(c));
 
@@ -424,27 +425,27 @@ public class DigraphGenerator {
             // rooted-in tree with root = vertices[count-1]
             for (int v = 0; v < count-1; v++) {
                 int w = StdRandom.uniform(v+1, count);
-                Edge e = new Edge(w, v);
+                UnWeightedEdge e = new UnWeightedEdge(w, v);
                 set.add(e);
-                G.addEdge(vertices[w], new Edge(vertices[w],vertices[v]));
+                G.addEdge(vertices[w], new UnWeightedEdge(vertices[w],vertices[v]));
             }
 
             // rooted-out tree with root = vertices[count-1]
             for (int v = 0; v < count-1; v++) {
                 int w = StdRandom.uniform(v+1, count);
-                Edge e = new Edge(v, w);
+                UnWeightedEdge e = new UnWeightedEdge(v, w);
                 set.add(e);
-                G.addEdge(vertices[v], new Edge(vertices[v], vertices[w]));
+                G.addEdge(vertices[v], new UnWeightedEdge(vertices[v], vertices[w]));
             }
         }
 
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            Edge e = new Edge(v, w);
+            UnWeightedEdge e = new UnWeightedEdge(v, w);
             if (!set.contains(e) && v != w && label[v] <= label[w]) {
                 set.add(e);
-                G.addEdge(v, new Edge(v, w));
+                G.addEdge(v, new UnWeightedEdge(v, w));
             }
         }
 

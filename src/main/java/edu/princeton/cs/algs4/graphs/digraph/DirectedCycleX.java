@@ -16,6 +16,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
+import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -153,7 +154,7 @@ public class DirectedCycleX<T extends Edge> {
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            G.addEdge(v, new Edge(v, w));
+            G.addEdge(v, new UnWeightedEdge(v, w));
         }
 
         StdOut.println(G);

@@ -60,7 +60,7 @@ public class EulerianCycle<T extends Edge> {
     private Stack<Integer> cycle = new LinkedStack<>();  // Eulerian cycle; null if no such cycle
 
     // an undirected edge, with a field to indicate whether the edge has already been used
-    private static class MyEdge extends Edge {
+    private static class MyEdge extends UnWeightedEdge {
         private boolean isUsed;
 
         public MyEdge(int v, int w) {
@@ -270,7 +270,7 @@ public class EulerianCycle<T extends Edge> {
         // self loop
         Graph<Edge> G4 = new GraphImpl<>(V, false);
         int v4 = StdRandom.uniform(V);
-        G4.addEdge(v4, new Edge(v4, v4));
+        G4.addEdge(v4, new UnWeightedEdge(v4, v4));
         unitTest(G4, "single self loop");
 
         // union of two disjoint cycles
@@ -282,12 +282,12 @@ public class EulerianCycle<T extends Edge> {
         for (int v = 0; v < H1.V(); v++)
             for (Edge e : H1.adj(v)) {
                 int w = e.w();
-                G5.addEdge(perm[v], new Edge(perm[v],perm[w]));
+                G5.addEdge(perm[v], new UnWeightedEdge(perm[v],perm[w]));
             }
         for (int v = 0; v < H2.V(); v++)
             for (Edge e  : H2.adj(v)) {
                 int w = e.w();
-                G5.addEdge(perm[V / 2 + v], new Edge(perm[V / 2 + v],perm[V / 2 + w]));
+                G5.addEdge(perm[V / 2 + v], new UnWeightedEdge(perm[V / 2 + v],perm[V / 2 + w]));
             }
         unitTest(G5, "Union of two disjoint cycles");
 

@@ -126,7 +126,7 @@ public class SymbolGraph {
             int v = st.get(a[0]);
             for (int i = 1; i < a.length; i++) {
                 int w = st.get(a[i]);
-                graph.addEdge(v, new Edge(v, w));
+                graph.addEdge(v, new UnWeightedEdge(v, w));
             }
         }
     }

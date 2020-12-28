@@ -50,14 +50,14 @@ public class GraphGenerator {
         checkArgument(E <= (long) V*(V-1)/2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
         Graph<Edge> G = new GraphImpl<>(V, false);
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            Edge e = new Edge(v, w);
+            UnWeightedEdge e = new UnWeightedEdge(v, w);
             if ((v != w) && !set.contains(e)) {
                 set.add(e);
-                G.addEdge(v, new Edge(v, w));
+                G.addEdge(v, new UnWeightedEdge(v, w));
             }
         }
         return G;
@@ -79,7 +79,7 @@ public class GraphGenerator {
         for (int v = 0; v < V; v++)
             for (int w = v+1; w < V; w++)
                 if (StdRandom.bernoulli(p))
-                    G.addEdge(v, new Edge(v, w));
+                    G.addEdge(v, new UnWeightedEdge(v, w));
         return G;
     }
 
@@ -121,14 +121,14 @@ public class GraphGenerator {
         int[] vertices = newIndexArray(V1 + V2);
         StdRandom.shuffle(vertices);
 
-        SET<Edge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = new SETImpl<>();
         while (G.E() < E) {
             int i = StdRandom.uniform(V1);
             int j = V1 + StdRandom.uniform(V2);
-            Edge e = new Edge(vertices[i], vertices[j]);
+            UnWeightedEdge e = new UnWeightedEdge(vertices[i], vertices[j]);
             if (!set.contains(e)) {
                 set.add(e);
-                G.addEdge(vertices[i], new Edge(vertices[i], vertices[j]));
+                G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[j]));
             }
         }
         return G;
@@ -152,7 +152,7 @@ public class GraphGenerator {
         for (int i = 0; i < V1; i++)
             for (int j = 0; j < V2; j++)
                 if (StdRandom.bernoulli(p))
-                    G.addEdge(vertices[i], new Edge(vertices[i],vertices[V1+j]));
+                    G.addEdge(vertices[i], new UnWeightedEdge(vertices[i],vertices[V1+j]));
         return G;
     }
 
@@ -166,7 +166,7 @@ public class GraphGenerator {
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
         return G;
     }
@@ -181,7 +181,7 @@ public class GraphGenerator {
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[(i-1)/2]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[(i-1)/2]));
         }
         return G;
     }
@@ -196,9 +196,9 @@ public class GraphGenerator {
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
-        G.addEdge(vertices[V-1], new Edge(vertices[V-1], vertices[0]));
+        G.addEdge(vertices[V-1], new UnWeightedEdge(vertices[V-1], vertices[0]));
         return G;
     }
 
@@ -217,9 +217,9 @@ public class GraphGenerator {
         Graph<Edge> G = new GraphImpl<>(V, false);
         int[] vertices = newIntArray(E, i->StdRandom.uniform(V));
         for (int i = 0; i < E-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i],vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i],vertices[i+1]));
         }
-        G.addEdge(vertices[E-1], new Edge(vertices[E-1], vertices[0]));
+        G.addEdge(vertices[E-1], new UnWeightedEdge(vertices[E-1], vertices[0]));
         return G;
     }
 
@@ -238,7 +238,7 @@ public class GraphGenerator {
         Graph<Edge> G = new GraphImpl<>(V, false);
         int[] vertices = newIntArray(E+1, i->StdRandom.uniform(V));
         for (int i = 0; i < E; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
         return G;
     }
@@ -257,13 +257,13 @@ public class GraphGenerator {
 
         // simple cycle on V-1 vertices
         for (int i = 1; i < V-1; i++) {
-            G.addEdge(vertices[i], new Edge(vertices[i], vertices[i+1]));
+            G.addEdge(vertices[i], new UnWeightedEdge(vertices[i], vertices[i+1]));
         }
-        G.addEdge(vertices[V-1], new Edge(vertices[V-1],vertices[1]));
+        G.addEdge(vertices[V-1], new UnWeightedEdge(vertices[V-1],vertices[1]));
 
         // connect vertices[0] to every vertex on cycle
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[0], new Edge(vertices[0], vertices[i]));
+            G.addEdge(vertices[0], new UnWeightedEdge(vertices[0], vertices[i]));
         }
 
         return G;
@@ -283,7 +283,7 @@ public class GraphGenerator {
 
         // connect vertices[0] to every other vertex
         for (int i = 1; i < V; i++) {
-            G.addEdge(vertices[0], new Edge(vertices[0], vertices[i]));
+            G.addEdge(vertices[0], new UnWeightedEdge(vertices[0], vertices[i]));
         }
 
         return G;
@@ -313,7 +313,7 @@ public class GraphGenerator {
         // pick a random perfect matching
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V*k/2; i++) {
-            G.addEdge(vertices[2*i], new Edge(vertices[2*i], vertices[2*i + 1]));
+            G.addEdge(vertices[2*i], new UnWeightedEdge(vertices[2*i], vertices[2*i + 1]));
         }
         return G;
     }
@@ -351,13 +351,13 @@ public class GraphGenerator {
         // repeatedly delMin() degree 1 vertex that has the minimum index
         for (int i = 0; i < V-2; i++) {
             int v = pq.poll();
-            G.addEdge(v, new Edge(v, prufer[i]));
+            G.addEdge(v, new UnWeightedEdge(v, prufer[i]));
             degree[v]--;
             degree[prufer[i]]--;
             if (degree[prufer[i]] == 1) pq.insert(prufer[i]);
         }
         int v;
-        G.addEdge(v=pq.poll(), new Edge(v, pq.poll()));
+        G.addEdge(v=pq.poll(), new UnWeightedEdge(v, pq.poll()));
         return G;
     }
 

@@ -54,7 +54,7 @@ public class GraphReader {
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
-                G.addEdge(v, new Edge(v, w));
+                G.addEdge(v, new UnWeightedEdge(v, w));
             }
             return G;
         }

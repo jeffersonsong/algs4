@@ -10,6 +10,7 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.graphs.graph.Edge;
+import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -28,7 +29,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class FlowEdge extends Edge {
+public class FlowEdge extends UnWeightedEdge {
     // to deal with floating-point roundoff errors
     private static final double FLOATING_POINT_EPSILON = 1E-10;
 

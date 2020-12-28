@@ -238,19 +238,19 @@ public class DirectedEulerianPath<T extends Edge> {
         // add one random edge
         Graph<Edge> G3 = new GraphImpl<>(G2);
         int v3;
-        G3.addEdge(v3=StdRandom.uniform(V), new Edge(v3, StdRandom.uniform(V)));
+        G3.addEdge(v3=StdRandom.uniform(V), new UnWeightedEdge(v3, StdRandom.uniform(V)));
         unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
         Graph<Edge> G4 = new GraphImpl<>(V, true);
         int v4 = StdRandom.uniform(V);
-        G4.addEdge(v4, new Edge(v4, v4));
+        G4.addEdge(v4, new UnWeightedEdge(v4, v4));
         unitTest(G4, "single self loop");
 
         // single edge
         Graph<Edge> G5 = new GraphImpl<>(V, true);
         int v5;
-        G5.addEdge(v5=StdRandom.uniform(V), new Edge(v5, StdRandom.uniform(V)));
+        G5.addEdge(v5=StdRandom.uniform(V), new UnWeightedEdge(v5, StdRandom.uniform(V)));
         unitTest(G5, "single edge");
 
         // empty digraph

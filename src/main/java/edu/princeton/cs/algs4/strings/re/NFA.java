@@ -31,9 +31,7 @@ import edu.princeton.cs.algs4.fundamentals.bag.Bag;
 import edu.princeton.cs.algs4.fundamentals.bag.LinkedBag;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
-import edu.princeton.cs.algs4.graphs.graph.DepthFirstSearch;
-import edu.princeton.cs.algs4.graphs.graph.Edge;
-import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -81,7 +79,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 public class NFA {
 
     private static final String NEWLINE = "\n";
-    private final GraphImpl<Edge> graph;     // digraph of epsilon transitions
+    private final Graph<Edge> graph;     // digraph of epsilon transitions
     private final String regexp;     // regular expression
     private final int m;       // number of characters in regular expression
 
@@ -94,7 +92,7 @@ public class NFA {
         this.regexp = regexp;
         m = regexp.length();
         Stack<Integer> ops = new LinkedStack<>();
-        graph = new GraphImpl<Edge>(m+1, true);
+        graph = new GraphImpl<>(m+1, true);
         for (int i = 0; i < m; i++) { 
             int lp = i; 
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '|') 
@@ -105,8 +103,8 @@ public class NFA {
                 // 2-way or operator
                 if (regexp.charAt(or) == '|') { 
                     lp = ops.pop();
-                    graph.addEdge(lp, new Edge(lp, or+1));
-                    graph.addEdge(or, new Edge(or, i));
+                    graph.addEdge(lp, new UnWeightedEdge(lp, or+1));
+                    graph.addEdge(or, new UnWeightedEdge(or, i));
                 }
                 else if (regexp.charAt(or) == '(')
                     lp = or;
@@ -115,11 +113,11 @@ public class NFA {
 
             // closure operator (uses 1-character lookahead)
             if (i < m-1 && regexp.charAt(i+1) == '*') { 
-                graph.addEdge(lp, new Edge(lp, i+1));
-                graph.addEdge(i+1, new Edge(i+1,lp));
+                graph.addEdge(lp, new UnWeightedEdge(lp, i+1));
+                graph.addEdge(i+1, new UnWeightedEdge(i+1,lp));
             } 
             if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == ')') 
-                graph.addEdge(i, new Edge(i,i+1));
+                graph.addEdge(i, new UnWeightedEdge(i,i+1));
         }
         checkArgument(ops.size() == 0, "Invalid regular expression");
     } 

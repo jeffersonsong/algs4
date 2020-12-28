@@ -194,7 +194,7 @@ public class Bipartite<T extends Edge> {
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V1 + V2);
             int w = StdRandom.uniform(V1 + V2);
-            G.addEdge(v, new Edge(v, w));
+            G.addEdge(v, new UnWeightedEdge(v, w));
         }
 
         StdOut.println(G);

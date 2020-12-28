@@ -12,8 +12,8 @@ package edu.princeton.cs.algs4.graphs.graph;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
- *  The {@code DirectedEdge} class represents a weighted edge in an
- *  Edge Weighted Digraph. Each edge consists of two integers
+ *  The {@code WeightedEdge} class represents a weighted edge in an
+ *  Edge Weighted Graph. Each edge consists of two integers
  *  (naming the two vertices) and a real-value weight. The data type
  *  provides methods for accessing the two endpoints of the directed edge and
  *  the weight.
@@ -24,7 +24,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class WeightedEdge extends Edge {
+public class WeightedEdge extends UnWeightedEdge {
     private final double weight;            /* edge weight */
 
     /**

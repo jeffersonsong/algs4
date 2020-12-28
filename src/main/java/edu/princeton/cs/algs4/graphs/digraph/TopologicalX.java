@@ -202,7 +202,7 @@ public class TopologicalX<T extends Edge> {
         for (int i = 0; i < F; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
-            G1.addEdge(v, new Edge(v, w));
+            G1.addEdge(v, new UnWeightedEdge(v, w));
             G2.addEdge(v, new WeightedEdge(v, w, 0.0));
         }
 
