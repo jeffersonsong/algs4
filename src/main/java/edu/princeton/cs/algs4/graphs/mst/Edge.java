@@ -9,6 +9,7 @@
 
 package edu.princeton.cs.algs4.graphs.mst;
 
+import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -27,8 +28,9 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Kevin Wayne
  */
 
-public class Edge extends WeightedEdgeNode {
+public class Edge extends UnweightedEdgeNode {
     private final int x;
+    private final double weight;            /* edge weight */
 
     /**
      * Initializes a directed edge from vertex {@code v} to vertex {@code w} with
@@ -41,26 +43,24 @@ public class Edge extends WeightedEdgeNode {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public Edge(int x, int y, double weight) {
-        super(y, weight);
+        super(y);
         checkArgument(x >= 0, "Vertex names must be nonnegative integers");
         checkArgument(y >= 0, "Vertex names must be nonnegative integers");
         checkArgument(!Double.isNaN(weight), "Weight is NaN");
         this.x = x;
+        this.weight = weight;
     }
 
     public int v() {
         return x;
     }
 
+    public double weight() {
+        return this.weight;
+    }
+
     @Override
     public Edge copy(int x) {
-//        if (x == w()) {
-//            return new DirectedEdge(x, v(), weight());
-//        } else if (x == v()) {
-//            return this;
-//        } else {
-//            throw new IllegalArgumentException();
-//        }
         return this;
     }
 
