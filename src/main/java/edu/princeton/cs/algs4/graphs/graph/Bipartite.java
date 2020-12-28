@@ -77,7 +77,7 @@ public class Bipartite<T extends Edge> {
     private void dfs(Graph<T> G, int v) {
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.w();
+            int w = e.other(v);
 
             // short circuit if odd-length cycle found
             if (cycle != null) return;
@@ -146,7 +146,7 @@ public class Bipartite<T extends Edge> {
         if (isBipartite) {
             for (int v = 0; v < G.V(); v++) {
                 for (T e : G.adj(v)) {
-                    int w = e.w();
+                    int w = e.other(v);
                     if (color[v] == color[w]) {
                         System.err.printf("edge %d-%d with %d and %d in same side of bipartition\n", v, w, v, w);
                         return false;
