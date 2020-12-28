@@ -158,7 +158,7 @@ public class FordFulkerson {
         double excess = 0.0;
         for (FlowEdge e : G.adj(v)) {
             if (v == e.v()) excess -= e.flow();
-            else               excess += e.flow();
+            else            excess += e.flow();
         }
         return excess;
     }

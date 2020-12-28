@@ -78,8 +78,9 @@ public class FloydWarshall<T extends WeightedEdge> {
         // initialize distances using edge-weighted digraph's
         for (int v = 0; v < G.V(); v++) {
             for (T e : G.adj(v)) {
-                distTo[e.v()][e.other(v)] = e.weight();
-                edgeTo[e.v()][e.other(v)] = e;
+                int w = e.other(v);
+                distTo[v][w] = e.weight();
+                edgeTo[v][w] = e;
             }
             // in case of self-loops
             if (distTo[v][v] >= 0.0) {
