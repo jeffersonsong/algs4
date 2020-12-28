@@ -90,6 +90,9 @@ public class BinaryHeapImpl<Key> implements PQ<Key>, BinaryHeapInvariant {
         return new BinaryHeapImpl<>(keys, comparator);
     }
 
+    public static <T> PQ<T> newPQ(Comparator<T> comparator) {
+        return new BinaryHeapImpl<>(1, comparator);
+    }
     public static <T> PQ<T> newPQ(int initCapacity, Comparator<T> comparator) {
         return new BinaryHeapImpl<>(initCapacity, comparator);
     }

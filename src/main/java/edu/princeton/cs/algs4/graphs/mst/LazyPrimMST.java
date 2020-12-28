@@ -49,6 +49,8 @@ import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import java.util.Comparator;
+
 import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
 
 /**
@@ -94,7 +96,7 @@ public class LazyPrimMST implements MST {
     public LazyPrimMST(EdgeWeightedGraph G) {
         weight = 0;
         mst = new LinkedQueue<>();
-        pq = BinaryHeapImpl.minPQ();
+        pq = BinaryHeapImpl.newPQ(Comparator.comparing(Edge::weight));
         marked = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)     // run Prim from all vertices to
             if (!marked[v]) prim(G, v);     // get a minimum spanning forest

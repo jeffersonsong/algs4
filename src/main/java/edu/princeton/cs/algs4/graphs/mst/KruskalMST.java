@@ -46,6 +46,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import java.util.Comparator;
+
 import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
 
 /**
@@ -86,7 +88,7 @@ public class KruskalMST implements MST {
      */
     public KruskalMST(EdgeWeightedGraph G) {
         // more efficient to build heap by passing array of edges
-        PQ<Edge> pq = BinaryHeapImpl.minPQ();
+        PQ<Edge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(Edge::weight));
         for (Edge e : G.edges()) {
             pq.insert(e);
         }

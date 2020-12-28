@@ -27,7 +27,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Edge implements Comparable<Edge> { 
+public class Edge  {
 
     private final int v;
     private final int w;
@@ -95,10 +95,10 @@ public class Edge implements Comparable<Edge> {
      *         the weight of this is less than, equal to, or greater than the
      *         argument edge
      */
-    @Override
-    public int compareTo(Edge that) {
-        return Double.compare(this.weight, that.weight);
-    }
+//    @Override
+//    public int compareTo(Edge that) {
+//        return Double.compare(this.weight, that.weight);
+//    }
 
     /**
      * Returns a string representation of this edge.

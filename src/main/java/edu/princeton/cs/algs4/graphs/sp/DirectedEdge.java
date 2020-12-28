@@ -28,28 +28,34 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 
 public class DirectedEdge extends WeightedEdgeNode {
-    private final int v;
+    private final int x;
 
     /**
      * Initializes a directed edge from vertex {@code v} to vertex {@code w} with
      * the given {@code weight}.
-     * @param v the tail vertex
-     * @param w the head vertex
+     * @param x the tail vertex
+     * @param y the head vertex
      * @param weight the weight of the directed edge
      * @throws IllegalArgumentException if either {@code v} or {@code w}
      *    is a negative integer
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
-    public DirectedEdge(int v, int w, double weight) {
-        super(w, weight);
-        checkArgument(v >= 0, "Vertex names must be nonnegative integers");
-        checkArgument(w >= 0, "Vertex names must be nonnegative integers");
+    public DirectedEdge(int x, int y, double weight) {
+        super(y, weight);
+        checkArgument(x >= 0, "Vertex names must be nonnegative integers");
+        checkArgument(y >= 0, "Vertex names must be nonnegative integers");
         checkArgument(!Double.isNaN(weight), "Weight is NaN");
-        this.v = v;
+        this.x = x;
     }
 
     public int from() {
-        return v;
+        return x;
+    }
+
+    @Override
+    public DirectedEdge copy(int v) {
+        checkArgument(v == to());
+        return new DirectedEdge(to(), from(), weight());
     }
 
     /**

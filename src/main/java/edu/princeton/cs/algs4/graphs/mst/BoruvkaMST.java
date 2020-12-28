@@ -31,6 +31,8 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 
+import java.util.Comparator;
+
 import static edu.princeton.cs.algs4.graphs.mst.MSTValidator.check;
 
 /**
@@ -65,6 +67,7 @@ public class BoruvkaMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private final Bag<Edge> mst = new LinkedBag<>();    // edges in MST
+    private Comparator<Edge> comparator = Comparator.comparing(Edge::weight);
     private double weight;                      // weight of MST
 
     /**
@@ -126,8 +129,8 @@ public class BoruvkaMST implements MST {
     }
 
     // is the weight of edge e strictly less than that of edge f?
-    private static boolean less(Edge e, Edge f) {
-        return e.compareTo(f) < 0;
+    private boolean less(Edge e, Edge f) {
+        return comparator.compare(e, f) < 0;
     }
 
     /**
