@@ -13,6 +13,7 @@ package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -62,7 +63,7 @@ public class FordFulkerson {
      * @throws IllegalArgumentException if {@code s == t}
      * @throws IllegalArgumentException if initial flow is infeasible
      */
-    public FordFulkerson(FlowNetwork G, int s, int t) {
+    public FordFulkerson(Graph<FlowEdge> G, int s, int t) {
         V = G.V();
         validate(s);
         validate(t);
@@ -123,7 +124,7 @@ public class FordFulkerson {
     // if so, upon termination edgeTo[] will contain a parent-link representation of such a path
     // this implementation finds a shortest augmenting path (fewest number of edges),
     // which performs well both in theory and in practice
-    private boolean hasAugmentingPath(FlowNetwork G, int s, int t) {
+    private boolean hasAugmentingPath(Graph<FlowEdge> G, int s, int t) {
         edgeTo = new FlowEdge[G.V()];
         marked = new boolean[G.V()];
 
@@ -152,10 +153,8 @@ public class FordFulkerson {
         return marked[t];
     }
 
-
-
     // return excess flow at vertex v
-    private double excess(FlowNetwork G, int v) {
+    private double excess(Graph<FlowEdge> G, int v) {
         double excess = 0.0;
         for (FlowEdge e : G.adj(v)) {
             if (v == e.v()) excess -= e.flow();
@@ -165,7 +164,7 @@ public class FordFulkerson {
     }
 
     // return excess flow at vertex v
-    private boolean isFeasible(FlowNetwork G, int s, int t) {
+    private boolean isFeasible(Graph<FlowEdge> G, int s, int t) {
 
         // check that capacity constraints are satisfied
         for (int v = 0; v < G.V(); v++) {
@@ -201,7 +200,7 @@ public class FordFulkerson {
 
 
     // check optimality conditions
-    private boolean check(FlowNetwork G, int s, int t) {
+    private boolean check(Graph<FlowEdge> G, int s, int t) {
 
         // check that flow is feasible
         if (!isFeasible(G, s, t)) {
@@ -248,7 +247,7 @@ public class FordFulkerson {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int s = 0, t = V-1;
-        FlowNetwork G = FlowNetworkGenerator.simple(V, E);
+        Graph<FlowEdge> G = FlowNetworkGenerator.simple(V, E);
         StdOut.println(G);
 
         // compute maximum flow and minimum cut

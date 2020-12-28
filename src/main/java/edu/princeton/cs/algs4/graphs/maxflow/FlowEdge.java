@@ -16,7 +16,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
  *  The {@code FlowEdge} class represents a capacitated edge with a 
-  * flow in a {@link FlowNetwork}. Each edge consists of two integers
+  * flow in a FlowNetwork. Each edge consists of two integers
  *  (naming the two vertices), a real-valued capacity, and a real-valued
  *  flow. The data type provides methods for accessing the two endpoints
  *  of the directed edge and the weight. It also provides methods for

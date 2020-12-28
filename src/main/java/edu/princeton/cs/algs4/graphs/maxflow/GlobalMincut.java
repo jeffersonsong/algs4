@@ -266,11 +266,11 @@ public class GlobalMincut {
         // so it suffices to try all pairs s-v for some fixed s
         double value = Double.POSITIVE_INFINITY;
         for (int s = 0, t = 1; t < G.V(); t++) {
-            FlowNetwork F = new FlowNetwork(G.V());
+            Graph<FlowEdge> F = new GraphImpl<>(G.V(), false);
             for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
                 int v = e.v(), w = e.w();
-                F.addEdge(new FlowEdge(v, w, e.weight()));
-                F.addEdge(new FlowEdge(w, v, e.weight()));
+                F.addEdge(v, new FlowEdge(v, w, e.weight()));
+                F.addEdge(w, new FlowEdge(w, v, e.weight()));
             }
             FordFulkerson maxflow = new FordFulkerson(F, s, t);
             value = Math.min(value, maxflow.value());

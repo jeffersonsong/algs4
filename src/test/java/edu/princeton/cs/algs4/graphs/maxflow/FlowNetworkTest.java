@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FlowNetworkTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(FlowNetworkTest.class);
-    private FlowNetwork network;
+    private Graph<FlowEdge> network;
 
     @Before
     public void setUp() {
@@ -28,7 +29,7 @@ public class FlowNetworkTest {
         assertThat(network.V(), is(6));
         assertThat(network.E(), is(8));
 
-        List<FlowEdge> edgeList = toList(network.edges());
+        List<FlowEdge> edgeList = toList(FlowNetworkUtils.edges(network));
         assertThat(edgeList.size(), is(network.E()));
         LOGGER.info(network.toString());
     }

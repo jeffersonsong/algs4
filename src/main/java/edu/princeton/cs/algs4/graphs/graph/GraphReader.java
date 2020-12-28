@@ -1,7 +1,6 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
-import edu.princeton.cs.algs4.graphs.maxflow.FlowNetwork;
 import edu.princeton.cs.algs4.graphs.mst.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -147,19 +146,19 @@ public class GraphReader {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public static FlowNetwork readFlowNetwork(In in) {
+    public static Graph<FlowEdge> readFlowNetwork(In in) {
         int V = in.readInt();
         checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
 
         int E = in.readInt();
         checkArgument(E >= 0, "number of edges must be nonnegative");
 
-        FlowNetwork fn = new FlowNetwork(V);
+        Graph<FlowEdge> fn = new GraphImpl<>(V, false);
         for (int i = 0; i < E; i++) {
             int v = in.readInt();
             int w = in.readInt();
             double capacity = in.readDouble();
-            fn.addEdge(new FlowEdge(v, w, capacity));
+            fn.addEdge(v, new FlowEdge(v, w, capacity));
         }
         return fn;
     }
