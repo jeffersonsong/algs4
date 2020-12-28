@@ -82,7 +82,7 @@ public class EulerianCycle<T extends Edge> {
         // necessary condition: all vertices have even degree
         // (this test is needed or it might find an Eulerian path instead of cycle)
         for (int v = 0; v < G.V(); v++) 
-            if (G.degree(v) % 2 != 0)
+            if (G.outdegree(v) % 2 != 0)
                 return;
 
         // create local view of adjacency lists, to iterate one vertex at a time
@@ -160,7 +160,7 @@ public class EulerianCycle<T extends Edge> {
     // returns any non-isolated vertex; -1 if no such vertex
     private static int nonIsolatedVertex(Graph G) {
         for (int v = 0; v < G.V(); v++)
-            if (G.degree(v) > 0)
+            if (G.outdegree(v) > 0)
                 return v;
         return -1;
     }
@@ -183,14 +183,14 @@ public class EulerianCycle<T extends Edge> {
 
         // Condition 1: degree(v) is even for every vertex
         for (int v = 0; v < G.V(); v++)
-            if (G.degree(v) % 2 != 0)
+            if (G.outdegree(v) % 2 != 0)
                 return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
         int s = nonIsolatedVertex(G);
         BreadthFirstPaths<T> bfs = new BreadthFirstPaths<>(G, s);
         for (int v = 0; v < G.V(); v++)
-            if (G.degree(v) > 0 && !bfs.hasPathTo(v))
+            if (G.outdegree(v) > 0 && !bfs.hasPathTo(v))
                 return false;
 
         return true;

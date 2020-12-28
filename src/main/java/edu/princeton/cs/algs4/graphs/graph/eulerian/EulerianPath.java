@@ -75,7 +75,7 @@ public class EulerianPath<T extends Edge> {
         int oddDegreeVertices = 0;
         int s = nonIsolatedVertex(G);
         for (int v = 0; v < G.V(); v++) {
-            if (G.degree(v) % 2 != 0) {
+            if (G.outdegree(v) % 2 != 0) {
                 oddDegreeVertices++;
                 s = v;
             }
@@ -163,7 +163,7 @@ public class EulerianPath<T extends Edge> {
     // returns any non-isolated vertex; -1 if no such vertex
     private static <T extends Edge> int nonIsolatedVertex(Graph<T> G) {
         for (int v = 0; v < G.V(); v++)
-            if (G.degree(v) > 0)
+            if (G.outdegree(v) > 0)
                 return v;
         return -1;
     }
@@ -186,7 +186,7 @@ public class EulerianPath<T extends Edge> {
         // Condition 1: degree(v) is even except for possibly two
         int oddDegreeVertices = 0;
         for (int v = 0; v < G.V(); v++)
-            if (G.degree(v) % 2 != 0)
+            if (G.outdegree(v) % 2 != 0)
                 oddDegreeVertices++;
         if (oddDegreeVertices > 2) return false;
 
@@ -194,7 +194,7 @@ public class EulerianPath<T extends Edge> {
         int s = nonIsolatedVertex(G);
         BreadthFirstPaths<T> bfs = new BreadthFirstPaths<>(G, s);
         for (int v = 0; v < G.V(); v++)
-            if (G.degree(v) > 0 && !bfs.hasPathTo(v))
+            if (G.outdegree(v) > 0 && !bfs.hasPathTo(v))
                 return false;
 
         return true;

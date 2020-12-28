@@ -96,17 +96,6 @@ public interface Graph<T extends Edge> {
     Iterable<T> adj(int v);
 
     /**
-     * Returns the degree of vertex {@code v}.
-     *
-     * @param v the vertex
-     * @return the degree of vertex {@code v}
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
-     */
-    default int degree(int v) {
-        return outdegree(v);
-    }
-
-    /**
      * Returns the number of directed edges incident from vertex {@code v}.
      * This is known as the <em>outdegree</em> of vertex {@code v}.
      *

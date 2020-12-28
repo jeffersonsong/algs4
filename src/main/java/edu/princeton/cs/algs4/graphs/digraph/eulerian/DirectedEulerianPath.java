@@ -169,7 +169,7 @@ public class DirectedEulerianPath<T extends Edge> {
         int s = nonIsolatedVertex(G);
         BreadthFirstPaths<T> bfs = new BreadthFirstPaths<>(H, s);
         for (int v = 0; v < G.V(); v++)
-            if (H.degree(v) > 0 && !bfs.hasPathTo(v))
+            if (H.outdegree(v) > 0 && !bfs.hasPathTo(v))
                 return false;
 
         return true;

@@ -34,7 +34,7 @@ public class Eulerian<T extends Edge> {
         // Count vertices with odd degree
         int odd = 0;
         for (int v = 0; v < G.V(); v++) {
-            if (G.degree(v) % 2 != 0) {
+            if (G.outdegree(v) % 2 != 0) {
                 odd++;
             }
         }
@@ -63,7 +63,7 @@ public class Eulerian<T extends Edge> {
 
         // Check if all non-zero degree vertices are visited
         for (int v = 0; v < G.V(); v++) {
-            if (!dfs.marked(v) && G.degree(v) > 0) {
+            if (!dfs.marked(v) && G.outdegree(v) > 0) {
                 return false;
             }
         }
@@ -76,7 +76,7 @@ public class Eulerian<T extends Edge> {
 
         // Find a vertex with non-zero degree
         for (i = 0; i < g.V(); i++) {
-            if (g.degree(i) != 0) {
+            if (g.outdegree(i) != 0) {
                 return i;
             }
         }
