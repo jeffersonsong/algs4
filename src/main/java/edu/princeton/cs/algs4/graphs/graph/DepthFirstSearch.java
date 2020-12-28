@@ -78,7 +78,7 @@ public class DepthFirstSearch<T extends EdgeNode> {
         count++;
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
             if (!marked[w]) {
                 dfs(G, w);
             }

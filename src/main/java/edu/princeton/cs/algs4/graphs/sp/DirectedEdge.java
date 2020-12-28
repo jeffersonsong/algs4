@@ -48,14 +48,14 @@ public class DirectedEdge extends WeightedEdgeNode {
         this.x = x;
     }
 
-    public int from() {
+    public int v() {
         return x;
     }
 
     @Override
     public DirectedEdge copy(int v) {
-        checkArgument(v == to());
-        return new DirectedEdge(to(), from(), weight());
+        checkArgument(v == w());
+        return new DirectedEdge(w(), v(), weight());
     }
 
     /**
@@ -63,7 +63,7 @@ public class DirectedEdge extends WeightedEdgeNode {
      * @return a string representation of the directed edge
      */
     public String toString() {
-        return from() + "->" + to() + " " + String.format("%5.2f", weight());
+        return v() + "->" + w() + " " + String.format("%5.2f", weight());
     }
 
     /**

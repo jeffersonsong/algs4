@@ -105,7 +105,7 @@ public class GabowSCC<T extends EdgeNode> implements SCC {
         stack1.push(v);
         stack2.push(v);
         for (T e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
             if (!marked[w]) dfs(G, w);
             else if (id[w] == -1) {
                 while (preorder[stack2.peek()] > preorder[w])

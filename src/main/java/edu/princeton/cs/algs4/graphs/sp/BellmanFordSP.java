@@ -109,7 +109,7 @@ public class BellmanFordSP implements SP {
     // relax vertex v and put other endpoints on queue if changed
     private void relax(Graph<DirectedEdge> G, int v) {
         for (DirectedEdge e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
             if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
                 edgeTo[w] = e;
@@ -150,7 +150,7 @@ public class BellmanFordSP implements SP {
         Graph<DirectedEdge> spt = new GraphImpl<>(V, true);
         for (DirectedEdge directedEdge : edgeTo)
             if (directedEdge != null)
-                spt.addEdge(directedEdge.from(), directedEdge);
+                spt.addEdge(directedEdge.v(), directedEdge);
 
         EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
         cycle = finder.cycle();
@@ -199,7 +199,7 @@ public class BellmanFordSP implements SP {
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPathTo(v)) return null;
         Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;
@@ -243,7 +243,7 @@ public class BellmanFordSP implements SP {
             // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
             for (int v = 0; v < G.V(); v++) {
                 for (DirectedEdge e : G.adj(v)) {
-                    int w = e.to();
+                    int w = e.w();
                     if (distTo[v] + e.weight() < distTo[w]) {
                         System.err.println("edge " + e + " not relaxed");
                         return false;
@@ -255,8 +255,8 @@ public class BellmanFordSP implements SP {
             for (int w = 0; w < G.V(); w++) {
                 if (edgeTo[w] == null) continue;
                 DirectedEdge e = edgeTo[w];
-                int v = e.from();
-                if (w != e.to()) return false;
+                int v = e.v();
+                if (w != e.w()) return false;
                 if (distTo[v] + e.weight() != distTo[w]) {
                     System.err.println("edge " + e + " on shortest path not tight");
                     return false;

@@ -124,7 +124,7 @@ public class BreadthFirstPaths<T extends EdgeNode> {
         while (!q.isEmpty()) {
             int v = q.dequeue();
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (!marked[w]) {
                     edgeTo[w] = v;
                     distTo[w] = distTo[v] + 1;

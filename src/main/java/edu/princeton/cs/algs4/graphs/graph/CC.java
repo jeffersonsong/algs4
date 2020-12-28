@@ -115,7 +115,7 @@ public class CC<T extends EdgeNode> {
         id[v] = count;
         size[count]++;
         for (T e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
             if (!marked[w]) {
                 dfs(G, w);
             }

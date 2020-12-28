@@ -84,7 +84,7 @@ public class AcyclicSP implements SP {
 
     // relax edge e
     private void relax(DirectedEdge e) {
-        int v = e.from(), w = e.to();
+        int v = e.v(), w = e.w();
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
@@ -126,7 +126,7 @@ public class AcyclicSP implements SP {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
         Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;

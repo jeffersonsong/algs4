@@ -7,7 +7,7 @@ public interface EdgeNode {
     /**
      * @return adjacent vertex.
      */
-    int to();           /* adjancency info */
+    int w();           /* adjancency info */
 
     /**
      * Create a copy of edge node for given adjacent vertex.

@@ -11,7 +11,7 @@ public class UnweightedEdgeNode implements EdgeNode {
     }
 
     @Override
-    public int to() {
+    public int w() {
         return y;
     }
 

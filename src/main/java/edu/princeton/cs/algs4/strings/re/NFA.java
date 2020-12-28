@@ -174,7 +174,7 @@ public class NFA {
             }
 
             for (UnweightedEdgeNode e : graph.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 s.append(String.format("%d ", w));
             }
             s.append(NEWLINE);

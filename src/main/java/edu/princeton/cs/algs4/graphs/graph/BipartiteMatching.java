@@ -153,7 +153,7 @@ public class BipartiteMatching<T extends EdgeNode> {
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
 
                 // either (1) forward edge not in matching or (2) backward edge in matching
                 if (isResidualGraphEdge(v, w) && !marked[w]) {
@@ -289,7 +289,7 @@ public class BipartiteMatching<T extends EdgeNode> {
             if (mate(v) == -1) continue;
             boolean isEdge = false;
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (mate(v) == w) isEdge = true;
             }
             if (!isEdge) return false;
@@ -298,7 +298,7 @@ public class BipartiteMatching<T extends EdgeNode> {
         // check that inMinVertexCover() is a vertex cover
         for (int v = 0; v < V; v++)
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (!inMinVertexCover(v) && !inMinVertexCover(w)) return false;
             }
 

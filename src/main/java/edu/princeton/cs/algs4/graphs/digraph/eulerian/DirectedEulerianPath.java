@@ -91,7 +91,7 @@ public class DirectedEulerianPath<T extends EdgeNode> {
             int v = stack.pop();
             while (adj[v].hasNext()) {
                 stack.push(v);
-                v = adj[v].next().to();
+                v = adj[v].next().w();
             }
             // push vertex with no more available edges to path
             path.push(v);

@@ -103,8 +103,8 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<DirectedEdge> {
      * @param e the edge
      */
     public void addEdge(int v, DirectedEdge e) {
-        checkArgument(v == e.from());
-        int w = e.to();
+        checkArgument(v == e.v());
+        int w = e.w();
         validateVertex(v);
         validateVertex(w);
         if (adj[v][w] == null) {

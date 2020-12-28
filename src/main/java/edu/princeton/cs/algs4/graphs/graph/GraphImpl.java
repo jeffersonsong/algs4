@@ -173,16 +173,16 @@ public class GraphImpl<T extends EdgeNode> implements Graph<T> {
      */
     public void addEdge(int v, T edge) {
         validateVertex(v);
-        validateVertex(edge.to());
+        validateVertex(edge.w());
         addEdge(v, edge, this.directed);
     }
 
     private void addEdge(int v, T edge, boolean directed) {
         adj[v].add(edge);
-        indegree[edge.to()]++;
+        indegree[edge.w()]++;
 
         if (!directed)
-            addEdge(edge.to(), (T) edge.copy(v), true);
+            addEdge(edge.w(), (T) edge.copy(v), true);
         else
             E++;
     }
@@ -228,7 +228,7 @@ public class GraphImpl<T extends EdgeNode> implements Graph<T> {
         GraphImpl<T> reverse = new GraphImpl<>(V, directed);
         for (int v = 0; v < V; v++) {
             for (T e : adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 T re = (T) e.copy(v);
                 reverse.addEdge(w, re);
             }

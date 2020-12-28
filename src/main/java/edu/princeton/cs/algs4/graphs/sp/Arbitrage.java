@@ -78,9 +78,9 @@ public class Arbitrage {
         if (hasOpportunity()) {
             double stake = 1000.0;
             for (DirectedEdge e : spt.negativeCycle()) {
-                StdOut.printf("%10.5f %s ", stake, name[e.from()]);
+                StdOut.printf("%10.5f %s ", stake, name[e.v()]);
                 stake *= Math.exp(-e.weight());
-                StdOut.printf("= %10.5f %s\n", stake, name[e.to()]);
+                StdOut.printf("= %10.5f %s\n", stake, name[e.w()]);
             }
         }
         else {

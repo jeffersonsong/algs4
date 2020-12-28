@@ -94,7 +94,7 @@ public class NonrecursiveDFS<T extends EdgeNode> {
             int v = stack.peek();
             if (adj[v].hasNext()) {
                 T e = adj[v].next();
-                int w = e.to();
+                int w = e.w();
                 // StdOut.printf("check %d\n", w);
                 if (!marked[w]) {
                     // discovered vertex w for the first time

@@ -115,7 +115,7 @@ public class AssignmentProblem {
 
         // augment along alternating path
         for (DirectedEdge e : spt.pathTo(t)) {
-            int i = e.from(), j = e.to() - n;
+            int i = e.v(), j = e.w() - n;
             if (i < n) {
                 xy[i] = j;
                 yx[j] = i;

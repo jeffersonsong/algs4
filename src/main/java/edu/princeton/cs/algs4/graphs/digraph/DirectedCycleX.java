@@ -67,7 +67,7 @@ public class DirectedCycleX<T extends EdgeNode> {
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 indegree[w]--;
                 if (indegree[w] == 0) queue.enqueue(w);
             }
@@ -80,7 +80,7 @@ public class DirectedCycleX<T extends EdgeNode> {
             if (indegree[v] == 0) continue;
             else root = v;
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (indegree[w] > 0) {
                     edgeTo[w] = v;
                 }

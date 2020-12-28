@@ -138,7 +138,7 @@ public class KosarajuSharirSCC<T extends EdgeNode> implements SCC {
         marked[v] = true;
         id[v] = count;
         for (T e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
             if (!marked[w]) dfs(G, w);
         }
     }

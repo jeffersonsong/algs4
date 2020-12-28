@@ -85,7 +85,7 @@ public class BipartiteX<T extends EdgeNode> {
         while (!q.isEmpty()) {
             int v = q.dequeue();
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (!marked[w]) {
                     marked[w] = true;
                     edgeTo[w] = v;
@@ -163,7 +163,7 @@ public class BipartiteX<T extends EdgeNode> {
         if (isBipartite) {
             for (int v = 0; v < G.V(); v++) {
                 for (T e : G.adj(v)) {
-                    int w = e.to();
+                    int w = e.w();
                     if (color[v] == color[w]) {
                         System.err.printf("edge %d-%d with %d and %d in same side of bipartition\n", v, w, v, w);
                         return false;

@@ -105,7 +105,7 @@ public class EulerianPath<T extends EdgeNode> {
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
             for (T l : G.adj(v)) {
-                int w = l.to();
+                int w = l.w();
                 // careful with self loops
                 if (v == w) {
                     if (selfLoops % 2 == 0) {

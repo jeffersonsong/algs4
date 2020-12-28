@@ -81,7 +81,7 @@ public class TopologicalX<T extends EdgeNode> {
             order.enqueue(v);
             ranks[v] = count++;
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 indegree[w]--;
                 if (indegree[w] == 0) queue.enqueue(w);
             }
@@ -150,7 +150,7 @@ public class TopologicalX<T extends EdgeNode> {
             // check that ranks provide a valid topological order
             for (int v = 0; v < G.V(); v++) {
                 for (T e : G.adj(v)) {
-                    int w = e.to();
+                    int w = e.w();
                     if (rank(v) > rank(w)) {
                         System.err.printf("%d-%d: rank(%d) = %d, rank(%d) = %d\n",
                                           v, w, v, rank(v), w, rank(w));
@@ -197,7 +197,7 @@ public class TopologicalX<T extends EdgeNode> {
         Graph<DirectedEdge> G2 = new GraphImpl<>(V, true);
         for (int v = 0; v < G1.V(); v++)
             for (UnweightedEdgeNode e : G1.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 G2.addEdge(v, new DirectedEdge(v, w, 0.0));
             }
 

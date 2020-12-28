@@ -109,7 +109,7 @@ public class DijkstraSP implements SP {
 
     // relax edge e and update pq if changed
     private void relax(DirectedEdge e) {
-        int v = e.from(), w = e.to();
+        int v = e.v(), w = e.w();
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
@@ -155,7 +155,7 @@ public class DijkstraSP implements SP {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
         Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;
@@ -193,7 +193,7 @@ public class DijkstraSP implements SP {
         // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
             for (DirectedEdge e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
                     return false;
@@ -205,8 +205,8 @@ public class DijkstraSP implements SP {
         for (int w = 0; w < G.V(); w++) {
             if (edgeTo[w] == null) continue;
             DirectedEdge e = edgeTo[w];
-            int v = e.from();
-            if (w != e.to()) return false;
+            int v = e.v();
+            if (w != e.w()) return false;
             if (distTo[v] + e.weight() != distTo[w]) {
                 System.err.println("edge " + e + " on shortest path not tight");
                 return false;

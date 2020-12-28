@@ -75,7 +75,7 @@ public class EdgeWeightedDirectedCycle {
         onStack[v] = true;
         marked[v] = true;
         for (DirectedEdge e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
 
             // short circuit if directed cycle found
             if (cycle != null) return;
@@ -91,9 +91,9 @@ public class EdgeWeightedDirectedCycle {
                 cycle = new LinkedStack<>();
 
                 DirectedEdge f = e;
-                while (f.from() != w) {
+                while (f.v() != w) {
                     cycle.push(f);
-                    f = edgeTo[f.from()];
+                    f = edgeTo[f.v()];
                 }
                 cycle.push(f);
 
@@ -134,7 +134,7 @@ public class EdgeWeightedDirectedCycle {
             for (DirectedEdge e : cycle()) {
                 if (first == null) first = e;
                 if (last != null) {
-                    if (last.to() != e.from()) {
+                    if (last.w() != e.v()) {
                         System.err.printf("cycle edges %s and %s not incident\n", last, e);
                         return false;
                     }
@@ -142,7 +142,7 @@ public class EdgeWeightedDirectedCycle {
                 last = e;
             }
 
-            if (last.to() != first.from()) {
+            if (last.w() != first.v()) {
                 System.err.printf("cycle edges %s and %s not incident\n", last, first);
                 return false;
             }

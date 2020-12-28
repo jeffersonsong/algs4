@@ -76,8 +76,8 @@ public class FloydWarshall {
         // initialize distances using edge-weighted digraph's
         for (int v = 0; v < G.V(); v++) {
             for (DirectedEdge e : G.adj(v)) {
-                distTo[e.from()][e.to()] = e.weight();
-                edgeTo[e.from()][e.to()] = e;
+                distTo[e.v()][e.w()] = e.weight();
+                edgeTo[e.v()][e.w()] = e;
             }
             // in case of self-loops
             if (distTo[v][v] >= 0.0) {
@@ -185,7 +185,7 @@ public class FloydWarshall {
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPath(s, t)) return null;
         Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.from()]) {
+        for (DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.v()]) {
             path.push(e);
         }
         return path;
@@ -198,7 +198,7 @@ public class FloydWarshall {
         if (!hasNegativeCycle()) {
             for (int v = 0; v < G.V(); v++) {
                 for (DirectedEdge e : G.adj(v)) {
-                    int w = e.to();
+                    int w = e.w();
                     for (int i = 0; i < G.V(); i++) {
                         if (distTo[i][w] > distTo[i][v] + e.weight()) {
                             System.err.println("edge " + e + " is eligible");

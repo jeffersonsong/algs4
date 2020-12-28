@@ -77,7 +77,7 @@ public class Cycle<T extends EdgeNode> {
     private boolean hasSelfLoop(Graph<T> G) {
         for (int v = 0; v < G.V(); v++) {
             for (T e: G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (v == w) {
                     cycle = new LinkedStack<>();
                     cycle.push(v);
@@ -98,7 +98,7 @@ public class Cycle<T extends EdgeNode> {
 
             // check for parallel edges incident to v
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 if (marked[w]) {
                     cycle = new LinkedStack<>();
                     cycle.push(v);
@@ -111,7 +111,7 @@ public class Cycle<T extends EdgeNode> {
 
             // reset so marked[v] = false for all v
             for (T e : G.adj(v)) {
-                int w = e.to();
+                int w = e.w();
                 marked[w] = false;
             }
         }
@@ -139,7 +139,7 @@ public class Cycle<T extends EdgeNode> {
     private void dfs(Graph<T> G, int u, int v) {
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.to();
+            int w = e.w();
 
             // short circuit if cycle already found
             if (cycle != null) return;
