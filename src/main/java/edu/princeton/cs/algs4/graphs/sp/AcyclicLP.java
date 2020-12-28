@@ -26,6 +26,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -55,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class AcyclicLP {
     private final double[] distTo;          // distTo[v] = distance  of longest s->v path
-    private final DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on longest s->v path
+    private final Edge[] edgeTo;    // edgeTo[v] = last edge on longest s->v path
 
     /**
      * Computes a longest paths tree from {@code s} to every other vertex in
@@ -65,26 +66,26 @@ public class AcyclicLP {
      * @throws IllegalArgumentException if the digraph is not acyclic
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public AcyclicLP(Graph<DirectedEdge> G, int s) {
+    public AcyclicLP(Graph<Edge> G, int s) {
         checkArgument(G.isDirected());
         distTo = newDoubleArray(G.V(), Double.NEGATIVE_INFINITY);
-        edgeTo = new DirectedEdge[G.V()];
+        edgeTo = new Edge[G.V()];
 
         validateVertex(s);
 
         distTo[s] = 0.0;
 
         // relax vertices in topological order
-        Topological<DirectedEdge>  topological = new Topological<>(G);
+        Topological<Edge>  topological = new Topological<>(G);
         checkArgument(topological.hasOrder(), "Digraph is not acyclic.");
         for (int v : topological.order()) {
-            for (DirectedEdge e : G.adj(v))
+            for (Edge e : G.adj(v))
                 relax(e);
         }
     }
 
     // relax edge e, but update if you find a *longer* path
-    private void relax(DirectedEdge e) {
+    private void relax(Edge e) {
         int v = e.v(), w = e.w();
         if (distTo[w] < distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
@@ -123,11 +124,11 @@ public class AcyclicLP {
      *         as an iterable of edges, and {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge> pathTo(int v) {
+    public Iterable<Edge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
+        Stack<Edge> path = new LinkedStack<>();
+        for (Edge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;
@@ -147,14 +148,14 @@ public class AcyclicLP {
     public static void main(String[] args) {
         In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedDigraph(in);
 
         AcyclicLP lp = new AcyclicLP(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (lp.hasPathTo(v)) {
                 StdOut.printf("%d to %d (%.2f)  ", s, v, lp.distTo(v));
-                for (DirectedEdge e : lp.pathTo(v)) {
+                for (Edge e : lp.pathTo(v)) {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();

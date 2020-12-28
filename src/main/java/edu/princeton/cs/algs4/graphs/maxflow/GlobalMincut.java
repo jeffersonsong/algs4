@@ -27,7 +27,7 @@ import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
 import edu.princeton.cs.algs4.graphs.mst.NonDirectedEdgeWeightedGraphUtils;
-import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -100,7 +100,7 @@ public class GlobalMincut {
      *             is less than {@code 2}.
      * @throws IllegalArgumentException if any edge weight is negative
      */
-    public GlobalMincut(Graph<DirectedEdge> G) {
+    public GlobalMincut(Graph<Edge> G) {
         V = G.V();
         validate(G);
         minCut(G, 0);
@@ -114,14 +114,14 @@ public class GlobalMincut {
      * @throws IllegalArgumentException if the number of vertices of {@code G}
      *             is less than {@code 2} or if any edge weight is negative
      */
-    private void validate(Graph<DirectedEdge> G) {
+    private void validate(Graph<Edge> G) {
         checkArgument(G.V() >= 2, "number of vertices of G is less than 2");
-        for (DirectedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+        for (Edge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
             nonNegativeWeight(e);
         }
     }
 
-    private void nonNegativeWeight(DirectedEdge e) {
+    private void nonNegativeWeight(Edge e) {
         checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
     }
 
@@ -175,7 +175,7 @@ public class GlobalMincut {
      * @param G the edge-weighted graph
      * @param a the starting vertex
      */
-    private void minCut(Graph<DirectedEdge> G, int a) {
+    private void minCut(Graph<Edge> G, int a) {
         UF uf = new UFImpl(G.V());
         boolean[] marked = new boolean[G.V()];
         cut = new boolean[G.V()];
@@ -205,7 +205,7 @@ public class GlobalMincut {
      * @param cp the previous cut-of-the-phase
      * @return the cut-of-the-phase
      */
-    private CutPhase minCutPhase(Graph<DirectedEdge> G, boolean[] marked, CutPhase cp) {
+    private CutPhase minCutPhase(Graph<Edge> G, boolean[] marked, CutPhase cp) {
         IndexPQ<Double> pq = IndexBinaryHeapImpl.indexMaxPQ(G.V());
         for (int v = 0; v < G.V(); v++) {
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
@@ -215,13 +215,13 @@ public class GlobalMincut {
             int v = pq.poll();
             cp.s = cp.t;
             cp.t = v;
-            for (DirectedEdge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 int w = e.v() == v? e.w() : e.v();
                 if (pq.contains(w)) pq.changeKey(w, pq.keyOf(w) + e.weight());
             }
         }
         cp.weight = 0.0;
-        for (DirectedEdge e : G.adj(cp.t)) {
+        for (Edge e : G.adj(cp.t)) {
             cp.weight += e.weight();
         }
         return cp;
@@ -237,16 +237,16 @@ public class GlobalMincut {
      * @return a new edge-weighted graph for which the edges incidents on the
      *         vertices {@code s} and {@code t} were contracted
      */
-    private Graph<DirectedEdge>  contractEdge(Graph<DirectedEdge> G, int s, int t) {
-        Graph<DirectedEdge> H = new GraphImpl<DirectedEdge>(G.V(), false);
+    private Graph<Edge>  contractEdge(Graph<Edge> G, int s, int t) {
+        Graph<Edge> H = new GraphImpl<Edge>(G.V(), false);
         for (int v = 0; v < G.V(); v++) {
-            for (DirectedEdge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 int w = e.v() == v? e.w() : e.v();
                 if (v == s && w == t || v == t && w == s) continue;
                 if (v < w) {
-                    if (w == t)      H.addEdge(v, new DirectedEdge(v, s, e.weight()));
-                    else if (v == t) H.addEdge(w, new DirectedEdge(w, s, e.weight()));
-                    else             H.addEdge(v, new DirectedEdge(v, w, e.weight()));
+                    if (w == t)      H.addEdge(v, new Edge(v, s, e.weight()));
+                    else if (v == t) H.addEdge(w, new Edge(w, s, e.weight()));
+                    else             H.addEdge(v, new Edge(v, w, e.weight()));
                 }
             }
         }
@@ -259,7 +259,7 @@ public class GlobalMincut {
      * @param G the edge-weighted graph
      * @return {@code true} if optimality conditions are fine
      */
-    private boolean check(Graph<DirectedEdge> G) {
+    private boolean check(Graph<Edge> G) {
 
         // compute min st-cut for all pairs s and t
         // shortcut: s must appear on one side of global mincut,
@@ -267,7 +267,7 @@ public class GlobalMincut {
         double value = Double.POSITIVE_INFINITY;
         for (int s = 0, t = 1; t < G.V(); t++) {
             FlowNetwork F = new FlowNetwork(G.V());
-            for (DirectedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+            for (Edge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
                 int v = e.v(), w = e.w();
                 F.addEdge(new FlowEdge(v, w, e.weight()));
                 F.addEdge(new FlowEdge(w, v, e.weight()));
@@ -295,7 +295,7 @@ public class GlobalMincut {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
         GlobalMincut mc = new GlobalMincut(G);
         StdOut.print("Min cut: ");
         for (int v = 0; v < G.V(); v++) {

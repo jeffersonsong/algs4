@@ -2,7 +2,6 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,15 +19,15 @@ public abstract class MSTBaseTest {
     @Before
     public void setUp() {
         In in = new In("src/test/resources/43mst/tinyEWG.txt");
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedGraph(in);
         mst = createMST(G);
     }
 
-    protected abstract MST createMST(Graph<DirectedEdge> g);
+    protected abstract MST createMST(Graph<Edge> g);
 
     @Test
     public void test() {
-        for (DirectedEdge edge : mst.edges()) {
+        for (Edge edge : mst.edges()) {
             LOGGER.info(edge.toString());
         }
 

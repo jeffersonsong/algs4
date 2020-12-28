@@ -21,6 +21,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -51,7 +52,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 public class FloydWarshall {
     private boolean hasNegativeCycle;  // is there a negative cycle?
     private final double[][] distTo;         // distTo[v][w] = length of shortest v->w path
-    private final DirectedEdge[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
+    private final Edge[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
 
     /**
      * Computes a shortest paths tree from each vertex to to every other vertex in
@@ -59,12 +60,12 @@ public class FloydWarshall {
      * some pair of vertices, it computes a negative cycle.
      * @param G the edge-weighted digraph
      */
-    public FloydWarshall(Graph<DirectedEdge> G) {
+    public FloydWarshall(Graph<Edge> G) {
         checkArgument(G.isDirected());
 
         int V = G.V();
         distTo = new double[V][V];
-        edgeTo = new DirectedEdge[V][V];
+        edgeTo = new Edge[V][V];
 
         // initialize distances to infinity
         for (int v = 0; v < V; v++) {
@@ -75,7 +76,7 @@ public class FloydWarshall {
 
         // initialize distances using edge-weighted digraph's
         for (int v = 0; v < G.V(); v++) {
-            for (DirectedEdge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 distTo[e.v()][e.w()] = e.weight();
                 edgeTo[e.v()][e.w()] = e;
             }
@@ -120,12 +121,12 @@ public class FloydWarshall {
      * @return a negative cycle as an iterable of edges,
      * or {@code null} if there is no such cycle
      */
-    public Iterable<DirectedEdge> negativeCycle() {
+    public Iterable<Edge> negativeCycle() {
         for (int v = 0; v < distTo.length; v++) {
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
                 int V = edgeTo.length;
-                Graph<DirectedEdge> spt = new GraphImpl<>(V, true);
+                Graph<Edge> spt = new GraphImpl<>(V, true);
                 for (int w = 0; w < V; w++)
                     if (edgeTo[v][w] != null)
                         spt.addEdge(v, edgeTo[v][w]);
@@ -178,26 +179,26 @@ public class FloydWarshall {
      * @throws UnsupportedOperationException if there is a negative cost cycle
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge> path(int s, int t) {
+    public Iterable<Edge> path(int s, int t) {
         validateVertex(s);
         validateVertex(t);
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPath(s, t)) return null;
-        Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.v()]) {
+        Stack<Edge> path = new LinkedStack<>();
+        for (Edge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.v()]) {
             path.push(e);
         }
         return path;
     }
 
     // check optimality conditions
-    private boolean check(Graph<DirectedEdge> G) {
+    private boolean check(Graph<Edge> G) {
 
         // no negative cycle
         if (!hasNegativeCycle()) {
             for (int v = 0; v < G.V(); v++) {
-                for (DirectedEdge e : G.adj(v)) {
+                for (Edge e : G.adj(v)) {
                     int w = e.w();
                     for (int i = 0; i < G.V(); i++) {
                         if (distTo[i][w] > distTo[i][v] + e.weight()) {
@@ -227,13 +228,13 @@ public class FloydWarshall {
         // random graph with V vertices and E edges, parallel edges allowed
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        Graph<DirectedEdge> G = new AdjMatrixEdgeWeightedDigraph(V);
+        Graph<Edge> G = new AdjMatrixEdgeWeightedDigraph(V);
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
             double weight = Math.round(100 * (StdRandom.uniform() - 0.15)) / 100.0;
-            if (v == w) G.addEdge(v, new DirectedEdge(v, w, Math.abs(weight)));
-            else G.addEdge(v, new DirectedEdge(v, w, weight));
+            if (v == w) G.addEdge(v, new Edge(v, w, Math.abs(weight)));
+            else G.addEdge(v, new Edge(v, w, weight));
         }
 
         StdOut.println(G);
@@ -259,7 +260,7 @@ public class FloydWarshall {
         // print negative cycle
         if (spt.hasNegativeCycle()) {
             StdOut.println("Negative cost cycle:");
-            for (DirectedEdge e : spt.negativeCycle())
+            for (Edge e : spt.negativeCycle())
                 StdOut.println(e);
             StdOut.println();
         }
@@ -270,7 +271,7 @@ public class FloydWarshall {
                 for (int w = 0; w < G.V(); w++) {
                     if (spt.hasPath(v, w)) {
                         StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
-                        for (DirectedEdge e : spt.path(v, w))
+                        for (Edge e : spt.path(v, w))
                             StdOut.print(e + "  ");
                         StdOut.println();
                     }

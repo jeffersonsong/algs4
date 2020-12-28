@@ -1,6 +1,6 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 
 import java.util.NoSuchElementException;
@@ -75,13 +75,13 @@ public class GraphReader {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public static Graph<DirectedEdge> readEdgeWeightedGraph(In in) {
+    public static Graph<Edge> readEdgeWeightedGraph(In in) {
         requiresNotNull(in, "argument is null");
 
         try {
             int V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            Graph<DirectedEdge> G = new GraphImpl<>(V, false);
+            Graph<Edge> G = new GraphImpl<>(V, false);
 
             int E = in.readInt();
             checkArgument(E >= 0, "Number of edges must be nonnegative");
@@ -89,7 +89,7 @@ public class GraphReader {
                 int v = in.readInt();
                 int w = in.readInt();
                 double weight = in.readDouble();
-                DirectedEdge e = new DirectedEdge(v, w, weight);
+                Edge e = new Edge(v, w, weight);
                 G.addEdge(e.v(), e);
             }
 
@@ -112,11 +112,11 @@ public class GraphReader {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public static Graph<DirectedEdge> readEdgeWeightedDigraph(In in) {
+    public static Graph<Edge> readEdgeWeightedDigraph(In in) {
         requiresNotNull(in,"argument is null");
         try {
             int V = in.readInt();
-            Graph<DirectedEdge> G = new GraphImpl<>(V, true);
+            Graph<Edge> G = new GraphImpl<>(V, true);
             checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
 
             int E = in.readInt();
@@ -125,7 +125,7 @@ public class GraphReader {
                 int v = in.readInt();
                 int w = in.readInt();
                 double weight = in.readDouble();
-                G.addEdge(v, new DirectedEdge(v, w, weight));
+                G.addEdge(v, new Edge(v, w, weight));
             }
 
             return G;

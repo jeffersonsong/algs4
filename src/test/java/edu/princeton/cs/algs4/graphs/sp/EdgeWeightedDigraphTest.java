@@ -2,6 +2,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class EdgeWeightedDigraphTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(EdgeWeightedDigraphTest.class);
 
-    private Graph<DirectedEdge> G;
+    private Graph<Edge> G;
 
     @Before
     public void setUp() {

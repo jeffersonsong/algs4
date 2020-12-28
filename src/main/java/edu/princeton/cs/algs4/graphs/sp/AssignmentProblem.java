@@ -12,6 +12,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -93,20 +94,20 @@ public class AssignmentProblem {
     private void augment() {
 
         // build residual graph
-        Graph<DirectedEdge> G = new GraphImpl<>(2*n+2, true);
+        Graph<Edge> G = new GraphImpl<>(2*n+2, true);
         int s = 2*n, t = 2*n+1;
         for (int i = 0; i < n; i++) {
             if (xy[i] == UNMATCHED)
-                G.addEdge(s, new DirectedEdge(s, i, 0.0));
+                G.addEdge(s, new Edge(s, i, 0.0));
         }
         for (int j = 0; j < n; j++) {
             if (yx[j] == UNMATCHED)
-                G.addEdge(n+j, new DirectedEdge(n+j, t, py[j]));
+                G.addEdge(n+j, new Edge(n+j, t, py[j]));
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (xy[i] == j) G.addEdge(n+j,new DirectedEdge(n+j, i, 0.0));
-                else            G.addEdge(i, new DirectedEdge(i, n+j, reducedCost(i, j)));
+                if (xy[i] == j) G.addEdge(n+j,new Edge(n+j, i, 0.0));
+                else            G.addEdge(i, new Edge(i, n+j, reducedCost(i, j)));
             }
         }
 
@@ -114,7 +115,7 @@ public class AssignmentProblem {
         DijkstraSP spt = new DijkstraSP(G, s);
 
         // augment along alternating path
-        for (DirectedEdge e : spt.pathTo(t)) {
+        for (Edge e : spt.pathTo(t)) {
             int i = e.v(), j = e.w() - n;
             if (i < n) {
                 xy[i] = j;

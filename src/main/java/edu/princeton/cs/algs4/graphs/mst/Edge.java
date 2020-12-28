@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4.graphs.sp;
+package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -27,7 +27,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Kevin Wayne
  */
 
-public class DirectedEdge extends WeightedEdgeNode {
+public class Edge extends WeightedEdgeNode {
     private final int x;
 
     /**
@@ -40,7 +40,7 @@ public class DirectedEdge extends WeightedEdgeNode {
      *    is a negative integer
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
-    public DirectedEdge(int x, int y, double weight) {
+    public Edge(int x, int y, double weight) {
         super(y, weight);
         checkArgument(x >= 0, "Vertex names must be nonnegative integers");
         checkArgument(y >= 0, "Vertex names must be nonnegative integers");
@@ -53,7 +53,7 @@ public class DirectedEdge extends WeightedEdgeNode {
     }
 
     @Override
-    public DirectedEdge copy(int x) {
+    public Edge copy(int x) {
 //        if (x == w()) {
 //            return new DirectedEdge(x, v(), weight());
 //        } else if (x == v()) {
@@ -78,7 +78,7 @@ public class DirectedEdge extends WeightedEdgeNode {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        DirectedEdge e = new DirectedEdge(12, 34, 5.67);
+        Edge e = new Edge(12, 34, 5.67);
         StdOut.println(e);
     }
 }

@@ -2,6 +2,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +21,11 @@ public abstract class SPBaseTest {
     @Before
     public void setUp()  {
         In in = new In("src/test/resources/44sp/tinyEWD.txt");
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedDigraph(in);
         sp = createSP(G, 0);
     }
 
-    protected abstract SP createSP(Graph<DirectedEdge> G, int s);
+    protected abstract SP createSP(Graph<Edge> G, int s);
 
     @Test
     public void test() {
@@ -40,7 +41,7 @@ public abstract class SPBaseTest {
     private void verify(int v, double distTo, int size) {
         assertTrue(sp.hasPathTo(v));
         assertThat(sp.distTo(v), is(closeTo(distTo, 1e-4)));
-        List<DirectedEdge> edgeList = toList(sp.pathTo(v));
+        List<Edge> edgeList = toList(sp.pathTo(v));
         assertThat(edgeList.size(), is(size));
     }
 }

@@ -34,6 +34,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
@@ -71,11 +72,11 @@ public class BellmanFordSP implements SP {
     private static final double EPSILON = 1E-14;
 
     private final double[] distTo;               // distTo[v] = distance  of shortest s->v path
-    private final DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
+    private final Edge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private final boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
     private final Queue<Integer> queue;          // queue of vertices to relax
     private int cost;                      // number of calls to relax()
-    private Iterable<DirectedEdge> cycle;  // negative cycle (or null if no such cycle)
+    private Iterable<Edge> cycle;  // negative cycle (or null if no such cycle)
 
     /**
      * Computes a shortest paths tree from {@code s} to every other vertex in
@@ -84,11 +85,11 @@ public class BellmanFordSP implements SP {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public BellmanFordSP(Graph<DirectedEdge> G, int s) {
+    public BellmanFordSP(Graph<Edge> G, int s) {
         checkArgument(G.isDirected());
 
         distTo  = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
-        edgeTo  = new DirectedEdge[G.V()];
+        edgeTo  = new Edge[G.V()];
         onQueue = new boolean[G.V()];
 
         distTo[s] = 0.0;
@@ -107,8 +108,8 @@ public class BellmanFordSP implements SP {
     }
 
     // relax vertex v and put other endpoints on queue if changed
-    private void relax(Graph<DirectedEdge> G, int v) {
-        for (DirectedEdge e : G.adj(v)) {
+    private void relax(Graph<Edge> G, int v) {
+        for (Edge e : G.adj(v)) {
             int w = e.w();
             if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
@@ -140,17 +141,17 @@ public class BellmanFordSP implements SP {
      * @return a negative cycle reachable from the soruce vertex {@code s} 
      *    as an iterable of edges, and {@code null} if there is no such cycle
      */
-    public Iterable<DirectedEdge> negativeCycle() {
+    public Iterable<Edge> negativeCycle() {
         return cycle;
     }
 
     // by finding a cycle in predecessor graph
     private void findNegativeCycle() {
         int V = edgeTo.length;
-        Graph<DirectedEdge> spt = new GraphImpl<>(V, true);
-        for (DirectedEdge directedEdge : edgeTo)
-            if (directedEdge != null)
-                spt.addEdge(directedEdge.v(), directedEdge);
+        Graph<Edge> spt = new GraphImpl<>(V, true);
+        for (Edge edge : edgeTo)
+            if (edge != null)
+                spt.addEdge(edge.v(), edge);
 
         EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
         cycle = finder.cycle();
@@ -193,13 +194,13 @@ public class BellmanFordSP implements SP {
      *         from the source vertex {@code s}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge> pathTo(int v) {
+    public Iterable<Edge> pathTo(int v) {
         validateVertex(v);
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPathTo(v)) return null;
-        Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
+        Stack<Edge> path = new LinkedStack<>();
+        for (Edge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;
@@ -210,12 +211,12 @@ public class BellmanFordSP implements SP {
     //     or 
     // (ii)  for all edges e = v->w:            distTo[w] <= distTo[v] + e.weight()
     // (ii') for all edges e = v->w on the SPT: distTo[w] == distTo[v] + e.weight()
-    private boolean check(Graph<DirectedEdge> G, int s) {
+    private boolean check(Graph<Edge> G, int s) {
 
         // has a negative cycle
         if (hasNegativeCycle()) {
             double weight = 0.0;
-            for (DirectedEdge e : negativeCycle()) {
+            for (Edge e : negativeCycle()) {
                 weight += e.weight();
             }
             if (weight >= 0.0) {
@@ -242,7 +243,7 @@ public class BellmanFordSP implements SP {
 
             // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
             for (int v = 0; v < G.V(); v++) {
-                for (DirectedEdge e : G.adj(v)) {
+                for (Edge e : G.adj(v)) {
                     int w = e.w();
                     if (distTo[v] + e.weight() < distTo[w]) {
                         System.err.println("edge " + e + " not relaxed");
@@ -254,7 +255,7 @@ public class BellmanFordSP implements SP {
             // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
             for (int w = 0; w < G.V(); w++) {
                 if (edgeTo[w] == null) continue;
-                DirectedEdge e = edgeTo[w];
+                Edge e = edgeTo[w];
                 int v = e.v();
                 if (w != e.w()) return false;
                 if (distTo[v] + e.weight() != distTo[w]) {
@@ -283,13 +284,13 @@ public class BellmanFordSP implements SP {
     public static void main(String[] args) {
         In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedDigraph(in);
 
         BellmanFordSP sp = new BellmanFordSP(G, s);
 
         // print negative cycle
         if (sp.hasNegativeCycle()) {
-            for (DirectedEdge e : sp.negativeCycle())
+            for (Edge e : sp.negativeCycle())
                 StdOut.println(e);
         }
 
@@ -298,7 +299,7 @@ public class BellmanFordSP implements SP {
             for (int v = 0; v < G.V(); v++) {
                 if (sp.hasPathTo(v)) {
                     StdOut.printf("%d to %d (%5.2f)  ", s, v, sp.distTo(v));
-                    for (DirectedEdge e : sp.pathTo(v)) {
+                    for (Edge e : sp.pathTo(v)) {
                         StdOut.print(e + "   ");
                     }
                     StdOut.println();

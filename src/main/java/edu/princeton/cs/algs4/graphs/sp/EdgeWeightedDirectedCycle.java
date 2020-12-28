@@ -15,6 +15,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.graphs.digraph.Topological;
@@ -49,20 +50,20 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class EdgeWeightedDirectedCycle {
     private final boolean[] marked;             // marked[v] = has vertex v been marked?
-    private final DirectedEdge[] edgeTo;        // edgeTo[v] = previous edge on path to v
+    private final Edge[] edgeTo;        // edgeTo[v] = previous edge on path to v
     private final boolean[] onStack;            // onStack[v] = is vertex on the stack?
-    private Stack<DirectedEdge> cycle;    // directed cycle (or null if no such cycle)
+    private Stack<Edge> cycle;    // directed cycle (or null if no such cycle)
 
     /**
      * Determines whether the edge-weighted digraph {@code G} has a directed cycle and,
      * if so, finds such a cycle.
      * @param G the edge-weighted digraph
      */
-    public EdgeWeightedDirectedCycle(Graph<DirectedEdge> G) {
+    public EdgeWeightedDirectedCycle(Graph<Edge> G) {
         checkArgument(G.isDirected());
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
-        edgeTo  = new DirectedEdge[G.V()];
+        edgeTo  = new Edge[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v]) dfs(G, v);
 
@@ -71,10 +72,10 @@ public class EdgeWeightedDirectedCycle {
     }
 
     // check that algorithm computes either the topological order or finds a directed cycle
-    private void dfs(Graph<DirectedEdge> G, int v) {
+    private void dfs(Graph<Edge> G, int v) {
         onStack[v] = true;
         marked[v] = true;
-        for (DirectedEdge e : G.adj(v)) {
+        for (Edge e : G.adj(v)) {
             int w = e.w();
 
             // short circuit if directed cycle found
@@ -90,7 +91,7 @@ public class EdgeWeightedDirectedCycle {
             else if (onStack[w]) {
                 cycle = new LinkedStack<>();
 
-                DirectedEdge f = e;
+                Edge f = e;
                 while (f.v() != w) {
                     cycle.push(f);
                     f = edgeTo[f.v()];
@@ -119,7 +120,7 @@ public class EdgeWeightedDirectedCycle {
      * @return a directed cycle (as an iterable) if the edge-weighted digraph
      *    has a directed cycle, and {@code null} otherwise
      */
-    public Iterable<DirectedEdge> cycle() {
+    public Iterable<Edge> cycle() {
         return cycle;
     }
 
@@ -130,8 +131,8 @@ public class EdgeWeightedDirectedCycle {
         // edge-weighted digraph is cyclic
         if (hasCycle()) {
             // verify cycle
-            DirectedEdge first = null, last = null;
-            for (DirectedEdge e : cycle()) {
+            Edge first = null, last = null;
+            for (Edge e : cycle()) {
                 if (first == null) first = e;
                 if (last != null) {
                     if (last.w() != e.v()) {
@@ -163,7 +164,7 @@ public class EdgeWeightedDirectedCycle {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
-        Graph<DirectedEdge> G = new GraphImpl<>(V, true);
+        Graph<Edge> G = new GraphImpl<>(V, true);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {
@@ -173,7 +174,7 @@ public class EdgeWeightedDirectedCycle {
                 w = StdRandom.uniform(V);
             } while (v >= w);
             double weight = StdRandom.uniform();
-            G.addEdge(v, new DirectedEdge(v, w, weight));
+            G.addEdge(v, new Edge(v, w, weight));
         }
 
         // add F extra edges
@@ -181,7 +182,7 @@ public class EdgeWeightedDirectedCycle {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
             double weight = StdRandom.uniform(0.0, 1.0);
-            G.addEdge(v, new DirectedEdge(v, w, weight));
+            G.addEdge(v, new Edge(v, w, weight));
         }
 
         StdOut.println(G);
@@ -190,7 +191,7 @@ public class EdgeWeightedDirectedCycle {
         EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(G);
         if (finder.hasCycle()) {
             StdOut.print("Cycle: ");
-            for (DirectedEdge e : finder.cycle()) {
+            for (Edge e : finder.cycle()) {
                 StdOut.print(e + " ");
             }
             StdOut.println();

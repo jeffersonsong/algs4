@@ -16,7 +16,7 @@ This book can be ordered from Amazon.com at
 http://www.amazon.com/exec/obidos/ASIN/0387001638/thealgorithmrepo/
 
 */
-package edu.princeton.cs.algs4.graphs.sp;
+package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.graphs.graph.UnweightedEdgeNode;
 

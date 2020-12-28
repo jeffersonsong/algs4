@@ -3,7 +3,6 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -11,7 +10,7 @@ public class MSTValidator {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     // check optimality conditions (takes time proportional to E V lg* V)
-    public static boolean check(MST mst, Graph<DirectedEdge> G) {
+    public static boolean check(MST mst, Graph<Edge> G) {
         checkArgument(!G.isDirected());
         return checkWeight(mst) &&
                 checkSpanningForest(mst, G) &&
@@ -21,7 +20,7 @@ public class MSTValidator {
     private static boolean checkWeight(MST mst) {
         // check weight
         double totalWeight = 0.0;
-        for (DirectedEdge e : mst.edges()) {
+        for (Edge e : mst.edges()) {
             totalWeight += e.weight();
         }
         if (Math.abs(totalWeight - mst.weight()) > FLOATING_POINT_EPSILON) {
@@ -31,10 +30,10 @@ public class MSTValidator {
         return true;
     }
 
-    private static boolean checkSpanningForest(MST mst, Graph<DirectedEdge> g) {
+    private static boolean checkSpanningForest(MST mst, Graph<Edge> g) {
         // check that it is acyclic
         UF uf = new UFImpl(g.V());
-        for (DirectedEdge e : mst.edges()) {
+        for (Edge e : mst.edges()) {
             int v = e.v(), w = e.w();
             if (uf.find(v) == uf.find(w)) {
                 System.err.println("Not a forest");
@@ -45,7 +44,7 @@ public class MSTValidator {
 
         // check that it is a spanning forest
         for (int i=0; i < g.V(); i++) {
-            for (DirectedEdge e : g.adj(i)) {
+            for (Edge e : g.adj(i)) {
                 int v = e.v(), w = e.w();
                 if (uf.find(v) != uf.find(w)) {
                     System.err.println("Not a spanning forest");
@@ -56,20 +55,20 @@ public class MSTValidator {
         return true;
     }
 
-    private static boolean checkMinimalSpanningForest(MST mst, Graph<DirectedEdge> g) {
+    private static boolean checkMinimalSpanningForest(MST mst, Graph<Edge> g) {
         // check that it is a minimal spanning forest (cut optimality conditions)
-        for (DirectedEdge e : mst.edges()) {
+        for (Edge e : mst.edges()) {
 
             // all edges in MST except e
             UF uf2 = new UFImpl(g.V());
-            for (DirectedEdge f : mst.edges()) {
+            for (Edge f : mst.edges()) {
                 int x = f.v(), y = f.w();
                 if (f != e) uf2.union(x, y);
             }
 
             // check that e is min weight edge in crossing cut
             for (int i=0; i < g.V(); i++) {
-                for (DirectedEdge f : g.adj(i)) {
+                for (Edge f : g.adj(i)) {
                     int x = f.v(), y = f.w();
                     if (uf2.find(x) != uf2.find(y)) {
                         if (f.weight() < e.weight()) {

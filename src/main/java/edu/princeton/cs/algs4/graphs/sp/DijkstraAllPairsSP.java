@@ -14,6 +14,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -49,7 +50,7 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraAllPairsSP(Graph<DirectedEdge> G) {
+    public DijkstraAllPairsSP(Graph<Edge> G) {
         checkArgument(G.isDirected());
 
         all  = new DijkstraSP[G.V()];
@@ -66,7 +67,7 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      * @throws IllegalArgumentException unless {@code 0 <= t < V}
      */
-    public Iterable<DirectedEdge> path(int s, int t) {
+    public Iterable<Edge> path(int s, int t) {
         validateVertex(s);
         validateVertex(t);
         return all[s].pathTo(t);
@@ -117,7 +118,7 @@ public class DijkstraAllPairsSP {
 
         // read edge-weighted digraph
         In in = new In(args[0]);
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedDigraph(in);
 
         // compute shortest paths between all pairs of vertices
         DijkstraAllPairsSP spt = new DijkstraAllPairsSP(G);
@@ -143,7 +144,7 @@ public class DijkstraAllPairsSP {
             for (int w = 0; w < G.V(); w++) {
                 if (spt.hasPath(v, w)) {
                     StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
-                    for (DirectedEdge e : spt.path(v, w))
+                    for (Edge e : spt.path(v, w))
                         StdOut.print(e + "  ");
                     StdOut.println();
                 }

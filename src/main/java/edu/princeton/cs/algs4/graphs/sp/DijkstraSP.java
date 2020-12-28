@@ -36,6 +36,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -66,7 +67,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  */
 public class DijkstraSP implements SP {
     private final double[] distTo;          // distTo[v] = distance  of shortest s->v path
-    private final DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
+    private final Edge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
     private final IndexPQ<Double> pq;    // priority queue of vertices
 
     /**
@@ -78,17 +79,17 @@ public class DijkstraSP implements SP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraSP(Graph<DirectedEdge> G, int s) {
+    public DijkstraSP(Graph<Edge> G, int s) {
         checkArgument(G.isDirected());
 
         for (int v = 0; v < G.V(); v++) {
-            for (DirectedEdge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 checkArgument(e.weight() >= 0, "edge " + e + " has negative weight");
             }
         }
 
         distTo = newDoubleArray(G.V(), Double.POSITIVE_INFINITY);
-        edgeTo = new DirectedEdge[G.V()];
+        edgeTo = new Edge[G.V()];
 
         validateVertex(s);
 
@@ -99,7 +100,7 @@ public class DijkstraSP implements SP {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.poll();
-            for (DirectedEdge e : G.adj(v))
+            for (Edge e : G.adj(v))
                 relax(e);
         }
 
@@ -108,7 +109,7 @@ public class DijkstraSP implements SP {
     }
 
     // relax edge e and update pq if changed
-    private void relax(DirectedEdge e) {
+    private void relax(Edge e) {
         int v = e.v(), w = e.w();
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
@@ -151,11 +152,11 @@ public class DijkstraSP implements SP {
      *         as an iterable of edges, and {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge> pathTo(int v) {
+    public Iterable<Edge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<DirectedEdge> path = new LinkedStack<>();
-        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
+        Stack<Edge> path = new LinkedStack<>();
+        for (Edge e = edgeTo[v]; e != null; e = edgeTo[e.v()]) {
             path.push(e);
         }
         return path;
@@ -165,11 +166,11 @@ public class DijkstraSP implements SP {
     // check optimality conditions:
     // (i) for all edges e:            distTo[e.to()] <= distTo[e.from()] + e.weight()
     // (ii) for all edge e on the SPT: distTo[e.to()] == distTo[e.from()] + e.weight()
-    private boolean check(Graph<DirectedEdge> G, int s) {
+    private boolean check(Graph<Edge> G, int s) {
 
         // check that edge weights are nonnegative
         for (int v=0; v < G.V(); v++) {
-            for (DirectedEdge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 if (e.weight() < 0) {
                     System.err.println("negative edge weight detected");
                     return false;
@@ -192,7 +193,7 @@ public class DijkstraSP implements SP {
 
         // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
-            for (DirectedEdge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 int w = e.w();
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
@@ -204,7 +205,7 @@ public class DijkstraSP implements SP {
         // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
         for (int w = 0; w < G.V(); w++) {
             if (edgeTo[w] == null) continue;
-            DirectedEdge e = edgeTo[w];
+            Edge e = edgeTo[w];
             int v = e.v();
             if (w != e.w()) return false;
             if (distTo[v] + e.weight() != distTo[w]) {
@@ -228,7 +229,7 @@ public class DijkstraSP implements SP {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedDigraph(in);
+        Graph<Edge> G = GraphReader.readEdgeWeightedDigraph(in);
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths
@@ -239,7 +240,7 @@ public class DijkstraSP implements SP {
         for (int t = 0; t < G.V(); t++) {
             if (sp.hasPathTo(t)) {
                 StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
-                for (DirectedEdge e : sp.pathTo(t)) {
+                for (Edge e : sp.pathTo(t)) {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();
