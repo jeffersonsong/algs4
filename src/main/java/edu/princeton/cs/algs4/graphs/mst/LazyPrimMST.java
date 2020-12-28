@@ -43,7 +43,9 @@ package edu.princeton.cs.algs4.graphs.mst;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
 import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -85,18 +87,18 @@ public class LazyPrimMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private double weight;       // total weight of MST
-    private final Queue<Edge> mst;     // edges in the MST
+    private final Queue<DirectedEdge> mst;     // edges in the MST
     private final boolean[] marked;    // marked[v] = true iff v on tree
-    private final PQ<Edge> pq;      // edges with one endpoint in tree
+    private final PQ<DirectedEdge> pq;      // edges with one endpoint in tree
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
-    public LazyPrimMST(EdgeWeightedGraph G) {
+    public LazyPrimMST(Graph<DirectedEdge> G) {
         weight = 0;
         mst = new LinkedQueue<>();
-        pq = BinaryHeapImpl.newPQ(Comparator.comparing(Edge::weight));
+        pq = BinaryHeapImpl.newPQ(Comparator.comparing(DirectedEdge::weight));
         marked = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)     // run Prim from all vertices to
             if (!marked[v]) prim(G, v);     // get a minimum spanning forest
@@ -106,11 +108,11 @@ public class LazyPrimMST implements MST {
     }
 
     // run Prim's algorithm
-    private void prim(EdgeWeightedGraph G, int s) {
+    private void prim(Graph<DirectedEdge> G, int s) {
         scan(G, s);
         while (!pq.isEmpty()) {                        // better to stop when mst has V-1 edges
-            Edge e = pq.poll();                      // smallest edge on pq
-            int v = e.either(), w = e.other(v);        // two endpoints
+            DirectedEdge e = pq.poll();                      // smallest edge on pq
+            int v = e.v(), w = e.w();        // two endpoints
             assert marked[v] || marked[w];
             if (marked[v] && marked[w]) continue;      // lazy, both v and w already scanned
             mst.enqueue(e);                            // add e to MST
@@ -121,11 +123,13 @@ public class LazyPrimMST implements MST {
     }
 
     // add all edges e incident to v onto pq if the other endpoint has not yet been scanned
-    private void scan(EdgeWeightedGraph G, int v) {
+    private void scan(Graph<DirectedEdge> G, int v) {
         assert !marked[v];
         marked[v] = true;
-        for (Edge e : G.adj(v))
-            if (!marked[e.other(v)]) pq.insert(e);
+        for (DirectedEdge e : G.adj(v)) {
+            int other = e.v() == v ? e.w() : e.v();
+            if (!marked[other]) pq.insert(e);
+        }
     }
         
     /**
@@ -133,7 +137,7 @@ public class LazyPrimMST implements MST {
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
      */
-    public Iterable<Edge> edges() {
+    public Iterable<DirectedEdge> edges() {
         return mst;
     }
 
@@ -152,9 +156,9 @@ public class LazyPrimMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         LazyPrimMST mst = new LazyPrimMST(G);
-        for (Edge e : mst.edges()) {
+        for (DirectedEdge e : mst.edges()) {
             StdOut.println(e);
         }
         StdOut.printf("%.5f\n", mst.weight());

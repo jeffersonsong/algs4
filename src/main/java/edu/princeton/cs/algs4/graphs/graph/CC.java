@@ -32,11 +32,9 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
-import edu.princeton.cs.algs4.graphs.mst.Edge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
@@ -92,23 +90,6 @@ public class CC<T extends EdgeNode> {
         }
     }
 
-    /**
-     * Computes the connected components of the edge-weighted graph {@code G}.
-     *
-     * @param G the edge-weighted graph
-     */
-    public CC(EdgeWeightedGraph G) {
-        marked = new boolean[G.V()];
-        id = new int[G.V()];
-        size = new int[G.V()];
-        for (int v = 0; v < G.V(); v++) {
-            if (!marked[v]) {
-                dfs(G, v);
-                count++;
-            }
-        }
-    }
-
     // depth-first search for a Graph
     private void dfs(Graph<T> G, int v) {
         marked[v] = true;
@@ -116,19 +97,6 @@ public class CC<T extends EdgeNode> {
         size[count]++;
         for (T e : G.adj(v)) {
             int w = e.w();
-            if (!marked[w]) {
-                dfs(G, w);
-            }
-        }
-    }
-
-    // depth-first search for an EdgeWeightedGraph
-    private void dfs(EdgeWeightedGraph G, int v) {
-        marked[v] = true;
-        id[v] = count;
-        size[count]++;
-        for (Edge e : G.adj(v)) {
-            int w = e.other(v);
             if (!marked[w]) {
                 dfs(G, w);
             }

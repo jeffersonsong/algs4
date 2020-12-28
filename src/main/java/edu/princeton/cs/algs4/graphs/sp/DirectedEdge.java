@@ -53,9 +53,15 @@ public class DirectedEdge extends WeightedEdgeNode {
     }
 
     @Override
-    public DirectedEdge copy(int v) {
-        checkArgument(v == w());
-        return new DirectedEdge(w(), v(), weight());
+    public DirectedEdge copy(int x) {
+//        if (x == w()) {
+//            return new DirectedEdge(x, v(), weight());
+//        } else if (x == v()) {
+//            return this;
+//        } else {
+//            throw new IllegalArgumentException();
+//        }
+        return this;
     }
 
     /**

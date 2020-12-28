@@ -1,7 +1,8 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
-import edu.princeton.cs.algs4.graphs.mst.EdgeWeightedGraph;
+import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GlobalMincutTest {
     private GlobalMincut mc;
-    private EdgeWeightedGraph G;
+    private Graph<DirectedEdge> G;
 
     @Before
     public void setUp() {

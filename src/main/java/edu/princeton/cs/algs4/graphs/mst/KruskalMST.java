@@ -39,7 +39,9 @@ package edu.princeton.cs.algs4.graphs.mst;
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
 import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -80,25 +82,26 @@ public class KruskalMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private double weight;                        // weight of MST
-    private final Queue<Edge> mst = new LinkedQueue<>();  // edges in MST
+    private final Queue<DirectedEdge> mst = new LinkedQueue<>();  // edges in MST
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
-    public KruskalMST(EdgeWeightedGraph G) {
+    public KruskalMST(Graph<DirectedEdge> G) {
         // more efficient to build heap by passing array of edges
-        PQ<Edge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(Edge::weight));
-        for (Edge e : G.edges()) {
-            pq.insert(e);
-        }
+        PQ<DirectedEdge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(DirectedEdge::weight));
+        for (int v = 0; v < G.V(); v++)
+            for (DirectedEdge e : G.adj(v)) {
+                pq.insert(e);
+            }
 
         // run greedy algorithm
         UF uf = new UFImpl(G.V());
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
-            Edge e = pq.poll();
-            int v = e.either();
-            int w = e.other(v);
+            DirectedEdge e = pq.poll();
+            int v = e.v();
+            int w = e.w();
             if (uf.find(v) != uf.find(w)) { // v-w does not create a cycle
                 uf.union(v, w);  // merge v and w components
                 mst.enqueue(e);  // add edge e to mst
@@ -115,7 +118,7 @@ public class KruskalMST implements MST {
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
      */
-    public Iterable<Edge> edges() {
+    public Iterable<DirectedEdge> edges() {
         return mst;
     }
 
@@ -134,9 +137,9 @@ public class KruskalMST implements MST {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        EdgeWeightedGraph G = GraphReader.readEdgeWeightedGraph(in);
+        Graph<DirectedEdge> G = GraphReader.readEdgeWeightedGraph(in);
         KruskalMST mst = new KruskalMST(G);
-        for (Edge e : mst.edges()) {
+        for (DirectedEdge e : mst.edges()) {
             StdOut.println(e);
         }
         StdOut.printf("%.5f\n", mst.weight());
