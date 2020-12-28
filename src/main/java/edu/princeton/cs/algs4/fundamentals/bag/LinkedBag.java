@@ -31,6 +31,7 @@ package edu.princeton.cs.algs4.fundamentals.bag;
 
 import edu.princeton.cs.algs4.fundamentals.basic.ListIterator;
 import edu.princeton.cs.algs4.fundamentals.basic.Node;
+import edu.princeton.cs.algs4.fundamentals.basic.SingleyLinkedListUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -64,6 +65,16 @@ public class LinkedBag<Item> implements Bag<Item> {
     public LinkedBag() {
         first = null;
         n = 0;
+    }
+
+    public LinkedBag(Bag<Item> other) {
+        this();
+
+        for (Item value : other) {
+            add(value);
+        }
+
+        this.first = SingleyLinkedListUtils.reverse(this.first);
     }
 
     /**
