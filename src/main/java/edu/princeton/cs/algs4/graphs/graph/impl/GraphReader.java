@@ -57,9 +57,8 @@ public class GraphReader {
             int E = in.readInt();
             checkArgument(E >= 0, "number of edges in a Graph must be nonnegative");
             for (int i = 0; i < E; i++) {
-                int v = in.readInt();
-                int w = in.readInt();
-                G.addEdge(v, new UnWeightedEdge(v, w));
+                UnWeightedEdge edge = readUnWeightedEdge(in);
+                G.addEdge(edge.v(), edge);
             }
             return G;
         }
@@ -81,28 +80,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedGraph(In in) {
-        requiresNotNull(in, "argument is null");
-
-        try {
-            int V = in.readInt();
-            checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            Graph<WeightedEdge> G = GraphImpl.graph(V);
-
-            int E = in.readInt();
-            checkArgument(E >= 0, "Number of edges must be nonnegative");
-            for (int i = 0; i < E; i++) {
-                int v = in.readInt();
-                int w = in.readInt();
-                double weight = in.readDouble();
-                WeightedEdge e = new WeightedEdge(v, w, weight);
-                G.addEdge(e.v(), e);
-            }
-
-            return G;
-        }
-        catch (NoSuchElementException e) {
-            throw new IllegalArgumentException("invalid input format in EdgeWeightedGraph constructor", e);
-        }
+        return readEdgeWeightedGraph(in, GraphImpl::graph);
     }
 
     /**
@@ -118,25 +96,28 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedDigraph(In in) {
-        requiresNotNull(in,"argument is null");
+        return readEdgeWeightedGraph(in, GraphImpl::digraph);
+    }
+
+    public static Graph<WeightedEdge> readEdgeWeightedGraph(In in, IntFunction<Graph<WeightedEdge>> factoryMethod) {
+        requiresNotNull(in, "argument is null");
+
         try {
             int V = in.readInt();
-            Graph<WeightedEdge> G = GraphImpl.digraph(V);
-            checkArgument(V >= 0, "number of vertices in a Digraph must be nonnegative");
+            checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
+            Graph<WeightedEdge> G = factoryMethod.apply(V);
 
             int E = in.readInt();
             checkArgument(E >= 0, "Number of edges must be nonnegative");
             for (int i = 0; i < E; i++) {
-                int v = in.readInt();
-                int w = in.readInt();
-                double weight = in.readDouble();
-                G.addEdge(v, new WeightedEdge(v, w, weight));
+                WeightedEdge e = readWeightedEdge(in);
+                G.addEdge(e.v(), e);
             }
 
             return G;
         }
         catch (NoSuchElementException e) {
-            throw new IllegalArgumentException("invalid input format in EdgeWeightedDigraph constructor", e);
+            throw new IllegalArgumentException("invalid input format in EdgeWeightedGraph constructor", e);
         }
     }
 
@@ -159,12 +140,30 @@ public class GraphReader {
 
         Graph<FlowEdge> fn = GraphImpl.graph(V);
         for (int i = 0; i < E; i++) {
-            int v = in.readInt();
-            int w = in.readInt();
-            double capacity = in.readDouble();
-            fn.addEdge(v, new FlowEdge(v, w, capacity));
+            FlowEdge edge = readFlowEdge(in);
+            fn.addEdge(edge.v(), edge);
         }
         return fn;
+    }
+
+    private static UnWeightedEdge readUnWeightedEdge(In in) {
+        int v = in.readInt();
+        int w = in.readInt();
+        return new UnWeightedEdge(v, w);
+    }
+
+    private static WeightedEdge readWeightedEdge(In in) {
+        int v = in.readInt();
+        int w = in.readInt();
+        double weight = in.readDouble();
+        return new WeightedEdge(v, w, weight);
+    }
+
+    private static FlowEdge readFlowEdge(In in) {
+        int v = in.readInt();
+        int w = in.readInt();
+        double capacity = in.readDouble();
+        return new FlowEdge(v, w, capacity);
     }
 
 }

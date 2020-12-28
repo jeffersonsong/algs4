@@ -90,10 +90,22 @@ public class GraphImpl<T extends Edge> implements Graph<T> {
     private final Bag<T>[] adj;       /* adjacency info */
     private final int[] indegree;        // indegree[v] = indegree of vertex v
 
+    /**
+     * Create an empty directed graph.
+     * @param V number of vertices.
+     * @param <T> edge type.
+     * @return Empty directed graph.
+     */
     public static <T extends Edge> Graph<T> digraph(int V) {
         return new GraphImpl<>(V, true);
     }
 
+    /**
+     * Create an empty undirected graph.
+     * @param V number of vertices.
+     * @param <T> edge type.
+     * @return Empty undirected graph.
+     */
     public static <T extends Edge> Graph<T> graph(int V) {
         return new GraphImpl<>(V, false);
     }
