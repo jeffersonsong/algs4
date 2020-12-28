@@ -1,5 +1,6 @@
 package edu.princeton.cs.algs4.fundamentals.list;
 
+import edu.princeton.cs.algs4.fundamentals.basic.ListIterator;
 import edu.princeton.cs.algs4.fundamentals.basic.Node;
 
 import java.util.Iterator;
@@ -145,26 +146,5 @@ public class LinkedList2<Item> implements List<Item> {
     @Override
     public Iterator<Item> iterator() {
         return new ListIterator<>(dummyHead.next);
-    }
-
-    private static class ListIterator<Item> implements Iterator<Item> {
-        private Node<Item> current;
-
-        public ListIterator(Node<Item> current) {
-            this.current = current;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        @Override
-        public Item next() {
-            noSuchElement(!hasNext());
-            Item result = current.item;
-            current = current.next;
-            return result;
-        }
     }
 }

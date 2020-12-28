@@ -3,6 +3,7 @@ package edu.princeton.cs.algs4.fundamentals.basic;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+// an iterator, doesn't implement remove() since it's optional
 public class ListIterator<Item> implements Iterator<Item> {
     private Node<Item> current;
 
