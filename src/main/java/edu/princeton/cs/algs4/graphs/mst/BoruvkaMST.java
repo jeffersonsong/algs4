@@ -86,14 +86,12 @@ public class BoruvkaMST implements MST {
             // if edge weights are equal, ties are broken in favor of first edge in G.edges()
             DirectedEdge[] closest = new DirectedEdge[G.V()];
 
-            for (int k = 0; k < G.V(); k++) {
-                for (DirectedEdge e : G.adj(k)) {
-                    int v = e.v(), w = e.w();
-                    int i = uf.find(v), j = uf.find(w);
-                    if (i == j) continue;   // same tree
-                    if (closest[i] == null || less(e, closest[i])) closest[i] = e;
-                    if (closest[j] == null || less(e, closest[j])) closest[j] = e;
-                }
+            for (DirectedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+                int v = e.v(), w = e.w();
+                int i = uf.find(v), j = uf.find(w);
+                if (i == j) continue;   // same tree
+                if (closest[i] == null || less(e, closest[i])) closest[i] = e;
+                if (closest[j] == null || less(e, closest[j])) closest[j] = e;
             }
 
             // add newly discovered edges to MST

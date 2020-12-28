@@ -91,10 +91,9 @@ public class KruskalMST implements MST {
     public KruskalMST(Graph<DirectedEdge> G) {
         // more efficient to build heap by passing array of edges
         PQ<DirectedEdge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(DirectedEdge::weight));
-        for (int v = 0; v < G.V(); v++)
-            for (DirectedEdge e : G.adj(v)) {
-                pq.insert(e);
-            }
+        for (DirectedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+            pq.insert(e);
+        }
 
         // run greedy algorithm
         UF uf = new UFImpl(G.V());

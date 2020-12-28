@@ -26,6 +26,7 @@ import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.GraphReader;
+import edu.princeton.cs.algs4.graphs.mst.NonDirectedEdgeWeightedGraphUtils;
 import edu.princeton.cs.algs4.graphs.sp.DirectedEdge;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
 import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
@@ -115,10 +116,8 @@ public class GlobalMincut {
      */
     private void validate(Graph<DirectedEdge> G) {
         checkArgument(G.V() >= 2, "number of vertices of G is less than 2");
-        for (int i=0; i < G.V(); i++) {
-            for (DirectedEdge e : G.adj(i)) {
-                nonNegativeWeight(e);
-            }
+        for (DirectedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+            nonNegativeWeight(e);
         }
     }
 
@@ -268,12 +267,10 @@ public class GlobalMincut {
         double value = Double.POSITIVE_INFINITY;
         for (int s = 0, t = 1; t < G.V(); t++) {
             FlowNetwork F = new FlowNetwork(G.V());
-            for (int k = 0; k < G.V(); k++) {
-                for (DirectedEdge e : G.adj(k)) {
-                    int v = e.v(), w = e.w();
-                    F.addEdge(new FlowEdge(v, w, e.weight()));
-                    F.addEdge(new FlowEdge(w, v, e.weight()));
-                }
+            for (DirectedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
+                int v = e.v(), w = e.w();
+                F.addEdge(new FlowEdge(v, w, e.weight()));
+                F.addEdge(new FlowEdge(w, v, e.weight()));
             }
             FordFulkerson maxflow = new FordFulkerson(F, s, t);
             value = Math.min(value, maxflow.value());
