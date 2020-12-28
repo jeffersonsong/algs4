@@ -17,7 +17,6 @@ import edu.princeton.cs.algs4.graphs.graph.impl.DigraphGenerator;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
@@ -38,8 +37,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  Each instance method takes &Theta;(1) time.
  *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
  *  <p>
- *  See {@link DirectedCycle}, {@link DirectedCycleX}, and
- *  {@link EdgeWeightedDirectedCycle} to compute a
+ *  See {@link DirectedCycle}, and {@link DirectedCycleX} to compute a
  *  directed cycle if the digraph is not a DAG.
  *  See {@link Topological} for a recursive version that uses depth-first search.
  *  <p>

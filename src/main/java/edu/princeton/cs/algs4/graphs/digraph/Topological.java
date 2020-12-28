@@ -31,7 +31,6 @@ package edu.princeton.cs.algs4.graphs.digraph;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.SymbolGraph;
-import edu.princeton.cs.algs4.graphs.sp.EdgeWeightedDirectedCycle;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -51,8 +50,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  Each instance method takes &Theta;(1) time.
  *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
  *  <p>
- *  See {@link DirectedCycle}, {@link DirectedCycleX}, and
- *  {@link EdgeWeightedDirectedCycle} for computing a directed cycle
+ *  See {@link DirectedCycle}, and {@link DirectedCycleX} for computing a directed cycle
  *  if the digraph is not a DAG.
  *  See {@link TopologicalX} for a nonrecursive queue-based algorithm
  *  for computing a topological order of a DAG.

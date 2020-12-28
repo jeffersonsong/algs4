@@ -31,6 +31,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
+import edu.princeton.cs.algs4.graphs.digraph.DirectedCycle;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
@@ -153,7 +154,7 @@ public class BellmanFordSP<T extends WeightedEdge> implements SP {
             if (edge != null)
                 spt.addEdge(edge.v(), edge);
 
-        EdgeWeightedDirectedCycle<T> finder = new EdgeWeightedDirectedCycle<>(spt);
+        DirectedCycle<T> finder = new DirectedCycle<>(spt);
         cycle = finder.cycle();
     }
 

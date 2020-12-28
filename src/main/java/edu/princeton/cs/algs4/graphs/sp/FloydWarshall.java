@@ -19,6 +19,7 @@ package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.graphs.digraph.DirectedCycle;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.impl.AdjMatrixEdgeWeightedDigraph;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
@@ -132,7 +133,7 @@ public class FloydWarshall<T extends WeightedEdge> {
                 for (int w = 0; w < V; w++)
                     if (edgeTo[v][w] != null)
                         spt.addEdge(v, edgeTo[v][w]);
-                EdgeWeightedDirectedCycle<T> finder = new EdgeWeightedDirectedCycle<>(spt);
+                DirectedCycle<T> finder = new DirectedCycle<>(spt);
                 assert finder.hasCycle();
                 return finder.cycle();
             }
