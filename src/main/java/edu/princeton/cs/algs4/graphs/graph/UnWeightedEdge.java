@@ -33,12 +33,6 @@ public class UnWeightedEdge implements Edge, Comparable<UnWeightedEdge> {
         return w;
     }
 
-    public int other(int vertex) {
-        if      (vertex == v) return w;
-        else if (vertex == w) return v;
-        else throw new IllegalArgumentException("invalid endpoint");
-    }
-
     public UnWeightedEdge reverse() {
         return new UnWeightedEdge(w(), v());
     }

@@ -22,16 +22,6 @@ public interface Edge {
     int w();
 
     /**
-     * Returns the endpoint of this edge that is different from the given vertex.
-     *
-     * @param  vertex one endpoint of this edge
-     * @return the other endpoint of this edge
-     * @throws IllegalArgumentException if the vertex is not one of the
-     *         endpoints of this edge
-     */
-    int other(int vertex);
-
-    /**
      * @return Edge in reverse direction.
      */
     Edge reverse();
