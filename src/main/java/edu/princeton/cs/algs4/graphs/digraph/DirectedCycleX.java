@@ -94,7 +94,7 @@ public class DirectedCycleX<T extends Edge> {
             boolean[] visited = new boolean[G.V()];
             while (!visited[root]) {
                 visited[root] = true;
-                root = edgeTo[root].other(root);
+                root = edgeTo[root].v();
             }
 
             // extract cycle
@@ -102,7 +102,7 @@ public class DirectedCycleX<T extends Edge> {
             int v = root;
             do {
                 cycle.push((T)edgeTo[v]);
-                v = edgeTo[v].other(v);
+                v = edgeTo[v].v();
             } while (v != root);
         }
 
