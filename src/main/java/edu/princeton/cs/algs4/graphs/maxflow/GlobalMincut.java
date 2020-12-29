@@ -218,7 +218,7 @@ public class GlobalMincut {
             cp.s = cp.t;
             cp.t = v;
             for (WeightedEdge e : G.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 if (pq.contains(w)) pq.changeKey(w, pq.keyOf(w) + e.weight());
             }
         }
@@ -243,7 +243,7 @@ public class GlobalMincut {
         Graph<WeightedEdge> H = GraphImpl.graph(G.V());
         for (int v = 0; v < G.V(); v++) {
             for (WeightedEdge e : G.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 if (v == s && w == t || v == t && w == s) continue;
                 if (v < w) {
                     if (w == t)      H.addEdge(v, new WeightedEdge(v, s, e.weight()));
@@ -270,7 +270,7 @@ public class GlobalMincut {
         for (int s = 0, t = 1; t < G.V(); t++) {
             Graph<FlowEdge> F = GraphImpl.graph(G.V());
             for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
-                int v = e.v(), w = e.other(v);
+                int v = e.v(), w = e.w();
                 F.addEdge(v, new FlowEdge(v, w, e.weight()));
                 F.addEdge(w, new FlowEdge(w, v, e.weight()));
             }
