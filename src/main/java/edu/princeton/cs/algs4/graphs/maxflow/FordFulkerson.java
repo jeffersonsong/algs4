@@ -78,12 +78,12 @@ public class FordFulkerson {
 
             // compute bottleneck capacity
             double bottle = Double.POSITIVE_INFINITY;
-            for (int v = t; v != s; v = edgeTo[v].other(v)) {
+            for (int v = t; v != s; v = edgeTo[v].v()) {
                 bottle = Math.min(bottle, edgeTo[v].residualCapacityTo(v));
             }
 
             // augment flow
-            for (int v = t; v != s; v = edgeTo[v].other(v)) {
+            for (int v = t; v != s; v = edgeTo[v].v()) {
                 edgeTo[v].addResidualFlowTo(v, bottle); 
             }
 
@@ -138,7 +138,7 @@ public class FordFulkerson {
             int v = queue.dequeue();
 
             for (FlowEdge e : G.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
 
                 // if residual capacity from v to w
                 if (e.residualCapacityTo(w) > 0) {
@@ -224,7 +224,7 @@ public class FordFulkerson {
         double mincutValue = 0.0;
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
-                if ((v == e.v()) && inCut(e.v()) && !inCut(e.other(v)))
+                if ((v == e.v()) && inCut(e.v()) && !inCut(e.w()))
                     mincutValue += e.capacity();
             }
         }
