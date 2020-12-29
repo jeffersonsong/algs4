@@ -23,13 +23,12 @@ import edu.princeton.cs.algs4.fundamentals.dataabstract.Transaction;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.utils.io.In;
-import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 /**
  *  The {@code TopM} class provides a client that reads a sequence of
  *  transactions from standard input and prints the <em>m</em> largest ones
- *  to standard output. This implementation uses a {@link BinaryHeapImpl} of size
+ *  to standard output. This implementation uses a {@link PQIml} of size
  *  at most <em>m</em> + 1 to identify the <em>M</em> largest transactions
  *  and a {@link Stack} to output them in the proper order.
  *  <p>
@@ -45,7 +44,7 @@ public class TopM {
     private TopM() { }
 
     public static Iterable<Transaction> topM(In in, int m){
-        PQ<Transaction> pq = BinaryHeapImpl.minPQ(m + 1);
+        PQ<Transaction> pq = PQIml.minPQ(m + 1);
 
         while (in.hasNextLine()) {
             // Create an entry from the next line and put on the PQ.

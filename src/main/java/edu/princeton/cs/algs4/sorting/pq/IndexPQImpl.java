@@ -16,6 +16,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.swim;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
@@ -51,7 +53,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvariant {
+public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
     private final int maxN;        // maximum number of elements on PQ
     private int n;           // number of elements on PQ
     private final int[] pq;        // binary heap using 1-based indexing
@@ -60,12 +62,12 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
     private final Comparator<Key> comparator;  // comparator
 
     public static <T extends Comparable<T>> IndexPQ<T> indexMinPQ(int maxN) {
-        return new IndexBinaryHeapImpl<T>(maxN, Comparator.naturalOrder());
+        return new IndexPQImpl<T>(maxN, Comparator.naturalOrder());
     }
 
     public static <T extends Comparable<T>> IndexPQ<T> indexMaxPQ(int maxN) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        return new IndexBinaryHeapImpl<T>(maxN, comparator.reversed());
+        return new IndexPQImpl<T>(maxN, comparator.reversed());
     }
 
     /**
@@ -76,7 +78,7 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
      * @param comparator define the order of priority queue.
      * @throws IllegalArgumentException if {@code maxN < 0} or comparator not set.
      */
-    public IndexBinaryHeapImpl(int maxN, Comparator<Key> comparator) {
+    public IndexPQImpl(int maxN, Comparator<Key> comparator) {
         checkArgument(maxN >= 0);
         requiresNotNull(comparator);
 
@@ -134,7 +136,7 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
         checkArgument(!contains(i),"index is already in the priority queue");
         n++;
         addToLast(i, key);
-        swim(n);
+        swim(this, n);
     }
 
     private void addToLast(int i, Key key) {
@@ -152,7 +154,7 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
         noSuchElement(n == 0, "Priority queue underflow");
         int min = pq[1];
         exch(1, n--);
-        sink(1);
+        sink(this, 1, n);
         assert min == pq[n+1];
         removeLast();
         return min;
@@ -178,8 +180,8 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
         noSuchElement(!contains(i), "index is not in the priority queue");
         int index = qp[i];
         exch(index, n--);
-        swim(index);
-        sink(index);
+        swim(this, index);
+        sink(this, index, n);
         removeLast();
     }
 
@@ -234,10 +236,10 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
 
         if (cmp < 0) {
             keys[i] = key;
-            swim(qp[i]);
+            swim(this, qp[i]);
         } else if (cmp > 0) {
             keys[i] = key;
-            sink(qp[i]);
+            sink(this, qp[i], n);
         }
     }
 
@@ -279,7 +281,7 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
         // add all elements to copy of heap
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
-            copy = new IndexBinaryHeapImpl<>(pq.length - 1, comparator);
+            copy = new IndexPQImpl<>(pq.length - 1, comparator);
             for (int i = 1; i <= n; i++)
                 copy.insert(pq[i], keys[pq[i]]);
         }
@@ -302,7 +304,7 @@ public class IndexBinaryHeapImpl<Key> implements IndexPQ<Key>, BinaryHeapInvaria
         // insert a bunch of strings
         String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
 
-        IndexPQ<String> pq = new IndexBinaryHeapImpl<String>(strings.length, Comparator.naturalOrder());
+        IndexPQ<String> pq = new IndexPQImpl<String>(strings.length, Comparator.naturalOrder());
         for (int i = 0; i < strings.length; i++) {
             pq.insert(i, strings[i]);
         }

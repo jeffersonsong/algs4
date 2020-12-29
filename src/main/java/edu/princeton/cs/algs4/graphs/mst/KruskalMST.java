@@ -43,7 +43,7 @@ import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.sorting.pq.PQ;
-import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQIml;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -93,7 +93,7 @@ public class KruskalMST implements MST {
         checkArgument(!G.isDirected(), "Only applicable to undirected edge weighted graph.");
 
         // more efficient to build heap by passing array of edges
-        PQ<WeightedEdge> pq = BinaryHeapImpl.newPQ(Comparator.comparing(WeightedEdge::weight));
+        PQ<WeightedEdge> pq = PQIml.newPQ(Comparator.comparing(WeightedEdge::weight));
         for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
             pq.insert(e);
         }

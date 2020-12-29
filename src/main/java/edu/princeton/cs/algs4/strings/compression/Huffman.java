@@ -23,7 +23,7 @@
 package edu.princeton.cs.algs4.strings.compression;
 
 import edu.princeton.cs.algs4.sorting.pq.PQ;
-import edu.princeton.cs.algs4.sorting.pq.BinaryHeapImpl;
+import edu.princeton.cs.algs4.sorting.pq.PQIml;
 import edu.princeton.cs.algs4.utils.io.BinaryStdIn;
 import edu.princeton.cs.algs4.utils.io.BinaryStdOut;
 
@@ -119,7 +119,7 @@ public class Huffman {
     private static Node buildTrie(int[] freq) {
 
         // initialze priority queue with singleton trees
-        PQ<Node> pq = BinaryHeapImpl.minPQ();
+        PQ<Node> pq = PQIml.minPQ();
         for (char c = 0; c < R; c++)
             if (freq[c] > 0)
                 pq.insert(new Node(c, freq[c], null, null));

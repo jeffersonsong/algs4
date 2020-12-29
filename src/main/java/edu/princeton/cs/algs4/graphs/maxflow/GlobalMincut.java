@@ -29,7 +29,7 @@ import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.graphs.mst.NonDirectedEdgeWeightedGraphUtils;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.sorting.pq.IndexPQ;
-import edu.princeton.cs.algs4.sorting.pq.IndexBinaryHeapImpl;
+import edu.princeton.cs.algs4.sorting.pq.IndexPQImpl;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -208,7 +208,7 @@ public class GlobalMincut {
      * @return the cut-of-the-phase
      */
     private CutPhase minCutPhase(Graph<WeightedEdge> G, boolean[] marked, CutPhase cp) {
-        IndexPQ<Double> pq = IndexBinaryHeapImpl.indexMaxPQ(G.V());
+        IndexPQ<Double> pq = IndexPQImpl.indexMaxPQ(G.V());
         for (int v = 0; v < G.V(); v++) {
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
         }
