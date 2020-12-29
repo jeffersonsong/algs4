@@ -202,7 +202,7 @@ public class IndexFibonacciMinPQ<Key> implements IndexPQ<Key> {
 	 * @return the key associated with index i
 	 */
 	
-	public Key keyOf(int i) {
+	public Key key(int i) {
 		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		return nodes[i].key;
@@ -218,11 +218,12 @@ public class IndexFibonacciMinPQ<Key> implements IndexPQ<Key> {
 	 * @throws java.util.NoSuchElementException if the index has no key associated with
 	 */
 	
-	public void changeKey(int i, Key key) {
+	public boolean update(int i, Key key) {
 		checkIndexInRange(i, 0, n);
 		checkArgument(contains(i), "Specified index is not in the queue");
 		if (greater(key, nodes[i].key))  increaseKey(i, key);
 		else 							 decreaseKey(i, key);
+		return true;
 	}
 
 	/**

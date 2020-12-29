@@ -215,7 +215,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
-    public Key keyOf(int i) {
+    public Key key(int i) {
         validateIndex(i);
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         else return keys[i];
@@ -229,7 +229,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
-    public void changeKey(int i, Key key) {
+    public boolean update(int i, Key key) {
         validateIndex(i);
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         int cmp = comparator.compare(key, keys[i]);
@@ -237,9 +237,13 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
         if (cmp < 0) {
             keys[i] = key;
             swim(this, qp[i]);
+            return true;
         } else if (cmp > 0) {
             keys[i] = key;
             sink(this, qp[i], n);
+            return true;
+        } else {
+            return false;
         }
     }
 

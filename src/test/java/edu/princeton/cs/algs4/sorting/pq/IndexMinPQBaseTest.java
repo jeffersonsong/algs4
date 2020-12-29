@@ -36,7 +36,7 @@ public class IndexMinPQBaseTest {
 //            assertFalse(pq.contains(i));
 
         assertThat(pq.peek(), is(7));
-        pq.changeKey(6, 'B');
+        pq.update(6, 'B');
         assertThat(pq.peek(), is(6));
     }
 
@@ -55,7 +55,7 @@ public class IndexMinPQBaseTest {
 //        for (int i = 9; i < 12; i++)
 //            assertFalse(pq.contains(i));
 
-        pq.changeKey(0, 'X');
+        pq.update(0, 'X');
         assertThat(pq.peek(), is(7));
     }
 }

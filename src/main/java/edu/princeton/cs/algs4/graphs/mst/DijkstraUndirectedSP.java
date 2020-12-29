@@ -122,7 +122,7 @@ public class DijkstraUndirectedSP {
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
-            if (pq.contains(w)) pq.changeKey(w, distTo[w]);
+            if (pq.contains(w)) pq.update(w, distTo[w]);
             else                pq.insert(w, distTo[w]);
         }
     }

@@ -219,7 +219,7 @@ public class GlobalMincut {
             cp.t = v;
             for (WeightedEdge e : G.adj(v)) {
                 int w = e.w();
-                if (pq.contains(w)) pq.changeKey(w, pq.keyOf(w) + e.weight());
+                if (pq.contains(w)) pq.update(w, pq.key(w) + e.weight());
             }
         }
         cp.weight = 0.0;

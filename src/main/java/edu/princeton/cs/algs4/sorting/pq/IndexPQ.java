@@ -36,7 +36,7 @@ public interface IndexPQ<Key> extends Iterable<Integer> {
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
-    Key keyOf(int i);
+    Key key(int i);
 
     /**
      * Removes a minimum key and returns its associated index.
@@ -75,10 +75,11 @@ public interface IndexPQ<Key> extends Iterable<Integer> {
      *
      * @param  i the index of the key to change
      * @param  key change the key associated with index {@code i} to this key
+     * @return true if key value changed.
      * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
      * @throws NoSuchElementException no key is associated with index {@code i}
      */
-    void changeKey(int i, Key key);
+    boolean update(int i, Key key);
 
     /**
      * Is {@code i} an index on this priority queue?
