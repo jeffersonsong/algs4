@@ -208,42 +208,9 @@ public class IndexMultiwayMinPQ<Key> implements IndexPQ<Key> {
 
 		Key tmp = keys[i+d];
 		keys[i+d] = key;
-		if (comp.compare(key, tmp) <= 0) { swim(qp[i+d]);}
-		else 							 { sink(qp[i+d]);}
-	}
-
-	/**
-	 * Decreases the key associated with index i to the given key
-	 * Worst case is O(log-d(n))
-	 * @param i an index
-	 * @param key the key to associate with i
-	 * @throws java.lang.IllegalArgumentException if the specified index is invalid
-	 * @throws java.util.NoSuchElementException if the index has no key associated with
-	 * @throws java.lang.IllegalArgumentException if the given key is greater than the current key
-	 */
-	public void decreaseKey(int i, Key key) {
-		checkIndexInRange(i, 0, nmax);
-		checkArgument(contains(i), "Specified index is not in the queue");
-		checkArgument(comp.compare(keys[i+d], key) > 0, "Calling with this argument would not decrease the Key");
-		keys[i+d] = key;
-		swim(qp[i+d]);
-	}
-
-	/**
-	 * Increases the key associated with index i to the given key
-	 * Worst case is O(d*log-d(n))
-	 * @param i an index
-	 * @param key the key to associate with i
-	 * @throws java.lang.IllegalArgumentException if the specified index is invalid
-	 * @throws java.util.NoSuchElementException if the index has no key associated with
-	 * @throws java.lang.IllegalArgumentException if the given key is lower than the current key
-	 */
-	public void increaseKey(int i, Key key) {
-		checkIndexInRange(i, 0, nmax);
-		checkArgument(contains(i), "Specified index is not in the queue");
-		checkArgument(comp.compare(keys[i+d], key) < 0, "Calling with this argument would not increase the Key");
-		keys[i+d] = key;
-		sink(qp[i+d]);
+		int cmp = comp.compare(key, tmp);
+		if (cmp < 0) swim(qp[i+d]);
+		else if(cmp > 0) sink(qp[i+d]);
 	}
 
 	/**
