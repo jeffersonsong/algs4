@@ -120,7 +120,7 @@ public class HopcroftKarp<T extends Edge> {
                     else {
                         // process edge v-w only if it is an edge in level graph
                         T e = adj[v].next();
-                        int w = e.other(v);
+                        int w = e.w();
                         if (!isLevelGraphEdge(v, w)) continue;
 
                         // add w to augmenting path
@@ -207,7 +207,7 @@ public class HopcroftKarp<T extends Edge> {
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
             for (T e : G.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 // forward edge not in matching or backwards edge in matching
                 if (isResidualGraphEdge(v, w)) {
                     if (!marked[w]) {
@@ -342,7 +342,7 @@ public class HopcroftKarp<T extends Edge> {
             if (mate(v) == -1) continue;
             boolean isEdge = false;
             for (T e : G.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 if (mate(v) == w) isEdge = true;
             }
             if (!isEdge) return false;
@@ -351,7 +351,7 @@ public class HopcroftKarp<T extends Edge> {
         // check that inMinVertexCover() is a vertex cover
         for (int v = 0; v < V; v++)
             for (T e : G.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 if (!inMinVertexCover(v) && !inMinVertexCover(w)) return false;
             }
 
