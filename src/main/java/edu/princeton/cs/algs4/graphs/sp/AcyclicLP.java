@@ -87,7 +87,7 @@ public class AcyclicLP {
 
     // relax edge e, but update if you find a *longer* path
     private void relax(WeightedEdge e) {
-        int v = e.v(), w = e.other(v);
+        int v = e.v(), w = e.w();
         if (distTo[w] < distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;

@@ -111,7 +111,7 @@ public class BellmanFordSP<T extends WeightedEdge> implements SP {
     // relax vertex v and put other endpoints on queue if changed
     private void relax(Graph<T> G, int v) {
         for (T e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
             if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
                 edgeTo[w] = e;
@@ -244,7 +244,7 @@ public class BellmanFordSP<T extends WeightedEdge> implements SP {
             // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
             for (int v = 0; v < G.V(); v++) {
                 for (WeightedEdge e : G.adj(v)) {
-                    int w = e.other(v);
+                    int w = e.w();
                     if (distTo[v] + e.weight() < distTo[w]) {
                         System.err.println("edge " + e + " not relaxed");
                         return false;
