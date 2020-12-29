@@ -32,6 +32,7 @@ import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * The {@code CPM} class provides a client that solves the
@@ -77,7 +78,10 @@ public class CPM {
 
         JobSchedule[] schedules = getJobSchedules(jobs, lp);
 
-        Arrays.sort(schedules);
+        Comparator<JobSchedule> comparator = Comparator.comparing(JobSchedule::start)
+                .thenComparing(JobSchedule::end);
+
+        Arrays.sort(schedules, comparator);
 
         return schedules;
     }

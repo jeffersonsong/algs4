@@ -142,7 +142,6 @@ public class CollisionSystem {
         private final double time;         // time that event is scheduled to occur
         private final Particle a, b;       // particles involved in event, possibly null
         private final int countA, countB;  // collision counts at event creation
-                
         
         // create a new event to occur at time t involving a and b
         public Event(double t, Particle a, Particle b) {

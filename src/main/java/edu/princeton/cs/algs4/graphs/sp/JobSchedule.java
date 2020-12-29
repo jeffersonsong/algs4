@@ -1,6 +1,6 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
-public class JobSchedule implements Comparable<JobSchedule> {
+public class JobSchedule {
     int id;
     double start, end;
 
@@ -10,11 +10,12 @@ public class JobSchedule implements Comparable<JobSchedule> {
         this.end = end;
     }
 
-    @Override
-    public int compareTo(JobSchedule that) {
-        int cmp = Double.compare(this.start, that.start);
-        if (cmp != 0) return cmp;
-        return Double.compare(this.end, that.end);
+    public double start() {
+        return start;
+    }
+
+    public double end() {
+        return end;
     }
 
     public String toString() {
