@@ -35,7 +35,7 @@ public class MSTValidator {
         // check that it is acyclic
         UF uf = new UFImpl(g.V());
         for (WeightedEdge e : mst.edges()) {
-            int v = e.v(), w = e.other(v);
+            int v = e.v(), w = e.w();
             if (uf.find(v) == uf.find(w)) {
                 System.err.println("Not a forest");
                 return false;
@@ -46,7 +46,7 @@ public class MSTValidator {
         // check that it is a spanning forest
         for (int i=0; i < g.V(); i++) {
             for (WeightedEdge e : g.adj(i)) {
-                int v = e.v(), w = e.other(v);
+                int v = e.v(), w = e.w();
                 if (uf.find(v) != uf.find(w)) {
                     System.err.println("Not a spanning forest");
                     return false;
@@ -63,14 +63,14 @@ public class MSTValidator {
             // all edges in MST except e
             UF uf2 = new UFImpl(g.V());
             for (WeightedEdge f : mst.edges()) {
-                int x = f.v(), y = f.other(x);
+                int x = f.v(), y = f.w();
                 if (f != e) uf2.union(x, y);
             }
 
             // check that e is min weight edge in crossing cut
             for (int i=0; i < g.V(); i++) {
                 for (WeightedEdge f : g.adj(i)) {
-                    int x = f.v(), y = f.other(x);
+                    int x = f.v(), y = f.w();
                     if (uf2.find(x) != uf2.find(y)) {
                         if (f.weight() < e.weight()) {
                             System.err.println("Edge " + f + " violates cut optimality conditions");

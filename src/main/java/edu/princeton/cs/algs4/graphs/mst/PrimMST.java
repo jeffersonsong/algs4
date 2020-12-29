@@ -122,7 +122,7 @@ public class PrimMST implements MST {
     private void scan(Graph<WeightedEdge> G, int v) {
         marked[v] = true;
         for (WeightedEdge e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
             if (marked[w]) continue;         // v-w is obsolete edge
             if (e.weight() < distTo[w]) {
                 distTo[w] = e.weight();

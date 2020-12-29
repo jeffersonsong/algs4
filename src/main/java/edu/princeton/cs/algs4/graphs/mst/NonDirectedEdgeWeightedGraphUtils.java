@@ -17,7 +17,7 @@ public class NonDirectedEdgeWeightedGraphUtils {
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
             for (WeightedEdge e : G.adj(v)) {
-                int other = e.other(v);
+                int other = e.w();
                 if (other > v) {
                     list.add(e);
                 }
