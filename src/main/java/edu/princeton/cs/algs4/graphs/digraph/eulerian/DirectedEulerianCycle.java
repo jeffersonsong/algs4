@@ -90,7 +90,7 @@ public class DirectedEulerianCycle<T extends Edge> {
             int v = stack.pop();
             while (adj[v].hasNext()) {
                 stack.push(v);
-                v = adj[v].next().other(v);
+                v = adj[v].next().w();
             }
             // add vertex with no more leaving edges to cycle
             cycle.push(v);
@@ -247,12 +247,12 @@ public class DirectedEulerianCycle<T extends Edge> {
         Graph<Edge> G5 = GraphImpl.digraph(V);
         for (int v = 0; v < H1.V(); v++)
             for (Edge e : H1.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 G5.addEdge(perm[v], new UnWeightedEdge(perm[v], perm[w]));
             }
         for (int v = 0; v < H2.V(); v++)
             for (Edge e : H2.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 G5.addEdge(perm[V / 2 + v], new UnWeightedEdge(perm[V / 2 + v], perm[V / 2 + w]));
             }
         unitTest(G5, "Union of two disjoint cycles");
