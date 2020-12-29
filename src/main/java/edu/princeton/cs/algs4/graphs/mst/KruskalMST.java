@@ -95,7 +95,7 @@ public class KruskalMST implements MST {
         // more efficient to build heap by passing array of edges
         PQ<WeightedEdge> pq = PQIml.newPQ(Comparator.comparing(WeightedEdge::weight));
         for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
-            pq.insert(e);
+            pq.add(e);
         }
 
         // run greedy algorithm

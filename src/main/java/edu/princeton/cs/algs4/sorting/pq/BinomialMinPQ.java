@@ -66,7 +66,7 @@ public class BinomialMinPQ<Key> implements PQ<Key> {
 	 */
 	public BinomialMinPQ(Key[] a) {
 		comp = new MyComparator();
-		for (Key k : a) insert(k);
+		for (Key k : a) add(k);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class BinomialMinPQ<Key> implements PQ<Key> {
 	 */
 	public BinomialMinPQ(Comparator<Key> C, Key[] a) {
 		comp = C;
-		for (Key k : a) insert(k);
+		for (Key k : a) add(k);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class BinomialMinPQ<Key> implements PQ<Key> {
 	 * Worst case is O(log(n))
 	 * @param key a Key
 	 */
-	public void insert(Key key) {
+	public void add(Key key) {
 		Node x = new Node();
 		x.key = key;
 		x.order = 0;

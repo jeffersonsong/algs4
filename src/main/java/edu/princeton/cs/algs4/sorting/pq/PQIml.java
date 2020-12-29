@@ -166,7 +166,7 @@ public class PQIml<Key> implements PQ<Key>, BinaryHeap {
      * @param  x the key to add to this priority queue
      */
     @Override
-    public void insert(Key x) {
+    public void add(Key x) {
         // double size of array if necessary
         if (n == pq.length - 1) resize(2 * pq.length);
 
@@ -261,7 +261,7 @@ public class PQIml<Key> implements PQ<Key>, BinaryHeap {
         public HeapIterator() {
             copy = new PQIml<>(size(), comparator);
             for (int i = 1; i <= n; i++) {
-                copy.insert(pq[i]);
+                copy.add(pq[i]);
             }
         }
 

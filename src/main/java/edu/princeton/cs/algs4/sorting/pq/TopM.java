@@ -50,7 +50,7 @@ public class TopM {
             // Create an entry from the next line and put on the PQ.
             String line = in.readLine();
             Transaction transaction = new Transaction(line);
-            pq.insert(transaction);
+            pq.add(transaction);
 
             // remove minimum if m+1 entries on the PQ
             if (pq.size() > m)

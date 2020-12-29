@@ -3,19 +3,17 @@ package edu.princeton.cs.algs4.sorting.pq;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.PriorityQueue;
 
-public class MinPQBaseTest {
-    private PQ<Character> pq;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+public class JavaPriorityQueueTest {
+    private PriorityQueue<Character> pq;
 
     @Before
     public void setUp() {
-        pq = createMinPQ();
-    }
-
-    protected PQ<Character> createMinPQ() {
-        return PQIml.minPQ();
+        pq = new PriorityQueue<>();
     }
 
     @Test
@@ -23,6 +21,7 @@ public class MinPQBaseTest {
         pq.add('P');
         pq.add('Q');
         pq.add('E');
+        assertThat(pq.peek(), is('E'));
         assertThat(pq.poll(), is('E'));
 
         pq.add('X');

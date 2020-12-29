@@ -87,7 +87,7 @@ public class MultiwayMinPQ<Key> implements PQ<Key> {
 		order = 1;
 		keys = (Key[]) new Comparable[d << 1];
 		comp = new MyComparator();
-		for (Key key : a) insert(key);
+		for (Key key : a) add(key);
 	}
 	
     /**
@@ -105,7 +105,7 @@ public class MultiwayMinPQ<Key> implements PQ<Key> {
 		order = 1;
 		keys = (Key[]) new Comparable[d << 1];
 		comp = comparator;
-		for (Key key : a) insert(key);
+		for (Key key : a) add(key);
 	}
 
         /**
@@ -131,7 +131,7 @@ public class MultiwayMinPQ<Key> implements PQ<Key> {
 	 * Worst case is O(log-d(n))
 	 * @param key a Key
 	 */
-	public void insert(Key key) {
+	public void add(Key key) {
 		keys[n+d] = key;
 		swim(n++);
 		if (n == keys.length-d) {

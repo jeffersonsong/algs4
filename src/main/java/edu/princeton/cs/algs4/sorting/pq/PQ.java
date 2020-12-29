@@ -12,7 +12,7 @@ public interface PQ<Key> extends Iterable<Key> {
      * Inserts the specified element into this priority queue.
      * @param x item.
      */
-    void insert(Key x);
+    void add(Key x);
 
     /**
      * Retrieves and removes the head of this queue.

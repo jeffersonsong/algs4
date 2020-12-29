@@ -122,14 +122,14 @@ public class Huffman {
         PQ<Node> pq = PQIml.minPQ();
         for (char c = 0; c < R; c++)
             if (freq[c] > 0)
-                pq.insert(new Node(c, freq[c], null, null));
+                pq.add(new Node(c, freq[c], null, null));
 
         // merge two smallest trees
         while (pq.size() > 1) {
             Node left  = pq.poll();
             Node right = pq.poll();
             Node parent = new Node('\0', left.freq + right.freq, left, right);
-            pq.insert(parent);
+            pq.add(parent);
         }
         return pq.poll();
     }

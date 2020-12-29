@@ -62,14 +62,14 @@ public class CollisionSystem {
         for (Particle particle : particles) {
             double dt = a.timeToHit(particle);
             if (t + dt <= limit)
-                pq.insert(new Event(t + dt, a, particle));
+                pq.add(new Event(t + dt, a, particle));
         }
 
         // particle-wall collisions
         double dtX = a.timeToHitVerticalWall();
         double dtY = a.timeToHitHorizontalWall();
-        if (t + dtX <= limit) pq.insert(new Event(t + dtX, a, null));
-        if (t + dtY <= limit) pq.insert(new Event(t + dtY, null, a));
+        if (t + dtX <= limit) pq.add(new Event(t + dtX, a, null));
+        if (t + dtY <= limit) pq.add(new Event(t + dtY, null, a));
     }
 
     // redraw all particles
@@ -81,7 +81,7 @@ public class CollisionSystem {
         StdDraw.show();
         StdDraw.pause(20);
         if (t < limit) {
-            pq.insert(new Event(t + 1.0 / HZ, null, null));
+            pq.add(new Event(t + 1.0 / HZ, null, null));
         }
     }
 
@@ -98,7 +98,7 @@ public class CollisionSystem {
         for (Particle value : particles) {
             predict(value, limit);
         }
-        pq.insert(new Event(0, null, null));        // redraw event
+        pq.add(new Event(0, null, null));        // redraw event
 
 
         // the main event-driven simulation loop

@@ -68,7 +68,7 @@ public class FibonacciMinPQ<Key> implements PQ<Key> {
 	 */
 	public FibonacciMinPQ(Key[] a) {
 		comp = new MyComparator();
-		for (Key k : a) insert(k);
+		for (Key k : a) add(k);
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public class FibonacciMinPQ<Key> implements PQ<Key> {
 	 */
 	public FibonacciMinPQ(Comparator<Key> C, Key[] a) {
 		comp = C;
-		for (Key k : a) insert(k);
+		for (Key k : a) add(k);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class FibonacciMinPQ<Key> implements PQ<Key> {
 	 * Worst case is O(1)
 	 * @param key a Key
 	 */
-	public void insert(Key key) {
+	public void add(Key key) {
 		Node x = new Node();
 		x.key = key;
 		size++;
@@ -292,7 +292,7 @@ public class FibonacciMinPQ<Key> implements PQ<Key> {
 			if (head == null) return;
 			Node x = head;
 			do {
-				copy.insert(x.key);
+				copy.add(x.key);
 				insertAll(x.child);
 				x = x.next;
 			} while (x != head);

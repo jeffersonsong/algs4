@@ -18,19 +18,19 @@ public abstract class MaxPQBaseTest {
 
     @Test
     public void test() {
-        pq.insert('P');
-        pq.insert('Q');
-        pq.insert('E');
+        pq.add('P');
+        pq.add('Q');
+        pq.add('E');
         assertThat(pq.poll(), is('Q'));
 
-        pq.insert('X');
-        pq.insert('A');
-        pq.insert('M');
+        pq.add('X');
+        pq.add('A');
+        pq.add('M');
         assertThat(pq.poll(), is('X'));
 
-        pq.insert('P');
-        pq.insert('L');
-        pq.insert('E');
+        pq.add('P');
+        pq.add('L');
+        pq.add('E');
         assertThat(pq.poll(), is('P'));
     }
 }

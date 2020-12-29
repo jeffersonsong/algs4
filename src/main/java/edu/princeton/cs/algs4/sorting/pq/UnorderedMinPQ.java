@@ -23,7 +23,7 @@ public class UnorderedMinPQ<Key extends Comparable<Key>> implements PQ<Key> {
     }
 
     @Override
-    public void insert(Key v) {
+    public void add(Key v) {
         if (n == pq.length) {
             resize(2 * pq.length);
         }
@@ -98,7 +98,7 @@ public class UnorderedMinPQ<Key extends Comparable<Key>> implements PQ<Key> {
         public HeapIterator() {
             copy = PQIml.maxPQ(size());
             for (int i = 1; i <= n; i++)
-                copy.insert(pq[i]);
+                copy.add(pq[i]);
         }
 
         public boolean hasNext()  { return !copy.isEmpty();                     }

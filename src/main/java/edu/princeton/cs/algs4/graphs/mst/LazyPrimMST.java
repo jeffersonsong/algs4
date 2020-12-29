@@ -131,7 +131,7 @@ public class LazyPrimMST implements MST {
         marked[v] = true;
         for (WeightedEdge e : G.adj(v)) {
             int other = e.w();
-            if (!marked[other]) pq.insert(e);
+            if (!marked[other]) pq.add(e);
         }
     }
         

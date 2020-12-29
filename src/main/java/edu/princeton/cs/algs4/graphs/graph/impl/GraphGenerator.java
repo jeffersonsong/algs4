@@ -349,7 +349,7 @@ public class GraphGenerator {
         // pq contains all vertices of degree 1
         PQ<Integer> pq = PQIml.minPQ();
         for (int v = 0; v < V; v++)
-            if (degree[v] == 1) pq.insert(v);
+            if (degree[v] == 1) pq.add(v);
 
         // repeatedly delMin() degree 1 vertex that has the minimum index
         for (int i = 0; i < V-2; i++) {
@@ -357,7 +357,7 @@ public class GraphGenerator {
             G.addEdge(v, new UnWeightedEdge(v, prufer[i]));
             degree[v]--;
             degree[prufer[i]]--;
-            if (degree[prufer[i]] == 1) pq.insert(prufer[i]);
+            if (degree[prufer[i]] == 1) pq.add(prufer[i]);
         }
         int v;
         G.addEdge(v=pq.poll(), new UnWeightedEdge(v, pq.poll()));
