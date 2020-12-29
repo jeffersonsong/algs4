@@ -55,7 +55,7 @@ public class AllowFilter {
     private AllowFilter() { }
 
     public static void main(String[] args) {
-        SET<String> set = new SETImpl<>();
+        SET<String> set = SETImpl.create();
 
         // read in strings and add to set
         In in = new In(args[0]);

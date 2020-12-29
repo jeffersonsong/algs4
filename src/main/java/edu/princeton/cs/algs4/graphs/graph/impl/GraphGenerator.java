@@ -53,7 +53,7 @@ public class GraphGenerator {
         checkArgument(E <= (long) V*(V-1)/2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
         Graph<Edge> G = GraphImpl.graph(V);
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -124,7 +124,7 @@ public class GraphGenerator {
         int[] vertices = newIndexArray(V1 + V2);
         StdRandom.shuffle(vertices);
 
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
         while (G.E() < E) {
             int i = StdRandom.uniform(V1);
             int j = V1 + StdRandom.uniform(V2);

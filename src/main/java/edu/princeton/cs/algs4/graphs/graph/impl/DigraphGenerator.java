@@ -18,6 +18,8 @@ import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Comparator;
+
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -35,7 +37,6 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Kevin Wayne
  */
 public class DigraphGenerator {
-
     // this class cannot be instantiated
     private DigraphGenerator() { }
 
@@ -51,7 +52,7 @@ public class DigraphGenerator {
         checkArgument(E <= (long) V*(V-1), "Too many edges");
         checkArgument(E >= 0, "Too few edges");
         Graph<Edge> G = GraphImpl.digraph(V);
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -114,7 +115,7 @@ public class DigraphGenerator {
         checkArgument(E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument(E >= 0, "Too few edges");
         Graph<Edge>  G = GraphImpl.digraph(V);
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         while (G.E() < E) {
@@ -179,7 +180,7 @@ public class DigraphGenerator {
         checkArgument (E <= (long) V*(V-1) / 2, "Too many edges");
         checkArgument (E >= V-1, "Too few edges");
         Graph<Edge> G = GraphImpl.digraph(V);
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
 
         // fix a topological order
         int[] vertices = newIndexArray(V);
@@ -237,7 +238,7 @@ public class DigraphGenerator {
         checkArgument (E >= V-1, "Too few edges");
 
         Graph<Edge> G = GraphImpl.digraph(V);
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
 
         // fix a topological order
         int[] vertices = newIndexArray(V);
@@ -400,7 +401,7 @@ public class DigraphGenerator {
         Graph<Edge> G = GraphImpl.digraph(V);
 
         // edges added to G (to avoid duplicate edges)
-        SET<UnWeightedEdge> set = new SETImpl<>();
+        SET<UnWeightedEdge> set = SETImpl.create(UnWeightedEdge.COMPARATOR);
 
         int[] label = newIntArray(V, v->StdRandom.uniform(c));
 

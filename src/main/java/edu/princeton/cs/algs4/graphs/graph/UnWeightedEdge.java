@@ -1,5 +1,7 @@
 package edu.princeton.cs.algs4.graphs.graph;
 
+import java.util.Comparator;
+
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
@@ -14,7 +16,10 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class UnWeightedEdge implements Edge, Comparable<UnWeightedEdge> {
+public class UnWeightedEdge implements Edge {
+    public static Comparator<UnWeightedEdge> COMPARATOR = Comparator.comparing(UnWeightedEdge::v)
+            .thenComparing(UnWeightedEdge::w);
+
     private final int v;             // from
     private final int w;             // to
 
@@ -35,12 +40,6 @@ public class UnWeightedEdge implements Edge, Comparable<UnWeightedEdge> {
 
     public UnWeightedEdge reverse() {
         return new UnWeightedEdge(w(), v());
-    }
-
-    @Override
-    public int compareTo(UnWeightedEdge that) {
-        int cmp = Integer.compare(this.v(), that.v());
-        return cmp != 0 ? cmp : Integer.compare(this.w(), that.w());
     }
 
     public String toString() {

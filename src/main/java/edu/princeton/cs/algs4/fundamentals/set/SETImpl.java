@@ -17,6 +17,7 @@ package edu.princeton.cs.algs4.fundamentals.set;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.TreeSet;
@@ -54,26 +55,33 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *  @param <Key> the generic type of a key in this set
  */
 
-public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
+public class SETImpl<Key> implements SET<Key> {
     private final TreeSet<Key> set;
+    private final Comparator<Key> comparator;
+
+    public static <Key extends Comparable<Key>> SETImpl<Key> copy(SET<Key> x) {
+        SETImpl<Key> copy = new SETImpl<Key>(Comparator.naturalOrder());
+        for (Key item : x){
+            copy.add(item);
+        }
+        return copy;
+    }
+
+    public static <Key extends Comparable<Key>> SETImpl<Key> create() {
+        Comparator<Key> comparator = Comparator.naturalOrder();
+        return new SETImpl<>(comparator);
+    }
+
+    public static <Key> SETImpl<Key> create(Comparator<Key> comparator) {
+        return new SETImpl<>(comparator);
+    }
 
     /**
      * Initializes an empty set.
      */
-    public SETImpl() {
-        set = new TreeSet<>();
-    }
-
-    /**
-     * Initializes a new set that is an independent copy of the specified set.
-     *
-     * @param x the set to copy
-     */
-    public SETImpl(SET<Key> x) {
-        this();
-        for (Key item : x){
-            add(item);
-        }
+    private SETImpl(Comparator<Key> comparator) {
+        this.set = new TreeSet<>(comparator);
+        this.comparator = comparator;
     }
 
     /**
@@ -216,7 +224,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      */
     public SETImpl<Key> union(SET<Key> that) {
         requiresNotNull(that,"called union() with a null argument");
-        SETImpl<Key> c = new SETImpl<>();
+        SETImpl<Key> c = new SETImpl<>(comparator);
         for (Key x : this) {
             c.add(x);
         }
@@ -235,7 +243,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      */
     public SETImpl<Key> intersects(SET<Key> that) {
         requiresNotNull(that, "called intersects() with a null argument");
-        SETImpl<Key> c = new SETImpl<>();
+        SETImpl<Key> c = new SETImpl<>(comparator);
         if (this.size() < that.size()) {
             for (Key x : this) {
                 if (that.contains(x)) c.add(x);
@@ -299,7 +307,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        SETImpl<String> set = new SETImpl<>();
+        SETImpl<String> set = SETImpl.create();
         StdOut.println("set = " + set);
 
         // insert some keys
@@ -345,7 +353,7 @@ public class SETImpl<Key extends Comparable<Key>> implements SET<Key> {
         }
 
         StdOut.println();
-        SETImpl<String> set2 = new SETImpl<>(set);
+        SETImpl<String> set2 = SETImpl.copy(set);
         StdOut.println(set.equals(set2));
     }
 

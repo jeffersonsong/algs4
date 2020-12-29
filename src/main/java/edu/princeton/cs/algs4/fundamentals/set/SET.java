@@ -1,6 +1,6 @@
 package edu.princeton.cs.algs4.fundamentals.set;
 
-public interface SET<Key extends Comparable<Key>> extends Iterable<Key> {
+public interface SET<Key> extends Iterable<Key> {
     // add the key to the set
     void add(Key key);
 
