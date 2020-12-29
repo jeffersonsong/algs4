@@ -79,7 +79,7 @@ public class DepthFirstSearch<T extends Edge> {
         count++;
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
             if (!marked[w]) {
                 dfs(G, w);
             }

@@ -227,7 +227,7 @@ public class SymbolGraph {
             if (sg.contains(source)) {
                 int s = sg.index(source);
                 for (Edge e : graph.adj(s)) {
-                    StdOut.println("   " + sg.name(e.other(s)));
+                    StdOut.println("   " + sg.name(e.w()));
                 }
             }
             else {

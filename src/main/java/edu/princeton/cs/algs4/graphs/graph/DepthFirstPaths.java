@@ -80,7 +80,7 @@ public class DepthFirstPaths<T extends Edge> {
     private void dfs(Graph<T> G, int v) {
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
             if (!marked[w]) {
                 edgeTo[w] = v;
                 dfs(G, w);
