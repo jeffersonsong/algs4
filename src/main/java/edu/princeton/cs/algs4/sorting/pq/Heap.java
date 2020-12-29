@@ -4,7 +4,7 @@
  *  Dependencies: StdOut.java StdIn.java
  *  Data files:   https://algs4.cs.princeton.edu/24pq/tiny.txt
  *                https://algs4.cs.princeton.edu/24pq/words3.txt
- *  
+ *
  *  Sorts a sequence of strings from standard input using heapsort.
  *
  *  % more tiny.txt
@@ -27,80 +27,76 @@ import edu.princeton.cs.algs4.sorting.SortUtils;
 import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
+import java.util.Comparator;
+import java.util.Objects;
+
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**
- *  The {@code Heap} class provides a static method to sort an array
- *  using <em>heapsort</em>.
- *  <p>
- *  This implementation takes &Theta;(<em>n</em> log <em>n</em>) time
- *  to sort any array of length <em>n</em> (assuming comparisons
- *  take constant time). It makes at most 
- *  2 <em>n</em> log<sub>2</sub> <em>n</em> compares.
- *  <p>
- *  This sorting algorithm is not stable.
- *  It uses &Theta;(1) extra memory (not including the input array).
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Heap} class provides a static method to sort an array
+ * using <em>heapsort</em>.
+ * <p>
+ * This implementation takes &Theta;(<em>n</em> log <em>n</em>) time
+ * to sort any array of length <em>n</em> (assuming comparisons
+ * take constant time). It makes at most
+ * 2 <em>n</em> log<sub>2</sub> <em>n</em> compares.
+ * <p>
+ * This sorting algorithm is not stable.
+ * It uses &Theta;(1) extra memory (not including the input array).
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Heap {
 
     // This class should not be instantiated.
-    private Heap() { }
+    private Heap() {
+    }
 
     /**
      * Rearranges the array in ascending order, using the natural order.
-     * @param pq the array to be sorted
+     *
+     * @param s the array to be sorted
      */
-    public static <T extends Comparable<T>> void sort(T[] pq) {
-        int n = pq.length;
+    public static <T extends Comparable<T>> void sort(T[] s) {
+        final Comparator<T> reversed = Comparator.reverseOrder();
+
+        BinaryHeap maxPQ = new BinaryHeap() {
+            // Need to use the max maxPQ to sort ascendingly.
+            @Override
+            public boolean greater(int i, int j) {
+                return Objects.compare(s[i - 1], s[j - 1], reversed) > 0;
+            }
+
+            @Override
+            public void exch(int i, int j) {
+                ArrayUtils.exch(s, i - 1, j - 1);
+            }
+        };
+
+        int n = s.length;
 
         // heapify phase
-        for (int k = n/2; k >= 1; k--)
-            sink(pq, k, n);
+        for (int k = n / 2; k >= 1; k--) {
+            sink(maxPQ, k, n);
+        }
 
         // sortdown phase
         int k = n;
         while (k > 1) {
-            exch(pq, 1, k--);
-            sink(pq, 1, k);
+            maxPQ.exch(1, k--);
+            sink(maxPQ, 1, k);
         }
-    }
-
-   /***************************************************************************
-    * Helper functions to restore the heap invariant.
-    ***************************************************************************/
-
-    private static <T extends Comparable<T>> void sink(T[] pq, int k, int n) {
-        while (2*k <= n) {
-            int j = 2*k;
-            if (j < n && less(pq, j, j+1)) j++;
-            if (!less(pq, k, j)) break;
-            exch(pq, k, j);
-            k = j;
-        }
-    }
-
-   /***************************************************************************
-    * Helper functions for comparisons and swaps.
-    * Indices are "off-by-one" to support 1-based indexing.
-    ***************************************************************************/
-    private static <T extends Comparable<T>> boolean less(T[] pq, int i, int j) {
-        return SortUtils.less(pq[i-1], pq[j-1]);
-    }
-
-    private static void exch(Object[] pq, int i, int j) {
-        ArrayUtils.exch(pq, i-1, j-1);
     }
 
     /**
-     * Reads in a sequence of strings from standard input; heapsorts them; 
-     * and prints them to standard output in ascending order. 
+     * Reads in a sequence of strings from standard input; heapsorts them;
+     * and prints them to standard output in ascending order.
      *
      * @param args the command-line arguments
      */
