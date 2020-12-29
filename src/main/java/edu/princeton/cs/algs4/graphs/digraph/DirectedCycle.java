@@ -81,7 +81,7 @@ public class DirectedCycle<T extends Edge> {
         onStack[v] = true;
         marked[v] = true;
         for (T e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
 
             // short circuit if directed cycle found
             if (cycle != null) return;
