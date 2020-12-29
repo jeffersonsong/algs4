@@ -101,7 +101,7 @@ public class CC<T extends Edge> {
         id[v] = count;
         size[count]++;
         for (T e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
             if (!marked[w]) {
                 dfs(G, w);
             }
