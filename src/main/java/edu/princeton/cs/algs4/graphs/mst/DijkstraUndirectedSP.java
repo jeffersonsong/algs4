@@ -220,7 +220,7 @@ public class DijkstraUndirectedSP {
             if (edgeTo[w] == null) continue;
             WeightedEdge e = edgeTo[w];
             if (w != e.v() && w != e.w()) return false;
-            int v = e.other(w);
+            int v = e.v();
             if (distTo[v] + e.weight() != distTo[w]) {
                 System.err.println("edge " + e + " on shortest path not tight");
                 return false;
