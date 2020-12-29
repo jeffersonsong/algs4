@@ -99,7 +99,7 @@ public class EulerianPath<T extends Edge> {
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
             for (T l : G.adj(v)) {
-                int w = l.other(v);
+                int w = l.w();
                 // careful with self loops
                 if (v == w) {
                     if (selfLoops % 2 == 0) {
@@ -130,7 +130,7 @@ public class EulerianPath<T extends Edge> {
                 if (edge.isUsed) continue;
                 edge.isUsed = true;
                 stack.push(v);
-                v = edge.other(v);
+                v = edge.w();
             }
             // push vertex with no more leaving edges to path
             path.push(v);

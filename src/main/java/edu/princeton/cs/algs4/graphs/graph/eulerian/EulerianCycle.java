@@ -96,7 +96,7 @@ public class EulerianCycle<T extends Edge> {
         for (int v = 0; v < G.V(); v++) {
             int selfLoops = 0;
             for (T l : G.adj(v)) {
-                int w = l.other(v);
+                int w = l.w();
                 // careful with self loops
                 if (v == w) {
                     if (selfLoops % 2 == 0) {
@@ -128,7 +128,7 @@ public class EulerianCycle<T extends Edge> {
                 if (edge.isUsed) continue;
                 edge.isUsed = true;
                 stack.push(v);
-                v = edge.other(v);
+                v = edge.w();
             }
             // push vertex with no more leaving edges to cycle
             cycle.push(v);
@@ -285,12 +285,12 @@ public class EulerianCycle<T extends Edge> {
         Graph<Edge> G5 = GraphImpl.graph(V);
         for (int v = 0; v < H1.V(); v++)
             for (Edge e : H1.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 G5.addEdge(perm[v], new UnWeightedEdge(perm[v],perm[w]));
             }
         for (int v = 0; v < H2.V(); v++)
             for (Edge e  : H2.adj(v)) {
-                int w = e.other(v);
+                int w = e.w();
                 G5.addEdge(perm[V / 2 + v], new UnWeightedEdge(perm[V / 2 + v],perm[V / 2 + w]));
             }
         unitTest(G5, "Union of two disjoint cycles");
