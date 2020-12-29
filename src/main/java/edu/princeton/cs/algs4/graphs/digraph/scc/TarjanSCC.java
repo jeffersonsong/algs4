@@ -99,7 +99,7 @@ public class TarjanSCC<T extends Edge> implements SCC {
         int min = low[v];
         stack.push(v);
         for (T e : G.adj(v)) {
-            int w = e.other(v);
+            int w = e.w();
             if (!marked[w]) dfs(G, w);
             if (low[w] < min) min = low[w];
         }
