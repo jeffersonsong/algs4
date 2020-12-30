@@ -4,7 +4,6 @@ import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.maxflow.FlowEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 
@@ -32,7 +31,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readGraph(In in) {
-        return readGraph(in, false, GraphReader::readUnWeightedEdge);
+        return readGraph(in, GraphImpl::graph, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -48,7 +47,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readDigraph(In in) {
-        return readGraph(in, true, GraphReader::readUnWeightedEdge);
+        return readGraph(in, GraphImpl::digraph, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -64,7 +63,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedGraph(In in) {
-        return readGraph(in, false, GraphReader::readWeightedEdge);
+        return readGraph(in, GraphImpl::graph, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -80,7 +79,23 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedDigraph(In in) {
-        return readGraph(in, true, GraphReader::readWeightedEdge);
+        return readGraph(in, GraphImpl::digraph, GraphReader::readWeightedEdge);
+    }
+
+    public static Graph<Edge> readGraphInAdjMatrix(In in) {
+        return readGraph(in, AdjMatrixGraphImpl::graph, GraphReader::readUnWeightedEdge);
+    }
+
+    public static Graph<Edge> readDigraphInAdjMatrix(In in) {
+        return readGraph(in, AdjMatrixGraphImpl::graph, GraphReader::readUnWeightedEdge);
+    }
+
+    public static Graph<WeightedEdge> readEdgeWeightedGraphInAdjMatrix(In in) {
+        return readGraph(in, AdjMatrixGraphImpl::graph, GraphReader::readWeightedEdge);
+    }
+
+    public static Graph<WeightedEdge> readEdgeWeightedDigraphInAdjMatrix(In in) {
+        return readGraph(in, AdjMatrixGraphImpl::digraph, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -94,25 +109,26 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<FlowEdge> readFlowNetwork(In in) {
-        return readGraph(in, false, GraphReader::readFlowEdge);
+        return readGraph(in, GraphImpl::graph, GraphReader::readFlowEdge);
     }
 
     /**
      * Read graph from input.
      * @param in input,
-     * @param directed directed / undirected graph.
+     * @param graphFactory graph factory.
      * @param edgeReader edge reader.
      * @param <T> edge type.
      * @return graph.
      */
-    private static <T extends Edge> Graph<T> readGraph(In in, boolean directed, Function<In, T> edgeReader) {
+    private static <T extends Edge> Graph<T> readGraph(In in, IntFunction<Graph<T>> graphFactory, Function<In, T> edgeReader) {
         requiresNotNull(in, "Input is null");
+        requiresNotNull(graphFactory, "Graph factory is null");
         requiresNotNull(edgeReader, "Edge reader not set.");
 
         try {
             int V = in.readInt();
             checkArgument(V >= 0, "number of vertices in a Graph must be nonnegative");
-            Graph<T> G = directed ? GraphImpl.digraph(V) : GraphImpl.graph(V);
+            Graph<T> G = graphFactory.apply(V);
 
             int E = in.readInt();
             checkArgument(E >= 0, "Number of edges must be nonnegative");

@@ -1,7 +1,7 @@
-package edu.princeton.cs.algs4.graphs.graph;
+package edu.princeton.cs.algs4.graphs.graph.impl;
 
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
+import edu.princeton.cs.algs4.graphs.graph.Edge;
+import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.utils.io.In;
 import org.junit.Before;
 import org.junit.Test;

@@ -10,10 +10,9 @@
 
 package edu.princeton.cs.algs4.graphs.graph.impl;
 
+import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
-import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.utils.StdRandom;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -42,44 +41,45 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
+public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
     private static final String NEWLINE = System.getProperty("line.separator");
 
+    private final boolean directed;   /* is the graph directed? */
     private final int V;
     private int E;
-    private final WeightedEdge[][] adj;
-    
+    private final Edge[][] adj;
+
+    /**
+     * Create an empty directed graph.
+     * @param V number of vertices.
+     * @param <T> edge type.
+     * @return Empty directed graph.
+     */
+    public static <T extends Edge> Graph<T> digraph(int V) {
+        return new AdjMatrixGraphImpl<>(V, true);
+    }
+
+    /**
+     * Create an empty undirected graph.
+     * @param V number of vertices.
+     * @param <T> edge type.
+     * @return Empty undirected graph.
+     */
+    public static <T extends Edge> Graph<T> graph(int V) {
+        return new AdjMatrixGraphImpl<>(V, false);
+    }
+
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
      * @param V the number of vertices
      * @throws IllegalArgumentException if {@code V < 0}
      */
-    public AdjMatrixEdgeWeightedDigraph(int V) {
+    public AdjMatrixGraphImpl(int V, boolean directed) {
         checkArgument(V >= 0, "number of vertices must be nonnegative");
+        this.directed = directed;
         this.V = V;
         this.E = 0;
-        this.adj = new WeightedEdge[V][V];
-    }
-
-    /**
-     * Initializes a random edge-weighted digraph with {@code V} vertices and <em>E</em> edges.
-     * @param V the number of vertices
-     * @param E the number of edges
-     * @throws IllegalArgumentException if {@code V < 0}
-     * @throws IllegalArgumentException if {@code E < 0}
-     */
-    public AdjMatrixEdgeWeightedDigraph(int V, int E) {
-        this(V);
-        checkArgument(E >= 0, "number of edges must be nonnegative");
-        checkArgument(E <= V*V, "too many edges");
-
-        // can be inefficient
-        while (this.E != E) {
-            int v = StdRandom.uniform(V);
-            int w = StdRandom.uniform(V);
-            double weight = Math.round(100 * StdRandom.uniform()) / 100.0;
-            addEdge(v, new WeightedEdge(v, w, weight));
-        }
+        this.adj = new Edge[V][V];
     }
 
     /**
@@ -101,17 +101,23 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
     /**
      * Adds the directed edge {@code e} to the edge-weighted digraph (if there
      * is not already an edge with the same endpoints).
-     * @param e the edge
+     * @param edge the edge
      */
-    public void addEdge(int v, WeightedEdge e) {
-        checkArgument(v == e.v());
-        int w = e.w();
+    public void addEdge(int v, T edge) {
+        checkArgument(v == edge.v());
         validateVertex(v);
-        validateVertex(w);
-        if (adj[v][w] == null) {
+        validateVertex(edge.w());
+        addEdge(v, edge, this.directed);
+    }
+
+    private void addEdge(int v, T edge, boolean directed) {
+        int w = edge.w();
+        adj[v][w] = edge;
+
+        if (!directed)
+            addEdge(edge.w(), (T)edge.reverse(), true);
+        else
             E++;
-            adj[v][w] = e;
-        }
     }
 
     /**
@@ -120,7 +126,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
      * @return the directed edges incident from vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<WeightedEdge> adj(int v) {
+    public Iterable<T> adj(int v) {
         validateVertex(v);
         return new AdjIterator(v);
     }
@@ -149,12 +155,19 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
     }
 
     @Override
-    public Graph<WeightedEdge> reverse() {
-        throw new UnsupportedOperationException();
+    public Graph<T> reverse() {
+        Graph<T> reverse = new AdjMatrixGraphImpl<T>(V, directed);
+        for (int v = 0; v < V; v++) {
+            for (T e : adj(v)) {
+                int w = e.w();
+                reverse.addEdge(w, (T)e.reverse());
+            }
+        }
+        return reverse;
     }
 
     // support iteration over graph vertices
-    private class AdjIterator implements Iterator<WeightedEdge>, Iterable<WeightedEdge> {
+    private class AdjIterator implements Iterator<T>, Iterable<T> {
         private final int v;
         private int w = 0;
 
@@ -162,7 +175,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
             this.v = v;
         }
 
-        public Iterator<WeightedEdge> iterator() {
+        public Iterator<T> iterator() {
             return this;
         }
 
@@ -174,11 +187,11 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
             return false;
         }
 
-        public WeightedEdge next() {
+        public T next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return adj[v][w++];
+            return (T)adj[v][w++];
         }
 
         public void remove() {
@@ -197,7 +210,7 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
         s.append(V).append(" ").append(E).append(NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v).append(": ");
-            for (WeightedEdge e : adj(v)) {
+            for (T e : adj(v)) {
                 s.append(e).append("  ");
             }
             s.append(NEWLINE);
@@ -209,20 +222,6 @@ public class AdjMatrixEdgeWeightedDigraph implements Graph<WeightedEdge> {
     private void validateVertex(int v) {
         checkArgument(v >= 0 && v < V, "vertex " + v + " is not between 0 and " + (V-1));
     }
-
-
-    /**
-     * Unit tests the {@code AdjMatrixEdgeWeightedDigraph} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        int V = Integer.parseInt(args[0]);
-        int E = Integer.parseInt(args[1]);
-        Graph<WeightedEdge> G = new AdjMatrixEdgeWeightedDigraph(V, E);
-        StdOut.println(G);
-    }
-
 }
 
 /******************************************************************************

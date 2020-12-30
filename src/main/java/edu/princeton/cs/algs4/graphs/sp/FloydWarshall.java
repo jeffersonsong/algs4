@@ -21,7 +21,7 @@ import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedCycle;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.AdjMatrixEdgeWeightedDigraph;
+import edu.princeton.cs.algs4.graphs.graph.impl.AdjMatrixGraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -231,7 +231,7 @@ public class FloydWarshall<T extends WeightedEdge> {
         // random graph with V vertices and E edges, parallel edges allowed
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
-        Graph<WeightedEdge> G = new AdjMatrixEdgeWeightedDigraph(V);
+        Graph<WeightedEdge> G = AdjMatrixGraphImpl.graph(V);
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
