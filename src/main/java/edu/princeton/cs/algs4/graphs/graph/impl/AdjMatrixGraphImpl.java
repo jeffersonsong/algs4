@@ -47,7 +47,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
     private final boolean directed;   /* is the graph directed? */
     private final int V;
     private int E;
-    private final Edge[][] adj;
+    private final Matrix<T> adj;
 
     /**
      * Create an empty directed graph.
@@ -79,7 +79,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
         this.directed = directed;
         this.V = V;
         this.E = 0;
-        this.adj = new Edge[V][V];
+        this.adj = new DenseMatrix<>(V, V);
     }
 
     /**
@@ -112,7 +112,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
 
     private void addEdge(int v, T edge, boolean directed) {
         int w = edge.w();
-        adj[v][w] = edge;
+        setAdj(v, w, edge);
 
         if (!directed)
             addEdge(edge.w(), (T)edge.reverse(), true);
@@ -135,7 +135,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
     public int outdegree(int v) {
         int degree = 0;
         for (int w = 0;w < V;w++) {
-            if (adj[v][w] != null) degree++;
+            if (adj(v, w) != null) degree++;
         }
         return degree;
     }
@@ -144,9 +144,17 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
     public int indegree(int v) {
         int degree = 0;
         for (int w = 0;w < V;w++) {
-            if (adj[w][v] != null) degree++;
+            if (adj(w, v) != null) degree++;
         }
         return degree;
+    }
+
+    private T adj(int v, int w) {
+        return adj.get(v, w);
+    }
+
+    private void setAdj(int v, int w, T e) {
+        adj.set(v, w, e);
     }
 
     @Override
@@ -181,7 +189,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
 
         public boolean hasNext() {
             while (w < V) {
-                if (adj[v][w] != null) return true;
+                if (adj(v, w) != null) return true;
                 w++;
             }
             return false;
@@ -191,7 +199,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return (T)adj[v][w++];
+            return adj(v, w++);
         }
 
         public void remove() {
