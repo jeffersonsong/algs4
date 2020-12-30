@@ -77,7 +77,7 @@ public class KWIK {
         int n = text.length();
 
         // build suffix array
-        SuffixArray sa = new SuffixArray(text);
+        SuffixArray sa = new SuffixArrayImpl(text);
 
         // find all occurrences of queries and give context
         while (StdIn.hasNextLine()) {

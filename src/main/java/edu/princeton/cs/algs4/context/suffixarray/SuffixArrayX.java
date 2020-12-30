@@ -66,7 +66,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/63suffix">Section 6.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class SuffixArrayX {
+public class SuffixArrayX implements SuffixArray {
     private static final int CUTOFF =  5;   // cutoff to insertion sort (any value between 0 and 12)
 
     private final char[] text;
@@ -230,7 +230,6 @@ public class SuffixArrayX {
         return 0;
     }
 
-
     /**
      * Unit tests the {@code SuffixArrayx} data type.
      *
@@ -238,8 +237,8 @@ public class SuffixArrayX {
      */
     public static void main(String[] args) {
         String s = StdIn.readAll().replaceAll("\n", " ").trim();
-        SuffixArrayX suffix1 = new SuffixArrayX(s);
-        SuffixArray suffix2 = new SuffixArray(s);
+        SuffixArray suffix1 = new SuffixArrayX(s);
+        SuffixArray suffix2 = new SuffixArrayImpl(s);
         boolean check = true;
         for (int i = 0; check && i < s.length(); i++) {
             if (suffix1.index(i) != suffix2.index(i)) {

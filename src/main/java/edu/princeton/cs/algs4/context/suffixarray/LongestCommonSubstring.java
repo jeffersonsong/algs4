@@ -71,8 +71,8 @@ public class LongestCommonSubstring {
      *         if no such string
      */
     public static String lcs(String s, String t) {
-        SuffixArray suffix1 = new SuffixArray(s);
-        SuffixArray suffix2 = new SuffixArray(t);
+        SuffixArray suffix1 = new SuffixArrayImpl(s);
+        SuffixArray suffix2 = new SuffixArrayImpl(t);
 
         // find longest common substring by "merging" sorted suffixes 
         String lcs = "";
