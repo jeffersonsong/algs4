@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4.graphs.graph.impl;
+package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 public interface Matrix<T> {
     T get(int r, int c);

@@ -10,6 +10,8 @@
 
 package edu.princeton.cs.algs4.graphs.graph.impl;
 
+import edu.princeton.cs.algs4.fundamentals.dataabstract.DenseMatrix;
+import edu.princeton.cs.algs4.fundamentals.dataabstract.Matrix;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;

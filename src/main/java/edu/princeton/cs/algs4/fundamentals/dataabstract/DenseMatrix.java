@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4.graphs.graph.impl;
+package edu.princeton.cs.algs4.fundamentals.dataabstract;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
