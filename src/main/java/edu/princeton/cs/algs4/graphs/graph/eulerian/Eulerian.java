@@ -7,6 +7,10 @@ import edu.princeton.cs.algs4.graphs.graph.Graph;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
+ * Eulerian Path is a path in graph that visits every edge exactly once.
+ *
+ * Eulerian Circuit is an Eulerian Path which starts and ends on the same vertex.
+ *
  * https://www.geeksforgeeks.org/eulerian-path-and-circuit/
  *
  * @author Aakash Hasija
