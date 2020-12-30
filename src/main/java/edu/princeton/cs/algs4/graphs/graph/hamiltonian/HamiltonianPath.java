@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 /**
  * Hamiltonian Path in an undirected graph is a path that visits each vertex exactly once.
@@ -39,29 +40,30 @@ public class HamiltonianPath<T extends Edge> implements BackTrack.BackTrackCallb
         this.s = 0;
 
         BackTrack<Integer> backtrack = new BackTrack<>();
-        int[] a = new int[graph.V()];
-        a[0] = s;
-        marked[0] = true;
+        int[] a = new int[graph.V() + 1];
         backtrack.backtrack(a, 0, graph.V(), this);
     }
 
     @Override
     public boolean isaSolution(int[] a, int k, Integer V) {
-        return  k == V - 1;
+        return  k == V;
     }
 
     @Override
     public boolean processSolution(int[] a, int k, Integer V) {
         path = new ArrayList<>(graph.V() + 1);
-        for (int v : a) {
-            path.add(v);
+        for (int i=1; i < a.length; i++) {
+            path.add(a[i]);
         }
         return true;
     }
 
     @Override
     public List<Integer> candidates(int[] a, int k, Integer V) {
-        if (k == V) {
+        if (k == 1) {
+            return singletonList(s);
+
+        } else if (k == V + 1) {
             return emptyList();
 
         } else {

@@ -40,15 +40,13 @@ public class HamiltonianCycle<T extends Edge> implements BackTrack.BackTrackCall
         this.s = 0;
 
         BackTrack<Integer> backtrack = new BackTrack<>();
-        int[] a = new int[graph.V()];
-        a[0] = s;
-        marked[0] = true;
+        int[] a = new int[graph.V() + 1];
         backtrack.backtrack(a, 0, graph.V(), this);
     }
 
     @Override
     public boolean isaSolution(int[] a, int k, Integer V) {
-        if (k == V - 1) {
+        if (k == V) {
             for (T e : graph.adj(a[k])) {
                 if (e.w() == s) {
                     return true;
@@ -61,8 +59,8 @@ public class HamiltonianCycle<T extends Edge> implements BackTrack.BackTrackCall
     @Override
     public boolean processSolution(int[] a, int k, Integer V) {
         path = new ArrayList<>(graph.V() + 1);
-        for (int v : a) {
-            path.add(v);
+        for (int i=1; i < a.length; i++) {
+            path.add(a[i]);
         }
         path.add(s);
         return true;
@@ -70,7 +68,10 @@ public class HamiltonianCycle<T extends Edge> implements BackTrack.BackTrackCall
 
     @Override
     public List<Integer> candidates(int[] a, int k, Integer V) {
-        if (k == V) {
+        if (k == 1) {
+            return singletonList(s);
+
+        } else if (k == V + 1) {
             return emptyList();
 
         } else {
