@@ -36,8 +36,6 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.fundamentals.bag.Bag;
-
 /**
  * The {@code Graph} class represents an graph of vertices named 0 through <em>V</em> – 1.
  * It can be undirected or directed graph.
