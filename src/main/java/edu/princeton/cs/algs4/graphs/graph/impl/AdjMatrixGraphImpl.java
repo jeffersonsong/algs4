@@ -22,14 +22,8 @@ import java.util.NoSuchElementException;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
 /**
- *  The {@code AdjMatrixEdgeWeightedDigraph} class represents a edge-weighted
- *  digraph of vertices named 0 through <em>V</em> - 1, where each
- *  directed edge is of type {@link WeightedEdge} and has a real-valued weight.
- *  It supports the following two primary operations: add a directed edge
- *  to the digraph and iterate over all of edges incident from a given vertex.
- *  It also provides
- *  methods for returning the number of vertices <em>V</em> and the number
- *  of edges <em>E</em>. Parallel edges are disallowed; self-loops are permitted.
+ *  The {@code AdjMatrixGraphImpl} class represents an graph of vertices named 0 through <em>V</em> – 1.
+ *  t can be undirected or directed graph.
  *  <p>
  *  This implementation uses an adjacency-matrix representation.
  *  All operations take constant time (in the worst case) except
@@ -81,6 +75,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
         this.directed = directed;
         this.V = V;
         this.E = 0;
+        // It can be implemented as sparse matrix.
         this.adj = new DenseMatrix<>(V, V);
     }
 

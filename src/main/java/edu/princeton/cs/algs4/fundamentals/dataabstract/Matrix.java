@@ -4,4 +4,6 @@ public interface Matrix<T> {
     T get(int r, int c);
 
     void set(int r, int c, T val);
+
+    int[] dimension();
 }

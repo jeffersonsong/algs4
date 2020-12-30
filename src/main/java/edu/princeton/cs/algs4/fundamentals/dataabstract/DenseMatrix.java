@@ -5,15 +5,14 @@ import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
 
 public class DenseMatrix<T> implements Matrix<T> {
     private final Object[][] matrix;
-    private final int rows, cols;
+    private final int[] dimension;
 
     public DenseMatrix(int rows, int cols) {
         checkArgument(rows>=0, "Invalid row count.");
         checkArgument(cols>=0, "Invalid column count.");
 
         this.matrix = new Object[rows][cols];
-        this.rows = rows;
-        this.cols = cols;
+        this.dimension = new int[]{rows, cols};
     }
 
     @Override
@@ -28,8 +27,13 @@ public class DenseMatrix<T> implements Matrix<T> {
         matrix[r][c] = val;
     }
 
+    @Override
+    public int[] dimension() {
+        return dimension;
+    }
+
     private void validate(int r, int c) {
-        checkIndexInRange(r, 0, this.rows);
-        checkIndexInRange(c, 0, this.cols);
+        checkIndexInRange(r, 0, this.dimension[0]);
+        checkIndexInRange(c, 0, this.dimension[1]);
     }
 }

@@ -51,7 +51,7 @@ import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 /**
- *  The {@code Graph} class represents an graph of vertices  named 0 through <em>V</em> – 1.
+ *  The {@code Graph} class represents an graph of vertices named 0 through <em>V</em> – 1.
  *  It can be undirected or directed graph.
  *
  *  It supports the following two primary operations: add an edge to the graph,
