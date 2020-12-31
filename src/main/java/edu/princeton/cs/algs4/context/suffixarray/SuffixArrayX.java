@@ -28,6 +28,8 @@
 
 package edu.princeton.cs.algs4.context.suffixarray;
 
+import edu.princeton.cs.algs4.sorting.SortUtils;
+import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -112,9 +114,11 @@ public class SuffixArrayX implements SuffixArray {
 
     // sort from a[lo] to a[hi], starting at the dth character
     private void insertion(int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(index[j], index[j-1], d); j--)
-                exch(j, j-1);
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i; j > lo && less(index[j], index[j - 1], d); j--) {
+                exch(j, j - 1);
+            }
+        }
     }
 
     // is text[i+d..n) < text[j+d..n) ?
@@ -133,9 +137,7 @@ public class SuffixArrayX implements SuffixArray {
 
     // exchange index[i] and index[j]
     private void exch(int i, int j) {
-        int swap = index[i];
-        index[i] = index[j];
-        index[j] = swap;
+        ArrayUtils.exch(index, i, j);
     }
 
     /**
