@@ -68,7 +68,7 @@ public class Heap {
 
         DataCollection data = new DataCollection() {
             @Override
-            public int compare(int i, int j) {
+            public int compareIndex(int i, int j) {
                 return Objects.compare(s[i - 1], s[j - 1], reversed);
             }
 

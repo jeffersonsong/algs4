@@ -12,7 +12,7 @@ public class DataCollections {
     public static DataCollection intArray(int[] a) {
         return new DataCollection() {
             @Override
-            public int compare(int i, int j) {
+            public int compareIndex(int i, int j) {
                 return Integer.compare(a[i], a[j]);
             }
 
@@ -31,7 +31,7 @@ public class DataCollections {
     public static <T> DataCollection array(T[] a, Comparator<T> comparator) {
         return new DataCollection() {
             @Override
-            public int compare(int i, int j) {
+            public int compareIndex(int i, int j) {
                 return Objects.compare(a[i], a[j], comparator);
             }
 

@@ -218,7 +218,7 @@ public class PQIml<Key> implements PQ<Key>, DataCollection {
      * Helper functions for compares and swaps.
      ***************************************************************************/
     @Override
-    public int compare(int i, int j) {
+    public int compareIndex(int i, int j) {
         return comparator.compare(pq[i], pq[j]);
     }
 

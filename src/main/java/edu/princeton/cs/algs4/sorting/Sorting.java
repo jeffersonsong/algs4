@@ -73,7 +73,7 @@ public class Sorting {
         T v = data.a(lo);
         int i = lo + 1;
         while (i <= gt) {
-            int cmp = data.compareTo(data.a(i), v);
+            int cmp = data.compare(data.a(i), v);
             if      (cmp < 0) data.exch(lt++, i++);
             else if (cmp > 0) data.exch(i, gt--);
             else              i++;
@@ -87,8 +87,8 @@ public class Sorting {
     public static void heapSort(DataCollection data, int n) {
         DataCollection maxPQ = new DataCollection() {
             @Override
-            public int compare(int i, int j) {
-                return -data.compare(i -1, j - 1);
+            public int compareIndex(int i, int j) {
+                return -data.compareIndex(i -1, j - 1);
             }
 
             @Override
@@ -116,7 +116,7 @@ public class Sorting {
         int lo = _lo, hi = _hi;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
-            int cmp = data.compareTo(value, data.a(mid));
+            int cmp = data.compare(value, data.a(mid));
             if      (cmp < 0) hi = mid - 1;
             else if (cmp > 0) lo = mid + 1;
             else return mid;
@@ -129,7 +129,7 @@ public class Sorting {
         while (lo <= hi) {
             // Key is in a[lo..hi] or not present.
             int mid = lo + (hi - lo) / 2;
-            int cmp = data.compareTo(value, data.a(mid));
+            int cmp = data.compare(value, data.a(mid));
             if      (cmp < 0) hi = mid - 1;
             else if (cmp > 0) lo = mid + 1;
             else return mid;

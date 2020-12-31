@@ -1,6 +1,8 @@
 package edu.princeton.cs.algs4.sorting;
 
 import edu.princeton.cs.algs4.fundamentals.basic.Knuth;
+import edu.princeton.cs.algs4.utils.ArrayUtils;
+import edu.princeton.cs.algs4.utils.io.StdOut;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -80,5 +82,31 @@ public class SortingTest {
 
         rank = Sorting.binarySearch(data, 5, 0, a.length - 1);
         assertThat(rank, is(2));
+    }
+
+    @Test
+    public void testIndexSort() {
+        int[] a = newIndexArray(10);
+        Knuth.shuffle(a);
+        StdOut.println("a: " + Arrays.toString(a));
+
+        int[] index = newIndexArray(10);
+
+        DataCollection data = new DataCollection() {
+            @Override
+            public int compareIndex(int i, int j) {
+                return Integer.compare(a[index[i]], a[index[j]]);
+            }
+
+            @Override
+            public void exch(int i, int j) {
+                ArrayUtils.exch(index, i, j);
+            }
+        };
+
+        Sorting.insertionSort(data, 0, a.length - 1);
+        assertTrue(Sorting.isSorted(data, 0, a.length - 1));
+        StdOut.println("a: " + Arrays.toString(a));
+        StdOut.println("index: " + Arrays.toString(index));
     }
 }

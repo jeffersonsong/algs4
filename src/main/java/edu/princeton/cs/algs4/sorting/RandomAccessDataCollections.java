@@ -17,7 +17,7 @@ public class RandomAccessDataCollections {
             }
 
             @Override
-            public int compareTo(Integer a, Integer b) {
+            public int compare(Integer a, Integer b) {
                 return a.compareTo(b);
             }
 
@@ -46,7 +46,7 @@ public class RandomAccessDataCollections {
             }
 
             @Override
-            public int compareTo(T a, T b) {
+            public int compare(T a, T b) {
                 return Objects.compare(a, b, comparator);
             }
 

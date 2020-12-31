@@ -257,7 +257,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, DataCollection {
     * General helper functions.
     ***************************************************************************/
     @Override
-    public int compare(int i, int j) {
+    public int compareIndex(int i, int j) {
         return comparator.compare(keys[pq[i]], keys[pq[j]]);
     }
 
