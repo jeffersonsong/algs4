@@ -17,8 +17,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeap.sink;
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeap.swim;
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.swim;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;

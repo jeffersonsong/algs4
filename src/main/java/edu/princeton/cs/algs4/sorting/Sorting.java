@@ -1,8 +1,6 @@
 package edu.princeton.cs.algs4.sorting;
 
-import edu.princeton.cs.algs4.sorting.pq.BinaryHeap;
-
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeap.sink;
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
 public class Sorting<T> {

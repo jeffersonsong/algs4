@@ -30,7 +30,7 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import java.util.Comparator;
 import java.util.Objects;
 
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeap.sink;
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**

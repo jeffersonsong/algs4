@@ -4,7 +4,7 @@ import edu.princeton.cs.algs4.sorting.DataCollection;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
-public class BinaryHeap {
+public class BinaryHeapHelper {
     public static void swim(DataCollection data, int k) {
         while (k > 1 && data.greater(k / 2, k)) {
             data.exch(k, k / 2);
