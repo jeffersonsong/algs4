@@ -100,8 +100,9 @@ public class DijkstraSP implements SP {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.poll();
-            for (WeightedEdge e : G.adj(v))
+            for (WeightedEdge e : G.adj(v)) {
                 relax(e);
+            }
         }
 
         // check optimality conditions

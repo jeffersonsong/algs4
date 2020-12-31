@@ -78,8 +78,9 @@ public class AcyclicSP implements SP {
         Topological<WeightedEdge> topological = new Topological<>(G);
         checkArgument(topological.hasOrder(), "Digraph is not acyclic.");
         for (int v : topological.order()) {
-            for (WeightedEdge e : G.adj(v))
+            for (WeightedEdge e : G.adj(v)) {
                 relax(e);
+            }
         }
     }
 
