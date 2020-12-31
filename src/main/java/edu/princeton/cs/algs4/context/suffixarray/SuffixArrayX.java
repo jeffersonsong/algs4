@@ -88,7 +88,6 @@ public class SuffixArrayX implements SuffixArray {
 
     // 3-way string quicksort lo..hi starting at dth character
     private void sort(int lo, int hi, int d) { 
-
         // cutoff to insertion sort for small subarrays
         if (hi <= lo + CUTOFF) {
             insertion(lo, hi, d);
