@@ -64,7 +64,7 @@ public class Heap {
     public static <T extends Comparable<T>> void sort(T[] s) {
         final Comparator<T> reversed = Comparator.reverseOrder();
 
-        BinaryHeapTrait maxPQ = new BinaryHeapTrait() {
+        BinaryHeap maxPQ = new BinaryHeap() {
             // Need to use the max maxPQ to sort ascendingly.
             @Override
             public boolean greater(int i, int j) {

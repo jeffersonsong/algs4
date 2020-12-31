@@ -2,7 +2,7 @@ package edu.princeton.cs.algs4.sorting.pq;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 
-public interface BinaryHeapTrait {
+public interface BinaryHeap {
     default void swim(int k) {
         while (k > 1 && greater(k / 2, k)) {
             exch(k, k / 2);
@@ -23,7 +23,7 @@ public interface BinaryHeapTrait {
         }
     }
 
-    boolean greater(int i, int k);
+    boolean greater(int i, int j);
 
-    void exch(int k, int i);
+    void exch(int i, int j);
 }

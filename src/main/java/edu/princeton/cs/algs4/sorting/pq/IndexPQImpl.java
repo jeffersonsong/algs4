@@ -51,7 +51,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeapTrait {
+public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
     private final int maxN;        // maximum number of elements on PQ
     private int n;           // number of elements on PQ
     private final int[] pq;        // binary heap using 1-based indexing

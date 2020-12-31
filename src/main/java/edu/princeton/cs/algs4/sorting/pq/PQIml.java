@@ -56,7 +56,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class PQIml<Key> implements PQ<Key>, BinaryHeapTrait {
+public class PQIml<Key> implements PQ<Key>, BinaryHeap {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
     private final Comparator<Key> comparator;  // comparator
