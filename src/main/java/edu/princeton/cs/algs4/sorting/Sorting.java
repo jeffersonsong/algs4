@@ -3,7 +3,7 @@ package edu.princeton.cs.algs4.sorting;
 import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 
-public class Sorting<T> {
+public class Sorting {
 
     public static void insertionSort(DataCollection data, final int lo, final int hi) {
         for (int i = lo + 1; i <= hi; i++) {
@@ -85,10 +85,10 @@ public class Sorting<T> {
     }
 
     public static void heapSort(DataCollection data, int n) {
-        DataCollection data2 = new DataCollection() {
+        DataCollection maxPQ = new DataCollection() {
             @Override
             public int compare(int i, int j) {
-                return data.compare(j -1, i - 1);
+                return -data.compare(i -1, j - 1);
             }
 
             @Override
@@ -99,14 +99,14 @@ public class Sorting<T> {
 
         // heapify phase
         for (int k = n/2; k >= 1; k--) {
-            sink(data2, k, n);
+            sink(maxPQ, k, n);
         }
 
         // sortdown phase
         int k = n;
         while (k > 1) {
-            data2.exch( 1, k--);
-            sink(data2, 1, k);
+            maxPQ.exch( 1, k--);
+            sink(maxPQ, 1, k);
         }
     }
 

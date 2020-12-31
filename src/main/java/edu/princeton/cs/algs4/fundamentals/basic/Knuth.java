@@ -73,6 +73,15 @@ public class Knuth {
     // this class should not be instantiated
     private Knuth() { }
 
+    public static void shuffle(int[] a) {
+        int n = a.length;
+        for (int i = 0; i < n; i++) {
+            // choose index uniformly in [0, i]
+            int r = (int) (Math.random() * (i + 1));
+            exch(a, i, r);
+        }
+    }
+
     /**
      * Rearranges an array of objects in uniformly random order
      * (under the assumption that {@code Math.random()} generates independent
