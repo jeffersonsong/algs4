@@ -19,6 +19,7 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
+import edu.princeton.cs.algs4.sorting.DataCollection;
 import edu.princeton.cs.algs4.utils.ArrayUtils;
 
 import java.util.Arrays;
@@ -26,6 +27,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeap.sink;
+import static edu.princeton.cs.algs4.sorting.pq.BinaryHeap.swim;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
@@ -56,7 +59,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class PQIml<Key> implements PQ<Key>, BinaryHeap {
+public class PQIml<Key> implements PQ<Key>, DataCollection {
     private Key[] pq;                    // store items at indices 1 to n
     private int n;                       // number of items on priority queue
     private final Comparator<Key> comparator;  // comparator
@@ -132,7 +135,7 @@ public class PQIml<Key> implements PQ<Key>, BinaryHeap {
         pq = Arrays.copyOf(keys, keys.length + 1);
         System.arraycopy(keys, 0, pq, 1, keys.length);
         for (int k = n / 2; k >= 1; k--) {
-            sink(k, n);
+            sink(this, k, n);
         }
         assert isMinHeap();
     }
@@ -171,7 +174,7 @@ public class PQIml<Key> implements PQ<Key>, BinaryHeap {
         // add x, and percolate it up to maintain heap invariant
         n++;
         pq[n] = x;
-        swim(n);
+        swim(this, n);
         assert isMinHeap();
     }
 
@@ -186,7 +189,7 @@ public class PQIml<Key> implements PQ<Key>, BinaryHeap {
         if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
         Key min = pq[1];
         exch(1, n--);
-        sink(1, n);
+        sink(this, 1, n);
         pq[n + 1] = null;     // to avoid loitering and help with garbage collection
         if ((n > 0) && (n == (pq.length - 1) / 4)) resize(pq.length / 2);
         assert isMinHeap();
@@ -214,8 +217,9 @@ public class PQIml<Key> implements PQ<Key>, BinaryHeap {
     /***************************************************************************
      * Helper functions for compares and swaps.
      ***************************************************************************/
-    public boolean greater(int i, int j) {
-        return comparator.compare(pq[i], pq[j]) > 0;
+    @Override
+    public int compare(int i, int j) {
+        return comparator.compare(pq[i], pq[j]);
     }
 
     public void exch(int i, int j) {
