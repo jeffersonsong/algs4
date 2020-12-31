@@ -52,14 +52,6 @@ public class LongestRepeatedSubstring {
     public LongestRepeatedSubstring() { }
 
     /**
-     * Returns the longest common string of the two specified strings.
-     *
-     * @param  s one string
-     * @param  t the other string
-     * @return the longest common string that appears as a substring
-     */
-
-    /**
      * Returns the longest repeated substring of the specified string.
      *
      * @param  text the string
@@ -75,7 +67,6 @@ public class LongestRepeatedSubstring {
             if (length > maxLen) {
                 j = i;
                 maxLen = length;
-                // lrs = sa.select(i).substring(0, length);
             }
         }
         return text.substring(sa.index(j), sa.index(j) + maxLen);

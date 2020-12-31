@@ -30,6 +30,7 @@
 package edu.princeton.cs.algs4.context.suffixarray;
 
 import edu.princeton.cs.algs4.sorting.SortUtils;
+import edu.princeton.cs.algs4.sorting.qsort.Quick3way;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -68,20 +69,6 @@ import static edu.princeton.cs.algs4.utils.Validations.checkIndexInRange;
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class SuffixArrayImpl implements SuffixArray {
-    private final Suffix[] suffixes;
-
-    /**
-     * Initializes a suffix array for the given {@code text} string.
-     * @param text the input string
-     */
-    public SuffixArrayImpl(String text) {
-        int n = text.length();
-        this.suffixes = new Suffix[n];
-        for (int i = 0; i < n; i++)
-            suffixes[i] = new Suffix(text, i);
-        Arrays.sort(suffixes);
-    }
-
     private static class Suffix implements Comparable<Suffix> {
         private final String text;
         private final int index;
@@ -110,6 +97,21 @@ public class SuffixArrayImpl implements SuffixArray {
         public String toString() {
             return text.substring(index);
         }
+    }
+
+    private final Suffix[] suffixes;
+
+    /**
+     * Initializes a suffix array for the given {@code text} string.
+     * @param text the input string
+     */
+    public SuffixArrayImpl(String text) {
+        int n = text.length();
+        this.suffixes = new Suffix[n];
+        for (int i = 0; i < n; i++) {
+            suffixes[i] = new Suffix(text, i);
+        }
+        Quick3way.sort(suffixes);
     }
 
     /**
