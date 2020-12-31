@@ -28,6 +28,9 @@
 
 package edu.princeton.cs.algs4.sorting.qsort;
 
+import edu.princeton.cs.algs4.sorting.DataCollection;
+import edu.princeton.cs.algs4.sorting.DataCollections;
+import edu.princeton.cs.algs4.sorting.Sorting;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -66,37 +69,9 @@ public class Quick {
 
     // quicksort the subarray from a[lo] to a[hi]
     private static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
-        if (hi <= lo) return;
-        int j = partition(a, lo, hi);
-        sort(a, lo, j-1);
-        sort(a, j+1, hi);
-        assert isSorted(a, lo, hi);
-    }
-
-    // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
-    // and return the index j.
-    private static <T extends Comparable<T>> int partition(T[] a, int lo, int hi) {
-        int i = lo + 1;
-        int j = hi;
-        T v = a[lo];
-        while (i <= j) {
-            // find item on lo to swap
-            while (i <= j && less(a[i], v)) i++;
-            // find item on hi to swap
-            while (i <= j && less(v, a[j])) j--;
-
-            if (i <= j) {
-                exch(a, i, j);
-                i++;
-                j--;
-            }
-        }
-
-        // put partitioning item v at a[j]
-        exch(a, lo, j);
-
-        // now, a[lo .. j-1] <= a[j] <= a[j+1 .. hi]
-        return j;
+        DataCollection data = DataCollections.array(a);
+        Sorting.quickSort(data, lo, hi);
+        assert Sorting.isSorted(data, lo, hi);
     }
 
     /**
@@ -112,9 +87,10 @@ public class Quick {
     public static <T extends Comparable<T>> T select(T[] a, int k) {
         checkArgument(k >= 0 && k < a.length, "index is not between 0 and " + a.length + ": " + k);
         StdRandom.shuffle(a);
+        DataCollection data = DataCollections.array(a);
         int lo = 0, hi = a.length - 1;
         while (hi > lo) {
-            int i = partition(a, lo, hi);
+            int i = Sorting.partition(data, lo, hi);
             if      (i > k) hi = i - 1;
             else if (i < k) lo = i + 1;
             else return a[i];

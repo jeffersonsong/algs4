@@ -57,9 +57,7 @@ public class Sorting {
             while (i<=j && data.less(p, j)) j--;
 
             if (i <= j) {
-                data.exch(i, j);
-                i++;
-                j--;
+                data.exch(i++, j--);
             }
         }
         data.exch(p, j);
