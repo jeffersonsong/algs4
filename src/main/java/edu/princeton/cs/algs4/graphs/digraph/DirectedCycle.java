@@ -23,9 +23,7 @@ import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.utils.StdRandom;
-import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;

@@ -16,7 +16,6 @@ import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.graphs.graph.impl.DigraphGenerator;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
-import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;

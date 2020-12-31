@@ -18,8 +18,6 @@ import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Comparator;
-
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIndexArray;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;

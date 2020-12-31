@@ -14,7 +14,6 @@ import edu.princeton.cs.algs4.fundamentals.dataabstract.DenseMatrix;
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Matrix;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -161,7 +160,7 @@ public class AdjMatrixGraphImpl<T extends Edge> implements Graph<T> {
 
     @Override
     public Graph<T> reverse() {
-        Graph<T> reverse = new AdjMatrixGraphImpl<T>(V, directed);
+        Graph<T> reverse = new AdjMatrixGraphImpl<>(V, directed);
         for (int v = 0; v < V; v++) {
             for (T e : adj(v)) {
                 int w = e.w();

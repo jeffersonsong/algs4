@@ -6,6 +6,6 @@ import org.junit.Ignore;
 public class BinomialMinPQTest extends MinPQBaseTest {
     @Override
     protected PQ<Character> createMinPQ() {
-        return new BinomialMinPQ<Character>();
+        return new BinomialMinPQ<>();
     }
 }

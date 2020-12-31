@@ -34,8 +34,6 @@ package edu.princeton.cs.algs4.strings.search;
 
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Arrays;
-
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 
 /**

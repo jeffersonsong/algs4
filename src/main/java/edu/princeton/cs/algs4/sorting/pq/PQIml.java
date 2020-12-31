@@ -77,7 +77,7 @@ public class PQIml<Key> implements PQ<Key>, DataCollection {
     }
     public static <T extends Comparable<T>> PQ<T> maxPQ(int initCapacity) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        return new PQIml<T>(initCapacity, comparator.reversed());
+        return new PQIml<>(initCapacity, comparator.reversed());
     }
 
     public static <T extends Comparable<T>> PQ<T> minPQ(T[] keys) {

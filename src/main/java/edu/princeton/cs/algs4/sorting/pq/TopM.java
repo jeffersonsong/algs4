@@ -26,8 +26,6 @@ import edu.princeton.cs.algs4.utils.io.IOUtils;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
-import java.util.Iterator;
-
 /**
  *  The {@code TopM} class provides a client that reads a sequence of
  *  transactions from standard input and prints the <em>m</em> largest ones

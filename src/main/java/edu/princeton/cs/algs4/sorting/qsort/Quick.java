@@ -36,8 +36,6 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
-import static edu.princeton.cs.algs4.sorting.SortUtils.less;
-import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 

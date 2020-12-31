@@ -23,7 +23,6 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
 
@@ -152,9 +151,7 @@ public class LinkedStack<Item> implements Stack<Item> {
         for (Node x = first; x != null && numberOfNodes <= n; x = x.next) {
             numberOfNodes++;
         }
-        if (numberOfNodes != n) return false;
-
-        return true;
+        return numberOfNodes == n;
     }
 
     /**

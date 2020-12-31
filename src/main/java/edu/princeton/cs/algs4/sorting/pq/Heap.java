@@ -26,14 +26,8 @@ package edu.princeton.cs.algs4.sorting.pq;
 import edu.princeton.cs.algs4.sorting.DataCollection;
 import edu.princeton.cs.algs4.sorting.DataCollections;
 import edu.princeton.cs.algs4.sorting.Sorting;
-import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
-import javax.xml.crypto.Data;
-import java.util.Comparator;
-import java.util.Objects;
-
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**

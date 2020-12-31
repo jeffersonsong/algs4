@@ -12,7 +12,6 @@ import java.util.List;
 
 import static edu.princeton.cs.algs4.fundamentals.utils.ListUtils.toList;
 import static edu.princeton.cs.algs4.graphs.graph.GraphTestUtils.toIdList;
-import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;

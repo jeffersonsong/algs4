@@ -68,7 +68,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, DataCollection {
 
     public static <T extends Comparable<T>> IndexPQ<T> indexMaxPQ(int maxN) {
         Comparator<T> comparator = Comparator.naturalOrder();
-        return new IndexPQImpl<T>(maxN, comparator.reversed());
+        return new IndexPQImpl<>(maxN, comparator.reversed());
     }
 
     /**

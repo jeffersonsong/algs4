@@ -37,8 +37,6 @@ import edu.princeton.cs.algs4.utils.io.StdOut;
 
 import java.util.Iterator;
 
-import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
-
 /**
  *  The {@code LinkedBag} class represents a bag (or multiset) of 
  *  generic items. It supports insertion and iterating over the 

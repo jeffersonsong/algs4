@@ -31,8 +31,6 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 
 import java.util.Comparator;
 
-import static edu.princeton.cs.algs4.sorting.SortUtils.isSorted;
-import static edu.princeton.cs.algs4.sorting.SortUtils.less;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.*;
 
 /**
