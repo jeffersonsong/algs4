@@ -17,4 +17,17 @@ public class InsertionTest {
         Insertion.sort(a);
         assertThat(a, is(new Character[]{'A', 'E', 'E', 'L', 'M', 'O', 'P', 'R', 'S', 'T', 'X'}));
     }
+
+    @Test
+    public void testIndexSort() {
+        final String sample = "SORTEXAMPLE";
+        final Character[] a = new Character[sample.length()];
+        for (int i = 0; i < sample.length(); i++) {
+            a[i] = sample.charAt(i);
+        }
+
+        int[] index = Insertion.indexSort(a);
+        assertThat(a[index[0]], is('A'));
+        assertThat(a[index[a.length - 1]], is('X'));
+    }
 }

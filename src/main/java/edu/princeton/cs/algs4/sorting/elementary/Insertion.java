@@ -23,6 +23,10 @@
 
 package edu.princeton.cs.algs4.sorting.elementary;
 
+import edu.princeton.cs.algs4.sorting.DataCollection;
+import edu.princeton.cs.algs4.sorting.DataCollections;
+import edu.princeton.cs.algs4.sorting.Sorting;
+import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
 import java.util.Comparator;
@@ -64,29 +68,17 @@ public class Insertion {
      * @param a the array to be sorted
      */
     public static <T extends Comparable<T>> void sort(T[] a) {
-        int n = a.length;
-        for (int i = 1; i < n; i++) {
-            for (int j = i; j > 0 && less(a[j], a[j-1]); j--) {
-                exch(a, j, j-1);
-            }
-            assert isSorted(a, 0, i);
-        }
-        assert isSorted(a);
+        sort(a, 0, a.length - 1);
     }
 
     /**
      * Rearranges the subarray a[lo..hi) in ascending order, using the natural order.
      * @param a the array to be sorted
      * @param lo left endpoint (inclusive)
-     * @param hi right endpoint (exclusive)
+     * @param hi right endpoint (inclusive)
      */
     public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++) {
-            for (int j = i; j > lo && less(a[j], a[j-1]); j--) {
-                exch(a, j, j-1);
-            }
-        }
-        assert isSorted(a, lo, hi - 1);
+        sort(a, lo, hi, Comparator.naturalOrder());
     }
 
     /**
@@ -95,39 +87,26 @@ public class Insertion {
      * @param comparator the comparator specifying the order
      */
     public static <T> void sort(T[] a, Comparator<T> comparator) {
-        int n = a.length;
-        for (int i = 1; i < n; i++) {
-            for (int j = i; j > 0 && less(a[j], a[j-1], comparator); j--) {
-                exch(a, j, j-1);
-            }
-            assert isSorted(a, 0, i, comparator);
-        }
-        assert isSorted(a, comparator);
+        sort(a, 0, a.length -1, comparator);
     }
 
     /**
      * Rearranges the subarray a[lo..hi) in ascending order, using a comparator.
      * @param a the array
      * @param lo left endpoint (inclusive)
-     * @param hi right endpoint (exclusive)
+     * @param hi right endpoint (inclusive)
      * @param comparator the comparator specifying the order
      */
     public static <T> void sort(T[] a, int lo, int hi, Comparator<T> comparator) {
-        for (int i = lo + 1; i <= hi; i++) {
-            for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--) {
-                exch(a, j, j-1);
-            }
-        }
-        assert isSorted(a, lo, hi - 1, comparator);
+        DataCollection data = DataCollections.array(a, comparator);
+        Sorting.insertionSort(data, lo, hi);
+        assert Sorting.isSorted(data, lo, hi);
     }
 
     public static void sort(int[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++) {
-            for (int j = i; j > lo && a[j] < a[j-1]; j--) {
-                exch(a, j, j-1);
-            }
-        }
-        assert isSorted(a, lo, hi - 1);
+        DataCollection data = DataCollections.intArray(a);
+        Sorting.insertionSort(data, lo, hi);
+        assert Sorting.isSorted(data, lo, hi);
     }
 
     // return a permutation that gives the elements in a[] in ascending order
@@ -139,12 +118,20 @@ public class Insertion {
      *    ..., {@code a[p[n-1]]} are in ascending order
      */
     public static <T extends Comparable<T>> int[] indexSort(T[] a) {
-        int n = a.length;
-        int[] index = newIndexArray(n);
+        int[] index = newIndexArray(a.length);
+        DataCollection data = new DataCollection() {
+            @Override
+            public int compareIndex(int i, int j) {
+                return a[index[i]].compareTo(a[index[j]]);
+            }
 
-        for (int i = 1; i < n; i++)
-            for (int j = i; j > 0 && less(a[index[j]], a[index[j-1]]); j--)
-                exch(index, j, j-1);
+            @Override
+            public void exch(int i, int j) {
+                ArrayUtils.exch(index, i, j);
+            }
+        };
+
+        Sorting.insertionSort(data, 0, a.length - 1);
 
         return index;
     }

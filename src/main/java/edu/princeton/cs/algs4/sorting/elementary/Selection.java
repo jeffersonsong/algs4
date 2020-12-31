@@ -23,6 +23,9 @@
 
 package edu.princeton.cs.algs4.sorting.elementary;
 
+import edu.princeton.cs.algs4.sorting.DataCollection;
+import edu.princeton.cs.algs4.sorting.DataCollections;
+import edu.princeton.cs.algs4.sorting.Sorting;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
 import java.util.Comparator;
@@ -58,16 +61,7 @@ public class Selection {
      * @param a the array to be sorted
      */
     public static <T extends Comparable<T>> void sort(T[] a) {
-        int n = a.length;
-        for (int i = 0; i < n; i++) {
-            int min = i;
-            for (int j = i+1; j < n; j++) {
-                if (less(a[j], a[min])) min = j;
-            }
-            exch(a, i, min);
-            assert isSorted(a, 0, i);
-        }
-        assert isSorted(a);
+        sort(a, Comparator.naturalOrder());
     }
 
     /**
@@ -76,16 +70,9 @@ public class Selection {
      * @param comparator the comparator specifying the order
      */
     public static <T> void sort(T[] a, Comparator<T> comparator) {
-        int n = a.length;
-        for (int i = 0; i < n; i++) {
-            int min = i;
-            for (int j = i+1; j < n; j++) {
-                if (less(a[j], a[min], comparator)) min = j;
-            }
-            exch(a, i, min);
-            assert isSorted(a, 0, i, comparator);
-        }
-        assert isSorted(a, comparator);
+        DataCollection data = DataCollections.array(a, comparator);
+        Sorting.selectionSort(data,0, a.length -1);
+        assert Sorting.isSorted(data, 0, a.length - 1);
     }
 
     /**

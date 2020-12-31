@@ -24,9 +24,12 @@
 package edu.princeton.cs.algs4.sorting.pq;
 
 import edu.princeton.cs.algs4.sorting.DataCollection;
+import edu.princeton.cs.algs4.sorting.DataCollections;
+import edu.princeton.cs.algs4.sorting.Sorting;
 import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
+import javax.xml.crypto.Data;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -64,33 +67,8 @@ public class Heap {
      * @param s the array to be sorted
      */
     public static <T extends Comparable<T>> void sort(T[] s) {
-        final Comparator<T> reversed = Comparator.reverseOrder();
-
-        DataCollection data = new DataCollection() {
-            @Override
-            public int compareIndex(int i, int j) {
-                return Objects.compare(s[i - 1], s[j - 1], reversed);
-            }
-
-            @Override
-            public void exch(int i, int j) {
-                ArrayUtils.exch(s, i - 1, j - 1);
-            }
-        };
-
-        int n = s.length;
-
-        // heapify phase
-        for (int k = n / 2; k >= 1; k--) {
-            sink(data, k, n);
-        }
-
-        // sortdown phase
-        int k = n;
-        while (k > 1) {
-            data.exch(1, k--);
-            sink(data, 1, k);
-        }
+        DataCollection data = DataCollections.array(s);
+        Sorting.heapSort(data, s.length);
     }
 
     /**
