@@ -69,15 +69,16 @@ public class LongestRepeatedSubstring {
     public static String lrs(String text) {
         int n = text.length();
         SuffixArray sa = new SuffixArrayImpl(text);
-        String lrs = "";
+        int j = 0, maxLen = 0;
         for (int i = 1; i < n; i++) {
             int length = sa.lcp(i);
-            if (length > lrs.length()) {
+            if (length > maxLen) {
+                j = i;
+                maxLen = length;
                 // lrs = sa.select(i).substring(0, length);
-                lrs = text.substring(sa.index(i), sa.index(i) + length);
             }
         }
-        return lrs;
+        return text.substring(sa.index(j), sa.index(j) + maxLen);
     }
 
     /**
