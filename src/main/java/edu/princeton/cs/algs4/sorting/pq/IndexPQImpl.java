@@ -16,8 +16,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.swim;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.newIntArray;
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
 import static edu.princeton.cs.algs4.utils.PreConditions.requiresNotNull;
@@ -53,7 +51,7 @@ import static edu.princeton.cs.algs4.utils.Validations.noSuchElement;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
+public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeapTrait {
     private final int maxN;        // maximum number of elements on PQ
     private int n;           // number of elements on PQ
     private final int[] pq;        // binary heap using 1-based indexing
@@ -136,7 +134,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
         checkArgument(!contains(i),"index is already in the priority queue");
         n++;
         addToLast(i, key);
-        swim(this, n);
+        swim(n);
     }
 
     private void addToLast(int i, Key key) {
@@ -154,7 +152,7 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
         noSuchElement(n == 0, "Priority queue underflow");
         int min = pq[1];
         exch(1, n--);
-        sink(this, 1, n);
+        sink(1, n);
         assert min == pq[n+1];
         removeLast();
         return min;
@@ -180,8 +178,8 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
         noSuchElement(!contains(i), "index is not in the priority queue");
         int index = qp[i];
         exch(index, n--);
-        swim(this, index);
-        sink(this, index, n);
+        swim(index);
+        sink(index, n);
         removeLast();
     }
 
@@ -236,11 +234,11 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, BinaryHeap {
 
         if (cmp < 0) {
             keys[i] = key;
-            swim(this, qp[i]);
+            swim(qp[i]);
             return true;
         } else if (cmp > 0) {
             keys[i] = key;
-            sink(this, qp[i], n);
+            sink(qp[i], n);
             return true;
         } else {
             return false;

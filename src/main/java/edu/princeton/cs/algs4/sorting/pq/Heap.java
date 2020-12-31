@@ -23,14 +23,12 @@
 
 package edu.princeton.cs.algs4.sorting.pq;
 
-import edu.princeton.cs.algs4.sorting.SortUtils;
 import edu.princeton.cs.algs4.utils.ArrayUtils;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 
 import java.util.Comparator;
 import java.util.Objects;
 
-import static edu.princeton.cs.algs4.sorting.pq.BinaryHeapHelper.sink;
 import static edu.princeton.cs.algs4.utils.ArrayUtils.show;
 
 /**
@@ -66,7 +64,7 @@ public class Heap {
     public static <T extends Comparable<T>> void sort(T[] s) {
         final Comparator<T> reversed = Comparator.reverseOrder();
 
-        BinaryHeap maxPQ = new BinaryHeap() {
+        BinaryHeapTrait maxPQ = new BinaryHeapTrait() {
             // Need to use the max maxPQ to sort ascendingly.
             @Override
             public boolean greater(int i, int j) {
@@ -83,14 +81,14 @@ public class Heap {
 
         // heapify phase
         for (int k = n / 2; k >= 1; k--) {
-            sink(maxPQ, k, n);
+            maxPQ.sink(k, n);
         }
 
         // sortdown phase
         int k = n;
         while (k > 1) {
             maxPQ.exch(1, k--);
-            sink(maxPQ, 1, k);
+            maxPQ.sink(1, k);
         }
     }
 
