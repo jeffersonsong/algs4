@@ -29,9 +29,9 @@ import static java.util.Collections.singletonList;
  * Hamiltonian Path. The code should also return false if there is no Hamiltonian Cycle in the graph.
  */
 public class HamiltonianPath<T extends Edge> implements BackTrack.BackTrackCallback<Integer> {
-    private Graph<T> graph;
-    private boolean[] marked;
-    private int s;
+    private final Graph<T> graph;
+    private final boolean[] marked;
+    private final int s;
     private List<Integer> path = null;
 
     public HamiltonianPath(Graph<T> graph) {

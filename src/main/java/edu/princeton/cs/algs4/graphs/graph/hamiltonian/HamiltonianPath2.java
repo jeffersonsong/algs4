@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HamiltonianPath2<T extends Edge> {
-    private int[] path;
-    private boolean[] marked;
+    private final int[] path;
+    private final boolean[] marked;
     private boolean isHamiltonianPath = false;
 
     public HamiltonianPath2(Graph<T> graph) {

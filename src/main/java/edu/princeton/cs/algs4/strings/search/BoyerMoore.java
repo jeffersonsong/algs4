@@ -54,7 +54,7 @@ public class BoyerMoore implements CompiledPatternSearch {
     private final int[] right;     // the bad-character skip array
 
     private char[] pattern;  // store the pattern as a character array
-    private String pat;      // or as a string
+    private final String pat;      // or as a string
 
     /**
      * Preprocesses the pattern string.

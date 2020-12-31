@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HamiltonianCycle2<T extends Edge> {
-    private int[] path;
-    private boolean[] marked;
-    private int start;
+    private final int[] path;
+    private final boolean[] marked;
+    private final int start;
     private boolean isHamiltonianCycle = false;
 
     public HamiltonianCycle2(Graph<T> graph) {

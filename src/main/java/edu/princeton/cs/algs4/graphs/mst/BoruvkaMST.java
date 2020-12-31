@@ -70,7 +70,7 @@ public class BoruvkaMST implements MST {
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
     private final Bag<WeightedEdge> mst = new LinkedBag<>();    // edges in MST
-    private Comparator<WeightedEdge> comparator = Comparator.comparing(WeightedEdge::weight);
+    private final Comparator<WeightedEdge> comparator = Comparator.comparing(WeightedEdge::weight);
     private double weight;                      // weight of MST
 
     /**
