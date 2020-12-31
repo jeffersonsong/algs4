@@ -16,13 +16,12 @@ import static org.junit.Assert.assertTrue;
 
 public class GlobalMincutTest {
     private GlobalMincut mc;
-    private Graph<WeightedEdge> G;
 
     @Before
     public void setUp() {
         In in = new In("src/test/resources/43mst/tinyEWG.txt");
-        G = GraphReader.readEdgeWeightedGraph(in);
-        mc = new GlobalMincut(G);
+        Graph<WeightedEdge> g = GraphReader.readEdgeWeightedGraph(in);
+        mc = new GlobalMincut(g);
     }
 
     @Test

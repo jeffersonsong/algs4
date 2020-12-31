@@ -9,7 +9,6 @@
 
 package edu.princeton.cs.algs4.graphs.maxflow;
 
-import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;

@@ -10,16 +10,15 @@ import java.util.List;
 public class HamiltonianPath2<T extends Edge> {
     private int[] path;
     private boolean[] marked;
-    private int start;
     private boolean isHamiltonianPath = false;
 
     public HamiltonianPath2(Graph<T> graph) {
         this.path = new int[graph.V()];
         Arrays.fill(this.path, -1);
         this.marked = new boolean[graph.V()];
-        this.start = 0;
+        int start = 0;
 
-        path[0] = this.start;
+        path[0] = start;
         marked[path[0]] = true;
 
         dfs(graph, start, path, 0);
