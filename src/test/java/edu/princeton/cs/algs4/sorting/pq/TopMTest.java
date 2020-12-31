@@ -15,10 +15,9 @@ public class TopMTest {
     @Test
     public void test() {
         In in = new In("src/test/resources/24pq/tinyBatch.txt");
-
         int m = 7;
-        Iterable<Transaction> transactions = TopM.topM(in, m);
-        List<Transaction> list = toList(transactions);
+        Iterable<Transaction> topTransactions = TopM.topM(in, m);
+        List<Transaction> list = toList(topTransactions);
         assertThat(list.size(), is(m));
 
         for (Transaction transaction : list) {

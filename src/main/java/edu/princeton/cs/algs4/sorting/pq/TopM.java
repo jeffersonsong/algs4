@@ -22,8 +22,11 @@ package edu.princeton.cs.algs4.sorting.pq;
 import edu.princeton.cs.algs4.fundamentals.dataabstract.Transaction;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.fundamentals.stack.Stack;
+import edu.princeton.cs.algs4.utils.io.IOUtils;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
+
+import java.util.Iterator;
 
 /**
  *  The {@code TopM} class provides a client that reads a sequence of
@@ -44,13 +47,17 @@ public class TopM {
     private TopM() { }
 
     public static Iterable<Transaction> topM(In in, int m){
-        PQ<Transaction> pq = PQIml.minPQ(m + 1);
+        Iterable<Transaction> transactions = IOUtils.iterable(in, Transaction::new);
 
-        while (in.hasNextLine()) {
+        return topM(transactions, m);
+    }
+
+    public static <T extends Comparable<T>> Iterable<T> topM(Iterable<T> coll, int m){
+        PQ<T> pq = PQIml.minPQ(m + 1);
+
+        for (T item : coll) {
             // Create an entry from the next line and put on the PQ.
-            String line = in.readLine();
-            Transaction transaction = new Transaction(line);
-            pq.add(transaction);
+            pq.add(item);
 
             // remove minimum if m+1 entries on the PQ
             if (pq.size() > m)
@@ -58,9 +65,10 @@ public class TopM {
         }   // top m entries are on the PQ
 
         // print entries on PQ in reverse order
-        Stack<Transaction> stack = new LinkedStack<>();
-        for (Transaction transaction : pq)
-            stack.push(transaction);
+        Stack<T> stack = new LinkedStack<>();
+        for (T item : pq) {
+            stack.push(item);
+        }
 
         return stack;
     }
