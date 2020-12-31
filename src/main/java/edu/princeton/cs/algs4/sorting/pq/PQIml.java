@@ -188,12 +188,18 @@ public class PQIml<Key> implements PQ<Key>, DataCollection {
     public Key poll() {
         if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
         Key min = pq[1];
-        exch(1, n--);
+        exch(1, n);
+        n = removeLast();
         sink(this, 1, n);
-        pq[n + 1] = null;     // to avoid loitering and help with garbage collection
         if ((n > 0) && (n == (pq.length - 1) / 4)) resize(pq.length / 2);
         assert isMinHeap();
         return min;
+    }
+
+    private int removeLast() {
+        pq[n] = null;     // to avoid loitering and help with garbage collection
+        n--;
+        return n;
     }
 
     // resize the underlying array to have the given capacity

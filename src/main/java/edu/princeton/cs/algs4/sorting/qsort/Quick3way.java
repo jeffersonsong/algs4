@@ -23,6 +23,7 @@
 
 package edu.princeton.cs.algs4.sorting.qsort;
 
+import edu.princeton.cs.algs4.sorting.*;
 import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -58,21 +59,9 @@ public class Quick3way {
 
     // quicksort the subarray a[lo .. hi] using 3-way partitioning
     private static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
-        if (hi <= lo) return;
-        int lt = lo, gt = hi;
-        T v = a[lo];
-        int i = lo + 1;
-        while (i <= gt) {
-            int cmp = a[i].compareTo(v);
-            if      (cmp < 0) exch(a, lt++, i++);
-            else if (cmp > 0) exch(a, i, gt--);
-            else              i++;
-        }
-
-        // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]. 
-        sort(a, lo, lt-1);
-        sort(a, gt+1, hi);
-        assert isSorted(a, lo, hi);
+        RandomAccessDataCollection<T> data = RandomAccessDataCollections.array(a);
+        Sorting.quick3WaySort(data, lo, hi);
+        assert Sorting.isSorted(data, lo, hi);
     }
 
     /**

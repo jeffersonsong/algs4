@@ -154,19 +154,20 @@ public class IndexPQImpl<Key> implements IndexPQ<Key>, DataCollection {
     public int poll() {
         noSuchElement(n == 0, "Priority queue underflow");
         int min = pq[1];
-        exch(1, n--);
+        exch(1, n);
+        n = removeLast();
         sink(this, 1, n);
-        assert min == pq[n+1];
-        removeLast();
+//        assert min == pq[n+1];
         return min;
     }
 
     private int removeLast() {
-        int min = pq[n+1];
+        int min = pq[n];
         qp[min] = -1;        // delete
         keys[min] = null;    // to help with garbage collection
-        pq[n+1] = -1;        // not needed
-        return min;
+        pq[n] = -1;        // not needed
+        n--;
+        return n;
     }
 
     /**
