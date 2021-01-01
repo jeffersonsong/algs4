@@ -39,14 +39,13 @@ public class LinkedList<Item> implements List<Item> {
 
     @Override
     public void addBack(Item item) {
-        if (last == null) {
-            addFront(item);
-
-        } else {
-            last.next = new Node<>(item);
-            last = last.next;
-            n++;
+        Node<Item> t = new Node<>(item);
+        if (last != null) {
+            last.next = t;
         }
+        last = t;
+        n++;
+        if (first == null) first = last;
     }
 
     @Override
