@@ -12,12 +12,12 @@ package edu.princeton.cs.algs4.graphs.graph;
  */
 public interface Edge {
     /**
-     * @return from for directed edge or one vertice for undirected edge.
+     * @return from for directed edge or one vertex for undirected edge.
      */
     int v();
 
     /**
-     * @return to for directed edge or another vertice for undirected edge.
+     * @return to for directed edge or another vertex for undirected edge.
      */
     int w();
 

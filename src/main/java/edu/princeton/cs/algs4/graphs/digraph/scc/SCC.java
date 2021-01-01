@@ -3,8 +3,8 @@ package edu.princeton.cs.algs4.graphs.digraph.scc;
 public interface SCC {
     /**
      * Are v and w strongly connected?
-     * @param v vertice v.
-     * @param w vertice w.
+     * @param v vertex v.
+     * @param w vertex w.
      * @return whether v, w is stringly connected.
      */
     boolean stronglyConnected(int v, int w);
