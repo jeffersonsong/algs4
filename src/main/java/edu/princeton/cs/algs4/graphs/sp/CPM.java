@@ -26,7 +26,6 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -104,7 +103,7 @@ public class CPM {
     private static Graph<WeightedEdge> buildNetwork(Job[] jobs, int source, int sink) {
         int n = jobs.length;
 
-        Graph<WeightedEdge> G = GraphImpl.digraph(2 * n + 2);
+        Graph<WeightedEdge> G = Graph.digraph(2 * n + 2);
         for (int i = 0; i < n; i++) {
             Job job = jobs[i];
             G.addEdge(source,new WeightedEdge(source, i, 0.0));

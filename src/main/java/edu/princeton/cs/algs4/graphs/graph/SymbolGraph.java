@@ -43,7 +43,6 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.searching.st.ST;
 import edu.princeton.cs.algs4.searching.st.STImpl;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -82,11 +81,11 @@ public class SymbolGraph {
     private final Graph<Edge> graph;             // the underlying graph
 
     public static SymbolGraph symbolGraph(String filename, String delimiter) {
-        return new SymbolGraph(filename, delimiter, GraphImpl::graph);
+        return new SymbolGraph(filename, delimiter, Graph::graph);
     }
 
     public static SymbolGraph symbolDigraph(String filename, String delimiter) {
-        return new SymbolGraph(filename, delimiter, GraphImpl::digraph);
+        return new SymbolGraph(filename, delimiter, Graph::digraph);
     }
 
     /**  

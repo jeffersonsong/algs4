@@ -1,7 +1,6 @@
 package edu.princeton.cs.algs4.graphs.maxflow;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
 import static edu.princeton.cs.algs4.utils.PreConditions.checkArgument;
@@ -19,7 +18,7 @@ public class FlowNetworkGenerator {
      * @throws IllegalArgumentException if {@code E < 0}
      */
     public static Graph<FlowEdge> simple(int V, int E) {
-        Graph<FlowEdge> fn = GraphImpl.graph(V);
+        Graph<FlowEdge> fn = Graph.graph(V);
         checkArgument(E >= 0,"Number of edges must be nonnegative");
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);

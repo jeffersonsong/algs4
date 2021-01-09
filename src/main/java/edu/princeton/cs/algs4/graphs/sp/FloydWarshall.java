@@ -22,7 +22,6 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedCycle;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.impl.AdjMatrixGraphImpl;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -129,7 +128,7 @@ public class FloydWarshall<T extends WeightedEdge> {
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
                 int V = edgeTo.length;
-                Graph<T> spt = GraphImpl.digraph(V);
+                Graph<T> spt = Graph.digraph(V);
                 for (int w = 0; w < V; w++)
                     if (edgeTo[v][w] != null)
                         spt.addEdge(v, edgeTo[v][w]);

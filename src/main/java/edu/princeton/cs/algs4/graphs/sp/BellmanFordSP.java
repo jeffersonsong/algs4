@@ -33,7 +33,6 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.stack.LinkedStack;
 import edu.princeton.cs.algs4.graphs.digraph.DirectedCycle;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -149,7 +148,7 @@ public class BellmanFordSP<T extends WeightedEdge> implements SP {
     // by finding a cycle in predecessor graph
     private void findNegativeCycle() {
         int V = edgeTo.length;
-        Graph<T> spt = GraphImpl.digraph(V);
+        Graph<T> spt = Graph.digraph(V);
         for (T edge : edgeTo)
             if (edge != null)
                 spt.addEdge(edge.v(), edge);

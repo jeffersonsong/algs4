@@ -22,7 +22,6 @@ import edu.princeton.cs.algs4.fundamentals.stack.Stack;
 import edu.princeton.cs.algs4.graphs.graph.Edge;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 
@@ -159,7 +158,7 @@ public class DirectedCycle<T extends Edge> {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int F = Integer.parseInt(args[2]);
-        Graph<WeightedEdge> G = GraphImpl.digraph(V);
+        Graph<WeightedEdge> G = Graph.digraph(V);
         int[] vertices = newIndexArray(V);
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {

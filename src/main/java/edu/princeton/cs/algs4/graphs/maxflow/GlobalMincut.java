@@ -24,7 +24,6 @@ package edu.princeton.cs.algs4.graphs.maxflow;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UF;
 import edu.princeton.cs.algs4.fundamentals.unionfind.UFImpl;
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.graphs.mst.NonDirectedEdgeWeightedGraphUtils;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
@@ -240,7 +239,7 @@ public class GlobalMincut {
      *         vertices {@code s} and {@code t} were contracted
      */
     private Graph<WeightedEdge>  contractEdge(Graph<WeightedEdge> G, int s, int t) {
-        Graph<WeightedEdge> H = GraphImpl.graph(G.V());
+        Graph<WeightedEdge> H = Graph.graph(G.V());
         for (int v = 0; v < G.V(); v++) {
             for (WeightedEdge e : G.adj(v)) {
                 int w = e.w();
@@ -268,7 +267,7 @@ public class GlobalMincut {
         // so it suffices to try all pairs s-v for some fixed s
         double value = Double.POSITIVE_INFINITY;
         for (int s = 0, t = 1; t < G.V(); t++) {
-            Graph<FlowEdge> F = GraphImpl.graph(G.V());
+            Graph<FlowEdge> F = Graph.graph(G.V());
             for (WeightedEdge e : NonDirectedEdgeWeightedGraphUtils.edges(G)) {
                 int v = e.v(), w = e.w();
                 F.addEdge(v, new FlowEdge(v, w, e.weight()));

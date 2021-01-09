@@ -17,7 +17,6 @@ import edu.princeton.cs.algs4.graphs.graph.impl.DigraphGenerator;
 import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.graphs.graph.eulerian.EulerianCycle;
 import edu.princeton.cs.algs4.graphs.graph.eulerian.EulerianPath;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.impl.GraphReader;
 import edu.princeton.cs.algs4.utils.StdRandom;
 import edu.princeton.cs.algs4.utils.io.In;
@@ -155,7 +154,7 @@ public class DirectedEulerianCycle<T extends Edge> {
                 return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
-        Graph<T> H = GraphImpl.graph(G.V());
+        Graph<T> H = Graph.graph(G.V());
         for (int v = 0; v < G.V(); v++)
             for (T e : G.adj(v))
                 H.addEdge(v, e);
@@ -230,11 +229,11 @@ public class DirectedEulerianCycle<T extends Edge> {
         unitTest(G2, "Eulerian path");
 
         // empty digraph
-        Graph<Edge> G3 = GraphImpl.digraph(V);
+        Graph<Edge> G3 = Graph.digraph(V);
         unitTest(G3, "empty digraph");
 
         // self loop
-        Graph<Edge> G4 = GraphImpl.digraph(V);
+        Graph<Edge> G4 = Graph.digraph(V);
         int v4 = StdRandom.uniform(V);
         G4.addEdge(v4, new UnWeightedEdge(v4,v4));
         unitTest(G4, "single self loop");
@@ -244,7 +243,7 @@ public class DirectedEulerianCycle<T extends Edge> {
         Graph<Edge> H2 = DigraphGenerator.eulerianCycle(V - V/2, E - E/2);
         int[] perm = newIndexArray(V);
         StdRandom.shuffle(perm);
-        Graph<Edge> G5 = GraphImpl.digraph(V);
+        Graph<Edge> G5 = Graph.digraph(V);
         for (int v = 0; v < H1.V(); v++)
             for (Edge e : H1.adj(v)) {
                 int w = e.w();

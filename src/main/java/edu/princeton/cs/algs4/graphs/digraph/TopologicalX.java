@@ -14,7 +14,6 @@ import edu.princeton.cs.algs4.fundamentals.queue.LinkedQueue;
 import edu.princeton.cs.algs4.fundamentals.queue.Queue;
 import edu.princeton.cs.algs4.graphs.graph.*;
 import edu.princeton.cs.algs4.graphs.graph.impl.DigraphGenerator;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
@@ -191,7 +190,7 @@ public class TopologicalX<T extends Edge> {
         Graph<Edge> G1 = DigraphGenerator.dag(V, E);
 
         // corresponding edge-weighted digraph
-        Graph<WeightedEdge> G2 = GraphImpl.digraph(V);
+        Graph<WeightedEdge> G2 = Graph.digraph(V);
         for (int v = 0; v < G1.V(); v++)
             for (Edge e : G1.adj(v)) {
                 int w = e.w();

@@ -11,7 +11,6 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
@@ -94,7 +93,7 @@ public class AssignmentProblem {
     private void augment() {
 
         // build residual graph
-        Graph<WeightedEdge> G = GraphImpl.digraph(2*n+2);
+        Graph<WeightedEdge> G = Graph.digraph(2*n+2);
         int s = 2*n, t = 2*n+1;
         for (int i = 0; i < n; i++) {
             if (xy[i] == UNMATCHED)

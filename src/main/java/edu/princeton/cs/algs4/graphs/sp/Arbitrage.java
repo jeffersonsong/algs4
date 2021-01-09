@@ -25,7 +25,6 @@
 package edu.princeton.cs.algs4.graphs.sp;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.graphs.graph.WeightedEdge;
 import edu.princeton.cs.algs4.utils.io.In;
 import edu.princeton.cs.algs4.utils.io.StdOut;
@@ -59,7 +58,7 @@ public class Arbitrage {
         name = new String[V];
 
         // create complete network
-        Graph<WeightedEdge> G = GraphImpl.digraph(V);
+        Graph<WeightedEdge> G = Graph.digraph(V);
         for (int v = 0; v < V; v++) {
             name[v] = in.readString();
             for (int w = 0; w < V; w++) {

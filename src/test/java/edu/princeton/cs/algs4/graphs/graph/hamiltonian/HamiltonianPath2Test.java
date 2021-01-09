@@ -2,7 +2,6 @@ package edu.princeton.cs.algs4.graphs.graph.hamiltonian;
 
 import edu.princeton.cs.algs4.graphs.graph.Graph;
 import edu.princeton.cs.algs4.graphs.graph.UnWeightedEdge;
-import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +15,7 @@ public class HamiltonianPath2Test {
 
     @Before
     public void setUp() {
-        G = GraphImpl.graph(5);
+        G = Graph.graph(5);
         //addEdge(G, 0, 1);
         addEdge(G, 0, 3);
         addEdge(G, 1, 2);

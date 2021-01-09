@@ -31,7 +31,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readGraph(In in) {
-        return readGraph(in, GraphImpl::graph, GraphReader::readUnWeightedEdge);
+        return readGraph(in, Graph::graph, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -47,7 +47,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
     public static Graph<Edge> readDigraph(In in) {
-        return readGraph(in, GraphImpl::digraph, GraphReader::readUnWeightedEdge);
+        return readGraph(in, Graph::digraph, GraphReader::readUnWeightedEdge);
     }
 
     /**
@@ -63,7 +63,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedGraph(In in) {
-        return readGraph(in, GraphImpl::graph, GraphReader::readWeightedEdge);
+        return readGraph(in, Graph::graph, GraphReader::readWeightedEdge);
     }
 
     /**
@@ -79,7 +79,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<WeightedEdge> readEdgeWeightedDigraph(In in) {
-        return readGraph(in, GraphImpl::digraph, GraphReader::readWeightedEdge);
+        return readGraph(in, Graph::digraph, GraphReader::readWeightedEdge);
     }
 
     public static Graph<Edge> readGraphInAdjMatrix(In in) {
@@ -109,7 +109,7 @@ public class GraphReader {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public static Graph<FlowEdge> readFlowNetwork(In in) {
-        return readGraph(in, GraphImpl::graph, GraphReader::readFlowEdge);
+        return readGraph(in, Graph::graph, GraphReader::readFlowEdge);
     }
 
     /**

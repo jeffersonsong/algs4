@@ -36,6 +36,8 @@
 
 package edu.princeton.cs.algs4.graphs.graph;
 
+import edu.princeton.cs.algs4.graphs.graph.impl.GraphImpl;
+
 /**
  * The {@code Graph} class represents an graph of vertices named 0 through <em>V</em> – 1.
  * It can be undirected or directed graph.
@@ -57,6 +59,26 @@ package edu.princeton.cs.algs4.graphs.graph;
  * @author Kevin Wayne
  */
 public interface Graph<T extends Edge> {
+    /**
+     * Create an empty directed graph.
+     * @param V number of vertices.
+     * @param <T> edge type.
+     * @return Empty directed graph.
+     */
+    static <T extends Edge> Graph<T> digraph(int V) {
+        return new GraphImpl<>(V, true);
+    }
+
+    /**
+     * Create an empty undirected graph.
+     * @param V number of vertices.
+     * @param <T> edge type.
+     * @return Empty undirected graph.
+     */
+    static <T extends Edge> Graph<T> graph(int V) {
+        return new GraphImpl<>(V, false);
+    }
+
     /**
      * @return true if it is a directed graph, otherwise false.
      */
