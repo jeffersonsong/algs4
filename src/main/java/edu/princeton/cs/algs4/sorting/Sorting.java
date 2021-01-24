@@ -135,6 +135,28 @@ public class Sorting {
         return -1;
     }
 
+    public static int binarySearch(int[] array, final int _lo, final int _hi, final int value) {
+        int lo = _lo, hi = _hi, mid;
+        while (lo <= hi) {
+            mid = (lo + hi) / 2;
+            if      (array[mid] == value) return mid;
+            else if (array[mid] < value) lo = mid + 1;
+            else                         hi = mid - 1;
+        }
+        return -1;
+    }
+
+    public static int rank(int[] array, final int _lo, final int _hi, final int value) {
+        int lo = _lo, hi = _hi, mid;
+        while (lo <= hi) {
+            mid = (lo + hi) / 2;
+            if      (array[mid] == value) return mid;
+            else if (array[mid] < value) lo = mid + 1;
+            else                         hi = mid - 1;
+        }
+        return lo;
+    }
+
     public static boolean isSorted(DataCollection data, final int lo, final int hi) {
         for (int i = lo + 1; i <= hi; i++) {
             if (data.less(i, i - 1)) return false;

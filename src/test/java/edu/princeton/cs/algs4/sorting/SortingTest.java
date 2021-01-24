@@ -73,6 +73,17 @@ public class SortingTest {
     }
 
     @Test
+    public void testRank2() {
+        int[] a = {1, 3, 5, 7, 9};
+
+        int rank = Sorting.rank(a, 0, a.length - 1, 6);
+        assertThat(rank, is(3));
+
+        rank = Sorting.rank(a, 0, a.length - 1, 5);
+        assertThat(rank, is(2));
+    }
+
+    @Test
     public void testBinarySearch() {
         int[] a = {1, 3, 5, 7, 9};
         RandomAccessDataCollection<Integer> data = RandomAccessDataCollections.intArray(a);
@@ -82,6 +93,16 @@ public class SortingTest {
 
         rank = Sorting.binarySearch(data, 5, 0, a.length - 1);
         assertThat(rank, is(2));
+    }
+
+    @Test
+    public void testBinarySearch2() {
+        int[] a = {1, 3, 5, 7, 9};
+        int index = Sorting.binarySearch(a,  0, a.length - 1, 6);
+        assertThat(index, is(-1));
+
+        index = Sorting.binarySearch(a,  0, a.length - 1, 5);
+        assertThat(index, is(2));
     }
 
     @Test

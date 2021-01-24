@@ -49,6 +49,8 @@ import edu.princeton.cs.algs4.utils.io.StdIn;
 import edu.princeton.cs.algs4.utils.io.StdOut;
 import edu.princeton.cs.algs4.utils.StdRandom;
 
+import java.util.Random;
+
 import static edu.princeton.cs.algs4.utils.ArrayUtils.exch;
 
 /**
@@ -74,10 +76,11 @@ public class Knuth {
     private Knuth() { }
 
     public static void shuffle(int[] a) {
+        Random random = new Random();
         int n = a.length;
         for (int i = 0; i < n; i++) {
             // choose index uniformly in [0, i]
-            int r = (int) (Math.random() * (i + 1));
+            int r = random.nextInt(i + 1);
             exch(a, i, r);
         }
     }
@@ -89,10 +92,11 @@ public class Knuth {
      * @param a the array to be shuffled
      */
     public static void shuffle(Object[] a) {
+        Random random = new Random();
         int n = a.length;
         for (int i = 0; i < n; i++) {
             // choose index uniformly in [0, i]
-            int r = (int) (Math.random() * (i + 1));
+            int r = random.nextInt(i + 1);
             exch(a, i, r);
         }
     }
@@ -104,10 +108,11 @@ public class Knuth {
      * @param a the array to be shuffled
      */
     public static void shuffleAlternate(Object[] a) {
+        Random random = new Random();
         int n = a.length;
         for (int i = 0; i < n; i++) {
             // choose index uniformly in [i, n-1]
-            int r = i + (int) (Math.random() * (n - i));
+            int r = i + random.nextInt(n - i);
             exch(a, i, r);
         }
     }
